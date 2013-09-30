@@ -1,0 +1,12 @@
+name=Germany
+ratio=3:5
+gridSize=3:5
+
+division
+type=fesses
+color1=000000
+color2=ff0c00
+color3=ffcb00
+size1=1
+size2=1
+size3=1

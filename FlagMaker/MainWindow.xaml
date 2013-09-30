@@ -1,0 +1,180 @@
+﻿<Window x:Class="FlagMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="FlagMaker 1.1" MinHeight="500" Width="600" SizeChanged="MainWindowOnSizeChanged" Icon="icon.ico">
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#f0f0f0" />
+            <GradientStop Offset="1" Color="#b0b0b0" />
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <DockPanel LastChildFill="True">
+        <Menu IsMainMenu="True" DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="MenuNewClick" />
+                <MenuItem Header="_Save..." Click="MenuSaveClick" />
+                <MenuItem Header="_Open..." Click="MenuOpenClick" />
+                <Separator />
+                <MenuItem Header="Export as _PNG" Click="MenuExportPngClick" />
+                <MenuItem Header="Export as _SVG" Click="MenuExportSvgClick" />
+            </MenuItem>
+            <MenuItem Header="_World flag presets" x:Name="mnuWorldFlagPresets" />
+        </Menu>
+
+        <Grid DockPanel.Dock="Bottom" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Column="0" Margin="10" SnapsToDevicePixels="True" x:Name="viewbox">
+                <Canvas x:Name="canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+            </Viewbox>
+            
+            <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
+
+            <Grid Grid.Column="2" HorizontalAlignment="Stretch" MinWidth="168">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label Content="Ratio" />
+                    <TextBox x:Name="txtRatioHeight" Width="30" TextChanged="RatioTextboxChanged" />
+                    <Label Content=":" />
+                    <TextBox x:Name="txtRatioWidth" Width="30" TextChanged="RatioTextboxChanged" />
+                </StackPanel>
+
+                <DockPanel Grid.Row="1">
+                    <Label Content="Grid size" />
+                    <ComboBox x:Name="cmbGridSize" SelectionChanged="GridSizeDropdownChanged" />
+                </DockPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Vertical">
+                    <Label Content="Division" FontSize="16" FontWeight="Bold" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <WrapPanel Width="110" HorizontalAlignment="Left" Margin="0,0,0,4">
+                            <Button Click="DivisionGridClick" ToolTip="Grid">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Click="DivisionFessesClick" ToolTip="Fesses">
+                                <StackPanel Orientation="Vertical">
+                                    <Rectangle Width="30" Height="7" Fill="Red" />
+                                    <Rectangle Width="30" Height="6" Fill="White" />
+                                    <Rectangle Width="30" Height="7" Fill="Blue" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Click="DivisionPalesClick" ToolTip="Pales">
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="10" Height="20" Fill="Red" />
+                                    <Rectangle Width="10" Height="20" Fill="White" />
+                                    <Rectangle Width="10" Height="20" Fill="Blue" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Click="DivisionBendsForwardClick" ToolTip="Bends forward">
+                                <Canvas Width="30" Height="20">
+                                    <Path Fill="Red" Data="M 0,0 30,0 0,20 0,0" />
+                                    <Path Fill="Blue" Data="M 30,0 30,20 0,20 30,0" />
+                                </Canvas>
+                            </Button>
+
+                            <Button Click="DivisionBendsBackwardClick" ToolTip="Bends backward">
+                                <Canvas Width="30" Height="20">
+                                    <Path Fill="Red" Data="M 0,0 30,0 30,20 0,0" />
+                                    <Path Fill="Blue" Data="M 30,20 0,20 0,0 30,20" />
+                                </Canvas>
+                            </Button>
+
+                            <Button Click="DivisionXClick" ToolTip="Bends both">
+                                <Canvas Width="30" Height="20">
+                                    <Path Fill="Red" Data="M 0,0 30,0 15,10 0,0" />
+                                    <Path Fill="Red" Data="M 0,20 30,20 15,10 0,20" />
+                                    <Path Fill="Blue" Data="M 0,0 15,10 0,20 0,0" />
+                                    <Path Fill="Blue" Data="M 30,0 15,10 30,20 30,0" />
+                                </Canvas>
+                            </Button>
+                        </WrapPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                            <Label Content="Presets" />
+                            <ComboBox x:Name="cmbPresets" VerticalAlignment="Center" SelectionChanged="PresetChanged">
+                                <ComboBoxItem Content="Blank" Selected="PresetBlank" />
+                                <ComboBoxItem Content="Horizontal halves" Selected="PresetHorizontal" />
+                                <ComboBoxItem Content="Vertical halves" Selected="PresetVertical" />
+                                <ComboBoxItem Content="Quad" Selected="PresetQuad" />
+                                <ComboBoxItem Content="Stripes" Selected="PresetStripes" />
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <xctk:ColorPicker x:Name="divisionPicker1" />
+                    <xctk:ColorPicker x:Name="divisionPicker2" />
+                    <xctk:ColorPicker x:Name="divisionPicker3" />
+
+                    <DockPanel LastChildFill="True" Margin="0,4,0,0">
+                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="divisionSliderLabel1" />
+                        <Slider Minimum="1" Maximum="16" x:Name="divisionSlider1" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                    </DockPanel>
+                    <DockPanel LastChildFill="True">
+                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="divisionSliderLabel2" />
+                        <Slider Minimum="1" Maximum="16" x:Name="divisionSlider2" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                    </DockPanel>
+                    <DockPanel LastChildFill="True">
+                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="divisionSliderLabel3" />
+                        <Slider Minimum="1" Maximum="16" x:Name="divisionSlider3" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Overlays" FontSize="16" FontWeight="Bold" />
+                    <Button Content="+" ToolTip="Add new overlay" HorizontalAlignment="Left" Width="25" Height="25" Click="OverlayAdd" />
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="4">
+                    <StackPanel Orientation="Vertical" x:Name="lstOverlays" />
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
