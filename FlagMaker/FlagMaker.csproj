@@ -101,6 +101,7 @@
     <Compile Include="Overlays\OverlayControl.xaml.cs">
       <DependentUpon>OverlayControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Overlays\OverlayTypes\OverlayPentagram.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayLineVertical.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayLineHorizontal.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCrescent.cs" />
