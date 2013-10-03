@@ -1,0 +1,11 @@
+name=Catalonia
+ratio=2:3
+gridSize=6:9
+
+division
+type=grid
+color1=fcdd09
+color2=da121a
+size1=1
+size2=9
+size3=1
