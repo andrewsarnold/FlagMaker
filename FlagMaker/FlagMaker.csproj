@@ -101,6 +101,8 @@
     <Compile Include="Overlays\OverlayControl.xaml.cs">
       <DependentUpon>OverlayControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Overlays\OverlayTypes\OverlayLineVertical.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayLineHorizontal.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCrescent.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCross.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCanton.cs" />
@@ -140,6 +142,9 @@
     <None Include="Presets\catalonia.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\israel.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\cuba.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -168,6 +173,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\scotland.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\southvietnam.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\togo.flag">
