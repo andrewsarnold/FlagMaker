@@ -110,6 +110,7 @@
     <Compile Include="Overlays\OverlayTypes\OverlayHammerSickle.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayPall.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayStar.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayStarSeven.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayTriangle.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlaySaltire.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayFimbriationBackward.cs" />
