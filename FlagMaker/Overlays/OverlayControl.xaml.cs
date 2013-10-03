@@ -87,7 +87,9 @@ namespace FlagMaker.Overlays
 
 			foreach (var slider in _pnlSliders.Children.OfType<AttributeSlider>())
 			{
+				var ratio = (double)max / slider.Maximum;
 				slider.Maximum = max;
+				slider.Value *= ratio;
 			}
 		}
 
