@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -8,6 +9,9 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	public class OverlayStar : Overlay
 	{
+		private readonly Vector _pathSize = new Vector(50, 50);
+		private const string Path = "m0,-24 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z";
+
 		public OverlayStar(int maximum)
 			: base(new List<Attribute>
 			       {
@@ -32,46 +36,40 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string Name { get { return "star"; } }
 
-		public override IEnumerable<Shape> Thumbnail
-		{
-			get
-			{
-				return new List<Shape>
-				       {
-					       new Path
-					       {
-						       Data = Geometry.Parse("M 15,0 12.8,7 5.5,6.9 11.5,11.1 9.1,18.1 15,13.7 20.9,18.1 18.5,11.1 24.5,6.9 17.2,7 Z")
-					       }
-				       };
-			}
-		}
-
 		public override void Draw(Canvas canvas)
 		{
-			var size = canvas.Width * (Attributes.Get("Size").Value / Maximum) / 8;
+			double extraNotch = Maximum % 2 == 0 ? 0 : 0.5;
+
+			double xGridSize = canvas.Width / Maximum;
+			double yGridSize = canvas.Height / Maximum;
+
+			double x = Attributes.Get("X").Value;
+			double y = Attributes.Get("Y").Value;
+
+			var finalCenterPoint = new Point((x - extraNotch) * xGridSize, (y - extraNotch) * yGridSize);
+
+			var idealPixelSize = Attributes.Get("Size").Value / Maximum * Math.Max(canvas.Width, canvas.Height);
+
+			var scaleFactor = idealPixelSize / _pathSize.X;
+
+			var transformGroup = new TransformGroup();
+			var rotateTransform = new RotateTransform((Attributes.Get("Rotation").Value / (Maximum + 1)) * 360);
+			transformGroup.Children.Add(rotateTransform);
+			var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
+			transformGroup.Children.Add(scaleTransform);
 
 			var path = new Path
-						   {
-							   Fill = new SolidColorBrush(Color),
-							   Data = Geometry.Parse(string.Format("M {0} Z", GetPointPath(canvas.Width))),
-							   SnapsToDevicePixels = true
-						   };
+					   {
+						   Fill = new SolidColorBrush(Color),
+						   RenderTransform = transformGroup,
+						   Data = Geometry.Parse(Path),
+						   SnapsToDevicePixels = true
+					   };
 
 			canvas.Children.Add(path);
 
-			double topOffset = size / 20;
-			double leftOffset = size / 20;
-
-			if (Maximum % 2 == 0)
-			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / Maximum) - leftOffset));
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / Maximum) + topOffset));
-			}
-			else
-			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (Maximum + 1)) - leftOffset));
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (Maximum + 1)) + topOffset));
-			}
+			Canvas.SetLeft(path, finalCenterPoint.X);
+			Canvas.SetTop(path, finalCenterPoint.Y);
 		}
 
 		public override void SetValues(List<double> values)
@@ -84,62 +82,46 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var size = width * (Attributes.Get("Size").Value / Maximum) / 8;
-			double topOffset = size / 20;
-			double leftOffset = size / 20;
+			double extraNotch = Maximum % 2 == 0 ? 0 : 0.5;
 
-			double x, y;
-			if (Maximum % 2 == 0)
-			{
-				x = width * (Attributes.Get("X").Value / Maximum) - leftOffset;
-				y = height * (Attributes.Get("Y").Value / Maximum) + topOffset;
-			}
-			else
-			{
-				x = width * (Attributes.Get("X").Value / (Maximum + 1)) - leftOffset;
-				y = height * (Attributes.Get("Y").Value / (Maximum + 1)) + topOffset;
-			}
+			double xGridSize = width / Maximum;
+			double yGridSize = height / Maximum;
 
-			return string.Format("<g transform=\"translate({0},{1})\"><polygon points=\"{2}\" fill=\"#{3}\" /></g>",
-				x, y, GetPointPath(width), Color.ToHexString());
+			double x = Attributes.Get("X").Value;
+			double y = Attributes.Get("Y").Value;
+
+			var finalCenterPoint = new Point((x - extraNotch) * xGridSize, (y - extraNotch) * yGridSize);
+
+			var idealPixelSize = Attributes.Get("Size").Value / Maximum * Math.Max(width, height);
+			var scaleFactor = idealPixelSize / _pathSize.X;
+			var rotate = (Attributes.Get("Rotation").Value / (Maximum + 1)) * 360;
+			
+			return string.Format("<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
+					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, Path, Color.ToHexString());
 		}
 
-		private string GetPointPath(double canvasWidth)
+		public override IEnumerable<Shape> Thumbnail
 		{
-			var size = canvasWidth * (Attributes.Get("Size").Value / Maximum) / 8;
-			double rotation = Attributes.Get("Rotation").Value / Maximum;
-
-			var tips = new double[5, 2];
-			var interiors = new double[5, 2];
-
-			for (int i = 0; i < 5; i++)
+			get
 			{
-				var tRad = (i * 144) * (Math.PI / 180) + rotation;
-				var tSin = Math.Sin(tRad);
-				var tCos = Math.Cos(tRad);
-
-				tips[i, 0] = tSin * size + Attributes.Get("X").Value;
-				tips[i, 1] = tCos * size + Attributes.Get("Y").Value;
-
-				var iRad = ((i * 144) + 180) * (Math.PI / 180) + rotation;
-				var iSin = Math.Sin(iRad);
-				var iCos = Math.Cos(iRad);
-
-				interiors[i, 0] = iSin * size * 2.7 + Attributes.Get("X").Value;
-				interiors[i, 1] = iCos * size * 2.7 + Attributes.Get("Y").Value;
+				double scale = 20.0 / _pathSize.X;
+				return new List<Shape>
+				       {
+					       new Path
+					       {
+						       RenderTransform = new TransformGroup
+						                         {
+							                         Children = new TransformCollection
+							                                    {
+								                                    new ScaleTransform(scale, scale),
+								                                    new TranslateTransform(10, 10)
+							                                    }
+						                         },
+						       Data = Geometry.Parse(Path),
+						       SnapsToDevicePixels = true
+					       }
+				       };
 			}
-
-			return string.Format("{0},{1} {2},{3} {4},{5} {6},{7} {8},{9} {10},{11} {12},{13} {14},{15} {16},{17} {18},{19}",
-				tips[0, 0], tips[0, 1],
-				interiors[4, 0], interiors[4, 1],
-				tips[3, 0], tips[3, 1],
-				interiors[2, 0], interiors[2, 1],
-				tips[1, 0], tips[1, 1],
-				interiors[0, 0], interiors[0, 1],
-				tips[4, 0], tips[4, 1],
-				interiors[3, 0], interiors[3, 1],
-				tips[2, 0], tips[2, 1],
-				interiors[1, 0], interiors[1, 1]);
 		}
 	}
 }

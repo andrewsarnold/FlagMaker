@@ -18,13 +18,13 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayEllipse(Color color, int x, int y, int size, int rotation, int maximum)
+		public OverlayEllipse(Color color, int x, int y, int width, int height, int maximum)
 			: base(color, new List<Attribute>
 			             {
 				             new Attribute("X", true, x),
 				             new Attribute("Y", true, y),
-				             new Attribute("Width", true, size),
-				             new Attribute("Height", true, rotation)
+				             new Attribute("Width", true, width),
+				             new Attribute("Height", true, height)
 			             }, maximum)
 		{
 		}
