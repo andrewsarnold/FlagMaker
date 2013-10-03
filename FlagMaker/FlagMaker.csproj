@@ -106,6 +106,7 @@
     <Compile Include="Overlays\OverlayTypes\OverlayCanton.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayDiamond.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayEllipse.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayEquitorialCross.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayHammerSickle.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayPall.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayStar.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Overlays\OverlayTypes\OverlaySaltire.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayFimbriationBackward.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayFimbriationForward.cs" />
+    <Compile Include="Overlays\PathOverlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

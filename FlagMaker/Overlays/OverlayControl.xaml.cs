@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -28,8 +29,6 @@ namespace FlagMaker.Overlays
 
 			SetUpColors(standardColors, availableColors);
 			FillOverlayList();
-
-			cmbOverlays.SelectedIndex = 0;
 		}
 
 		public Overlay Overlay
@@ -109,7 +108,7 @@ namespace FlagMaker.Overlays
 				var thumbnail = new Canvas
 				{
 					MinWidth = 30,
-					MinHeight = 20
+					MinHeight = 20,
 				};
 
 				IEnumerable<Shape> thumbs = instance.Thumbnail;
@@ -124,9 +123,12 @@ namespace FlagMaker.Overlays
 				                      {
 					                      ToolTip = instance.DisplayName,
 					                      Content = thumbnail,
-					                      Tag = instance
+										  Tag = instance,
+										  Padding = new Thickness(2)
 				                      });
 			}
+
+			cmbOverlays.SelectedIndex = 0;
 		}
 
 		private void OverlayColorChanged()

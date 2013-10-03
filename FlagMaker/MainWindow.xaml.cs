@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
