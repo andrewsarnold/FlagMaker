@@ -13,7 +13,7 @@ namespace FlagMaker.Overlays
 	public partial class OverlayControl
 	{
 		private Overlay _overlay;
-		private readonly int _defaultMaximum;
+		private int _defaultMaximum;
 
 		public event EventHandler OnRemove;
 		public event EventHandler OnMoveUp;
@@ -83,6 +83,7 @@ namespace FlagMaker.Overlays
 
 		public void SetMaximum(int max)
 		{
+			_defaultMaximum = max;
 			Overlay.SetMaximum(max);
 
 			foreach (var slider in _pnlSliders.Children.OfType<AttributeSlider>())
