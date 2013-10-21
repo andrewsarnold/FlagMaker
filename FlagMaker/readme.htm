@@ -1,4 +1,4 @@
-<h1>FlagMaker 1.2</h1>
+<h1>FlagMaker 1.3</h1>
 
 <p>A tool by <a href="http://reddit.com/user/5thEye">5thEye</a> for <a href="http://www.reddit.com/r/vexillology/">/r/vexillology</a></p>
 
@@ -20,35 +20,43 @@
 <ul>
     <li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from <a href="http://www.crwflags.com/fotw/flags/xf-colo.html">this page</a> and converted to the closest matching RGB color. You can also click "Advanced" to pick any color you like.</li>
     <li><b>How do I make just a solid color flag?</b> &ndash; Just use a grid with size 1&times;1. Same thing for stripes; just use 1&times;<i>n</i>. Grids are pretty versatile.</li>
-    <li><b>How do I make a perfect circle / perfect diamond?</b> &ndash; Use a height of 0.</li>
-    <li><b>The alignment on the pall is a bit off.</b> &ndash; Yes, it needs some tweaking to get them more accurate.</li>
+    <li><b>How do I make a perfect circle / diamond / square?</b> &ndash; Use a height of 0.</li>
+    <li><b>The alignment on the pall is a bit off.</b> &ndash; Yes, it needs some tweaking to get it more accurate.</li>
     <li><b>You should add ______ to FlagMaker.</b> &ndash; If it's not listed in the <a href="#planned">planned features section</a>, send me a message and I'll think about it.</li>
 </ul>
 
-<h2><a name="file" />The <tt>.flag</tt>file type</h2>
-<p><tt>.flag</tt>is a file type you can use to save and open your flags. It's a plain text file so you can also use your favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash the program). Feel free to look at the presets for some examples, but here's a rundown of the <tt>.flag</tt>file syntax:</p>
+<h2><a name="file" />The <tt>.flag</tt> file type</h2>
+<p><tt>.flag</tt> is a file type you can use to save and open your flags. It's a plain text file so you can also use your favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash the program). Feel free to look at the presets for some examples, but here's a rundown of the <tt>.flag</tt> file syntax:</p>
 
 <p>
-    <tt>name</tt>&ndash; Only used to fill the Presets menu. Put anything you want here.<br />
-    <tt>ratio</tt>&ndash; The ratio of the flag's height to width. Separate with a colon.<br />
-    <tt>gridsize</tt>&ndash; A multiple of the ratio, which determines how finely you can place your elements. Play around with the dropdown in the program to get a good handle on what this does.<br />
+    <tt>name</tt> &ndash; Only used to fill the Presets menu. Put anything you want here.<br />
+    <tt>ratio</tt> &ndash; The ratio of the flag's height to width. Separate with a colon.<br />
+    <tt>gridsize</tt> &ndash; A multiple of the ratio, which determines how finely you can place your elements. Play around with the dropdown in the program to get a good handle on what this does.<br />
     <br />
-    <tt>division</tt>&ndash; Start defining the division. Only include once!<br />
-    <tt>type</tt>&ndash; One of: <tt>grid</tt>, <tt>fesses</tt>, <tt>pales</tt>, <tt>bends forward</tt>, <tt>bends backward</tt>, <tt>bends both</tt>
+    <tt>division</tt> &ndash; Start defining the division. Only include once!<br />
+    <tt>type</tt> &ndash; One of: <tt>grid</tt>, <tt>fesses</tt>, <tt>pales</tt>, <tt>bends forward</tt>, <tt>bends backward</tt>, <tt>bends both</tt>
     <br />
-    <tt>color1</tt>/ <tt>color2</tt>/ <tt>color3</tt>&ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <tt>822433</tt>or <tt>fedd00</tt>or <tt>cc284e36</tt>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)<br />
-    <tt>size1</tt>/ <tt>size2</tt>/ <tt>size3</tt>&ndash; Slider values.<br />
+    <tt>color1</tt> / <tt>color2</tt> / <tt>color3</tt> &ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <tt>822433</tt> or <tt>fedd00</tt> or <tt>cc284e36</tt>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)<br />
+    <tt>size1</tt> / <tt>size2</tt> / <tt>size3</tt> &ndash; Slider values.<br />
     <br />
-    <tt>overlay</tt>&ndash; Start defining a new overlay. You can have as many of these sections as you like.<br />
-    <tt>type</tt>&ndash; One of: <tt>canton</tt>, <tt>triangle</tt>, <tt>diamond</tt>, <tt>fimbriation forward</tt>, <tt>fimbriation backward</tt>, <tt>saltire</tt>, <tt>pall</tt>, <tt>cross</tt>, <tt>ellipse</tt>, <tt>star</tt>, <tt>crescent</tt>, <tt>hammer and sickle</tt>, <tt>equitorial cross</tt>, <tt>star seven</tt>, <tt>star of david</tt>, <tt>pentagram</tt><tt>line horizontal</tt>, <tt>line vertical</tt>, <tt>maple leaf</tt>
+    <tt>overlay</tt> &ndash; Start defining a new overlay. You can have as many of these sections as you like.<br />
+    <tt>type</tt> &ndash; One of: <tt>box</tt>, <tt>triangle</tt>, <tt>diamond</tt>, <tt>fimbriation forward</tt>, <tt>fimbriation backward</tt>, <tt>saltire</tt>, <tt>pall</tt>, <tt>cross</tt>, <tt>ellipse</tt>, <tt>star</tt>, <tt>crescent</tt>, <tt>hammer and sickle</tt>, <tt>equitorial cross</tt>, <tt>star seven</tt>, <tt>star of david</tt>, <tt>pentagram</tt>, <tt>line horizontal</tt>, <tt>line vertical</tt>, <tt>maple leaf</tt>
     <br />
-    <tt>color</tt>&ndash; Same as above.<br />
-    <tt>size1</tt>/ <tt>size2</tt>/ <tt>size3</tt>/ <tt>size4</tt>&ndash; Slider values.<br />
+    <tt>color</tt> &ndash; Same as above.<br />
+    <tt>size1</tt> / <tt>size2</tt> / <tt>size3</tt> / <tt>size4</tt> &ndash; Slider values.<br />
 </p>
 
 <p>The files <i>should</i> be backward-compatible (it'll generate a canton for any overlays not supported in your version). For some overlays, some values have been swapped around for consistency.</p>
 
 <h2><a name="vhist" />Version history</h2>
+<ul>
+    <li><b>1.3</b> &ndash; <a href="http://www.reddit.com/r/vexillology/">TBA</a>
+        <ul>
+            <li>Changed "canton" to "box"; now freely positionable</li>
+            <li>Changed the corner angles of saltires and fimbriations to have the same proportions as the flag itself</li>
+        </ul>
+    </li>
+</ul>
 <ul>
     <li><b>1.2</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1ny5kn/flagmaker_12/">2013-10-07</a>
         <ul>

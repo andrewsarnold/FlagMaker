@@ -122,7 +122,7 @@
     <Compile Include="Overlays\OverlayTypes\OverlayLineHorizontal.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCrescent.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCross.cs" />
-    <Compile Include="Overlays\OverlayTypes\OverlayCanton.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayBox.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayDiamond.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayEllipse.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayEquitorialCross.cs" />
