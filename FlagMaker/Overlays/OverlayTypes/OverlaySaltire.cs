@@ -27,15 +27,17 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = (int)(canvas.Width / (Attributes.Get("Ratio").Value + 3));
+			var widthX = (int)(canvas.Width / (Attributes.Get("Ratio").Value + 3));
+			var widthY = (int)(canvas.Height / (Attributes.Get("Ratio").Value + 3));
+
 			var path1 = new Path
 			{
 				Fill = new SolidColorBrush(Color),
 				Width = canvas.Width,
 				Height = canvas.Height,
 				Data =
-					Geometry.Parse(string.Format("M {0},0 0,0 0,{0} {1},{2} {3},{2} {3},{4} {0},0", width,
-												 canvas.Width - width, canvas.Height, canvas.Width, canvas.Height - width)),
+					Geometry.Parse(string.Format("M {0},0 0,0 0,{1} {2},{3} {4},{3} {4},{5} {0},0", widthX, widthY,
+												 canvas.Width - widthX, canvas.Height, canvas.Width, canvas.Height - widthY)),
 				SnapsToDevicePixels = true
 			};
 			canvas.Children.Add(path1);
@@ -46,8 +48,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 				Width = canvas.Width,
 				Height = canvas.Height,
 				Data =
-					Geometry.Parse(string.Format("M {0},0 {1},0 {1},{2} {2},{3} 0,{3} 0,{4} {0},0", canvas.Width - width,
-												 canvas.Width, width, canvas.Height, canvas.Height - width)),
+					Geometry.Parse(string.Format("M {0},0 {1},0 {1},{5} {2},{3} 0,{3} 0,{4} {0},0", canvas.Width - widthX,
+												 canvas.Width, widthX, canvas.Height, canvas.Height - widthY, widthY)),
 				SnapsToDevicePixels = true
 			};
 			canvas.Children.Add(path2);
@@ -60,10 +62,11 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var w = (int)(width / (Attributes.Get("Ratio").Value + 2));
-			return string.Format("<polygon points=\"{0},0 0,0 0,{0} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{5}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{5}\" />",
-				w, width - w, height, width, height - w,
-				Color.ToHexString());
+			var wX = (int)(width / (Attributes.Get("Ratio").Value + 2));
+			var wY = (int)(height / (Attributes.Get("Ratio").Value + 2));
+
+			return string.Format("<polygon points=\"{0},0 0,0 0,{5} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{5}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{6}\" />",
+				wX, width - wX, height, width, height - wY, wY, Color.ToHexString());
 		}
 
 		public override IEnumerable<Shape> Thumbnail
