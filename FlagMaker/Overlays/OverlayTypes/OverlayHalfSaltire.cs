@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -92,8 +93,26 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var wX = (int)(width / (Attributes.Get("Ratio").Value + 2));
 			var wY = (int)(height / (Attributes.Get("Ratio").Value + 2));
 
-			return string.Format("<polygon points=\"{0},0 0,0 0,{5} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{5}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{6}\" />",
-				wX, width - wX, height, width, height - wY, wY, Color.ToHexString());
+			var centerX = wX/2;
+			var centerY = wY/2;
+
+			var c = Color.ToHexString();
+
+			var sb = new StringBuilder();
+
+			sb.Append(string.Format("<polygon points=\"0,0 {0},{1} {2},{1} 0,{3}\" fill=\"{4}\" />",
+				centerX, centerY, centerX - wX, wY, c));
+
+			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},0 {4},0\" fill=\"{5}\" />",
+				centerX, centerY, centerY - wY, width - wX, width, c));
+
+			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},{4} 0,{4}\" fill=\"{5}\" />",
+				centerX, centerY, centerY + wY, wX, height, c));
+
+			sb.Append(string.Format("<polygon points=\"{0},{1} {2},{1} {3},{4} {3},{5}\" fill=\"{6}\" />",
+				centerX, centerY, centerX + wX, width, height - wY, height, c));
+
+			return sb.ToString();
 		}
 
 		public override IEnumerable<Shape> Thumbnail
