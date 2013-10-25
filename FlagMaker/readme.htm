@@ -6,7 +6,7 @@
 <ol>
     <li><a href="#what">What is FlagMaker?</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#file">The <tt>.flag</tt>file type</a></li>
+    <li><a href="#file">The <tt>.flag</tt> file type</a></li>
     <li><a href="#vhist">Version history</a></li>
     <li><a href="#planned">Planned features</a></li>
     <li><a href="#credits">Credits</a></li>
@@ -28,23 +28,49 @@
 <h2><a name="file" />The <tt>.flag</tt> file type</h2>
 <p><tt>.flag</tt> is a file type you can use to save and open your flags. It's a plain text file so you can also use your favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash the program). Feel free to look at the presets for some examples, but here's a rundown of the <tt>.flag</tt> file syntax:</p>
 
-<p>
-    <tt>name</tt> &ndash; Only used to fill the Presets menu. Put anything you want here.<br />
-    <tt>ratio</tt> &ndash; The ratio of the flag's height to width. Separate with a colon.<br />
-    <tt>gridsize</tt> &ndash; A multiple of the ratio, which determines how finely you can place your elements. Play around with the dropdown in the program to get a good handle on what this does.<br />
-    <br />
-    <tt>division</tt> &ndash; Start defining the division. Only include once!<br />
-    <tt>type</tt> &ndash; One of: <tt>grid</tt>, <tt>fesses</tt>, <tt>pales</tt>, <tt>bends forward</tt>, <tt>bends backward</tt>, <tt>bends both</tt>
-    <br />
-    <tt>color1</tt> / <tt>color2</tt> / <tt>color3</tt> &ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <tt>822433</tt> or <tt>fedd00</tt> or <tt>cc284e36</tt>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)<br />
-    <tt>size1</tt> / <tt>size2</tt> / <tt>size3</tt> &ndash; Slider values.<br />
-    <br />
-    <tt>overlay</tt> &ndash; Start defining a new overlay. You can have as many of these sections as you like.<br />
-    <tt>type</tt> &ndash; One of: <tt>box</tt>, <tt>triangle</tt>, <tt>diamond</tt>, <tt>fimbriation forward</tt>, <tt>fimbriation backward</tt>, <tt>saltire</tt>, <tt>pall</tt>, <tt>cross</tt>, <tt>ellipse</tt>, <tt>star</tt>, <tt>crescent</tt>, <tt>hammer and sickle</tt>, <tt>equitorial cross</tt>, <tt>star seven</tt>, <tt>star of david</tt>, <tt>pentagram</tt>, <tt>line horizontal</tt>, <tt>line vertical</tt>, <tt>maple leaf</tt>
-    <br />
-    <tt>color</tt> &ndash; Same as above.<br />
-    <tt>size1</tt> / <tt>size2</tt> / <tt>size3</tt> / <tt>size4</tt> &ndash; Slider values.<br />
-</p>
+<ul>
+<li><tt>name</tt> &ndash; Only used to fill the Presets menu. Put anything you want here.</li>
+<li><tt>ratio</tt> &ndash; The ratio of the flag's height to width. Separate with a colon.</li>
+<li><tt>gridsize</tt> &ndash; A multiple of the ratio, which determines how finely you can place your elements (when snap-to-grid is enabled). Play around with the dropdown in the program to get a good handle on what this does.
+<li><tt>division</tt> &ndash; Start defining the division. Only include once!</li>
+<li><tt>type</tt> &ndash; One of the following:
+	<ul>
+		<li><tt>bends backward</tt></li>
+		<li><tt>bends both</tt></li>
+		<li><tt>bends forward</tt></li>
+		<li><tt>fesses</tt></li>
+		<li><tt>grid</tt></li>
+		<li><tt>pales</tt></li>
+	</ul>
+<li><tt>color1</tt> / <tt>color2</tt> / <tt>color3</tt> &ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <tt>822433</tt> or <tt>fedd00</tt> or <tt>cc284e36</tt>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)</li>
+<li><tt>size1</tt> / <tt>size2</tt> / <tt>size3</tt> &ndash; Slider values.</li>
+<li><tt>overlay</tt> &ndash; Start defining a new overlay. You can have as many of these sections as you like.</li>
+<li><tt>type</tt> &ndash; One of the following:
+	<ul>
+		<li><tt>box</tt></li>
+		<li><tt>crescent</tt></li>
+		<li><tt>cross</tt></li>
+		<li><tt>diamond</tt></li>
+		<li><tt>ellipse</tt></li>
+		<li><tt>equitorial cross</tt></li>
+		<li><tt>fimbriation backward</tt></li>
+		<li><tt>fimbriation forward</tt></li>
+		<li><tt>half saltire</tt>
+		<li><tt>hammer and sickle</tt></li>
+		<li><tt>line horizontal</tt></li>
+		<li><tt>line vertical</tt></li>
+		<li><tt>maple leaf</tt></li>
+		<li><tt>pall</tt></li>
+		<li><tt>pentagram</tt></li>
+		<li><tt>saltire</tt></li>
+		<li><tt>star</tt></li>
+		<li><tt>star of david</tt></li>
+		<li><tt>star seven</tt></li>
+		<li><tt>triangle</tt></li>
+	</ul>
+<li><tt>color</tt> &ndash; Same as above.</li>
+<li><tt>size1</tt> / <tt>size2</tt> / etc. &ndash; Slider values. Different overlays have different numbers of adjustable values, so play around with them in the program first to see.</li>
+</ul>
 
 <p>The files <i>should</i> be backward-compatible (it'll generate a canton for any overlays not supported in your version). For some overlays, some values have been swapped around for consistency.</p>
 
@@ -55,6 +81,7 @@
             <li>Changed "canton" to "box"; now freely positionable</li>
             <li>Changed the corner angles of saltires and fimbriations to have the same proportions as the flag itself</li>
             <li>Click-to-edit slider values for overlays</li>
+            <li>New overlay type: Half saltire (as in the United Kingdom flag)</li>
         </ul>
     </li>
 </ul>

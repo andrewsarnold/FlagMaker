@@ -1,4 +1,4 @@
-name=United Kingdom (approx.)
+name=United Kingdom
 ratio=1:2
 gridSize=9:18
 
@@ -18,9 +18,9 @@ size3=8
 size4=0
 
 overlay
-type=saltire
+type=half saltire
 color=cf142b
-size1=18
+size1=12
 size2=2
 size3=8
 size4=0
