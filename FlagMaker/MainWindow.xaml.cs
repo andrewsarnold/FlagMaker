@@ -319,20 +319,7 @@ namespace FlagMaker
 			var intervalX = canvas.Width/gridSize.Width;
 			for (int x = 0; x <= gridSize.Width; x++)
 			{
-				var line1 = new Line
-				{
-					StrokeThickness = 5,
-					X1 = 0,
-					X2 = 0,
-					Y1 = 0,
-					Y2 = canvas.Height,
-					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x00, 0x00))
-				};
-				canvasGrid.Children.Add(line1);
-				Canvas.SetTop(line1, 0);
-				Canvas.SetLeft(line1, x * intervalX);
-
-				var line2 = new Line
+				var line = new Line
 				{
 					StrokeThickness = 2,
 					X1 = 0,
@@ -341,28 +328,15 @@ namespace FlagMaker
 					Y2 = canvas.Height,
 					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
 				};
-				canvasGrid.Children.Add(line2);
-				Canvas.SetTop(line2, 0);
-				Canvas.SetLeft(line2, x * intervalX);
+				canvasGrid.Children.Add(line);
+				Canvas.SetTop(line, 0);
+				Canvas.SetLeft(line, x * intervalX);
 			}
 
 			var intervalY = canvas.Height / gridSize.Height;
 			for (int y = 0; y <= gridSize.Height; y++)
 			{
-				var line1 = new Line
-				{
-					StrokeThickness = 5,
-					X1 = 0,
-					X2 = canvas.Width,
-					Y1 = 0,
-					Y2 = 0,
-					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x00, 0x00))
-				};
-				canvasGrid.Children.Add(line1);
-				Canvas.SetTop(line1, y * intervalY);
-				Canvas.SetLeft(line1, 0);
-
-				var line2 = new Line
+				var line = new Line
 				{
 					StrokeThickness = 2,
 					X1 = 0,
@@ -371,9 +345,9 @@ namespace FlagMaker
 					Y2 = 0,
 					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
 				};
-				canvasGrid.Children.Add(line2);
-				Canvas.SetTop(line2, y * intervalY);
-				Canvas.SetLeft(line2, 0);
+				canvasGrid.Children.Add(line);
+				Canvas.SetTop(line, y * intervalY);
+				Canvas.SetLeft(line, 0);
 			}
 		}
 
