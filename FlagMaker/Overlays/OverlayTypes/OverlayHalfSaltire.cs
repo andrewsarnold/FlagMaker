@@ -90,26 +90,26 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var wX = (int)(width / (Attributes.Get("Ratio").Value + 2));
-			var wY = (int)(height / (Attributes.Get("Ratio").Value + 2));
+			var wX = (int)(width / (Attributes.Get("Ratio").Value + 3));
+			var wY = (int)(height / (Attributes.Get("Ratio").Value + 3));
 
-			var centerX = wX/2;
-			var centerY = wY/2;
+			var centerX = width/2;
+			var centerY = height/2;
 
 			var c = Color.ToHexString();
 
 			var sb = new StringBuilder();
 
-			sb.Append(string.Format("<polygon points=\"0,0 {0},{1} {2},{1} 0,{3}\" fill=\"{4}\" />",
+			sb.Append(string.Format("<polygon points=\"0,0 {0},{1} {2},{1} 0,{3}\" fill=\"#{4}\" />",
 				centerX, centerY, centerX - wX, wY, c));
 
-			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},0 {4},0\" fill=\"{5}\" />",
+			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},0 {4},0\" fill=\"#{5}\" />",
 				centerX, centerY, centerY - wY, width - wX, width, c));
 
-			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},{4} 0,{4}\" fill=\"{5}\" />",
+			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},{4} 0,{4}\" fill=\"#{5}\" />",
 				centerX, centerY, centerY + wY, wX, height, c));
 
-			sb.Append(string.Format("<polygon points=\"{0},{1} {2},{1} {3},{4} {3},{5}\" fill=\"{6}\" />",
+			sb.Append(string.Format("<polygon points=\"{0},{1} {2},{1} {3},{4} {3},{5}\" fill=\"#{6}\" />",
 				centerX, centerY, centerX + wX, width, height - wY, height, c));
 
 			return sb.ToString();

@@ -62,10 +62,10 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var wX = (int)(width / (Attributes.Get("Ratio").Value + 2));
-			var wY = (int)(height / (Attributes.Get("Ratio").Value + 2));
+			var wX = (int)(width / (Attributes.Get("Ratio").Value + 3));
+			var wY = (int)(height / (Attributes.Get("Ratio").Value + 3));
 
-			return string.Format("<polygon points=\"{0},0 0,0 0,{5} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{5}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{6}\" />",
+			return string.Format("<polygon points=\"{0},0 0,0 0,{5} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{6}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{6}\" />",
 				wX, width - wX, height, width, height - wY, wY, Color.ToHexString());
 		}
 
