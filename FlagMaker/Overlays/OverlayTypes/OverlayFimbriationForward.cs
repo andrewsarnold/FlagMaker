@@ -7,19 +7,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayFimbriationForward : Overlay
 	{
-		public OverlayFimbriationForward(int maximum)
+		public OverlayFimbriationForward(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Ratio", true, 1)
-			       }, maximum)
+				       new Attribute("Ratio", true, 1, true)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayFimbriationForward(Color color, double ratio, int maximum)
+		public OverlayFimbriationForward(Color color, double ratio, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
-				              new Attribute("Ratio", true, ratio)
-			              }, maximum)
+				              new Attribute("Ratio", true, ratio, true)
+			              }, maximumX, maximumY)
 		{
 		}
 

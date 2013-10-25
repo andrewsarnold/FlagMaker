@@ -7,21 +7,21 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayPall : Overlay
 	{
-		public OverlayPall(int maximum)
+		public OverlayPall(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1),
-				       new Attribute("Width", true, 1)
-			       }, maximum)
+				       new Attribute("X", true, 1, true),
+				       new Attribute("Width", true, 1, true)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayPall(Color color, int x, int size, int maximum)
+		public OverlayPall(Color color, int x, int size, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("X", true, x),
-				             new Attribute("Width", true, size)
-			             }, maximum)
+				             new Attribute("X", true, x, true),
+				             new Attribute("Width", true, size, true)
+			             }, maximumX, maximumY)
 		{
 		}
 
@@ -30,7 +30,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public override void Draw(Canvas canvas)
 		{
 			var theWidth = (int)(canvas.Width / (Attributes.Get("Width").Value + 3));
-			var x = canvas.Width * (Attributes.Get("X").Value / Maximum);
+			var x = canvas.Width * (Attributes.Get("X").Value / MaximumX);
 
 			/*
 			 * 01 0,0
@@ -102,7 +102,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public override string ExportSvg(int width, int height)
 		{
 			var w = (int)(width / (Attributes.Get("Width").Value + 3));
-			var x = width * (Attributes.Get("X").Value / Maximum);
+			var x = width * (Attributes.Get("X").Value / MaximumX);
 
 			return string.Format("<polygon points=\"0,0 {0},0 {1},{2} {3},{2} {3},{5} {1},{5} {0},{4} 0,{4} 0,{6} {8},{7} 0,{0}\" fill=\"#{9}\" />",
 					w / 2,

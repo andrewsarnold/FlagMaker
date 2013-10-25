@@ -17,21 +17,22 @@ namespace FlagMaker.Overlays
 
 		public Color Color { get; set; }
 		public List<Attribute> Attributes { get; set; }
-		protected int Maximum;
+		protected int MaximumX;
+		protected int MaximumY;
 		public abstract IEnumerable<Shape> Thumbnail { get; }
 
-		protected Overlay(List<Attribute> attributes, int maximum)
+		protected Overlay(List<Attribute> attributes, int maximumX, int maximumY)
 		{
 			Color = Colors.Black;
 			Attributes = attributes;
-			SetMaximum(maximum);
+			SetMaximum(maximumX, maximumY);
 		}
 
-		protected Overlay(Color color, List<Attribute> attributes, int maximum)
+		protected Overlay(Color color, List<Attribute> attributes, int maximumX, int maximumY)
 		{
 			Color = color;
 			Attributes = attributes;
-			SetMaximum(maximum);
+			SetMaximum(maximumX, maximumY);
 		}
 
 		public string DisplayName
@@ -52,9 +53,10 @@ namespace FlagMaker.Overlays
 			Color = colors[0];
 		}
 
-		public void SetMaximum(int maximum)
+		public void SetMaximum(int maximumX, int maximumY)
 		{
-			Maximum = maximum;
+			MaximumX = maximumX;
+			MaximumY = maximumY;
 		}
 	}
 }

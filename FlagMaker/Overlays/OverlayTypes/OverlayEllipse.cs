@@ -7,25 +7,25 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayEllipse : Overlay
 	{
-		public OverlayEllipse(int maximum)
+		public OverlayEllipse(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1),
-				       new Attribute("Y", true, 1),
-				       new Attribute("Width", true, 1),
-				       new Attribute("Height", true, 0)
-			       }, maximum)
+				       new Attribute("X", true, 1, true),
+				       new Attribute("Y", true, 1, false),
+				       new Attribute("Width", true, 1, true),
+				       new Attribute("Height", true, 0, false)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayEllipse(Color color, int x, int y, int width, int height, int maximum)
+		public OverlayEllipse(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("X", true, x),
-				             new Attribute("Y", true, y),
-				             new Attribute("Width", true, width),
-				             new Attribute("Height", true, height)
-			             }, maximum)
+				             new Attribute("X", true, x, true),
+				             new Attribute("Y", true, y, false),
+				             new Attribute("Width", true, width, true),
+				             new Attribute("Height", true, height, false)
+			             }, maximumX, maximumY)
 		{
 		}
 
@@ -33,10 +33,10 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Width").Value / Maximum);
+			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
 			var height = Attributes.Get("Height").Value == 0
 							 ? width
-							 : canvas.Height * (Attributes.Get("Height").Value / Maximum);
+							 : canvas.Height * (Attributes.Get("Height").Value / MaximumY);
 
 			var path = new Ellipse
 			{
@@ -47,16 +47,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 			};
 			canvas.Children.Add(path);
 
-			if (Maximum % 2 == 0)
-			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / Maximum)) - width / 2);
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / Maximum)) - height / 2);
-			}
-			else
-			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (Maximum + 1))) - width / 2);
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (Maximum + 1))) - height / 2);
-			}
+			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (MaximumX + (MaximumX % 2 == 0 ? 0 : 1)))) - width / 2);
+			Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (MaximumY + (MaximumY % 2 == 0 ? 0 : 1)))) - height / 2);
 		}
 
 		public override void SetValues(List<double> values)
@@ -69,22 +61,17 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var w = width * (Attributes.Get("Width").Value / Maximum);
+			var w = width * (Attributes.Get("Width").Value / MaximumX);
 			var h = Attributes.Get("Height").Value == 0
 							 ? w
-							 : height * (Attributes.Get("Height").Value / Maximum);
+							 : height * (Attributes.Get("Height").Value / MaximumY);
 
-			double x, y;
-			if (Maximum % 2 == 0)
-			{
-				x = (width * (Attributes.Get("X").Value / Maximum));
-				y = (height * (Attributes.Get("Y").Value / Maximum));
-			}
-			else
-			{
-				x = (width * (Attributes.Get("X").Value / (Maximum + 1)));
-				y = (height * (Attributes.Get("Y").Value / (Maximum + 1)));
-			}
+			double x = MaximumX % 2 == 0
+				? width * (Attributes.Get("X").Value / MaximumX)
+				: width * (Attributes.Get("X").Value / (MaximumX + 1));
+			double y = MaximumY % 2 == 0
+				? height * (Attributes.Get("Y").Value / MaximumY)
+				: height * (Attributes.Get("Y").Value / (MaximumY + 1));
 
 			return string.Format("<ellipse cx=\"{0}\" cy=\"{1}\" rx=\"{2}\" ry=\"{3}\" fill=\"#{4}\" />",
 				x, y, w / 2, h / 2,

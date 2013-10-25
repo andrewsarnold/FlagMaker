@@ -7,25 +7,25 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayBox : Overlay
 	{
-		public OverlayBox(int maximum)
+		public OverlayBox(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-					   new Attribute("X", true, 1),
-					   new Attribute("Y", true, 1),
-				       new Attribute("Width", true, 1),
-				       new Attribute("Height", true, 1)
-			       }, maximum)
+					   new Attribute("X", true, 1, true),
+					   new Attribute("Y", true, 1, false),
+				       new Attribute("Width", true, 1, true),
+				       new Attribute("Height", true, 1, false)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayBox(Color color, int x, int y, int width, int height, int maximum)
+		public OverlayBox(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
-							  new Attribute("X", true, x),
-							  new Attribute("Y", true, y),
-				              new Attribute("Width", true, width),
-				              new Attribute("Height", true, height)
-			              }, maximum)
+							  new Attribute("X", true, x, true),
+							  new Attribute("Y", true, y, false),
+				              new Attribute("Width", true, width, true),
+				              new Attribute("Height", true, height, false)
+			              }, maximumX, maximumY)
 		{
 		}
 
@@ -48,10 +48,10 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Width").Value / Maximum);
+			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
 			var height = Attributes.Get("Height").Value == 0
 							 ? width
-							 : canvas.Height * (Attributes.Get("Height").Value / Maximum);
+							 : canvas.Height * (Attributes.Get("Height").Value / MaximumY);
 
 			var rect = new Rectangle
 						   {
@@ -61,8 +61,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 							   SnapsToDevicePixels = true
 						   };
 			canvas.Children.Add(rect);
-			Canvas.SetTop(rect, canvas.Height * (Attributes.Get("Y").Value / Maximum));
-			Canvas.SetLeft(rect, canvas.Width * (Attributes.Get("X").Value / Maximum));
+			Canvas.SetTop(rect, canvas.Height * (Attributes.Get("Y").Value / MaximumY));
+			Canvas.SetLeft(rect, canvas.Width * (Attributes.Get("X").Value / MaximumX));
 		}
 
 		public override void SetValues(List<double> values)
@@ -75,15 +75,15 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var w = width * (Attributes.Get("Width").Value / Maximum);
+			var w = width * (Attributes.Get("Width").Value / MaximumX);
 			var h = Attributes.Get("Height").Value == 0
 				? w
-				: height * (Attributes.Get("Height").Value / Maximum);
+				: height * (Attributes.Get("Height").Value / MaximumY);
 
 			return string.Format("<rect width=\"{0}\" height=\"{1}\" x=\"{2}\" y=\"{3}\" fill=\"#{4}\" />",
 				w, h,
-				width * (Attributes.Get("X").Value / Maximum),
-				height * (Attributes.Get("Y").Value / Maximum),
+				width * (Attributes.Get("X").Value / MaximumX),
+				height * (Attributes.Get("Y").Value / MaximumY),
 				Color.ToHexString());
 		}
 	}

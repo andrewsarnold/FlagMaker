@@ -7,21 +7,21 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayLineHorizontal : Overlay
 	{
-		public OverlayLineHorizontal(int maximum)
+		public OverlayLineHorizontal(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Y", true, 1),
-				       new Attribute("Thickness", true, 1)
-			       }, maximum)
+				       new Attribute("Y", true, 1, false),
+				       new Attribute("Thickness", true, 1, false)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayLineHorizontal(Color color, int thickness, int x, int y, int maximum)
+		public OverlayLineHorizontal(Color color, int thickness, int y, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("Y", true, y),
-				             new Attribute("Thickness", true, thickness)
-			             }, maximum)
+				             new Attribute("Y", true, y, false),
+				             new Attribute("Thickness", true, thickness, false)
+			             }, maximumX, maximumY)
 		{
 		}
 
@@ -29,7 +29,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thick = canvas.Width * ((Attributes.Get("Thickness").Value + 1) / (Maximum * 2));
+			double thick = canvas.Width * ((Attributes.Get("Thickness").Value + 1) / (MaximumY * 2));
 			
 			var horizontal = new Rectangle
 								 {
@@ -40,14 +40,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 								 };
 			canvas.Children.Add(horizontal);
 
-			if (Maximum % 2 == 0)
-			{
-				Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / Maximum) - thick / 2);
-			}
-			else
-			{
-				Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / (Maximum + 1)) - thick / 2);
-			}
+			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / (MaximumY + (MaximumY % 2 == 0 ? 0 : 1))) - thick / 2);
 		}
 
 		public override void SetValues(List<double> values)
@@ -58,11 +51,11 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thick = width * ((Attributes.Get("Thickness").Value + 1) / (Maximum * 2));
+			double thick = width * ((Attributes.Get("Thickness").Value + 1) / (MaximumY * 2));
 
-			double y = Maximum % 2 == 0
-				? height * (Attributes.Get("Y").Value / Maximum) - thick / 2
-				: height * (Attributes.Get("Y").Value / (Maximum + 1)) - thick / 2;
+			double y = MaximumY % 2 == 0
+				? height * (Attributes.Get("Y").Value / MaximumY) - thick / 2
+				: height * (Attributes.Get("Y").Value / (MaximumY + 1)) - thick / 2;
 
 			return string.Format("<rect width=\"{0}\" height=\"{1}\" x=\"0\" y=\"{2}\" fill=\"#{3}\" />",
 				width, thick, y, Color.ToHexString());

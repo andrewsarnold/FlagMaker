@@ -13,28 +13,28 @@ namespace FlagMaker.Overlays
 		private readonly Vector _pathSize;
 		private readonly string _path;
 
-		public PathOverlay(string name, string path, Vector pathSize, int maximum)
+		public PathOverlay(string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1),
-				       new Attribute("Y", true, 1),
-				       new Attribute("Size", true, 1),
-				       new Attribute("Rotation", true, 0)
-			       }, maximum)
+				       new Attribute("X", true, 1, true),
+				       new Attribute("Y", true, 1, false),
+				       new Attribute("Size", true, 1, true),
+				       new Attribute("Rotation", true, 0, true)
+			       }, maximumX, maximumY)
 		{
 			_name = name;
 			_path = path;
 			_pathSize = pathSize;
 		}
 
-		public PathOverlay(Color color, string name, string path, Vector pathSize, int maximum)
+		public PathOverlay(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			       {
-				       new Attribute("X", true, 1),
-				       new Attribute("Y", true, 1),
-				       new Attribute("Size", true, 1),
-				       new Attribute("Rotation", true, 0)
-			       }, maximum)
+				       new Attribute("X", true, 1, true),
+				       new Attribute("Y", true, 1, false),
+				       new Attribute("Size", true, 1, true),
+				       new Attribute("Rotation", true, 0, true)
+			       }, maximumX, maximumY)
 		{
 			_name = name;
 			_path = path;
@@ -48,22 +48,23 @@ namespace FlagMaker.Overlays
 
 		public override void Draw(Canvas canvas)
 		{
-			double extraNotch = Maximum % 2 == 0 ? 0 : 0.5;
+			double extraNotchX = MaximumX % 2 == 0 ? 0 : 0.5;
+			double extraNotchY = MaximumY % 2 == 0 ? 0 : 0.5;
 
-			double xGridSize = canvas.Width / Maximum;
-			double yGridSize = canvas.Height / Maximum;
+			double xGridSize = canvas.Width / MaximumX;
+			double yGridSize = canvas.Height / MaximumY;
 
 			double x = Attributes.Get("X").Value;
 			double y = Attributes.Get("Y").Value;
 
-			var finalCenterPoint = new Point((x - extraNotch) * xGridSize, (y - extraNotch) * yGridSize);
+			var finalCenterPoint = new Point((x - extraNotchX) * xGridSize, (y - extraNotchY) * yGridSize);
 
-			var idealPixelSize = Attributes.Get("Size").Value / Maximum * Math.Max(canvas.Width, canvas.Height);
+			var idealPixelSize = Attributes.Get("Size").Value / MaximumX * Math.Max(canvas.Width, canvas.Height);
 
 			var scaleFactor = idealPixelSize / _pathSize.X;
 
 			var transformGroup = new TransformGroup();
-			var rotateTransform = new RotateTransform((Attributes.Get("Rotation").Value / (Maximum + 1)) * 360);
+			var rotateTransform = new RotateTransform((Attributes.Get("Rotation").Value / (MaximumX + 1)) * 360);
 			transformGroup.Children.Add(rotateTransform);
 			var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
 			transformGroup.Children.Add(scaleTransform);
@@ -92,19 +93,20 @@ namespace FlagMaker.Overlays
 
 		public override string ExportSvg(int width, int height)
 		{
-			double extraNotch = Maximum % 2 == 0 ? 0 : 0.5;
+			double extraNotchX = MaximumX % 2 == 0 ? 0 : 0.5;
+			double extraNotchY = MaximumY % 2 == 0 ? 0 : 0.5;
 
-			double xGridSize = width / Maximum;
-			double yGridSize = height / Maximum;
+			double xGridSize = width / MaximumX;
+			double yGridSize = height / MaximumY;
 
 			double x = Attributes.Get("X").Value;
 			double y = Attributes.Get("Y").Value;
 
-			var finalCenterPoint = new Point((x - extraNotch) * xGridSize, (y - extraNotch) * yGridSize);
+			var finalCenterPoint = new Point((x - extraNotchX) * xGridSize, (y - extraNotchY) * yGridSize);
 
-			var idealPixelSize = Attributes.Get("Size").Value / Maximum * Math.Max(width, height);
+			var idealPixelSize = Attributes.Get("Size").Value / MaximumX * Math.Max(width, height);
 			var scaleFactor = idealPixelSize / _pathSize.X;
-			var rotate = (Attributes.Get("Rotation").Value / (Maximum + 1)) * 360;
+			var rotate = (Attributes.Get("Rotation").Value / (MaximumX + 1)) * 360;
 
 			return string.Format("<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
 					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToHexString());

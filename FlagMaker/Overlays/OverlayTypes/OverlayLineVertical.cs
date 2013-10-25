@@ -7,21 +7,21 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayLineVertical : Overlay
 	{
-		public OverlayLineVertical(int maximum)
+		public OverlayLineVertical(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1),
-				       new Attribute("Thickness", true, 1)
-			       }, maximum)
+				       new Attribute("X", true, 1, true),
+				       new Attribute("Thickness", true, 1, true)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayLineVertical(Color color, int thickness, int x, int y, int maximum)
+		public OverlayLineVertical(Color color, int thickness, int x, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("X", true, y),
-				             new Attribute("Thickness", true, thickness)
-			             }, maximum)
+				             new Attribute("X", true, x, true),
+				             new Attribute("Thickness", true, thickness, true)
+			             }, maximumX, maximumY)
 		{
 		}
 
@@ -29,7 +29,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thick = canvas.Width * ((Attributes.Get("Thickness").Value + 1) / (Maximum * 2));
+			double thick = canvas.Width * ((Attributes.Get("Thickness").Value + 1) / (MaximumX * 2));
 			
 			var vertical = new Rectangle
 								 {
@@ -40,14 +40,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 								 };
 			canvas.Children.Add(vertical);
 
-			if (Maximum % 2 == 0)
-			{
-				Canvas.SetLeft(vertical, canvas.Width * (Attributes.Get("X").Value / Maximum) - thick / 2);
-			}
-			else
-			{
-				Canvas.SetLeft(vertical, canvas.Width * (Attributes.Get("X").Value / (Maximum + 1)) - thick / 2);
-			}
+			Canvas.SetLeft(vertical, canvas.Width * (Attributes.Get("X").Value / (MaximumX + (MaximumX % 2 == 0 ? 0 : 1))) - thick / 2);
 		}
 
 		public override void SetValues(List<double> values)
@@ -58,11 +51,11 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thick = height * ((Attributes.Get("Thickness").Value + 1) / (Maximum * 2));
+			double thick = height * ((Attributes.Get("Thickness").Value + 1) / (MaximumX * 2));
 
-			double x = Maximum % 2 == 0
-				? width * (Attributes.Get("X").Value / Maximum) - thick / 2
-				: width * (Attributes.Get("X").Value / (Maximum + 1)) - thick / 2;
+			double x = MaximumX % 2 == 0
+				? width * (Attributes.Get("X").Value / MaximumX) - thick / 2
+				: width * (Attributes.Get("X").Value / (MaximumX + 1)) - thick / 2;
 
 			return string.Format("<rect height=\"{0}\" width=\"{1}\" x=\"{2}\" y=\"0\" fill=\"#{3}\" />",
 				height, thick, x, Color.ToHexString());

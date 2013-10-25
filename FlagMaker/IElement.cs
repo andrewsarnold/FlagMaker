@@ -10,7 +10,7 @@ namespace FlagMaker
 		void Draw(Canvas canvas);
 		void SetColors(List<Color> colors);
 		void SetValues(List<double> values);
-		void SetMaximum(int maximum);
+		void SetMaximum(int maximumX, int maximumY);
 		string ExportSvg(int width, int height);
 	}
 }

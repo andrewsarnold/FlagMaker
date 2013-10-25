@@ -10,27 +10,27 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	public class OverlayCrescent : Overlay
 	{
-		const double Ratio = 1.3;
+		private const double Ratio = 1.3;
 
-		public OverlayCrescent(int maximum)
+		public OverlayCrescent(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1),
-				       new Attribute("Y", true, 1),
-				       new Attribute("Size", true, 1),
-				       new Attribute("Rotation", true, 0)
-			       }, maximum)
+				       new Attribute("X", true, 1, true),
+				       new Attribute("Y", true, 1, false),
+				       new Attribute("Size", true, 1, true),
+				       new Attribute("Rotation", true, 0, true)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayCrescent(Color color, int x, int y, int size, int rotation, int maximum)
-			:base(color, new List<Attribute>
+		public OverlayCrescent(Color color, int x, int y, int size, int rotation, int maximumX, int maximumY)
+			: base(color, new List<Attribute>
 			             {
-				             new Attribute("X", true, x),
-				             new Attribute("Y", true, y),
-				             new Attribute("Size", true, size),
-				             new Attribute("Rotation", true, rotation)
-			             }, maximum)
+				             new Attribute("X", true, x, true),
+				             new Attribute("Y", true, y, false),
+				             new Attribute("Size", true, size, true),
+				             new Attribute("Rotation", true, rotation, true)
+			             }, maximumX, maximumY)
 		{
 		}
 
@@ -41,8 +41,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var size = canvas.Width * (Attributes.Get("Size").Value / Maximum) / 4;
-			double rotation = Attributes.Get("Rotation").Value / Maximum;
+			var size = canvas.Width * (Attributes.Get("Size").Value / MaximumX) / 4;
+			double rotation = Attributes.Get("Rotation").Value / MaximumX;
 
 			var path = new Path
 			{
@@ -56,15 +56,15 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 			canvas.Children.Add(path);
 
-			if (Maximum % 2 == 0)
+			if (MaximumX % 2 == 0)
 			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / Maximum)));
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / Maximum)));
+				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / MaximumX)));
+				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)));
 			}
 			else
 			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (Maximum + 1))));
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (Maximum + 1))));
+				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (MaximumX + 1))));
+				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (MaximumY + 1))));
 			}
 		}
 
@@ -78,19 +78,14 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double x, y;
-			if (Maximum % 2 == 0)
-			{
-				x = width * (Attributes.Get("X").Value / Maximum);
-				y = height * (Attributes.Get("Y").Value / Maximum);
-			}
-			else
-			{
-				x = width * (Attributes.Get("X").Value / (Maximum + 1));
-				y = height * (Attributes.Get("Y").Value / (Maximum + 1));
-			}
+			double x = MaximumX % 2 == 0
+				? width * (Attributes.Get("X").Value / MaximumX)
+				: width * (Attributes.Get("X").Value / (MaximumX + 1));
+			double y = MaximumY % 2 == 0
+				? height * (Attributes.Get("Y").Value / MaximumY)
+				: height * (Attributes.Get("Y").Value / (MaximumY + 1));
 
-			var size = width * (Attributes.Get("Size").Value / Maximum) / 4;
+			var size = width * (Attributes.Get("Size").Value / MaximumX) / 4;
 			var sb = new StringBuilder();
 
 			sb.AppendLine("<defs><mask id=\"c\">");
@@ -100,7 +95,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 			sb.AppendLine("</mask></defs>");
 
 			sb.Append(string.Format("<g transform=\"translate({0},{1}) rotate({2})\">",
-				x, y, 360 * (Attributes.Get("Rotation").Value / Maximum)));
+				x, y, 360 * (Attributes.Get("Rotation").Value / MaximumX)));
 
 			sb.Append(string.Format("<circle cx=\"0\" cy=\"0\" r=\"{0}\" fill=\"#{1}\" mask=\"url(#c)\" />",
 				size, Color.ToHexString()));

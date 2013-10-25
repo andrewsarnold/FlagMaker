@@ -9,18 +9,21 @@ namespace FlagMaker.Overlays
 		public string Name { get; private set; }
 		public bool IsDiscrete { get; private set; }
 		public double Value;
+		public bool UseMaxX { get; private set; }
 
 		public Attribute(string name, bool isDiscrete)
 		{
 			Name = name;
 			IsDiscrete = isDiscrete;
+			UseMaxX = true;
 		}
 
-		public Attribute(string name, bool isDiscrete, double initialValue)
+		public Attribute(string name, bool isDiscrete, double initialValue, bool useMaxX)
 		{
 			Name = name;
 			IsDiscrete = isDiscrete;
 			Value = initialValue;
+			UseMaxX = useMaxX;
 		}
 
 		public override string ToString()

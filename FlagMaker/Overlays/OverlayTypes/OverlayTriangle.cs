@@ -7,19 +7,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	public class OverlayTriangle : Overlay
 	{
-		public OverlayTriangle(int maximum)
+		public OverlayTriangle(int maximumX, int maximumY)
 			: base(new List<Attribute>
-			       {
-				       new Attribute("Size", true, 1)
-			       }, maximum)
+			{
+				new Attribute("Size", true, 1, true)
+			}, maximumX, maximumY)
 		{
 		}
 
-		public OverlayTriangle(Color color, int size, int maximum)
+		public OverlayTriangle(Color color, int size, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
-			                                 {
-				                                 new Attribute("Size", true, size)
-			                                 }, maximum)
+			{
+				new Attribute("Size", true, size, true)
+			}, maximumX, maximumY)
 		{
 		}
 
@@ -27,7 +27,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Size").Value / Maximum);
+			var width = canvas.Width * (Attributes.Get("Size").Value / MaximumX);
 
 			var path = new Path
 							{
@@ -49,7 +49,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			return string.Format("<polygon points=\"0,0 0,{0} {1},{2}\" fill=\"#{3}\" />",
 				height,
-				width * (Attributes.Get("Size").Value / Maximum),
+				width * (Attributes.Get("Size").Value / MaximumX),
 				height / 2,
 				Color.ToHexString());
 		}

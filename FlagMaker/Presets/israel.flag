@@ -14,19 +14,19 @@ size3=1
 overlay
 type=line horizontal
 color=0039a6
-size1=2
+size1=1
 size2=1
 
 overlay
 type=line horizontal
 color=0039a6
-size1=10
+size1=7
 size2=1
 
 overlay
 type=star of david
 color=0039a6
 size1=6
-size2=6
+size2=4
 size3=3
 size4=0

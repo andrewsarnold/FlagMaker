@@ -223,7 +223,7 @@ namespace FlagMaker
 		private void OverlayAdd(int index, Overlay overlay)
 		{
 			var gridSize = ((GridSize)cmbGridSize.SelectedItem);
-			var newOverlay = new OverlayControl(_standardColors, _availableColors, Math.Max(gridSize.Width, gridSize.Height));
+			var newOverlay = new OverlayControl(_standardColors, _availableColors, gridSize.Width, gridSize.Height);
 			if (overlay != null)
 			{
 				newOverlay.SetType(overlay.Name);
@@ -382,17 +382,19 @@ namespace FlagMaker
 			if (cmbGridSize.Items.Count == 0) return;
 
 			var gridSize = ((GridSize)cmbGridSize.SelectedItem);
-			int sliderMax = Math.Max(gridSize.Width, gridSize.Height);
+			int sliderMaxX = gridSize.Width;
+			int sliderMaxY = gridSize.Height;
+			int sliderMax = Math.Max(sliderMaxX, sliderMaxY);
 
 			divisionSlider1.Maximum = sliderMax;
 			divisionSlider2.Maximum = sliderMax;
 			divisionSlider3.Maximum = sliderMax;
 
-			_division.SetMaximum(sliderMax);
+			_division.SetMaximum(sliderMaxX, sliderMaxY);
 
 			foreach (var overlay in lstOverlays.Children)
 			{
-				((OverlayControl)overlay).SetMaximum(sliderMax);
+				((OverlayControl)overlay).SetMaximum(sliderMaxX, sliderMaxY);
 			}
 
 			Draw();

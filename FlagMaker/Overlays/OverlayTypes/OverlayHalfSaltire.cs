@@ -8,19 +8,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal class OverlayHalfSaltire : Overlay
 	{
-		public OverlayHalfSaltire(int maximum)
+		public OverlayHalfSaltire(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Ratio", true, 1)
-			       }, maximum)
+				       new Attribute("Ratio", true, 1, true)
+			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayHalfSaltire(Color color, int ratio, int maximum)
+		public OverlayHalfSaltire(Color color, int ratio, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("Ratio", true, ratio)
-			             }, maximum)
+				             new Attribute("Ratio", true, ratio, true)
+			             }, maximumX, maximumY)
 		{
 		}
 

@@ -13,7 +13,7 @@ namespace FlagMaker.Divisions
 		public abstract void SetValues(List<double> values);
 		public abstract string ExportSvg(int width, int height);
 
-		public void SetMaximum(int maximum)
+		public void SetMaximum(int maximumX, int maximumY)
 		{
 		}
 	}

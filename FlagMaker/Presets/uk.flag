@@ -29,12 +29,12 @@ overlay
 type=cross
 color=ffffff
 size1=9
-size2=9
+size2=5
 size3=5
 
 overlay
 type=cross
 color=cf142b
 size1=9
-size2=9
+size2=5
 size3=2

@@ -13,7 +13,8 @@ namespace FlagMaker.Overlays
 	public partial class OverlayControl
 	{
 		private Overlay _overlay;
-		private int _defaultMaximum;
+		private int _defaultMaximumX;
+		private int _defaultMaximumY;
 
 		public event EventHandler OnRemove;
 		public event EventHandler OnMoveUp;
@@ -21,11 +22,12 @@ namespace FlagMaker.Overlays
 		public event EventHandler OnDraw;
 		public event EventHandler OnClone;
 
-		public OverlayControl(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, int defaultMaximum)
+		public OverlayControl(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, int defaultMaximumX, int defaultMaximumY)
 		{
 			InitializeComponent();
 
-			_defaultMaximum = defaultMaximum;
+			_defaultMaximumX = defaultMaximumX;
+			_defaultMaximumY = defaultMaximumY;
 
 			SetUpColors(standardColors, availableColors);
 			FillOverlayList();
@@ -39,9 +41,8 @@ namespace FlagMaker.Overlays
 				_overlay = value;
 
 				_pnlSliders.Children.Clear();
-				foreach (var attribute in _overlay.Attributes)
+				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))
 				{
-					var slider = new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, _defaultMaximum);
 					slider.ValueChanged += OverlaySliderChanged;
 					_pnlSliders.Children.Add(slider);
 				}
@@ -81,13 +82,18 @@ namespace FlagMaker.Overlays
 			((AttributeSlider) _pnlSliders.Children[slider]).Value = value;
 		}
 
-		public void SetMaximum(int max)
+		public void SetMaximum(int maximumX, int maximumY)
 		{
-			_defaultMaximum = max;
-			Overlay.SetMaximum(max);
+			_defaultMaximumX = maximumX;
+			_defaultMaximumY = maximumY;
 
-			foreach (var slider in _pnlSliders.Children.OfType<AttributeSlider>())
+			Overlay.SetMaximum(maximumX, maximumY);
+
+			var sliders = _pnlSliders.Children.OfType<AttributeSlider>().ToList();
+			for (int i = 0; i < _overlay.Attributes.Count; i++)
 			{
+				var slider = sliders[i];
+				var max = _overlay.Attributes[i].UseMaxX ? maximumX : maximumY;
 				var ratio = (double)max / slider.Maximum;
 				slider.Maximum = max;
 				slider.Value *= ratio;
@@ -106,7 +112,7 @@ namespace FlagMaker.Overlays
 		{
 			foreach (var overlay in Overlay.GetOverlays())
 			{
-				var instance = (Overlay)Activator.CreateInstance(overlay, _defaultMaximum);
+				var instance = (Overlay)Activator.CreateInstance(overlay, _defaultMaximumX, _defaultMaximumY);
 
 				var thumbnail = new Canvas
 				{
@@ -157,7 +163,7 @@ namespace FlagMaker.Overlays
 			var tag = item.Tag as Overlay;
 			if (tag != null)
 			{
-				var instance = (Overlay)Activator.CreateInstance(tag.GetType(), _defaultMaximum);
+				var instance = (Overlay)Activator.CreateInstance(tag.GetType(), _defaultMaximumX, _defaultMaximumY);
 				Overlay = instance;
 				Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
 
