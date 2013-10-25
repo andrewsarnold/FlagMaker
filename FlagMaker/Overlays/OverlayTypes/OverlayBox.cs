@@ -29,7 +29,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public override string Name { get { return "canton"; } }
+		public override string Name { get { return "box"; } }
 
 		public override IEnumerable<Shape> Thumbnail
 		{

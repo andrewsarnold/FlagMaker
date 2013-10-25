@@ -1,141 +1,188 @@
-<h1>FlagMaker 1.3</h1>
+<!DOCTYPE html>
+<html lang="en-US">
 
-<p>A tool by <a href="http://reddit.com/user/5thEye">5thEye</a> for <a href="http://www.reddit.com/r/vexillology/">/r/vexillology</a></p>
+<head>
+	<title>FlagMaker 1.3</title>
+	<style>
+		body
+		{
+			background: #e0e4fe;
+			font-family: "Calibri", "Arial";
+			padding-left: 30px;
+			padding-right: 40px;
+		}
 
-<h2>Contents</h2>
-<ol>
-    <li><a href="#what">What is FlagMaker?</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#file">The <tt>.flag</tt> file type</a></li>
-    <li><a href="#vhist">Version history</a></li>
-    <li><a href="#planned">Planned features</a></li>
-    <li><a href="#credits">Credits</a></li>
-</ol>
+		p, li
+		{
+			font-size: 12pt;
+			color: #000033;
+		}
 
-<h2><a name="what" />What is FlagMaker?</h2>
-<p>FlagMaker is a little tool I built to easily create flags without having to use complicated image editors like Inkscape or Photoshop, and includes most common flag elements.</p>
-<p>In this version, you can create a flag with six different base types and then add as many overlays as you like. You can save your work to a proprietary file format (see below) or export to a PNG or SVG file.</p>
+		h1
+		{
+			color: #333366;
+		}
 
-<h2><a name="faq" />FAQ</h2>
-<ul>
-    <li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from <a href="http://www.crwflags.com/fotw/flags/xf-colo.html">this page</a> and converted to the closest matching RGB color. You can also click "Advanced" to pick any color you like.</li>
-    <li><b>How do I make just a solid color flag?</b> &ndash; Just use a grid with size 1&times;1. Same thing for stripes; just use 1&times;<i>n</i>. Grids are pretty versatile.</li>
-    <li><b>How do I make a perfect circle / diamond / square?</b> &ndash; Use a height of 0.</li>
-    <li><b>The alignment on the pall is a bit off.</b> &ndash; Yes, it needs some tweaking to get it more accurate.</li>
-    <li><b>You should add ______ to FlagMaker.</b> &ndash; If it's not listed in the <a href="#planned">planned features section</a>, send me a message and I'll think about it.</li>
-</ul>
+		h2
+		{
+			color: #333366;
+			border-bottom: 1px solid #000033;
+		}
 
-<h2><a name="file" />The <tt>.flag</tt> file type</h2>
-<p><tt>.flag</tt> is a file type you can use to save and open your flags. It's a plain text file so you can also use your favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash the program). Feel free to look at the presets for some examples, but here's a rundown of the <tt>.flag</tt> file syntax:</p>
+		.tt
+		{
+			font-family: "Consolas", "Courier New";
+			font-size: 10pt;
+		}
 
-<ul>
-<li><tt>name</tt> &ndash; Only used to fill the Presets menu. Put anything you want here.</li>
-<li><tt>ratio</tt> &ndash; The ratio of the flag's height to width. Separate with a colon.</li>
-<li><tt>gridsize</tt> &ndash; A multiple of the ratio, which determines how finely you can place your elements (when snap-to-grid is enabled). Play around with the dropdown in the program to get a good handle on what this does.
-<li><tt>division</tt> &ndash; Start defining the division. Only include once!</li>
-<li><tt>type</tt> &ndash; One of the following:
+		h2 .tt
+		{
+			font-size: 14pt;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>FlagMaker 1.3</h1>
+
+	<p><i>A tool by <a href="http://reddit.com/user/5thEye">5thEye</a> for <a href="http://www.reddit.com/r/vexillology/">/r/vexillology</a></i></p>
+
+	<h2>Contents</h2>
+	<ol>
+		<li><a href="#what">What is FlagMaker?</a></li>
+		<li><a href="#faq">FAQ</a></li>
+		<li><a href="#file">The <span class="tt">.flag</span> file type</a></li>
+		<li><a href="#vhist">Version history</a></li>
+		<li><a href="#planned">Planned features</a></li>
+		<li><a href="#credits">Credits</a></li>
+	</ol>
+
+	<h2><a id="what"></a>What is FlagMaker?</h2>
+	<p>FlagMaker is a little tool I built to easily create flags without having to use complicated image editors like Inkscape or Photoshop, and includes most common flag elements.</p>
+	<p>In this version, you can create a flag with six different base types and then add as many overlays as you like. You can save your work to a proprietary file format (see below) or export to a PNG or SVG file.</p>
+
+	<h2><a id="faq"></a>FAQ</h2>
 	<ul>
-		<li><tt>bends backward</tt></li>
-		<li><tt>bends both</tt></li>
-		<li><tt>bends forward</tt></li>
-		<li><tt>fesses</tt></li>
-		<li><tt>grid</tt></li>
-		<li><tt>pales</tt></li>
+		<li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from <a href="http://www.crwflags.com/fotw/flags/xf-colo.html">this page</a> and converted to the closest matching RGB color. You can also click "Advanced" to pick any color you like.</li>
+		<li><b>How do I make just a solid color flag?</b> &ndash; Just use a grid with size 1&times;1. Same thing for stripes; just use 1&times;<i>n</i>. Grids are pretty versatile.</li>
+		<li><b>How do I make a perfect circle / diamond / square?</b> &ndash; Use a height of 0.</li>
+		<li><b>The alignment on the pall is a bit off.</b> &ndash; Yes, it needs some tweaking to get it more accurate.</li>
+		<li><b>You should add ______ to FlagMaker.</b> &ndash; If it's not listed in the <a href="#planned">planned features section</a>, send me a message and I'll think about it.</li>
 	</ul>
-<li><tt>color1</tt> / <tt>color2</tt> / <tt>color3</tt> &ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <tt>822433</tt> or <tt>fedd00</tt> or <tt>cc284e36</tt>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)</li>
-<li><tt>size1</tt> / <tt>size2</tt> / <tt>size3</tt> &ndash; Slider values.</li>
-<li><tt>overlay</tt> &ndash; Start defining a new overlay. You can have as many of these sections as you like.</li>
-<li><tt>type</tt> &ndash; One of the following:
+
+	<h2><a id="file"></a>The <span class="tt">.flag</span> file type</h2>
+	<p><span class="tt">.flag</span> is a file type you can use to save and open your flags. It's a plain text file so you can also use your favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash the program). Feel free to look at the presets for some examples, but here's a rundown of the <span class="tt">.flag</span> file syntax:</p>
+
 	<ul>
-		<li><tt>box</tt></li>
-		<li><tt>crescent</tt></li>
-		<li><tt>cross</tt></li>
-		<li><tt>diamond</tt></li>
-		<li><tt>ellipse</tt></li>
-		<li><tt>equitorial cross</tt></li>
-		<li><tt>fimbriation backward</tt></li>
-		<li><tt>fimbriation forward</tt></li>
-		<li><tt>half saltire</tt>
-		<li><tt>hammer and sickle</tt></li>
-		<li><tt>line horizontal</tt></li>
-		<li><tt>line vertical</tt></li>
-		<li><tt>maple leaf</tt></li>
-		<li><tt>pall</tt></li>
-		<li><tt>pentagram</tt></li>
-		<li><tt>saltire</tt></li>
-		<li><tt>star</tt></li>
-		<li><tt>star of david</tt></li>
-		<li><tt>star seven</tt></li>
-		<li><tt>triangle</tt></li>
+		<li><span class="tt">name</span> &ndash; Only used to fill the Presets menu. Put anything you want here.</li>
+		<li><span class="tt">ratio</span> &ndash; The ratio of the flag's height to width. Separate with a colon.</li>
+		<li><span class="tt">gridsize</span>
+		&ndash; A multiple of the ratio, which determines how finely you can place your elements (when snap-to-grid is enabled). Play around with the dropdown in the program to get a good handle on what this does.
+		<li><span class="tt">division</span> &ndash; Start defining the division. Only include once!</li>
+		<li><span class="tt">type</span> &ndash; One of the following:
+			<ul>
+				<li><span class="tt">bends backward</span></li>
+				<li><span class="tt">bends both</span></li>
+				<li><span class="tt">bends forward</span></li>
+				<li><span class="tt">fesses</span></li>
+				<li><span class="tt">grid</span></li>
+				<li><span class="tt">pales</span></li>
+			</ul>
+		<li><span class="tt">color1</span> / <span class="tt">color2</span> / <span class="tt">color3</span> &ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <span class="tt">822433</span> or <span class="tt">fedd00</span> or <span class="tt">cc284e36</span>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)</li>
+		<li><span class="tt">size1</span> / <span class="tt">size2</span> / <span class="tt">size3</span> &ndash; Slider values.</li>
+		<li><span class="tt">overlay</span> &ndash; Start defining a new overlay. You can have as many of these sections as you like.</li>
+		<li><span class="tt">type</span> &ndash; One of the following:
+			<ul>
+				<li><span class="tt">box</span></li>
+				<li><span class="tt">crescent</span></li>
+				<li><span class="tt">cross</span></li>
+				<li><span class="tt">diamond</span></li>
+				<li><span class="tt">ellipse</span></li>
+				<li><span class="tt">equitorial cross</span></li>
+				<li><span class="tt">fimbriation backward</span></li>
+				<li><span class="tt">fimbriation forward</span></li>
+				<li><span class="tt">half saltire</span></li>
+				<li><span class="tt">hammer and sickle</span></li>
+				<li><span class="tt">line horizontal</span></li>
+				<li><span class="tt">line vertical</span></li>
+				<li><span class="tt">maple leaf</span></li>
+				<li><span class="tt">pall</span></li>
+				<li><span class="tt">pentagram</span></li>
+				<li><span class="tt">saltire</span></li>
+				<li><span class="tt">star</span></li>
+				<li><span class="tt">star of david</span></li>
+				<li><span class="tt">star seven</span></li>
+				<li><span class="tt">triangle</span></li>
+			</ul>
+		<li><span class="tt">color</span> &ndash; Same as above.</li>
+		<li><span class="tt">size1</span> / <span class="tt">size2</span> / etc. &ndash; Slider values. Different overlays have different numbers of adjustable values, so play around with them in the program first to see.</li>
 	</ul>
-<li><tt>color</tt> &ndash; Same as above.</li>
-<li><tt>size1</tt> / <tt>size2</tt> / etc. &ndash; Slider values. Different overlays have different numbers of adjustable values, so play around with them in the program first to see.</li>
-</ul>
 
-<p>The files <i>should</i> be backward-compatible (it'll generate a canton for any overlays not supported in your version). For some overlays, some values have been swapped around for consistency.</p>
+	<p>The files <i>should</i> be backward-compatible (it'll generate a box for any overlays not supported in your version). For some overlays, some values have been swapped around for consistency.</p>
 
-<h2><a name="vhist" />Version history</h2>
-<ul>
-    <li><b>1.3</b> &ndash; <a href="http://www.reddit.com/r/vexillology/">TBA</a>
-        <ul>
-            <li>Changed "canton" to "box"; now freely positionable</li>
-            <li>Changed the corner angles of saltires and fimbriations to have the same proportions as the flag itself</li>
-            <li>Click-to-edit slider values for overlays</li>
-            <li>New overlay type: Half saltire (as in the United Kingdom flag)</li>
-        </ul>
-    </li>
-</ul>
-<ul>
-    <li><b>1.2</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1ny5kn/flagmaker_12/">2013-10-07</a>
-        <ul>
-            <li>Downgraded to .NET 4.0 for increased compatibility</li>
-            <li>Fixed star overlay</li>
-            <li>New overlay type: Equitorial (Swiss) cross</li>
-            <li>New overlay type: Horizontal line</li>
-            <li>New overlay type: Maple leaf</li>
-            <li>New overlay type: Pentagram</li>
-            <li>New overlay type: Seven-pointed star</li>
-            <li>New overlay type: Star of David</li>
-            <li>New overlay type: Vertical line</li>
-        </ul>
-    </li>
-    <li><b>1.1</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1nh2fl/flagmaker_11_is_here/">2013-09-30</a>
-        <ul>
-            <li>SVG export</li>
-            <li>Blank / basic presets</li>
-            <li>Grey background (for easily seeing white flags)</li>
-            <li>Additional color palette</li>
-            <li>Improved overlay engine</li>
-            <li>New overlay type: Hammer and sickle</li>
-            <li>New overlay type: Crescent</li>
-            <li>Overlay cloning</li>
-            <li>Overlay slider labels</li>
-            <li>Continuous overlay sliders</li>
-            <li>Adjustable workspace size</li>
-            <li>Icon</li>
-        </ul>
-    </li>
-    <li><b>1.0</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1m2jgq/i_made_a_little_flag_maker_application/">2013-09-09</a>
-        <ul>
-            <li>Initial release</li>
-        </ul>
-    </li>
-</ul>
+	<h2><a id="vhist"></a>Version history</h2>
+	<ul>
+		<li><b>1.3</b> &ndash; <a href="http://www.reddit.com/r/vexillology/">TBA</a>
+			<ul>
+				<li>Changed "canton" to "box"; now freely positionable</li>
+				<li>Changed the corner angles of saltires and fimbriations to have the same proportions as the flag itself</li>
+				<li>Click-to-edit slider values for overlays</li>
+				<li>New overlay type: Half saltire (as in the United Kingdom flag)</li>
+				<li>Spruced up the Readme a bit</li>
+			</ul>
+		</li>
+		<li><b>1.2</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1ny5kn/flagmaker_12/">2013-10-07</a>
+			<ul>
+				<li>Downgraded to .NET 4.0 for increased compatibility</li>
+				<li>Fixed star overlay</li>
+				<li>New overlay type: Equitorial (Swiss) cross</li>
+				<li>New overlay type: Horizontal line</li>
+				<li>New overlay type: Maple leaf</li>
+				<li>New overlay type: Pentagram</li>
+				<li>New overlay type: Seven-pointed star</li>
+				<li>New overlay type: Star of David</li>
+				<li>New overlay type: Vertical line</li>
+			</ul>
+		</li>
+		<li><b>1.1</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1nh2fl/flagmaker_11_is_here/">2013-09-30</a>
+			<ul>
+				<li>SVG export</li>
+				<li>Blank / basic presets</li>
+				<li>Grey background (for easily seeing white flags)</li>
+				<li>Additional color palette</li>
+				<li>Improved overlay engine</li>
+				<li>New overlay type: Hammer and sickle</li>
+				<li>New overlay type: Crescent</li>
+				<li>Overlay cloning</li>
+				<li>Overlay slider labels</li>
+				<li>Continuous overlay sliders</li>
+				<li>Adjustable workspace size</li>
+				<li>Icon</li>
+			</ul>
+		</li>
+		<li><b>1.0</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1m2jgq/i_made_a_little_flag_maker_application/">2013-09-09</a>
+			<ul>
+				<li>Initial release</li>
+			</ul>
+		</li>
+	</ul>
 
-<p>Source code available at <a href="https://github.com/andrewsarnold/FlagMaker">GitHub</a> under a GPL v2 license.</p>
+	<p>Source code available at <a href="https://github.com/andrewsarnold/FlagMaker">GitHub</a> under a GPL v2 license.</p>
 
-<h2><a name="planned" />Planned features</h2>
-<ul>
-    <li>Actual installer</li>
-    <li>Alignment grid</li>
-    <li>Custom color presets</li>
-    <li>Import custom overlay images</li>
-    <li>Quick upload to imgur and/or /r/vex</li>
-    <li>Translating / localization? (if you'd like to help with this, let me know!)</li>
-</ul>
+	<h2><a id="planned"></a>Planned features</h2>
+	<ul>
+		<li>Actual installer</li>
+		<li>Alignment grid</li>
+		<li>Custom color presets</li>
+		<li>Import custom overlay images</li>
+		<li>Quick upload to imgur and/or /r/vex</li>
+		<li>Translating / localization? (if you'd like to help with this, let me know!)</li>
+	</ul>
 
-<h2><a name="credits" />Credits</h2>
-<ul>
-    <li>Inspired by <a href="https://flag-designer.appspot.com/">Scrontch's Flag Designer</a>.</li>
-    <li>Hammer and sickle pattern courtesy <a href="http://en.wikipedia.org/wiki/Hammer_and_sickle">Wikipedia</a> (user <a href="http://commons.wikimedia.org/wiki/User:Zscout370">Zscout370</a>).</li>
-</ul>
+	<h2><a id="credits"></a>Credits</h2>
+	<ul>
+		<li>Inspired by <a href="https://flag-designer.appspot.com/">Scrontch's Flag Designer</a>.</li>
+		<li>Hammer and sickle pattern courtesy <a href="http://en.wikipedia.org/wiki/Hammer_and_sickle">Wikipedia</a> (user <a href="http://commons.wikimedia.org/wiki/User:Zscout370">Zscout370</a>).</li>
+	</ul>
+</body>
+</html>
