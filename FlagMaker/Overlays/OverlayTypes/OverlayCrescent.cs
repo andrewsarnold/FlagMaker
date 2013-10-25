@@ -56,16 +56,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 			canvas.Children.Add(path);
 
-			if (MaximumX % 2 == 0)
-			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / MaximumX)));
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)));
-			}
-			else
-			{
-				Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (MaximumX + 1))));
-				Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (MaximumY + 1))));
-			}
+			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / MaximumX)));
+			Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)));
 		}
 
 		public override void SetValues(List<double> values)
@@ -78,12 +70,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double x = MaximumX % 2 == 0
-				? width * (Attributes.Get("X").Value / MaximumX)
-				: width * (Attributes.Get("X").Value / (MaximumX + 1));
-			double y = MaximumY % 2 == 0
-				? height * (Attributes.Get("Y").Value / MaximumY)
-				: height * (Attributes.Get("Y").Value / (MaximumY + 1));
+			double x = width * (Attributes.Get("X").Value / (MaximumX));
+			double y = height * (Attributes.Get("Y").Value / (MaximumY));
 
 			var size = width * (Attributes.Get("Size").Value / MaximumX) / 4;
 			var sb = new StringBuilder();

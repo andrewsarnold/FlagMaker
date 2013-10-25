@@ -47,8 +47,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 			};
 			canvas.Children.Add(path);
 
-			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / (MaximumX + (MaximumX % 2 == 0 ? 0 : 1)))) - width / 2);
-			Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / (MaximumY + (MaximumY % 2 == 0 ? 0 : 1)))) - height / 2);
+			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / MaximumX)) - width / 2);
+			Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)) - height / 2);
 		}
 
 		public override void SetValues(List<double> values)
@@ -66,12 +66,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 							 ? w
 							 : height * (Attributes.Get("Height").Value / MaximumY);
 
-			double x = MaximumX % 2 == 0
-				? width * (Attributes.Get("X").Value / MaximumX)
-				: width * (Attributes.Get("X").Value / (MaximumX + 1));
-			double y = MaximumY % 2 == 0
-				? height * (Attributes.Get("Y").Value / MaximumY)
-				: height * (Attributes.Get("Y").Value / (MaximumY + 1));
+			double x = width * (Attributes.Get("X").Value / MaximumX);
+			double y = height * (Attributes.Get("Y").Value / MaximumY);
 
 			return string.Format("<ellipse cx=\"{0}\" cy=\"{1}\" rx=\"{2}\" ry=\"{3}\" fill=\"#{4}\" />",
 				x, y, w / 2, h / 2,

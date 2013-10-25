@@ -27,6 +27,7 @@ namespace FlagMaker
 		private ObservableCollection<ColorItem> _standardColors;
 		private ObservableCollection<ColorItem> _availableColors;
 
+		private bool _isLoading;
 		private bool _showGrid;
 
 		public MainWindow()
@@ -43,6 +44,8 @@ namespace FlagMaker
 
 		private void DivisionColorChanged()
 		{
+			if (_isLoading) return;
+
 			_division.SetColors(new List<Color>
 			                    {
 				                    divisionPicker1.SelectedColor,
@@ -54,6 +57,8 @@ namespace FlagMaker
 
 		private void DivisionSliderChanged()
 		{
+			if (_isLoading) return;
+
 			divisionSliderLabel1.Text = divisionSlider1.Value.ToString();
 			divisionSliderLabel2.Text = divisionSlider2.Value.ToString();
 			divisionSliderLabel3.Text = divisionSlider3.Value.ToString();
@@ -67,58 +72,94 @@ namespace FlagMaker
 			Draw();
 		}
 
-		private void SetDivisionVisibility(bool color3, bool slider1, bool slider2, bool slider3)
+		private void SetDivisionVisibility()
 		{
-			divisionPicker3.Visibility = color3 ? Visibility.Visible : Visibility.Collapsed;
+			divisionPicker2.Visibility = Visibility.Collapsed;
+			divisionPicker3.Visibility = Visibility.Collapsed;
+			divisionPicker1.SelectedColor = _division.Colors[0];
 
-			divisionSlider1.Visibility = slider1 ? Visibility.Visible : Visibility.Collapsed;
-			divisionSlider2.Visibility = slider2 ? Visibility.Visible : Visibility.Collapsed;
-			divisionSlider3.Visibility = slider3 ? Visibility.Visible : Visibility.Collapsed;
+			if (_division.Colors.Count > 1)
+			{
+				divisionPicker2.SelectedColor = _division.Colors[1];
+				divisionPicker2.Visibility = Visibility.Visible;
+				if (_division.Colors.Count > 2)
+				{
+					divisionPicker3.SelectedColor = _division.Colors[2];
+					divisionPicker3.Visibility = Visibility.Visible;
+				}
+			}
 
-			divisionSliderLabel1.Visibility = divisionSlider1.Visibility;
-			divisionSliderLabel2.Visibility = divisionSlider2.Visibility;
-			divisionSliderLabel3.Visibility = divisionSlider3.Visibility;
+			divisionSlider1.Visibility = Visibility.Collapsed;
+			divisionSlider2.Visibility = Visibility.Collapsed;
+			divisionSlider3.Visibility = Visibility.Collapsed;
+			divisionSliderLabel1.Visibility = Visibility.Collapsed;
+			divisionSliderLabel2.Visibility = Visibility.Collapsed;
+			divisionSliderLabel3.Visibility = Visibility.Collapsed;
+
+			if (_division.Values.Count > 0)
+			{
+				divisionSlider1.Value = _division.Values[0];
+				divisionSlider1.Visibility = Visibility.Visible;
+				divisionSliderLabel1.Text = _division.Values[0].ToString("#");
+				divisionSliderLabel1.Visibility = Visibility.Visible;
+
+				if (_division.Values.Count > 1)
+				{
+					divisionSlider2.Value = _division.Values[1];
+					divisionSlider2.Visibility = Visibility.Visible;
+					divisionSliderLabel2.Text = _division.Values[1].ToString("#");
+					divisionSliderLabel2.Visibility = Visibility.Visible;
+
+					if (_division.Values.Count > 2)
+					{
+						divisionSlider3.Value = _division.Values[2];
+						divisionSlider3.Visibility = Visibility.Visible;
+						divisionSliderLabel3.Text = _division.Values[2].ToString("#");
+						divisionSliderLabel3.Visibility = Visibility.Visible;
+					}
+				}
+			}
 		}
 
 		private void DivisionGridClick(object sender, RoutedEventArgs e)
 		{
 			_division = new DivisionGrid(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor, (int)divisionSlider1.Value, (int)divisionSlider2.Value);
-			SetDivisionVisibility(false, true, true, false);
+			SetDivisionVisibility();
 			Draw();
 		}
 
 		private void DivisionFessesClick(object sender, RoutedEventArgs e)
 		{
 			_division = new DivisionFesses(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor, divisionPicker3.SelectedColor, (int)divisionSlider1.Value, (int)divisionSlider2.Value, (int)divisionSlider3.Value);
-			SetDivisionVisibility(true, true, true, true);
+			SetDivisionVisibility();
 			Draw();
 		}
 
 		private void DivisionPalesClick(object sender, RoutedEventArgs e)
 		{
 			_division = new DivisionPales(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor, divisionPicker3.SelectedColor, (int)divisionSlider1.Value, (int)divisionSlider2.Value, (int)divisionSlider3.Value);
-			SetDivisionVisibility(true, true, true, true);
+			SetDivisionVisibility();
 			Draw();
 		}
 
 		private void DivisionBendsForwardClick(object sender, RoutedEventArgs e)
 		{
 			_division = new DivisionBendsForward(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor);
-			SetDivisionVisibility(false, false, false, false);
+			SetDivisionVisibility();
 			Draw();
 		}
 
 		private void DivisionBendsBackwardClick(object sender, RoutedEventArgs e)
 		{
 			_division = new DivisionBendsBackward(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor);
-			SetDivisionVisibility(false, false, false, false);
+			SetDivisionVisibility();
 			Draw();
 		}
 
 		private void DivisionXClick(object sender, RoutedEventArgs e)
 		{
 			_division = new DivisionX(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor);
-			SetDivisionVisibility(false, false, false, false);
+			SetDivisionVisibility();
 			Draw();
 		}
 
@@ -222,7 +263,7 @@ namespace FlagMaker
 
 		private void OverlayAdd(int index, Overlay overlay)
 		{
-			var gridSize = ((GridSize)cmbGridSize.SelectedItem);
+			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
 			var newOverlay = new OverlayControl(_standardColors, _availableColors, gridSize.Width, gridSize.Height);
 			if (overlay != null)
 			{
@@ -243,7 +284,11 @@ namespace FlagMaker
 			lstOverlays.Children.Insert(index, newOverlay);
 
 			SetOverlayMargins();
-			Draw();
+
+			if (!_isLoading)
+			{
+				Draw();
+			}
 		}
 
 		#endregion
@@ -314,7 +359,7 @@ namespace FlagMaker
 
 			if (cmbGridSize.Items.Count == 0) return;
 
-			var gridSize = ((GridSize)cmbGridSize.SelectedItem);
+			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
 
 			var intervalX = canvas.Width/gridSize.Width;
 			for (int x = 0; x <= gridSize.Width; x++)
@@ -356,7 +401,7 @@ namespace FlagMaker
 			cmbGridSize.Items.Clear();
 			for (int i = 1; i < 10; i++)
 			{
-				cmbGridSize.Items.Add(new GridSize(_ratioWidth * i, _ratioHeight * i));
+				cmbGridSize.Items.Add(new Ratio(_ratioWidth * i, _ratioHeight * i));
 			}
 			cmbGridSize.SelectedIndex = 0;
 		}
@@ -381,7 +426,7 @@ namespace FlagMaker
 		{
 			if (cmbGridSize.Items.Count == 0) return;
 
-			var gridSize = ((GridSize)cmbGridSize.SelectedItem);
+			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
 			int sliderMaxX = gridSize.Width;
 			int sliderMaxY = gridSize.Height;
 			int sliderMax = Math.Max(sliderMaxX, sliderMaxY);
@@ -543,10 +588,8 @@ namespace FlagMaker
 				sr.WriteLine("size2={0}", divisionSlider2.Value);
 				sr.WriteLine("size3={0}", divisionSlider3.Value);
 
-				foreach (var child in lstOverlays.Children)
+				foreach (var overlay in from object child in lstOverlays.Children select ((OverlayControl)child))
 				{
-					var overlay = ((OverlayControl)child);
-
 					sr.WriteLine();
 					sr.WriteLine("overlay");
 					sr.WriteLine("type={0}", overlay.Overlay.Name);
@@ -564,138 +607,38 @@ namespace FlagMaker
 
 		private void MenuOpenClick(object sender, RoutedEventArgs e)
 		{
-			var dlg = new OpenFileDialog
+			var path = GetFlagPath();
+			if (!string.IsNullOrWhiteSpace(path))
 			{
-				FileName = "Untitled",
-				DefaultExt = ".flag",
-				Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*",
-				Multiselect = false
-			};
-
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return;
-
-			LoadFlagFromFile(dlg.FileName);
+				LoadFlagFromFile(path);
+			}
 		}
 
 		private void LoadFlagFromFile(string filename)
 		{
-			using (var sr = new StreamReader(filename))
+			var flag = Flag.LoadFromFile(filename);
+			_isLoading = true;
+
+			txtRatioHeight.Text = flag.Ratio.Height.ToString(CultureInfo.InvariantCulture);
+			txtRatioWidth.Text = flag.Ratio.Width.ToString(CultureInfo.InvariantCulture);
+			for (int i = 0; i < cmbGridSize.Items.Count; i++)
 			{
-				string line;
+				if (((Ratio)cmbGridSize.Items[i]).Width != flag.GridSize.Width) continue;
+				cmbGridSize.SelectedIndex = i;
+				break;
+			}
 
-				bool isDivision = false;
-				int overlayIndex = -1;
-				lstOverlays.Children.Clear();
+			_division = flag.Division;
+			SetDivisionVisibility();
 
-				while ((line = sr.ReadLine()) != null)
-				{
-					switch (line.Split('=')[0].ToLower())
-					{
-						case "ratio":
-							var ratio = line.Split('=')[1].Split(':');
-							txtRatioHeight.Text = ratio[0];
-							txtRatioWidth.Text = ratio[1];
-							break;
-						case "gridsize":
-							var gridRatioWidth = line.Split('=')[1].Split(':')[1];
-							int grw;
-							if (!int.TryParse(gridRatioWidth, out grw)) break;
-							for (int i = 0; i < cmbGridSize.Items.Count; i++)
-							{
-								if (((GridSize)cmbGridSize.Items[i]).Width != grw) continue;
-								cmbGridSize.SelectedIndex = i;
-								break;
-							}
-							break;
-						case "division":
-							isDivision = true;
-							break;
-						case "overlay":
-							isDivision = false;
-							overlayIndex++;
-							OverlayAdd(null, null);
-							break;
-						case "type":
-							if (isDivision)
-							{
-								switch (line.Split('=')[1])
-								{
-									case "grid":
-										DivisionGridClick(null, null);
-										break;
-									case "fesses":
-										DivisionFessesClick(null, null);
-										break;
-									case "pales":
-										DivisionPalesClick(null, null);
-										break;
-									case "bends forward":
-										DivisionBendsForwardClick(null, null);
-										break;
-									case "bends backward":
-										DivisionBendsBackwardClick(null, null);
-										break;
-									case "bends both":
-										DivisionXClick(null, null);
-										break;
-								}
-							}
-							else
-							{
-								((OverlayControl)lstOverlays.Children[overlayIndex]).SetType(line.Split('=')[1]);
-							}
-							break;
-						case "color1":
-							divisionPicker1.SelectedColor = ParseColor(line.Split('=')[1]);
-							break;
-						case "color2":
-							divisionPicker2.SelectedColor = ParseColor(line.Split('=')[1]);
-							break;
-						case "color3":
-							divisionPicker3.SelectedColor = ParseColor(line.Split('=')[1]);
-							break;
-						case "color":
-							((OverlayControl)lstOverlays.Children[overlayIndex]).Color = ParseColor(line.Split('=')[1]);
-							break;
-						case "size1":
-							if (isDivision)
-							{
-								divisionSlider1.Value = int.Parse(line.Split('=')[1]);
-							}
-							else
-							{
-								((OverlayControl)lstOverlays.Children[overlayIndex]).SetSlider(0, double.Parse(line.Split('=')[1]));
-							}
-							break;
-						case "size2":
-							if (isDivision)
-							{
-								divisionSlider2.Value = int.Parse(line.Split('=')[1]);
-							}
-							else
-							{
-								((OverlayControl)lstOverlays.Children[overlayIndex]).SetSlider(1, double.Parse(line.Split('=')[1]));
-							}
-							break;
-						case "size3":
-							if (isDivision)
-							{
-								divisionSlider3.Value = int.Parse(line.Split('=')[1]);
-							}
-							else
-							{
-								((OverlayControl)lstOverlays.Children[overlayIndex]).SetSlider(2, double.Parse(line.Split('=')[1]));
-							}
-							break;
-						case "size4":
-							((OverlayControl)lstOverlays.Children[overlayIndex]).SetSlider(3, double.Parse(line.Split('=')[1]));
-							break;
-					}
-				}
+			lstOverlays.Children.Clear();
+			foreach (var overlay in flag.Overlays)
+			{
+				OverlayAdd(lstOverlays.Children.Count, overlay);
 			}
 
 			Draw();
+			_isLoading = false;
 		}
 
 		#endregion
@@ -731,7 +674,7 @@ namespace FlagMaker
 		{
 			for (int i = 0; i < cmbGridSize.Items.Count; i++)
 			{
-				if (((GridSize)cmbGridSize.Items[i]).Width >= 7)
+				if (((Ratio)cmbGridSize.Items[i]).Width >= 7)
 				{
 					cmbGridSize.SelectedIndex = i;
 					break;
@@ -784,27 +727,6 @@ namespace FlagMaker
 			LoadFlagFromFile(menuItem.ToolTip.ToString());
 		}
 
-		private static Color ParseColor(string str)
-		{
-			Byte a = 0xff, r, b, g;
-
-			if (str.Length == 8)
-			{
-				a = byte.Parse(str.Substring(0, 2), NumberStyles.HexNumber);
-				r = byte.Parse(str.Substring(2, 2), NumberStyles.HexNumber);
-				g = byte.Parse(str.Substring(4, 2), NumberStyles.HexNumber);
-				b = byte.Parse(str.Substring(6, 2), NumberStyles.HexNumber);
-			}
-			else
-			{
-				r = byte.Parse(str.Substring(0, 2), NumberStyles.HexNumber);
-				g = byte.Parse(str.Substring(2, 2), NumberStyles.HexNumber);
-				b = byte.Parse(str.Substring(4, 2), NumberStyles.HexNumber);
-			}
-
-			return Color.FromArgb(a, r, g, b);
-		}
-
 		private string GetPresetFlagName(string filename)
 		{
 			using (var sr = new StreamReader(filename))
@@ -833,6 +755,21 @@ namespace FlagMaker
 		{
 			_showGrid = chkGridOn.IsChecked ?? false;
 			DrawGrid();
+		}
+
+		private string GetFlagPath()
+		{
+			var dlg = new OpenFileDialog
+			{
+				FileName = "Untitled",
+				DefaultExt = ".flag",
+				Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*",
+				Multiselect = false
+			};
+
+			bool? result = dlg.ShowDialog();
+			if (!((bool)result)) return string.Empty;
+			return dlg.FileName;
 		}
 	}
 }

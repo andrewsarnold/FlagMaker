@@ -8,35 +8,28 @@ namespace FlagMaker.Divisions
 {
 	internal class DivisionFesses : Division
 	{
-		private Color _color1;
-		private Color _color2;
-		private Color _color3;
-
-		private double _size1;
-		private double _size2;
-		private double _size3;
-
 		public DivisionFesses(Color color1, Color color2, Color color3, int v1, int v2, int v3)
+			: base(new List<Color>
+			{
+				color1, color2, color3
+			}, new List<double>
+			{
+				v1, v2, v3
+			})
 		{
-			_color1 = color1;
-			_color2 = color2;
-			_color3 = color3;
-			_size1 = v1;
-			_size2 = v2;
-			_size3 = v3;
 		}
 
 		public override string Name { get { return "fesses"; } }
 
 		public override void Draw(Canvas canvas)
 		{
-			double r1Size = canvas.Height * (_size1 / (_size1 + _size2 + _size3));
-			double r2Size = canvas.Height * (_size2 / (_size1 + _size2 + _size3));
-			double r3Size = canvas.Height * (_size3 / (_size1 + _size2 + _size3));
+			double r1Size = canvas.Height * (Values[0] / (Values[0] + Values[1] + Values[2]));
+			double r2Size = canvas.Height * (Values[1] / (Values[0] + Values[1] + Values[2]));
+			double r3Size = canvas.Height * (Values[2] / (Values[0] + Values[1] + Values[2]));
 
 			var rect1 = new Rectangle
 				            {
-					            Fill = new SolidColorBrush(_color1),
+					            Fill = new SolidColorBrush(Colors[0]),
 					            Width = canvas.Width,
 								Height = r1Size
 				            };
@@ -46,7 +39,7 @@ namespace FlagMaker.Divisions
 
 			var rect2 = new Rectangle
 				            {
-					            Fill = new SolidColorBrush(_color2),
+								Fill = new SolidColorBrush(Colors[1]),
 					            Width = canvas.Width,
 					            Height = r2Size
 				            };
@@ -56,7 +49,7 @@ namespace FlagMaker.Divisions
 
 			var rect3 = new Rectangle
 				            {
-					            Fill = new SolidColorBrush(_color3),
+								Fill = new SolidColorBrush(Colors[2]),
 					            Width = canvas.Width,
 					            Height = r3Size
 				            };
@@ -67,41 +60,40 @@ namespace FlagMaker.Divisions
 
 		public override void SetColors(List<Color> colors)
 		{
-			_color1 = colors[0];
-			_color2 = colors[1];
-			_color3 = colors[2];
+			for (int i = 0; i < 3; i++)
+				Colors[i] = colors[i];
 		}
 
 		public override void SetValues(List<double> values)
 		{
-			_size1 = values[0];
-			_size2 = values[1];
-			_size3 = values[2];
+			Values[0] = values[0];
+			Values[1] = values[1];
+			Values[2] = values[2];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
 			var sb = new StringBuilder();
 
-			double r1Size = height * (_size1 / (_size1 + _size2 + _size3));
-			double r2Size = height * (_size2 / (_size1 + _size2 + _size3));
-			double r3Size = height * (_size3 / (_size1 + _size2 + _size3));
+			double r1Size = height * (Values[0] / (Values[0] + Values[1] + Values[2]));
+			double r2Size = height * (Values[1] / (Values[0] + Values[1] + Values[2]));
+			double r3Size = height * (Values[2] / (Values[0] + Values[1] + Values[2]));
 
 			sb.Append(string.Format("<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"0\" />",
 				width,
 				r1Size,
-				_color1.ToHexString()));
+				Colors[0].ToHexString()));
 
 			sb.Append(string.Format("<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"{3}\" />",
 				width,
 				r2Size,
-				_color2.ToHexString(),
+				Colors[1].ToHexString(),
 				r1Size));
 
 			sb.Append(string.Format("<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"{3}\" />",
 				width,
 				r3Size,
-				_color3.ToHexString(),
+				Colors[2].ToHexString(),
 				r1Size + r2Size));
 
 			return sb.ToString();

@@ -91,7 +91,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extensions.cs" />
-    <Compile Include="GridSize.cs" />
+    <Compile Include="Flag.cs" />
+    <Compile Include="Overlays\OverlayFlag.cs" />
+    <Compile Include="Ratio.cs" />
     <Compile Include="IElement.cs" />
     <Compile Include="Divisions\DivisionBendsForward.cs" />
     <Compile Include="MainWindow.xaml.cs">

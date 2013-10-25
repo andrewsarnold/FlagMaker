@@ -48,16 +48,13 @@ namespace FlagMaker.Overlays
 
 		public override void Draw(Canvas canvas)
 		{
-			double extraNotchX = MaximumX % 2 == 0 ? 0 : 0.5;
-			double extraNotchY = MaximumY % 2 == 0 ? 0 : 0.5;
-
 			double xGridSize = canvas.Width / MaximumX;
 			double yGridSize = canvas.Height / MaximumY;
 
 			double x = Attributes.Get("X").Value;
 			double y = Attributes.Get("Y").Value;
 
-			var finalCenterPoint = new Point((x - extraNotchX) * xGridSize, (y - extraNotchY) * yGridSize);
+			var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
 
 			var idealPixelSize = Attributes.Get("Size").Value / MaximumX * Math.Max(canvas.Width, canvas.Height);
 
@@ -93,16 +90,13 @@ namespace FlagMaker.Overlays
 
 		public override string ExportSvg(int width, int height)
 		{
-			double extraNotchX = MaximumX % 2 == 0 ? 0 : 0.5;
-			double extraNotchY = MaximumY % 2 == 0 ? 0 : 0.5;
-
 			double xGridSize = width / MaximumX;
 			double yGridSize = height / MaximumY;
 
 			double x = Attributes.Get("X").Value;
 			double y = Attributes.Get("Y").Value;
 
-			var finalCenterPoint = new Point((x - extraNotchX) * xGridSize, (y - extraNotchY) * yGridSize);
+			var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
 
 			var idealPixelSize = Attributes.Get("Size").Value / MaximumX * Math.Max(width, height);
 			var scaleFactor = idealPixelSize / _pathSize.X;

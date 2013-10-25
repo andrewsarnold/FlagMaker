@@ -8,13 +8,12 @@ namespace FlagMaker.Divisions
 {
 	internal class DivisionBendsBackward : Division
 	{
-		private Color _color1;
-		private Color _color2;
-
 		public DivisionBendsBackward(Color color1, Color color2)
+			: base(new List<Color>
+			{
+				color1, color2
+			}, new List<double>())
 		{
-			_color1 = color1;
-			_color2 = color2;
 		}
 
 		public override string Name { get { return "bends backward"; } }
@@ -23,7 +22,7 @@ namespace FlagMaker.Divisions
 		{
 			var topLeft = new Path
 							  {
-								  Fill = new SolidColorBrush(_color1),
+								  Fill = new SolidColorBrush(Colors[0]),
 								  Width = canvas.Width,
 								  Height = canvas.Height,
 								  Data = Geometry.Parse(string.Format("M 0,0 {0},0 {0},{1} 0,0", canvas.Width, canvas.Height)),
@@ -35,7 +34,7 @@ namespace FlagMaker.Divisions
 
 			var bottomRight = new Path
 				                  {
-					                  Fill = new SolidColorBrush(_color2),
+					                  Fill = new SolidColorBrush(Colors[1]),
 					                  Width = canvas.Width,
 					                  Height = canvas.Height,
 									  Data = Geometry.Parse(string.Format("M {0},{1} 0,{1} 0,0 {0},{1}", canvas.Width, canvas.Height)),
@@ -48,8 +47,8 @@ namespace FlagMaker.Divisions
 
 		public override void SetColors(List<Color> colors)
 		{
-			_color1 = colors[0];
-			_color2 = colors[1];
+			Colors[0] = colors[0];
+			Colors[1] = colors[1];
 		}
 
 		public override void SetValues(List<double> values)
@@ -64,13 +63,13 @@ namespace FlagMaker.Divisions
 			sb.Append(string.Format("<polygon points=\"0,0 {0},0 {0},{1}\" style=\"fill:{2};\" />",
 				width,
 				height,
-				_color1.ToHexString()));
+				Colors[0].ToHexString()));
 
 			// left
 			sb.Append(string.Format("<polygon points=\"0,0 0,{0} {0},{1}\" style=\"fill:{2};\" />",
 				width,
 				height,
-				_color2.ToHexString()));
+				Colors[1].ToHexString()));
 
 			return sb.ToString();
 		}

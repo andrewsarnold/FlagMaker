@@ -51,8 +51,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 								 };
 			canvas.Children.Add(horizontal);
 
-			Canvas.SetLeft(vertical, canvas.Width * (Attributes.Get("X").Value / (MaximumX + (MaximumX % 2 == 0 ? 0 : 1))) - thick / 2);
-			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / (MaximumY + (MaximumY % 2 == 0 ? 0 : 1))) - thick / 2);
+			Canvas.SetLeft(vertical, canvas.Width * (Attributes.Get("X").Value / MaximumX) - thick / 2);
+			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / MaximumY) - thick / 2);
 		}
 
 		public override void SetValues(List<double> values)
@@ -66,12 +66,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			double thick = width * ((Attributes.Get("Thickness").Value + 1) / (MaximumX * 2));
 
-			double x = MaximumX % 2 == 0
-				? width * (Attributes.Get("X").Value / MaximumX) - thick / 2
-				: width * (Attributes.Get("X").Value / (MaximumX + 1)) - thick / 2;
-			double y = MaximumY % 2 == 0
-				? height * (Attributes.Get("Y").Value / MaximumY) - thick / 2
-				: height * (Attributes.Get("Y").Value / (MaximumY + 1)) - thick / 2;
+			double x = width * (Attributes.Get("X").Value / MaximumX) - thick / 2;
+			double y = height * (Attributes.Get("Y").Value / MaximumY) - thick / 2;
 
 			return string.Format("<rect width=\"{0}\" height=\"{1}\" x=\"{2}\" y=\"0\" fill=\"#{5}\" /><rect width=\"{3}\" height=\"{0}\" x=\"0\" y=\"{4}\" fill=\"#{5}\" />",
 				thick, height, x, width, y, Color.ToHexString());
