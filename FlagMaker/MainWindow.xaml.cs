@@ -9,11 +9,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
+using Path = System.IO.Path;
 
 namespace FlagMaker
 {
@@ -25,9 +27,14 @@ namespace FlagMaker
 		private ObservableCollection<ColorItem> _standardColors;
 		private ObservableCollection<ColorItem> _availableColors;
 
+		private bool _showGrid;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			_showGrid = false;
+
 			SetColorsAndSliders();
 			LoadPresets();
 		}
@@ -294,6 +301,79 @@ namespace FlagMaker
 			foreach (var overlay in lstOverlays.Children)
 			{
 				((OverlayControl)overlay).Overlay.Draw(canvas);
+			}
+
+			DrawGrid();
+		}
+
+		private void DrawGrid()
+		{
+			canvasGrid.Children.Clear();
+
+			if (!_showGrid) return;
+
+			if (cmbGridSize.Items.Count == 0) return;
+
+			var gridSize = ((GridSize)cmbGridSize.SelectedItem);
+
+			var intervalX = canvas.Width/gridSize.Width;
+			for (int x = 0; x <= gridSize.Width; x++)
+			{
+				var line1 = new Line
+				{
+					StrokeThickness = 5,
+					X1 = 0,
+					X2 = 0,
+					Y1 = 0,
+					Y2 = canvas.Height,
+					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x00, 0x00))
+				};
+				canvasGrid.Children.Add(line1);
+				Canvas.SetTop(line1, 0);
+				Canvas.SetLeft(line1, x * intervalX);
+
+				var line2 = new Line
+				{
+					StrokeThickness = 2,
+					X1 = 0,
+					X2 = 0,
+					Y1 = 0,
+					Y2 = canvas.Height,
+					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
+				};
+				canvasGrid.Children.Add(line2);
+				Canvas.SetTop(line2, 0);
+				Canvas.SetLeft(line2, x * intervalX);
+			}
+
+			var intervalY = canvas.Height / gridSize.Height;
+			for (int y = 0; y <= gridSize.Height; y++)
+			{
+				var line1 = new Line
+				{
+					StrokeThickness = 5,
+					X1 = 0,
+					X2 = canvas.Width,
+					Y1 = 0,
+					Y2 = 0,
+					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x00, 0x00))
+				};
+				canvasGrid.Children.Add(line1);
+				Canvas.SetTop(line1, y * intervalY);
+				Canvas.SetLeft(line1, 0);
+
+				var line2 = new Line
+				{
+					StrokeThickness = 2,
+					X1 = 0,
+					X2 = canvas.Width,
+					Y1 = 0,
+					Y2 = 0,
+					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
+				};
+				canvasGrid.Children.Add(line2);
+				Canvas.SetTop(line2, y * intervalY);
+				Canvas.SetLeft(line2, 0);
 			}
 		}
 
@@ -771,6 +851,12 @@ namespace FlagMaker
 		private void MainWindowOnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			viewbox.MaxHeight = Height - 100;
+		}
+
+		private void GridOnChanged(object sender, RoutedEventArgs e)
+		{
+			_showGrid = chkGridOn.IsChecked ?? false;
+			DrawGrid();
 		}
 	}
 }

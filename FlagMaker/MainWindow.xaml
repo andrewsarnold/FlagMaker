@@ -31,13 +31,17 @@
             </Grid.ColumnDefinitions>
 
             <Viewbox Grid.Column="0" Margin="10" SnapsToDevicePixels="True" x:Name="viewbox">
-                <Canvas x:Name="canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
-            </Viewbox>
+				<Grid>
+					<Canvas x:Name="canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+					<Canvas x:Name="canvasGrid" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+				</Grid>
+			</Viewbox>
             
             <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
 
             <Grid Grid.Column="2" HorizontalAlignment="Stretch" MinWidth="168">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -58,7 +62,13 @@
                     <ComboBox x:Name="cmbGridSize" SelectionChanged="GridSizeDropdownChanged" />
                 </DockPanel>
 
-                <StackPanel Grid.Row="2" Orientation="Vertical">
+				<DockPanel Grid.Row="2">
+					<Label Content="Show grid" />
+					<CheckBox x:Name="chkGridOn" VerticalAlignment="Center"
+							  Checked="GridOnChanged" Unchecked="GridOnChanged" />
+				</DockPanel>
+
+                <StackPanel Grid.Row="3" Orientation="Vertical">
                     <Label Content="Division" FontSize="16" FontWeight="Bold" />
 
                     <StackPanel Orientation="Horizontal">
@@ -166,12 +176,12 @@
                     </DockPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10,0,0">
                     <Label Content="Overlays" FontSize="16" FontWeight="Bold" />
                     <Button Content="+" ToolTip="Add new overlay" HorizontalAlignment="Left" Width="25" Height="25" Click="OverlayAdd" />
                 </StackPanel>
 
-                <ScrollViewer Grid.Row="4">
+                <ScrollViewer Grid.Row="5">
                     <StackPanel Orientation="Vertical" x:Name="lstOverlays" />
                 </ScrollViewer>
             </Grid>
