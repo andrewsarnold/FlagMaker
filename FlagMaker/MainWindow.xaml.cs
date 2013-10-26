@@ -371,6 +371,7 @@ namespace FlagMaker
 					X2 = 0,
 					Y1 = 0,
 					Y2 = canvas.Height,
+					SnapsToDevicePixels = true,
 					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
 				};
 				canvasGrid.Children.Add(line);

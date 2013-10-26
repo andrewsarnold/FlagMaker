@@ -5,27 +5,15 @@ using System.Windows.Shapes;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayBox : Overlay
+	internal class OverlayBox : OverlayShapeSimple
 	{
 		public OverlayBox(int maximumX, int maximumY)
-			: base(new List<Attribute>
-			       {
-					   new Attribute("X", true, 1, true),
-					   new Attribute("Y", true, 1, false),
-				       new Attribute("Width", true, 1, true),
-				       new Attribute("Height", true, 1, false)
-			       }, maximumX, maximumY)
+			: base(maximumX, maximumY)
 		{
 		}
 
 		public OverlayBox(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
-			: base(color, new List<Attribute>
-			              {
-							  new Attribute("X", true, x, true),
-							  new Attribute("Y", true, y, false),
-				              new Attribute("Width", true, width, true),
-				              new Attribute("Height", true, height, false)
-			              }, maximumX, maximumY)
+			: base(color, x, y, width, height, maximumX, maximumY)
 		{
 		}
 
@@ -63,14 +51,6 @@ namespace FlagMaker.Overlays.OverlayTypes
 			canvas.Children.Add(rect);
 			Canvas.SetTop(rect, canvas.Height * (Attributes.Get("Y").Value / MaximumY));
 			Canvas.SetLeft(rect, canvas.Width * (Attributes.Get("X").Value / MaximumX));
-		}
-
-		public override void SetValues(List<double> values)
-		{
-			Attributes.Get("X").Value = values[0];
-			Attributes.Get("Y").Value = values[1];
-			Attributes.Get("Width").Value = values[2];
-			Attributes.Get("Height").Value = values[3];
 		}
 
 		public override string ExportSvg(int width, int height)

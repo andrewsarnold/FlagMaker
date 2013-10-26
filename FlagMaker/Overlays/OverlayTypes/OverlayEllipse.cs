@@ -5,27 +5,15 @@ using System.Windows.Shapes;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayEllipse : Overlay
+	internal class OverlayEllipse : OverlayShapeSimple
 	{
 		public OverlayEllipse(int maximumX, int maximumY)
-			: base(new List<Attribute>
-			       {
-				       new Attribute("X", true, 1, true),
-				       new Attribute("Y", true, 1, false),
-				       new Attribute("Width", true, 1, true),
-				       new Attribute("Height", true, 0, false)
-			       }, maximumX, maximumY)
+			: base(maximumX, maximumY)
 		{
 		}
 
 		public OverlayEllipse(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
-			: base(color, new List<Attribute>
-			             {
-				             new Attribute("X", true, x, true),
-				             new Attribute("Y", true, y, false),
-				             new Attribute("Width", true, width, true),
-				             new Attribute("Height", true, height, false)
-			             }, maximumX, maximumY)
+			: base(color, x, y, width, height, maximumX, maximumY)
 		{
 		}
 
@@ -49,14 +37,6 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / MaximumX)) - width / 2);
 			Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)) - height / 2);
-		}
-
-		public override void SetValues(List<double> values)
-		{
-			Attributes.Get("X").Value = values[0];
-			Attributes.Get("Y").Value = values[1];
-			Attributes.Get("Width").Value = values[2];
-			Attributes.Get("Height").Value = values[3];
 		}
 
 		public override string ExportSvg(int width, int height)
