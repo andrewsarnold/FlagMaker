@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace FlagMaker.Overlays
 {
-	public abstract class OverlayShapeSimple : OverlayShape
+	public abstract class OverlayShapeSimple : Overlay
 	{
 		public OverlayShapeSimple(int maximumX, int maximumY)
 			: base(new List<Attribute>

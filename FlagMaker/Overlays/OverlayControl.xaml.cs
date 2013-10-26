@@ -110,9 +110,9 @@ namespace FlagMaker.Overlays
 
 		private void FillOverlayList()
 		{
-			foreach (var overlay in Overlay.GetOverlays())
+			foreach (var overlay in OverlayFactory.GetOverlayTypes())
 			{
-				var instance = (Overlay)Activator.CreateInstance(overlay, _defaultMaximumX, _defaultMaximumY);
+				var instance = OverlayFactory.GetInstance(overlay, _defaultMaximumX, _defaultMaximumY);
 
 				var thumbnail = new Canvas
 				{
@@ -132,7 +132,7 @@ namespace FlagMaker.Overlays
 				                      {
 					                      ToolTip = instance.DisplayName,
 					                      Content = thumbnail,
-										  Tag = instance,
+										  Tag = instance.Name,
 										  Padding = new Thickness(2)
 				                      });
 			}
@@ -160,10 +160,10 @@ namespace FlagMaker.Overlays
 
 			if (item == null) return;
 
-			var tag = item.Tag as Overlay;
+			var tag = item.Tag as string;
 			if (tag != null)
 			{
-				var instance = (Overlay)Activator.CreateInstance(tag.GetType(), _defaultMaximumX, _defaultMaximumY);
+				var instance = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
 				Overlay = instance;
 				Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
 

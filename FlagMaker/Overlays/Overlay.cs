@@ -43,11 +43,6 @@ namespace FlagMaker.Overlays
 			}
 		}
 
-		public static IEnumerable<Type> GetOverlays()
-		{
-			return Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsClass && t.Namespace != null && t.Namespace.Contains("OverlayTypes")).OrderBy(t => t.Name);
-		}
-
 		public void SetColors(List<Color> colors)
 		{
 			Color = colors[0];

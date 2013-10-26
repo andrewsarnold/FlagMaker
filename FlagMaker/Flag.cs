@@ -198,16 +198,15 @@ namespace FlagMaker
 
 			public Overlay ToOverlay(int maxX, int maxY)
 			{
-				// probably not very efficient, but it's the best I got
-				var returnVal = Overlay.GetOverlays().Select(type => (Overlay)Activator.CreateInstance(type, maxX, maxY)).FirstOrDefault(overlay => overlay.Name == Type);
-				
-				if (returnVal != null)
+				var overlay = OverlayFactory.GetInstance(Type, maxX, maxY);
+
+				if (overlay != null)
 				{
-					returnVal.SetColors(new List<Color> { Color });
-					returnVal.SetValues(Values);
+					overlay.SetColors(new List<Color> { Color });
+					overlay.SetValues(Values);
 				}
 
-				return returnVal;
+				return overlay;
 			}
 		}
 	}

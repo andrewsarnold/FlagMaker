@@ -92,7 +92,7 @@
     </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Flag.cs" />
-    <Compile Include="Overlays\OverlayShape.cs" />
+    <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlayShapeSimple.cs" />
     <Compile Include="Ratio.cs" />
     <Compile Include="IElement.cs" />
