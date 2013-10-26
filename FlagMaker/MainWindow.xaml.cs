@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
@@ -268,6 +269,12 @@ namespace FlagMaker
 			if (overlay != null)
 			{
 				newOverlay.SetType(overlay.Name);
+
+				if (overlay is OverlayFlag)
+				{
+					newOverlay.Overlay = overlay;
+				}
+
 				newOverlay.Color = overlay.Color;
 				for (int i = 0; i < overlay.Attributes.Count; i++)
 				{
@@ -361,7 +368,7 @@ namespace FlagMaker
 
 			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
 
-			var intervalX = canvas.Width/gridSize.Width;
+			var intervalX = canvas.Width / gridSize.Width;
 			for (int x = 0; x <= gridSize.Width; x++)
 			{
 				var line = new Line
@@ -618,6 +625,7 @@ namespace FlagMaker
 					sr.WriteLine();
 					sr.WriteLine("overlay");
 					sr.WriteLine("type={0}", overlay.Overlay.Name);
+					if (overlay.Overlay.Name == "flag") sr.WriteLine("path={0}", ((OverlayFlag)overlay.Overlay).Path);
 					sr.WriteLine("color={0}", overlay.Color.ToHexString());
 
 					for (int i = 0; i < overlay.Overlay.Attributes.Count(); i++)
@@ -632,7 +640,7 @@ namespace FlagMaker
 
 		private void MenuOpenClick(object sender, RoutedEventArgs e)
 		{
-			var path = GetFlagPath();
+			var path = Flag.GetFlagPath();
 			if (!string.IsNullOrWhiteSpace(path))
 			{
 				LoadFlagFromFile(path);
@@ -782,19 +790,6 @@ namespace FlagMaker
 			DrawGrid();
 		}
 
-		private string GetFlagPath()
-		{
-			var dlg = new OpenFileDialog
-			{
-				FileName = "Untitled",
-				DefaultExt = ".flag",
-				Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*",
-				Multiselect = false
-			};
 
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return string.Empty;
-			return dlg.FileName;
-		}
 	}
 }

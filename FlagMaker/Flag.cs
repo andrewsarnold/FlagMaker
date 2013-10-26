@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Media;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
+using Microsoft.Win32;
 
 namespace FlagMaker
 {
@@ -29,6 +30,11 @@ namespace FlagMaker
 		
 		public static Flag LoadFromFile(string filename)
 		{
+			if (string.IsNullOrEmpty(filename))
+			{
+				return new Flag("flag", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
+			}
+
 			var name = string.Empty;
 			var ratio = new Ratio(3, 2);
 			var gridRatio = new Ratio(3, 2);
@@ -128,6 +134,9 @@ namespace FlagMaker
 						case "size4":
 							overlays[overlayIndex].Values[3] = double.Parse(line.Split('=')[1]);
 							break;
+						case "path":
+							overlays[overlayIndex].FlagPath = line.Split('=')[1];
+							break;
 					}
 				}
 			}
@@ -158,6 +167,21 @@ namespace FlagMaker
 			return new Flag(name, ratio, gridRatio, division, overlays.Select(o => o.ToOverlay(gridRatio.Width, gridRatio.Height)));
 		}
 
+		public static string GetFlagPath()
+		{
+			var dlg = new OpenFileDialog
+			{
+				FileName = "Untitled",
+				DefaultExt = ".flag",
+				Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*",
+				Multiselect = false
+			};
+
+			bool? result = dlg.ShowDialog();
+			if (!((bool)result)) return string.Empty;
+			return dlg.FileName;
+		}
+
 		private static Color ParseColor(string str)
 		{
 			Byte a = 0xff, r, b, g;
@@ -184,6 +208,7 @@ namespace FlagMaker
 			public string Type;
 			public readonly List<double> Values;
 			public Color Color;
+			public string FlagPath;
 
 			public TempOverlay()
 			{
@@ -198,7 +223,9 @@ namespace FlagMaker
 
 			public Overlay ToOverlay(int maxX, int maxY)
 			{
-				var overlay = OverlayFactory.GetInstance(Type, maxX, maxY);
+				Overlay overlay = string.IsNullOrWhiteSpace(FlagPath)
+					? OverlayFactory.GetInstance(Type, maxX, maxY)
+					: OverlayFactory.GetInstance(Type, FlagPath, maxX, maxY);
 
 				if (overlay != null)
 				{

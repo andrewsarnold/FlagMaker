@@ -16,6 +16,7 @@ namespace FlagMaker.Overlays
 			                                                           { "cross", typeof (OverlayCross) },
 			                                                           { "diamond", typeof (OverlayDiamond) },
 			                                                           { "ellipse", typeof (OverlayEllipse) },
+			                                                           { "flag", typeof (OverlayFlag) },
 			                                                           { "equitorial cross", typeof (OverlayEquitorialCross) },
 			                                                           { "fimbriation backward", typeof (OverlayFimbriationBackward) },
 			                                                           { "fimbriation forward", typeof (OverlayFimbriationForward) },
@@ -46,6 +47,11 @@ namespace FlagMaker.Overlays
 		public static Overlay GetInstance(string name, int maxX = 1, int maxY = 1)
 		{
 			return GetInstance(GetOverlayType(name), maxX, maxY);
+		}
+
+		public static Overlay GetInstance(string name, string path, int maxX = 1, int maxY = 1)
+		{
+			return new OverlayFlag(Flag.LoadFromFile(path), path, maxX, maxY);
 		}
 
 		public static Overlay GetInstance(Type type, int maxX = 1, int maxY = 1)

@@ -11,7 +11,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 				       new Attribute("X", true, 1, true),
 				       new Attribute("Y", true, 1, false),
 				       new Attribute("Width", true, 1, true),
-				       new Attribute("Height", true, 0, false)
+				       new Attribute("Height", true, 1, false)
 			       }, maximumX, maximumY)
 		{
 		}

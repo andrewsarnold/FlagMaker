@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
 
 namespace FlagMaker.Overlays
@@ -74,12 +75,12 @@ namespace FlagMaker.Overlays
 		{
 			if (slider >= _pnlSliders.Children.Count) return;
 
-			if (Math.Abs(value - (int) value) > 0.01)
+			if (Math.Abs(value - (int)value) > 0.01)
 			{
-				((AttributeSlider) _pnlSliders.Children[slider]).chkDiscrete.IsChecked = false;
+				((AttributeSlider)_pnlSliders.Children[slider]).chkDiscrete.IsChecked = false;
 			}
 
-			((AttributeSlider) _pnlSliders.Children[slider]).Value = value;
+			((AttributeSlider)_pnlSliders.Children[slider]).Value = value;
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
@@ -123,18 +124,18 @@ namespace FlagMaker.Overlays
 				IEnumerable<Shape> thumbs = instance.Thumbnail;
 				foreach (var thumb in thumbs)
 				{
-					thumb.Stroke = Brushes.Black;
-					thumb.Fill = Brushes.Black;
+					if (thumb.Stroke == null) thumb.Stroke = Brushes.Black;
+					if (thumb.Fill == null) thumb.Fill = Brushes.Black;
 					thumbnail.Children.Add(thumb);
 				}
 
 				cmbOverlays.Items.Add(new ComboBoxItem
-				                      {
-					                      ToolTip = instance.DisplayName,
-					                      Content = thumbnail,
+									  {
+										  ToolTip = instance.DisplayName,
+										  Content = thumbnail,
 										  Tag = instance.Name,
 										  Padding = new Thickness(2)
-				                      });
+									  });
 			}
 
 			cmbOverlays.SelectedIndex = 0;
@@ -163,14 +164,22 @@ namespace FlagMaker.Overlays
 			var tag = item.Tag as string;
 			if (tag != null)
 			{
-				var instance = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
-				Overlay = instance;
+				if (tag == "flag")
+				{
+					string path = Flag.GetFlagPath();
+					Overlay = new OverlayFlag(Flag.LoadFromFile(path), path, _defaultMaximumX, _defaultMaximumY);
+				}
+				else
+				{
+					Overlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
+				}
+				
 				Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
 
 				Draw();
 			}
 		}
-		
+
 		private void Draw()
 		{
 			if (OnDraw != null)
