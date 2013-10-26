@@ -410,14 +410,37 @@ namespace FlagMaker
 
 		private void RatioTextboxChanged(object sender, TextChangedEventArgs e)
 		{
-			if (!int.TryParse(txtRatioHeight.Text, out _ratioHeight))
+			int newHeight;
+			int newWidth;
+
+			if (!int.TryParse(txtRatioHeight.Text, out newHeight))
 			{
 				_ratioHeight = 1;
 			}
 
-			if (!int.TryParse(txtRatioWidth.Text, out _ratioWidth))
+			if (!int.TryParse(txtRatioWidth.Text, out newWidth))
 			{
 				_ratioWidth = 1;
+			}
+
+			if (newHeight < 1)
+			{
+				_ratioHeight = 1;
+				txtRatioHeight.Text = "1";
+			}
+			else
+			{
+				_ratioHeight = newHeight;
+			}
+
+			if (newWidth < 1)
+			{
+				_ratioWidth = 1;
+				txtRatioWidth.Text = "1";
+			}
+			else
+			{
+				_ratioWidth = newWidth;
 			}
 
 			Draw();
