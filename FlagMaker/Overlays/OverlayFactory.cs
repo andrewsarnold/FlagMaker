@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FlagMaker.Overlays.OverlayTypes;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
+using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 
 namespace FlagMaker.Overlays
 {

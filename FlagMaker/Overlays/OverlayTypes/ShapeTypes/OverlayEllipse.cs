@@ -3,9 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace FlagMaker.Overlays.OverlayTypes
+namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	internal class OverlayEllipse : OverlayShapeSimple
+	internal class OverlayEllipse : OverlayShape
 	{
 		public OverlayEllipse(int maximumX, int maximumY)
 			: base(maximumX, maximumY)

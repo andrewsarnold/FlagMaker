@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace FlagMaker.Overlays.OverlayTypes
+namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 {
-	public class OverlayStar : PathOverlay
+	public class OverlayStar : OverlayPath
 	{
 		private const string Path = "m0,-24 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z";
 		private static readonly Vector PathSize = new Vector(50, 50);

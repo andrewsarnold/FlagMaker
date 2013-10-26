@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
 
-namespace FlagMaker.Overlays
+namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	public abstract class OverlayShapeSimple : Overlay
+	public abstract class OverlayShape : Overlay
 	{
-		public OverlayShapeSimple(int maximumX, int maximumY)
+		protected OverlayShape(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
 				       new Attribute("X", true, 1, true),
@@ -16,7 +16,7 @@ namespace FlagMaker.Overlays
 		{
 		}
 
-		public OverlayShapeSimple(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
+		protected OverlayShape(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
 				              new Attribute("X", true, x, true),

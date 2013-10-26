@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
+using ImageMagick;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
@@ -366,13 +367,13 @@ namespace FlagMaker
 			{
 				var line = new Line
 				{
-					StrokeThickness = 2,
+					StrokeThickness = 3,
 					X1 = 0,
 					X2 = 0,
 					Y1 = 0,
 					Y2 = canvas.Height,
-					SnapsToDevicePixels = true,
-					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
+					SnapsToDevicePixels = false,
+					Stroke = new SolidColorBrush(Colors.Silver)
 				};
 				canvasGrid.Children.Add(line);
 				Canvas.SetTop(line, 0);
@@ -384,12 +385,13 @@ namespace FlagMaker
 			{
 				var line = new Line
 				{
-					StrokeThickness = 2,
+					StrokeThickness = 3,
 					X1 = 0,
 					X2 = canvas.Width,
 					Y1 = 0,
 					Y2 = 0,
-					Stroke = new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xff, 0xff))
+					SnapsToDevicePixels = false,
+					Stroke = new SolidColorBrush(Colors.Silver)
 				};
 				canvasGrid.Children.Add(line);
 				Canvas.SetTop(line, y * intervalY);

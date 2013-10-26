@@ -5,15 +5,15 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace FlagMaker.Overlays
+namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 {
-	public class PathOverlay : Overlay
+	public class OverlayPath : Overlay
 	{
 		private readonly string _name;
 		private readonly Vector _pathSize;
 		private readonly string _path;
 
-		public PathOverlay(string name, string path, Vector pathSize, int maximumX, int maximumY)
+		protected OverlayPath(string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
 				       new Attribute("X", true, 1, true),
@@ -27,7 +27,7 @@ namespace FlagMaker.Overlays
 			_pathSize = pathSize;
 		}
 
-		public PathOverlay(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
+		protected OverlayPath(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			       {
 				       new Attribute("X", true, 1, true),
@@ -90,8 +90,8 @@ namespace FlagMaker.Overlays
 
 		public override string ExportSvg(int width, int height)
 		{
-			double xGridSize = width / MaximumX;
-			double yGridSize = height / MaximumY;
+			double xGridSize = (double)width / MaximumX;
+			double yGridSize = (double)height / MaximumY;
 
 			double x = Attributes.Get("X").Value;
 			double y = Attributes.Get("Y").Value;

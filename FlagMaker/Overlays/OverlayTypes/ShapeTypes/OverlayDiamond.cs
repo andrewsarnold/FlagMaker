@@ -3,9 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace FlagMaker.Overlays.OverlayTypes
+namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	internal class OverlayDiamond : OverlayShapeSimple
+	internal class OverlayDiamond : OverlayShape
 	{
 		public OverlayDiamond(int maximumX, int maximumY)
 			: base(maximumX, maximumY)
