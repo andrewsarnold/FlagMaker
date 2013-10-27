@@ -29,8 +29,11 @@ namespace FlagMaker.Overlays
 			                                                           { "pentagram", typeof (OverlayPentagram) },
 			                                                           { "saltire", typeof (OverlaySaltire) },
 			                                                           { "star", typeof (OverlayStar) },
+			                                                           { "star four", typeof (OverlayStarFour) },
+			                                                           { "star eight", typeof (OverlayStarEight) },
 			                                                           { "star of david", typeof (OverlayStarOfDavid) },
 			                                                           { "star seven", typeof (OverlayStarSeven) },
+			                                                           { "star six", typeof (OverlayStarSix) },
 			                                                           { "triangle", typeof (OverlayTriangle) }
 		                                                           };
 
