@@ -61,7 +61,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			var scaleFactor = idealPixelSize / _pathSize.X;
 
 			var transformGroup = new TransformGroup();
-			var rotateTransform = new RotateTransform((Attributes.Get("Rotation").Value / (MaximumX + 1)) * 360);
+			var rotateTransform = new RotateTransform((Attributes.Get("Rotation").Value / MaximumX) * 360);
 			transformGroup.Children.Add(rotateTransform);
 			var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
 			transformGroup.Children.Add(scaleTransform);
@@ -100,7 +100,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 
 			var idealPixelSize = Attributes.Get("Size").Value / MaximumX * Math.Max(width, height);
 			var scaleFactor = idealPixelSize / _pathSize.X;
-			var rotate = (Attributes.Get("Rotation").Value / (MaximumX + 1)) * 360;
+			var rotate = (Attributes.Get("Rotation").Value / MaximumX) * 360;
 
 			return string.Format("<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
 					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToHexString());

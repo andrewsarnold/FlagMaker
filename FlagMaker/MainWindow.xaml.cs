@@ -327,13 +327,7 @@ namespace FlagMaker
 			divisionSlider2.ValueChanged += (sender, args) => DivisionSliderChanged();
 			divisionSlider3.ValueChanged += (sender, args) => DivisionSliderChanged();
 
-			_division = new DivisionGrid(divisionPicker1.StandardColors[1].Color, divisionPicker2.StandardColors[5].Color, 2, 2);
-			divisionPicker3.Visibility = Visibility.Collapsed;
-			divisionSlider3.Visibility = Visibility.Collapsed;
-			divisionSliderLabel3.Visibility = Visibility.Collapsed;
-
-			SetRatio(3, 2);
-			PlainPreset(2, 2);
+			New();
 		}
 
 		private void SetRatio(int width, int height)
@@ -588,10 +582,16 @@ namespace FlagMaker
 
 		private void MenuNewClick(object sender, RoutedEventArgs e)
 		{
+			New();
+		}
+
+		private void New()
+		{
+			PlainPreset(2, 2);
 			divisionPicker1.SelectedColor = divisionPicker1.StandardColors[1].Color;
 			divisionPicker2.SelectedColor = divisionPicker2.StandardColors[5].Color;
 			lstOverlays.Children.Clear();
-			PlainPreset(2, 2);
+			SetRatio(3, 2);
 		}
 
 		private void MenuSaveClick(object sender, RoutedEventArgs e)
@@ -726,10 +726,10 @@ namespace FlagMaker
 
 		private void PlainPreset(int slider1, int slider2)
 		{
+			DivisionGridClick(null, null);
 			divisionSlider1.Value = slider1;
 			divisionSlider2.Value = slider2;
 			divisionSlider3.Value = 1;
-			DivisionGridClick(null, null);
 		}
 
 		private void LoadPresets()
