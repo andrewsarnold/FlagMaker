@@ -170,7 +170,7 @@ namespace FlagMaker
 
 		private void OverlayAdd(object sender, RoutedEventArgs e)
 		{
-			OverlayAdd(lstOverlays.Children.Count, null);
+			OverlayAdd(lstOverlays.Children.Count, null, false);
 		}
 
 		private void SetOverlayMargins()
@@ -259,13 +259,16 @@ namespace FlagMaker
 		{
 			var controlToClone = (OverlayControl)sender;
 			int index = lstOverlays.Children.IndexOf(controlToClone);
-			OverlayAdd(index, controlToClone.Overlay);
+			OverlayAdd(index, controlToClone.Overlay, false);
 		}
 
-		private void OverlayAdd(int index, Overlay overlay)
+		private void OverlayAdd(int index, Overlay overlay, bool isLoading)
 		{
 			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
-			var newOverlay = new OverlayControl(_standardColors, _availableColors, gridSize.Width, gridSize.Height);
+			var newOverlay = new OverlayControl(_standardColors, _availableColors, gridSize.Width, gridSize.Height)
+			                 {
+				                 IsLoading = isLoading
+			                 };
 			if (overlay != null)
 			{
 				newOverlay.SetType(overlay.Name);
@@ -408,7 +411,7 @@ namespace FlagMaker
 		private void FillGridCombobox()
 		{
 			cmbGridSize.Items.Clear();
-			for (int i = 1; i < 10; i++)
+			for (int i = 1; i <= 10; i++)
 			{
 				cmbGridSize.Items.Add(new Ratio(_ratioWidth * i, _ratioHeight * i));
 			}
@@ -626,7 +629,7 @@ namespace FlagMaker
 					sr.WriteLine("overlay");
 					sr.WriteLine("type={0}", overlay.Overlay.Name);
 					if (overlay.Overlay.Name == "flag") sr.WriteLine("path={0}", ((OverlayFlag)overlay.Overlay).Path);
-					sr.WriteLine("color={0}", overlay.Color.ToHexString());
+					else sr.WriteLine("color={0}", overlay.Color.ToHexString());
 
 					for (int i = 0; i < overlay.Overlay.Attributes.Count(); i++)
 					{
@@ -643,11 +646,11 @@ namespace FlagMaker
 			var path = Flag.GetFlagPath();
 			if (!string.IsNullOrWhiteSpace(path))
 			{
-				LoadFlagFromFile(path);
+				LoadFlagFromFile(path, true);
 			}
 		}
 
-		private void LoadFlagFromFile(string filename)
+		private void LoadFlagFromFile(string filename, bool isLoading)
 		{
 			var flag = Flag.LoadFromFile(filename);
 			_isLoading = true;
@@ -667,11 +670,15 @@ namespace FlagMaker
 			lstOverlays.Children.Clear();
 			foreach (var overlay in flag.Overlays)
 			{
-				OverlayAdd(lstOverlays.Children.Count, overlay);
+				OverlayAdd(lstOverlays.Children.Count, overlay, isLoading);
 			}
 
 			Draw();
 			_isLoading = false;
+			foreach (var control in lstOverlays.Children.OfType<OverlayControl>())
+			{
+				control.IsLoading = false;
+			}
 		}
 
 		#endregion
@@ -757,7 +764,7 @@ namespace FlagMaker
 		private void LoadPreset(object sender, RoutedEventArgs routedEventArgs)
 		{
 			var menuItem = (MenuItem)sender;
-			LoadFlagFromFile(menuItem.ToolTip.ToString());
+			LoadFlagFromFile(menuItem.ToolTip.ToString(), true);
 		}
 
 		private string GetPresetFlagName(string filename)
@@ -789,7 +796,5 @@ namespace FlagMaker
 			_showGrid = chkGridOn.IsChecked ?? false;
 			DrawGrid();
 		}
-
-
 	}
 }

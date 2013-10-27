@@ -16,6 +16,8 @@ namespace FlagMaker.Overlays
 		private Overlay _overlay;
 		private int _defaultMaximumX;
 		private int _defaultMaximumY;
+		
+		public bool IsLoading;
 
 		public event EventHandler OnRemove;
 		public event EventHandler OnMoveUp;
@@ -40,6 +42,8 @@ namespace FlagMaker.Overlays
 			set
 			{
 				_overlay = value;
+
+				_overlayPicker.Visibility = _overlay is OverlayFlag ? Visibility.Collapsed : Visibility.Visible;
 
 				_pnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))
@@ -162,22 +166,24 @@ namespace FlagMaker.Overlays
 			if (item == null) return;
 
 			var tag = item.Tag as string;
-			if (tag != null)
+			if (tag == null) return;
+			
+			if (tag == "flag")
 			{
-				if (tag == "flag")
+				if (!IsLoading)
 				{
 					string path = Flag.GetFlagPath();
 					Overlay = new OverlayFlag(Flag.LoadFromFile(path), path, _defaultMaximumX, _defaultMaximumY);
 				}
-				else
-				{
-					Overlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
-				}
-				
-				Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
-
-				Draw();
 			}
+			else
+			{
+				Overlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
+			}
+				
+			Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
+
+			if (!IsLoading) Draw();
 		}
 
 		private void Draw()
