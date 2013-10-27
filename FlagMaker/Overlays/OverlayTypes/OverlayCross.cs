@@ -19,11 +19,11 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public OverlayCross(Color color, int thickness, int x, int y, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
-			             {
-				             new Attribute("X", true, x, true),
-				             new Attribute("Y", true, y, false),
-				             new Attribute("Thickness", true, thickness, true)
-			             }, maximumX, maximumY)
+			              {
+				              new Attribute("X", true, x, true),
+				              new Attribute("Y", true, y, false),
+				              new Attribute("Thickness", true, thickness, true)
+			              }, maximumX, maximumY)
 		{
 		}
 

@@ -12,6 +12,7 @@ namespace FlagMaker.Overlays
 		private static readonly Dictionary<string, Type> TypeMap = new Dictionary<string, Type>
 		                                                           {
 			                                                           { "box", typeof (OverlayBox) },
+			                                                           { "border", typeof (OverlayBorder) },
 			                                                           { "crescent", typeof (OverlayCrescent) },
 			                                                           { "cross", typeof (OverlayCross) },
 			                                                           { "diamond", typeof (OverlayDiamond) },

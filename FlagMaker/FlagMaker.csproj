@@ -93,6 +93,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Flag.cs" />
     <Compile Include="Overlays\OverlayFactory.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
@@ -183,6 +184,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\australia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\greece.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\hawaii.flag">

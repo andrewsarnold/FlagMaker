@@ -60,16 +60,13 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var left = width * (Attributes.Get("X").Value / MaximumX);
-			var top = height * (Attributes.Get("Y").Value / MaximumY);
-
-			var scaleX = Attributes.Get("Width").Value / MaximumX;
-			var scaleY = Attributes.Get("Height").Value / MaximumY;
-
 			var sb = new StringBuilder();
 
 			sb.Append(string.Format("<g transform=\"translate({0},{1}) scale({2} {3})\">",
-				left, top, scaleX, scaleY));
+				width * (Attributes.Get("X").Value / MaximumX),
+				height * (Attributes.Get("Y").Value / MaximumY),
+				Attributes.Get("Width").Value / MaximumX,
+				Attributes.Get("Height").Value / MaximumY));
 
 			sb.Append(_flag.Division.ExportSvg(width, height));
 
