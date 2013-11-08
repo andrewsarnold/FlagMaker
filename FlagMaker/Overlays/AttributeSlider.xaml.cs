@@ -92,6 +92,16 @@ namespace FlagMaker.Overlays
 			{
 				TxtValue.Visibility = Visibility.Hidden;
 			}
+			else if (e.Key == Key.Up || e.Key == Key.Down)
+			{
+				double value;
+				if (double.TryParse(TxtValue.Text, out value))
+				{
+					value = value + (e.Key == Key.Up ? 0.01 : -0.01);
+					TxtValue.Text = value.ToString();
+					Slider.Value = value;
+				}
+			}
 		}
 
 		private void TxtValueLostFocus(object sender, RoutedEventArgs e)
