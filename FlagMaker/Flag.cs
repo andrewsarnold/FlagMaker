@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -35,7 +36,7 @@ namespace FlagMaker
 		{
 			if (string.IsNullOrEmpty(filename))
 			{
-				return new Flag("flag", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
+				return new Flag("none", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
 			}
 
 			var name = string.Empty;
@@ -51,129 +52,140 @@ namespace FlagMaker
 			int divisionVal3 = 1;
 
 			var overlays = new List<TempOverlay>();
-
-			using (var sr = new StreamReader(filename))
+			try
 			{
-				string line;
 
-				bool isDivision = false;
-				int overlayIndex = -1;
-
-				while ((line = sr.ReadLine()) != null)
+				using (var sr = new StreamReader(filename))
 				{
-					switch (line.Split('=')[0].ToLower())
+					string line;
+
+					bool isDivision = false;
+					int overlayIndex = -1;
+
+					while ((line = sr.ReadLine()) != null)
 					{
-						case "name":
-							name = line.Split('=')[1];
-							break;
-						case "ratio":
-							var ratioStrings = line.Split('=')[1].Split(':');
-							ratio = new Ratio(int.Parse(ratioStrings[1]), int.Parse(ratioStrings[0]));
-							break;
-						case "gridsize":
-							var data = line.Split('=')[1].Split(':');
-							gridRatio = new Ratio(int.Parse(data[1]), int.Parse(data[0]));
-							break;
-						case "division":
-							isDivision = true;
-							break;
-						case "overlay":
-							isDivision = false;
-							overlayIndex++;
-							overlays.Add(new TempOverlay());
-							break;
-						case "type":
-							if (isDivision)
-							{
-								divisionType = line.Split('=')[1];
-							}
-							else
-							{
-								overlays[overlayIndex].Type = line.Split('=')[1];
-							}
-							break;
-						case "color1":
-							divisionColor1 = ParseColor(line.Split('=')[1]);
-							break;
-						case "color2":
-							divisionColor2 = ParseColor(line.Split('=')[1]);
-							break;
-						case "color3":
-							divisionColor3 = ParseColor(line.Split('=')[1]);
-							break;
-						case "color":
-							overlays[overlayIndex].Color = ParseColor(line.Split('=')[1]);
-							break;
-						case "size1":
-							if (isDivision)
-							{
-								divisionVal1 = int.Parse(line.Split('=')[1]);
-							}
-							else
-							{
-								overlays[overlayIndex].Values[0] = double.Parse(line.Split('=')[1]);
-							}
-							break;
-						case "size2":
-							if (isDivision)
-							{
-								divisionVal2 = int.Parse(line.Split('=')[1]);
-							}
-							else
-							{
-								overlays[overlayIndex].Values[1] = double.Parse(line.Split('=')[1]);
-							}
-							break;
-						case "size3":
-							if (isDivision)
-							{
-								divisionVal3 = int.Parse(line.Split('=')[1]);
-							}
-							else
-							{
-								overlays[overlayIndex].Values[2] = double.Parse(line.Split('=')[1]);
-							}
-							break;
-						case "size4":
-							overlays[overlayIndex].Values[3] = double.Parse(line.Split('=')[1]);
-							break;
-						case "size5":
-							overlays[overlayIndex].Values[4] = double.Parse(line.Split('=')[1]);
-							break;
-						case "size6":
-							overlays[overlayIndex].Values[5] = double.Parse(line.Split('=')[1]);
-							break;
-						case "path":
-							overlays[overlayIndex].FlagPath = line.Split('=')[1];
-							break;
+						switch (line.Split('=')[0].ToLower())
+						{
+							case "name":
+								name = line.Split('=')[1];
+								break;
+							case "ratio":
+								var ratioStrings = line.Split('=')[1].Split(':');
+								ratio = new Ratio(int.Parse(ratioStrings[1]), int.Parse(ratioStrings[0]));
+								break;
+							case "gridsize":
+								var data = line.Split('=')[1].Split(':');
+								gridRatio = new Ratio(int.Parse(data[1]), int.Parse(data[0]));
+								break;
+							case "division":
+								isDivision = true;
+								break;
+							case "overlay":
+								isDivision = false;
+								overlayIndex++;
+								overlays.Add(new TempOverlay());
+								break;
+							case "type":
+								if (isDivision)
+								{
+									divisionType = line.Split('=')[1];
+								}
+								else
+								{
+									overlays[overlayIndex].Type = line.Split('=')[1];
+								}
+								break;
+							case "color1":
+								divisionColor1 = ParseColor(line.Split('=')[1]);
+								break;
+							case "color2":
+								divisionColor2 = ParseColor(line.Split('=')[1]);
+								break;
+							case "color3":
+								divisionColor3 = ParseColor(line.Split('=')[1]);
+								break;
+							case "color":
+								overlays[overlayIndex].Color = ParseColor(line.Split('=')[1]);
+								break;
+							case "size1":
+								if (isDivision)
+								{
+									divisionVal1 = int.Parse(line.Split('=')[1]);
+								}
+								else
+								{
+									overlays[overlayIndex].Values[0] = double.Parse(line.Split('=')[1]);
+								}
+								break;
+							case "size2":
+								if (isDivision)
+								{
+									divisionVal2 = int.Parse(line.Split('=')[1]);
+								}
+								else
+								{
+									overlays[overlayIndex].Values[1] = double.Parse(line.Split('=')[1]);
+								}
+								break;
+							case "size3":
+								if (isDivision)
+								{
+									divisionVal3 = int.Parse(line.Split('=')[1]);
+								}
+								else
+								{
+									overlays[overlayIndex].Values[2] = double.Parse(line.Split('=')[1]);
+								}
+								break;
+							case "size4":
+								overlays[overlayIndex].Values[3] = double.Parse(line.Split('=')[1]);
+								break;
+							case "size5":
+								overlays[overlayIndex].Values[4] = double.Parse(line.Split('=')[1]);
+								break;
+							case "size6":
+								overlays[overlayIndex].Values[5] = double.Parse(line.Split('=')[1]);
+								break;
+							case "path":
+								overlays[overlayIndex].FlagPath = line.Split('=')[1];
+								break;
+						}
 					}
 				}
-			}
 
-			Division division;
-			switch (divisionType)
+				Division division;
+				switch (divisionType)
+				{
+					case "fesses":
+						division = new DivisionFesses(divisionColor1, divisionColor2, divisionColor3, divisionVal1, divisionVal2,
+							divisionVal3);
+						break;
+					case "pales":
+						division = new DivisionPales(divisionColor1, divisionColor2, divisionColor3, divisionVal1, divisionVal2,
+							divisionVal3);
+						break;
+					case "bends forward":
+						division = new DivisionBendsForward(divisionColor1, divisionColor2);
+						break;
+					case "bends backward":
+						division = new DivisionBendsBackward(divisionColor1, divisionColor2);
+						break;
+					case "bends both":
+						division = new DivisionX(divisionColor1, divisionColor2);
+						break;
+					default:
+						division = new DivisionGrid(divisionColor1, divisionColor2, divisionVal1, divisionVal2);
+						break;
+				}
+
+				return new Flag(name, ratio, gridRatio, division,
+					overlays.Select(o => o.ToOverlay(gridRatio.Width, gridRatio.Height)));
+			}
+			catch (Exception)
 			{
-				case "fesses":
-					division = new DivisionFesses(divisionColor1, divisionColor2, divisionColor3, divisionVal1, divisionVal2, divisionVal3);
-					break;
-				case "pales":
-					division = new DivisionPales(divisionColor1, divisionColor2, divisionColor3, divisionVal1, divisionVal2, divisionVal3);
-					break;
-				case "bends forward":
-					division = new DivisionBendsForward(divisionColor1, divisionColor2);
-					break;
-				case "bends backward":
-					division = new DivisionBendsBackward(divisionColor1, divisionColor2);
-					break;
-				case "bends both":
-					division = new DivisionX(divisionColor1, divisionColor2);
-					break;
-				default:
-					division = new DivisionGrid(divisionColor1, divisionColor2, divisionVal1, divisionVal2);
-					break;
+				MessageBox.Show("Couldn't open the file. Check your syntax and try again.");
+				return new Flag("none", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
 			}
-
-			return new Flag(name, ratio, gridRatio, division, overlays.Select(o => o.ToOverlay(gridRatio.Width, gridRatio.Height)));
 		}
 
 		public static string GetFlagPath()

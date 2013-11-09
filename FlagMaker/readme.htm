@@ -106,8 +106,8 @@
 
     <h2><a id="file"></a>The <span class="tt">.flag</span> file type</h2>
     <p><span class="tt">.flag</span> is a file type you can use to save and open your flags. It's a plain text file so you can also use your
-        favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash 
-        the program). Feel free to look at the presets for some examples, but here's a rundown of the <span class="tt">.flag</span> file syntax:</p>
+        favorite text editor to modify them. Feel free to look at the presets for some examples, but here's a rundown of the
+        <span class="tt">.flag</span> file syntax:</p>
 
     <ul>
         <li><span class="tt">name</span> &ndash; Only used to fill the Presets menu. Put anything you want here.</li>
@@ -128,7 +128,6 @@
         <li><span class="tt">color1</span> / <span class="tt">color2</span> / <span class="tt">color3</span> &ndash; Pretty self-explanatory.
             Use either RGB or ARGB formatted in hexadecimal, e.g. <span class="tt">822433</span> or <span class="tt">fedd00</span> or <span class="tt">cc284e36</span>.
             No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)</li>
-        <li><span class="tt">size1</span> / <span class="tt">size2</span> / <span class="tt">size3</span> &ndash; Slider values.</li>
         <li><span class="tt">overlay</span> &ndash; Start defining a new overlay. You can have as many of these sections as you like.</li>
         <li><span class="tt">type</span> &ndash; One of the following:
 			<ul>
@@ -164,7 +163,7 @@
         <li><span class="tt">path</span> &ndash; For the flag overay, the local path to the <span class="tt">.flag</span> file. You
             can also use relative paths. See the Australia preset for an example.</li>
         <li><span class="tt">size1</span> / <span class="tt">size2</span> / etc. &ndash; Slider values. Different overlays have different
-            numbers of adjustable values, so play around with them in the program first to see.</li>
+            numbers of adjustable values, so play around with them in the program first to see what they do.</li>
     </ul>
 
     <p>The files should mostly be backward-compatible (it'll generate a box for any overlays not supported in your version).
