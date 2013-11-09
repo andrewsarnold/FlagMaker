@@ -44,7 +44,7 @@ namespace FlagMaker.Overlays
 			{
 				_overlay = value;
 
-				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeaterLateral) ? Visibility.Collapsed : Visibility.Visible;
+				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;
 
 				_pnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))

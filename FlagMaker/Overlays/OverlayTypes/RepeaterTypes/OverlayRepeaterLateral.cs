@@ -2,15 +2,12 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 {
-	public class OverlayRepeaterLateral : Overlay
+	public class OverlayRepeaterLateral : OverlayRepeater
 	{
-		private Overlay _overlay;
-
 		public OverlayRepeaterLateral(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
@@ -25,15 +22,15 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		}
 
 		public OverlayRepeaterLateral(double x, double y, double width, double height, int countX, int countY, int maximumX, int maximumY)
-			: base(Colors.Transparent, new List<Attribute>
-			                           {
-				                           new Attribute("X", true, x, true),
-				                           new Attribute("Y", true, y, false),
-				                           new Attribute("Width", true, width, true),
-				                           new Attribute("Height", true, height, false),
-				                           new Attribute("CountX", true, countX, true),
-				                           new Attribute("CountY", true, countY, false)
-			                           }, maximumX, maximumY)
+			: base(new List<Attribute>
+			       {
+				       new Attribute("X", true, x, true),
+				       new Attribute("Y", true, y, false),
+				       new Attribute("Width", true, width, true),
+				       new Attribute("Height", true, height, false),
+				       new Attribute("CountX", true, countX, true),
+				       new Attribute("CountY", true, countY, false)
+			       }, maximumX, maximumY)
 		{
 		}
 
@@ -44,6 +41,8 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 		public override void Draw(Canvas canvas)
 		{
+			if (Overlay == null) return;
+
 			var locX = canvas.Width * (Attributes.Get("X").Value / MaximumX);
 			var locY = canvas.Height * (Attributes.Get("Y").Value / MaximumY);
 
@@ -60,11 +59,11 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				for (int y = 0; y < countY; y++)
 				{
 					var c = new Canvas
-					        {
-						        Width = width,
+							{
+								Width = width,
 								Height = height
-					        };
-					_overlay.Draw(c);
+							};
+					Overlay.Draw(c);
 					canvas.Children.Add(c);
 
 					Canvas.SetLeft(c, locX + x * intervalX);
@@ -83,13 +82,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			Attributes.Get("CountY").Value = values[5];
 		}
 
-		public void SetOverlay(Overlay overlay)
-		{
-			_overlay = overlay;
-		}
-
 		public override string ExportSvg(int width, int height)
 		{
+			if (Overlay == null) return string.Empty;
+
 			var locX = width * (Attributes.Get("X").Value / MaximumX);
 			var locY = height * (Attributes.Get("Y").Value / MaximumY);
 
@@ -107,12 +103,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			{
 				for (int y = 0; y < countY; y++)
 				{
-					sb.AppendLine(string.Format("<g transform=\"translate({0},{1}) scale({2} {3})\">",
+					sb.AppendLine(string.Format("<g transform=\"translate({0},{1})\">",
 						locX + x * intervalX,
-						locY + y * intervalY,
-						1,
-						1));
-					sb.AppendLine(_overlay.ExportSvg((int)w, (int)h));
+						locY + y * intervalY));
+					sb.AppendLine(Overlay.ExportSvg((int)w, (int)h));
 					sb.AppendLine("</g>");
 				}
 			}

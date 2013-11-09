@@ -97,7 +97,9 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
+    <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeater.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />
+    <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterRadial.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayFlag.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
     <Compile Include="Ratio.cs" />
@@ -271,7 +273,9 @@
     <None Include="Presets\uk.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Presets\usa.flag" />
+    <None Include="Presets\usa.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\vietnam.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

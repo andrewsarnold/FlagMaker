@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
@@ -195,18 +196,14 @@ namespace FlagMaker
 			canvas.Children.Clear();
 			Division.Draw(canvas);
 
+			SetRepeaterOverlays();
+
 			for (int i = 0; i < Overlays.Count; i++)
 			{
-				var overlay = Overlays[i];
-
-				var repeater = overlay as OverlayRepeaterLateral;
-				if (repeater != null && i <= Overlays.Count - 2)
-				{
-					repeater.SetOverlay(Overlays[i + 1]);
-					i++;
-				}
-
-				overlay.Draw(canvas);
+				// Skip overlays used in repeaters
+				if (i > 0 && Overlays[i - 1] is OverlayRepeater) continue;
+				
+				Overlays[i].Draw(canvas);
 			}
 		}
 
@@ -222,17 +219,14 @@ namespace FlagMaker
 				sw.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"{0}\" height=\"{1}\">", width, height);
 
 				sw.WriteLine(Division.ExportSvg(width, height));
-
+				
+				SetRepeaterOverlays();
+				
 				for (int i = 0; i < Overlays.Count; i++)
 				{
-					var overlay = Overlays[i];
+					if (i > 0 && Overlays[i - 1] is OverlayRepeater) continue;
 
-					var repeater = overlay as OverlayRepeaterLateral;
-					if (repeater != null && i <= Overlays.Count - 2)
-					{
-						repeater.SetOverlay(Overlays[i + 1]);
-						i++;
-					}
+					var overlay = Overlays[i];
 
 					try
 					{
@@ -245,6 +239,17 @@ namespace FlagMaker
 				}
 
 				sw.WriteLine("</svg>");
+			}
+		}
+
+		private void SetRepeaterOverlays()
+		{
+			for (int i = Overlays.Count - 1; i > 0; i--)
+			{
+				if (Overlays[i - 1] is OverlayRepeater)
+				{
+					((OverlayRepeater)Overlays[i - 1]).SetOverlay(Overlays[i]);
+				}
 			}
 		}
 
