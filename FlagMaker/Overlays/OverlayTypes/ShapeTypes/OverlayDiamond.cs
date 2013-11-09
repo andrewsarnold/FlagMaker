@@ -12,7 +12,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 		{
 		}
 
-		public OverlayDiamond(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
+		public OverlayDiamond(Color color, double x, double y, double width, double height, int maximumX, int maximumY)
 			: base(color, x, y, width, height, maximumX, maximumY)
 		{
 		}

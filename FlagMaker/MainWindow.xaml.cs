@@ -31,6 +31,15 @@ namespace FlagMaker
 		private bool _isLoading;
 		private bool _showGrid;
 
+		private Flag Flag
+		{
+			get
+			{
+				return new Flag("flag", new Ratio(_ratioWidth, _ratioHeight), (Ratio) cmbGridSize.SelectedItem, _division,
+					lstOverlays.Children.OfType<OverlayControl>().Select(c => c.Overlay));
+			}
+		}
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -344,13 +353,8 @@ namespace FlagMaker
 		{
 			canvas.Width = _ratioWidth * 200;
 			canvas.Height = _ratioHeight * 200;
-			canvas.Children.Clear();
-			_division.Draw(canvas);
 
-			foreach (var overlay in lstOverlays.Children)
-			{
-				((OverlayControl)overlay).Overlay.Draw(canvas);
-			}
+			Flag.Draw(canvas);
 
 			DrawGrid();
 		}
@@ -549,31 +553,7 @@ namespace FlagMaker
 
 		private void ExportToSvg(Uri path)
 		{
-			const int width = 600;
-			var height = (int)(((double)_ratioHeight / _ratioWidth) * width);
-
-			using (var sw = new StreamWriter(path.AbsolutePath))
-			{
-				sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");
-				sw.WriteLine("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">");
-				sw.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"{0}\" height=\"{1}\">", width, height);
-
-				sw.WriteLine(_division.ExportSvg(width, height));
-
-				foreach (var overlay in lstOverlays.Children.OfType<OverlayControl>().Select(o => o.Overlay))
-				{
-					try
-					{
-						sw.WriteLine(overlay.ExportSvg(width, height));
-					}
-					catch (NotImplementedException)
-					{
-						// Ignore overlays without SVG implementation
-					}
-				}
-
-				sw.WriteLine("</svg>");
-			}
+			Flag.ExportToSvg(path);
 		}
 
 		#endregion

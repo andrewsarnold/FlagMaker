@@ -16,7 +16,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayPall(Color color, int x, int size, int maximumX, int maximumY)
+		public OverlayPall(Color color, double x, double size, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
 				             new Attribute("X", true, x, true),

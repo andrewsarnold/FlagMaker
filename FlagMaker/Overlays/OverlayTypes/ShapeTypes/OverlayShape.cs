@@ -16,7 +16,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 		{
 		}
 
-		protected OverlayShape(Color color, int x, int y, int width, int height, int maximumX, int maximumY)
+		protected OverlayShape(Color color, double x, double y, double width, double height, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
 				              new Attribute("X", true, x, true),

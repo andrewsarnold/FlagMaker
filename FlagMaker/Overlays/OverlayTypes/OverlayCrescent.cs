@@ -23,7 +23,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayCrescent(Color color, int x, int y, int size, int rotation, int maximumX, int maximumY)
+		public OverlayCrescent(Color color, double x, double y, double size, double rotation, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
 				             new Attribute("X", true, x, true),

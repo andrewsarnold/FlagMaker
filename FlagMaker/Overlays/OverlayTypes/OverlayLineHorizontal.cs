@@ -16,7 +16,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayLineHorizontal(Color color, int thickness, int y, int maximumX, int maximumY)
+		public OverlayLineHorizontal(Color color, double thickness, double y, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
 				             new Attribute("Y", true, y, false),

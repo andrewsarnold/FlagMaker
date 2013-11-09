@@ -10,7 +10,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 	public class OverlayFlag : OverlayShape
 	{
 		private readonly Flag _flag;
-		
+
 		public string Path { get; private set; }
 
 		public OverlayFlag(int maximumX, int maximumY)
@@ -26,7 +26,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			Path = path;
 		}
 
-		public OverlayFlag(Flag flag, string path, int x, int y, int width, int height, int maximumX, int maximumY)
+		public OverlayFlag(Flag flag, string path, double x, double y, double width, double height, int maximumX, int maximumY)
 			: base(Colors.White, x, y, width, height, maximumX, maximumY)
 		{
 			_flag = flag;
@@ -39,19 +39,14 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 		{
 			var canvasWidth = canvas.Width * Attributes.Get("Width").Value / MaximumX;
 			var canvasHeight = canvas.Height * Attributes.Get("Height").Value / MaximumY;
+
 			var c = new Canvas
-			        {
-				        Width = canvasWidth,
+					{
+						Width = canvasWidth,
 						Height = canvasHeight
-			        };
+					};
 
-			_flag.Division.Draw(c);
-
-			foreach (var overlay in _flag.Overlays)
-			{
-				overlay.Draw(c);
-			}
-
+			_flag.Draw(c);
 			canvas.Children.Add(c);
 
 			Canvas.SetLeft(c, (canvas.Width * (Attributes.Get("X").Value / MaximumX)));

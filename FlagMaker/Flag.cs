@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Media;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using Microsoft.Win32;
 
 namespace FlagMaker
@@ -17,7 +19,7 @@ namespace FlagMaker
 		public readonly Ratio Ratio;
 		public readonly Ratio GridSize;
 		public readonly Division Division;
-		public readonly IEnumerable<Overlay> Overlays; 
+		public readonly List<Overlay> Overlays;
 
 		public Flag(string name, Ratio ratio, Ratio gridSize, Division division, IEnumerable<Overlay> overlays)
 		{
@@ -25,9 +27,9 @@ namespace FlagMaker
 			Ratio = ratio;
 			GridSize = gridSize;
 			Division = division;
-			Overlays = overlays;
+			Overlays = overlays.ToList();
 		}
-		
+
 		public static Flag LoadFromFile(string filename)
 		{
 			if (string.IsNullOrEmpty(filename))
@@ -134,6 +136,12 @@ namespace FlagMaker
 						case "size4":
 							overlays[overlayIndex].Values[3] = double.Parse(line.Split('=')[1]);
 							break;
+						case "size5":
+							overlays[overlayIndex].Values[4] = double.Parse(line.Split('=')[1]);
+							break;
+						case "size6":
+							overlays[overlayIndex].Values[5] = double.Parse(line.Split('=')[1]);
+							break;
 						case "path":
 							overlays[overlayIndex].FlagPath = line.Split('=')[1];
 							break;
@@ -182,6 +190,64 @@ namespace FlagMaker
 			return dlg.FileName;
 		}
 
+		public void Draw(Canvas canvas)
+		{
+			canvas.Children.Clear();
+			Division.Draw(canvas);
+
+			for (int i = 0; i < Overlays.Count; i++)
+			{
+				var overlay = Overlays[i];
+
+				var repeater = overlay as OverlayRepeaterLateral;
+				if (repeater != null && i <= Overlays.Count - 2)
+				{
+					repeater.SetOverlay(Overlays[i + 1]);
+					i++;
+				}
+
+				overlay.Draw(canvas);
+			}
+		}
+
+		public void ExportToSvg(Uri path)
+		{
+			const int width = 600;
+			var height = (int)(((double)Ratio.Height / Ratio.Width) * width);
+
+			using (var sw = new StreamWriter(path.AbsolutePath))
+			{
+				sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");
+				sw.WriteLine("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">");
+				sw.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"{0}\" height=\"{1}\">", width, height);
+
+				sw.WriteLine(Division.ExportSvg(width, height));
+
+				for (int i = 0; i < Overlays.Count; i++)
+				{
+					var overlay = Overlays[i];
+
+					var repeater = overlay as OverlayRepeaterLateral;
+					if (repeater != null && i <= Overlays.Count - 2)
+					{
+						repeater.SetOverlay(Overlays[i + 1]);
+						i++;
+					}
+
+					try
+					{
+						sw.WriteLine(overlay.ExportSvg(width, height));
+					}
+					catch (NotImplementedException)
+					{
+						// Ignore overlays without SVG implementation
+					}
+				}
+
+				sw.WriteLine("</svg>");
+			}
+		}
+
 		private static Color ParseColor(string str)
 		{
 			Byte a = 0xff, r, b, g;
@@ -214,6 +280,8 @@ namespace FlagMaker
 			{
 				Values = new List<double>
 				{
+					1,
+					1,
 					1,
 					1,
 					1,

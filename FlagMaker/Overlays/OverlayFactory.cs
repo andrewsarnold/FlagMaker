@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FlagMaker.Overlays.OverlayTypes;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
+using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 
 namespace FlagMaker.Overlays
@@ -28,6 +29,7 @@ namespace FlagMaker.Overlays
 			                                                           { "maple leaf", typeof (OverlayMapleLeaf) },
 			                                                           { "pall", typeof (OverlayPall) },
 			                                                           { "pentagram", typeof (OverlayPentagram) },
+																	   { "repeater lateral", typeof(OverlayRepeaterLateral) },
 			                                                           { "saltire", typeof (OverlaySaltire) },
 			                                                           { "star", typeof (OverlayStar) },
 			                                                           { "star four", typeof (OverlayStarFour) },

@@ -15,7 +15,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayTriangle(Color color, int size, int maximumX, int maximumY)
+		public OverlayTriangle(Color color, double size, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			{
 				new Attribute("Size", true, size, true)

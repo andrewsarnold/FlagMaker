@@ -17,7 +17,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayBorder(Color color, int thickness, int maximumX, int maximumY)
+		public OverlayBorder(Color color, double thickness, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
 				              new Attribute("Thickness", true, thickness, true)

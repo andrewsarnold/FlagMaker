@@ -16,7 +16,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayHalfSaltire(Color color, int ratio, int maximumX, int maximumY)
+		public OverlayHalfSaltire(Color color, double ratio, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
 				             new Attribute("Ratio", true, ratio, true)
