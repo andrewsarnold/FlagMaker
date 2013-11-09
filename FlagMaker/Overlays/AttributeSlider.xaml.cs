@@ -98,6 +98,7 @@ namespace FlagMaker.Overlays
 				if (double.TryParse(TxtValue.Text, out value))
 				{
 					value = value + (e.Key == Key.Up ? 0.01 : -0.01);
+					chkDiscrete.IsChecked = false;
 					TxtValue.Text = value.ToString();
 					Slider.Value = value;
 				}

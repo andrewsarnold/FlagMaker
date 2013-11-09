@@ -793,7 +793,17 @@ namespace FlagMaker
 
 		private void GridOnChanged(object sender, RoutedEventArgs e)
 		{
-			_showGrid = chkGridOn.IsChecked ?? false;
+			_showGrid = !_showGrid;
+
+			if (_showGrid)
+			{
+				btnGrid.Background = new SolidColorBrush(Colors.LightSkyBlue);
+			}
+			else
+			{
+				btnGrid.ClearValue(BackgroundProperty);
+			}
+
 			DrawGrid();
 		}
 	}
