@@ -83,28 +83,38 @@
     </ol>
 
     <h2><a id="what"></a>What is FlagMaker?</h2>
-    <p>FlagMaker is a little tool I built to easily create flags without having to use complicated image editors like Inkscape or Photoshop, and includes most common flag elements.</p>
-    <p>In this version, you can create a flag with six different base types and then add as many overlays as you like. You can save your work to a proprietary file format (see below) or export to a PNG or SVG file.</p>
+    <p>FlagMaker is a little tool I built to easily create flags without having to use complicated image editors like Inkscape or Photoshop, and
+        includes most common flag elements.</p>
+    <p>In this version, you can create a flag with six different base types and then add as many overlays as you like. You can save your work to a
+        proprietary file format (see below) or export to a PNG or SVG file.</p>
 
     <h2><a id="faq"></a>FAQ</h2>
     <ul>
-        <li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from <a href="http://www.crwflags.com/fotw/flags/xf-colo.html">this page</a> and converted to the closest matching RGB color. You can also click "Advanced" to pick any color you like.</li>
-        <li><b>How can I adjust the overlay slider values?</b> Uncheck the checkbox to allow for any decimal value you want. Click the value to type something in manually, or use the up and down arrow keys to nudge by 0.01.</li>
-        <li><b>How do I use the repeaters?</b> This requires two overlays: one repeater, and one other overlay of your choice. The repeater should be directly <i>above</i> the other overlay in the list. (You can use any kind of overlay you want to be repeated&mdash;even another repeater!)</li>
-        <li><b>How do I make just a solid color flag?</b> &ndash; Just use a grid with size 1&times;1. Same thing for stripes; just use 1&times;<i>n</i>. Grids are pretty versatile.</li>
+        <li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the
+            FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from <a href="http://www.crwflags.com/fotw/flags/xf-colo.html">this page</a> and converted to the closest matching RGB color. You can also click "Advanced" to pick any color you like.</li>
+        <li><b>How can I adjust the overlay slider values?</b> Uncheck the checkbox to allow for any decimal value you want. Click the value to type
+            something in manually, or use the up and down arrow keys to nudge by 0.01.</li>
+        <li><b>How do I use the repeaters?</b> This requires two overlays: one repeater, and one other overlay of your choice. The repeater should be
+            directly <i>above</i> the other overlay in the list. (You can use any kind of overlay you want to be repeated&mdash;even another repeater!)</li>
+        <li><b>How do I make just a solid color flag?</b> &ndash; Just use a grid with size 1&times;1. Same thing for stripes; just use 1&times;<i>n</i>.
+            Grids are pretty versatile.</li>
         <li><b>How do I make a perfect circle / diamond / square?</b> &ndash; Use a height of 0.</li>
         <li><b>The alignment on the pall is a bit off.</b> &ndash; Yes, it needs some tweaking to get it more accurate.</li>
-        <li><b>You should add ______ to FlagMaker.</b> &ndash; If it's not listed in the <a href="#planned">planned features section</a>, send me a message and I'll think about it.</li>
+        <li><b>You should add ______ to FlagMaker.</b> &ndash; If it's not listed in the <a href="#planned">planned features section</a>, send
+            me a message and I'll think about it.</li>
     </ul>
 
     <h2><a id="file"></a>The <span class="tt">.flag</span> file type</h2>
-    <p><span class="tt">.flag</span> is a file type you can use to save and open your flags. It's a plain text file so you can also use your favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash the program). Feel free to look at the presets for some examples, but here's a rundown of the <span class="tt">.flag</span> file syntax:</p>
+    <p><span class="tt">.flag</span> is a file type you can use to save and open your flags. It's a plain text file so you can also use your
+        favorite text editor to modify them (although FlagMaker doesn't include certain error handling, so if you make a mistake it's possible to crash 
+        the program). Feel free to look at the presets for some examples, but here's a rundown of the <span class="tt">.flag</span> file syntax:</p>
 
     <ul>
         <li><span class="tt">name</span> &ndash; Only used to fill the Presets menu. Put anything you want here.</li>
         <li><span class="tt">ratio</span> &ndash; The ratio of the flag's height to width. Separate with a colon.</li>
         <li><span class="tt">gridsize</span>
-        &ndash; A multiple of the ratio, which determines how finely you can place your elements (when snap-to-grid is enabled). Play around with the dropdown in the program to get a good handle on what this does.
+        &ndash; A multiple of the ratio, which determines how finely you can place your elements (when snap-to-grid is enabled). Play around with
+            the dropdown in the program to get a good handle on what this does.
 		<li><span class="tt">division</span> &ndash; Start defining the division. Only include once!</li>
         <li><span class="tt">type</span> &ndash; One of the following:
 			<ul>
@@ -115,7 +125,9 @@
                 <li><span class="tt">grid</span></li>
                 <li><span class="tt">pales</span></li>
             </ul>
-            <li><span class="tt">color1</span> / <span class="tt">color2</span> / <span class="tt">color3</span> &ndash; Pretty self-explanatory. Use either RGB or ARGB formatted in hexadecimal, e.g. <span class="tt">822433</span> or <span class="tt">fedd00</span> or <span class="tt">cc284e36</span>. No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)</li>
+        <li><span class="tt">color1</span> / <span class="tt">color2</span> / <span class="tt">color3</span> &ndash; Pretty self-explanatory.
+            Use either RGB or ARGB formatted in hexadecimal, e.g. <span class="tt">822433</span> or <span class="tt">fedd00</span> or <span class="tt">cc284e36</span>.
+            No # sign. Sorry, no Pantone. (Converting Pantone to RGB is some kind of black magic that I don't understand at all.)</li>
         <li><span class="tt">size1</span> / <span class="tt">size2</span> / <span class="tt">size3</span> &ndash; Slider values.</li>
         <li><span class="tt">overlay</span> &ndash; Start defining a new overlay. You can have as many of these sections as you like.</li>
         <li><span class="tt">type</span> &ndash; One of the following:
@@ -137,6 +149,8 @@
                 <li><span class="tt">maple leaf</span></li>
                 <li><span class="tt">pall</span></li>
                 <li><span class="tt">pentagram</span></li>
+                <li><span class="tt">repeater lateral</span></li>
+                <li><span class="tt">repeater radial</span></li>
                 <li><span class="tt">saltire</span></li>
                 <li><span class="tt">star</span></li>
                 <li><span class="tt">star eight</span></li>
@@ -147,11 +161,16 @@
                 <li><span class="tt">triangle</span></li>
             </ul>
             <li><span class="tt">color</span> &ndash; Same as above.</li>
-        <li><span class="tt">path</span> &ndash; For the flag overay, the local path to the <span class="tt">.flag</span> file. You can also use relative paths. See the Australia preset for an example.</li>
-        <li><span class="tt">size1</span> / <span class="tt">size2</span> / etc. &ndash; Slider values. Different overlays have different numbers of adjustable values, so play around with them in the program first to see.</li>
+        <li><span class="tt">path</span> &ndash; For the flag overay, the local path to the <span class="tt">.flag</span> file. You
+            can also use relative paths. See the Australia preset for an example.</li>
+        <li><span class="tt">size1</span> / <span class="tt">size2</span> / etc. &ndash; Slider values. Different overlays have different
+            numbers of adjustable values, so play around with them in the program first to see.</li>
     </ul>
 
-    <p>The files <i>should</i> be backward-compatible (it'll generate a box for any overlays not supported in your version). For some overlays, some values have been swapped around for consistency.</p>
+    <p>The files should mostly be backward-compatible (it'll generate a box for any overlays not supported in your version).
+        For some overlays, some values have been swapped around for consistency between versions 1.1 and 1.2. Flags created
+        in version 1.2 or before could easily be broken in version 1.3.
+    </p>
 
     <h2><a id="vhist"></a>Version history</h2>
     <ul>
@@ -226,7 +245,10 @@
     <h2><a id="credits"></a>Credits</h2>
     <ul>
         <li>Inspired by <a href="https://flag-designer.appspot.com/">Scrontch's Flag Designer</a>.</li>
-        <li>Hammer and sickle pattern courtesy <a href="http://en.wikipedia.org/wiki/Hammer_and_sickle">Wikipedia</a> (user <a href="http://commons.wikimedia.org/wiki/User:Zscout370">Zscout370</a>).</li>
+        <li>Hammer and sickle pattern courtesy <a href="http://en.wikipedia.org/wiki/Hammer_and_sickle">Wikipedia</a> (user
+            <a href="http://commons.wikimedia.org/wiki/User:Zscout370">Zscout370</a>).</li>
+        <li>Other emblems courtesy of various Wikipedia authors.</li>
+        <li>World flag specifications also taken from Wikipedia.</li>
     </ul>
 </body>
 </html>
