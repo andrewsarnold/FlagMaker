@@ -43,16 +43,16 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		{
 			if (Overlay == null) return;
 
-			var locX = canvas.Width * (Attributes.Get("X").Value / MaximumX);
-			var locY = canvas.Height * (Attributes.Get("Y").Value / MaximumY);
-
 			var countX = (int)Attributes.Get("CountX").Value;
 			var countY = (int)Attributes.Get("CountY").Value;
 			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
 			var height = canvas.Height * (Attributes.Get("Height").Value / MaximumY);
 
-			double intervalX = width / countX;
-			double intervalY = height / countY;
+			var locX = canvas.Width * (Attributes.Get("X").Value / MaximumX) - width / 2;
+			var locY = canvas.Height * (Attributes.Get("Y").Value / MaximumY) - height / 2;
+
+			double intervalX = width / (countX > 1 ? countX - 1 : countX);
+			double intervalY = height / (countY > 1 ? countY - 1 : countY);
 
 			for (int x = 0; x < countX; x++)
 			{
