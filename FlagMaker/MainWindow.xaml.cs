@@ -35,7 +35,7 @@ namespace FlagMaker
 		{
 			get
 			{
-				return new Flag("flag", new Ratio(_ratioWidth, _ratioHeight), (Ratio) cmbGridSize.SelectedItem, _division,
+				return new Flag("flag", new Ratio(_ratioWidth, _ratioHeight), (Ratio)cmbGridSize.SelectedItem, _division,
 					lstOverlays.Children.OfType<OverlayControl>().Select(c => c.Overlay));
 			}
 		}
@@ -275,9 +275,9 @@ namespace FlagMaker
 		{
 			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
 			var newOverlay = new OverlayControl(_standardColors, _availableColors, gridSize.Width, gridSize.Height)
-			                 {
-				                 IsLoading = isLoading
-			                 };
+							 {
+								 IsLoading = isLoading
+							 };
 			if (overlay != null)
 			{
 				newOverlay.SetType(overlay.Name);
@@ -482,6 +482,11 @@ namespace FlagMaker
 
 		private void MenuExportPngClick(object sender, RoutedEventArgs e)
 		{
+			var dialog = new ExportPng(new Ratio(_ratioWidth, _ratioHeight)) { Owner = this };
+			if (!(dialog.ShowDialog() ?? false)) return;
+
+			var dimensions = new Size(dialog.PngWidth, dialog.PngHeight);
+
 			var dlg = new SaveFileDialog
 			{
 				FileName = "Untitled",
@@ -492,48 +497,40 @@ namespace FlagMaker
 			bool? result = dlg.ShowDialog();
 			if (!((bool)result)) return;
 
-			ExportToPng(new Uri(dlg.FileName), canvas);
+			ExportToPng(new Uri(dlg.FileName), canvas, dimensions);
 		}
 
-		private void ExportToPng(Uri path, FrameworkElement surface)
+		private void ExportToPng(Uri path, FrameworkElement surface, Size newSize)
 		{
 			if (path == null) return;
 
-			// Save current canvas transform
-			Transform transform = surface.LayoutTransform;
-			// reset current transform (in case it is scaled or rotated)
-			surface.LayoutTransform = null;
-
-			// Get the size of canvas
+			// Get original size of canvas
 			var size = new Size(surface.Width, surface.Height);
-			// Measure and arrange the surface
-			// VERY IMPORTANT
-			surface.Measure(size);
-			surface.Arrange(new Rect(size));
 
-			// Create a render bitmap and push the surface to it
+			// Appy scaling for desired PNG size
+			surface.LayoutTransform = new ScaleTransform(newSize.Width / size.Width, newSize.Height / size.Height);
+
+			surface.Measure(size);
+			surface.Arrange(new Rect(newSize));
+
 			var renderBitmap =
 				new RenderTargetBitmap(
-					(int)size.Width,
-					(int)size.Height,
+					(int)newSize.Width,
+					(int)newSize.Height,
 					96d,
 					96d,
 					PixelFormats.Pbgra32);
 			renderBitmap.Render(surface);
 
-			// Create a file stream for saving image
 			using (var outStream = new FileStream(path.LocalPath, FileMode.Create))
 			{
-				// Use png encoder for our data
 				var encoder = new PngBitmapEncoder();
-				// push the rendered bitmap to it
 				encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
-				// save the data to the stream
 				encoder.Save(outStream);
 			}
 
-			// Restore previously saved layout
-			surface.LayoutTransform = transform;
+			// Reset scaling
+			surface.LayoutTransform = new ScaleTransform(size.Width / newSize.Width, size.Height / newSize.Height);
 		}
 
 		private void MenuExportSvgClick(object sender, RoutedEventArgs e)
