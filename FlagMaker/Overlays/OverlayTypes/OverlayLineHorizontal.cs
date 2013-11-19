@@ -40,7 +40,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 								 };
 			canvas.Children.Add(horizontal);
 
-			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / (MaximumY + (MaximumY % 2 == 0 ? 0 : 1))) - thick / 2);
+			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / MaximumY) - thick / 2);
 		}
 
 		public override void SetValues(List<double> values)
