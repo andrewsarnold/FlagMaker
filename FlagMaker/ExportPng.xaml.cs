@@ -8,6 +8,7 @@ namespace FlagMaker
 		private readonly Ratio _ratio;
 		private int _width;
 		private int _height;
+		private bool _update;
 
 		public ExportPng(Ratio ratio)
 		{
@@ -17,6 +18,7 @@ namespace FlagMaker
 			_ratio = ratio;
 			PngWidth = ratio.Width * multiplier;
 			PngHeight = ratio.Height * multiplier;
+			_update = true;
 		}
 
 		public int PngWidth
@@ -41,6 +43,8 @@ namespace FlagMaker
 
 		private void WidthChanged(object sender, TextChangedEventArgs e)
 		{
+			if (!_update) return;
+			_update = false;
 			int newWidth;
 
 			if (int.TryParse(txtWidth.Text, out newWidth))
@@ -52,10 +56,13 @@ namespace FlagMaker
 			{
 				txtWidth.Text = _width.ToString();
 			}
+			_update = true;
 		}
 
 		private void HeightChanged(object sender, TextChangedEventArgs e)
 		{
+			if (!_update) return;
+			_update = false;
 			int newHeight;
 
 			if (int.TryParse(txtHeight.Text, out newHeight))
@@ -67,6 +74,7 @@ namespace FlagMaker
 			{
 				txtHeight.Text = _height.ToString();
 			}
+			_update = true;
 		}
 
 		private void OkClick(object sender, RoutedEventArgs e)
