@@ -49,6 +49,9 @@ namespace FlagMaker
 		{
 			InitializeComponent();
 
+			var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+			Title = string.Format("FlagMaker {0}.{1}", version.Major, version.Minor);
+
 			_showGrid = false;
 
 			SetColorsAndSliders();

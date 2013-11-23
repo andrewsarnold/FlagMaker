@@ -1,8 +1,7 @@
 ﻿<Window x:Class="FlagMaker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:FlagMaker"
-        Title="FlagMaker 1.3" MinHeight="120" Width="600" SizeChanged="MainWindowOnSizeChanged">
+        xmlns:local="clr-namespace:FlagMaker" MinHeight="120" Width="600" SizeChanged="MainWindowOnSizeChanged">
 
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
