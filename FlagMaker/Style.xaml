@@ -1,0 +1,98 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="VeryLightGray" A="0xFF" R="0xEE" G="0xEE" B="0xEE" />
+
+    <Color x:Key="OrangeLight" A="0xFF" R="0xFF" G="0xD4" B="0x49" />
+    <Color x:Key="OrangeMedium" A="0xFF" R="0xFF" G="0xA0" B="0x3F" />
+    <Color x:Key="OrangeDark" A="0xFF" R="0xFF" G="0x7D" B="0x39" />
+
+    <Color x:Key="GreenLight" A="0xFF" R="0x72" G="0xE6" B="0x18" />
+    <Color x:Key="GreenMedium" A="0xFF" R="0xFF" G="0xA0" B="0x3F" />
+    <Color x:Key="GreenDark" A="0xFF" R="0x1C" G="0xB5" B="0x1B" />
+
+    <Color x:Key="RedLight" A="0xFF" R="0xFF" G="0x9D" B="0x6F" />
+    <Color x:Key="RedMedium" A="0xFF" R="0xFF" G="0x66" B="0x3A" />
+    <Color x:Key="RedDark" A="0xFF" R="0xEF" G="0x49" B="0x1C" />
+
+    <Color x:Key="BlueLight" A="0xFF" R="0x70" G="0xDF" B="0xFF" />
+    <Color x:Key="BlueMedium" A="0xFF" R="0x53" G="0xB5" B="0xFF" />
+    <Color x:Key="BlueDark" A="0xFF" R="0x40" G="0x9B" B="0xED" />
+    
+    <LinearGradientBrush x:Key="ChromeClicked" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ResourceKey=RedLight}" Offset="0.4" />
+        <GradientStop Color="{StaticResource ResourceKey=RedMedium}" Offset="0.5" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ChromeSelected" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ResourceKey=BlueMedium}" Offset="0.4" />
+        <GradientStop Color="{StaticResource ResourceKey=BlueDark}" Offset="0.5" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ChromeHover" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ResourceKey=OrangeLight}" Offset="0.4" />
+        <GradientStop Color="{StaticResource ResourceKey=OrangeMedium}" Offset="0.5" />
+    </LinearGradientBrush>
+    
+    <Style x:Key="ButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle SnapsToDevicePixels="True" Margin="4" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GraphicButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ResourceKey=ButtonFocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="ShowShine">
+                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Shine" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                <SplineDoubleKeyFrame KeyTime="00:00:00.3" Value="1" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="HideShine">
+                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Shine" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                <SplineDoubleKeyFrame KeyTime="00:00:00.3" Value="0" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Border VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="border">
+                        <Grid>
+                            <Border Opacity="0" x:Name="Shine" CornerRadius="3" Background="{StaticResource ResourceKey=ChromeHover}" />
+                            <Border Opacity="0" x:Name="SelectedShine" CornerRadius="3" Background="{StaticResource ResourceKey=ChromeClicked}" />
+                            <Border Padding="4">
+                                <ContentPresenter x:Name="content" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.5" />
+                            <Setter Property="Opacity" TargetName="content" Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Opacity" TargetName="SelectedShine" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="ShowShine_BeginStoryboard" Storyboard="{StaticResource ShowShine}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource HideShine}" x:Name="HideShine_BeginStoryboard" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

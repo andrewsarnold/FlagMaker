@@ -5,16 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="..\Style.xaml" />
+    </UserControl.Resources>
+
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
-            <ComboBox x:Name="cmbOverlays" SelectionChanged="OverlayChanged" />
-            <Button Content="Remove" Click="Remove" Margin="15,0,0,0" />
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Move up" Click="MoveUp" Margin="0,0,15,0" />
-            <Button Content="Move down" Click="MoveDown" Margin="0,0,15,0" />
-            <Button Content="Clone" Click="Clone" />
+            <ComboBox x:Name="cmbOverlays" SelectionChanged="OverlayChanged" VerticalContentAlignment="Center" />
+            <Button ToolTip="Remove" Click="Remove" Margin="15,0,0,0" Style="{DynamicResource ResourceKey=GraphicButton}">
+                <Image Source="..\Images\remove.png" />
+            </Button>
+            <Button ToolTip="Move up" Click="MoveUp" Style="{DynamicResource ResourceKey=GraphicButton}">
+                <Image Source="..\Images\moveup.png" />
+            </Button>
+            <Button ToolTip="Move down" Click="MoveDown" Style="{DynamicResource ResourceKey=GraphicButton}">
+                <Image Source="..\Images\movedown.png" />
+            </Button>
+            <Button ToolTip="Clone" Click="Clone" Style="{DynamicResource ResourceKey=GraphicButton}">
+                <Image Source="..\Images\clone.png" />
+            </Button>
         </StackPanel>
 
         <xctk:ColorPicker x:Name="_overlayPicker" Margin="0,4,0,0" />

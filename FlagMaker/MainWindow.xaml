@@ -10,6 +10,10 @@
         </LinearGradientBrush>
     </Window.Background>
 
+    <Window.Resources>
+        <ResourceDictionary Source="Style.xaml" />
+    </Window.Resources>
+
     <DockPanel LastChildFill="True">
         <Menu IsMainMenu="True" DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -17,7 +21,7 @@
                 <MenuItem Header="_Save..." Click="MenuSaveClick" />
                 <MenuItem Header="_Open..." Click="MenuOpenClick" />
                 <Separator />
-                <MenuItem Header="Export as _PNG" Click="MenuExportPngClick" />
+                <MenuItem Header="Export as _PNG..." Click="MenuExportPngClick" />
                 <MenuItem Header="Export as _SVG" Click="MenuExportSvgClick" />
             </MenuItem>
             <MenuItem Header="_World flag presets" x:Name="mnuWorldFlagPresets" />
@@ -185,7 +189,9 @@
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
                     <Label Content="Overlays" FontSize="16" FontWeight="Bold" />
-                    <Button Content="+" ToolTip="Add new overlay" HorizontalAlignment="Left" Width="25" Height="25" Click="OverlayAdd" />
+                    <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="Add new overlay" Click="OverlayAdd">
+                        <Image Source="Images\add.png" />
+                    </Button>
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="3">
