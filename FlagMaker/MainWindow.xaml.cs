@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -40,6 +41,10 @@ namespace FlagMaker
 			}
 		}
 
+		public static readonly RoutedCommand NewCommand = new RoutedCommand();
+		public static readonly RoutedCommand SaveCommand = new RoutedCommand();
+		public static readonly RoutedCommand OpenCommand = new RoutedCommand();
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -48,6 +53,14 @@ namespace FlagMaker
 
 			SetColorsAndSliders();
 			LoadPresets();
+			SetUpShortcutKeys();
+		}
+
+		private void SetUpShortcutKeys()
+		{
+			NewCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
+			SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+			OpenCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
 		}
 
 		#region Division
