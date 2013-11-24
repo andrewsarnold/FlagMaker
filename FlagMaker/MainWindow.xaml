@@ -14,18 +14,26 @@
         <ResourceDictionary Source="Style.xaml" />
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Command="{x:Static local:MainWindow.NewCommand}" Gesture="Ctrl+N" />
+        <KeyBinding Command="{x:Static local:MainWindow.SaveCommand}" Gesture="Ctrl+S" />
+        <KeyBinding Command="{x:Static local:MainWindow.SaveAsCommand}" Gesture="Ctrl+Shift+S" />
+        <KeyBinding Command="{x:Static local:MainWindow.OpenCommand}" Gesture="Ctrl+O" />
+    </Window.InputBindings>
+
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:MainWindow.NewCommand}" Executed="MenuNewClick"/>
         <CommandBinding Command="{x:Static local:MainWindow.SaveCommand}" Executed="MenuSaveClick"/>
+        <CommandBinding Command="{x:Static local:MainWindow.SaveAsCommand}" Executed="MenuSaveAsClick"/>
         <CommandBinding Command="{x:Static local:MainWindow.OpenCommand}" Executed="MenuOpenClick"/>
     </Window.CommandBindings>
-
 
     <DockPanel LastChildFill="True">
         <Menu IsMainMenu="True" DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="MenuNewClick" InputGestureText="Ctrl+N" />
-                <MenuItem Header="_Save..." Click="MenuSaveClick" InputGestureText="Ctrl+S" />
+                <MenuItem Header="_Save" Click="MenuSaveClick" InputGestureText="Ctrl+S" />
+                <MenuItem Header="Save _As..." Click="MenuSaveAsClick" InputGestureText="Ctrl+Shift+S" />
                 <MenuItem Header="_Open..." Click="MenuOpenClick" InputGestureText="Ctrl+O" />
                 <Separator />
                 <MenuItem Header="Export as _PNG..." Click="MenuExportPngClick" />
@@ -57,7 +65,7 @@
                 </Canvas>
             </Button>
             
-            <TextBox x:Name="txtName" Margin="10,0,0,0" Width="200" Text="United Kingdom" FontSize="18"
+            <TextBox x:Name="txtName" Margin="10,0,0,0" Width="200" FontSize="18"
                      VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
         </WrapPanel>
         

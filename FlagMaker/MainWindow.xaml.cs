@@ -43,8 +43,13 @@ namespace FlagMaker
 			}
 		}
 
+		private readonly string _headerText;
+		private string _filename;
+		private bool _isUnsaved;
+
 		public static readonly RoutedCommand NewCommand = new RoutedCommand();
 		public static readonly RoutedCommand SaveCommand = new RoutedCommand();
+		public static readonly RoutedCommand SaveAsCommand = new RoutedCommand();
 		public static readonly RoutedCommand OpenCommand = new RoutedCommand();
 
 		public MainWindow()
@@ -52,20 +57,23 @@ namespace FlagMaker
 			InitializeComponent();
 
 			var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-			Title = string.Format("FlagMaker {0}.{1}", version.Major, version.Minor);
+			_headerText = string.Format(" - FlagMaker {0}.{1}", version.Major, version.Minor);
+			SetTitle();
 
 			_showGrid = false;
 
 			SetColorsAndSliders();
 			LoadPresets();
-			SetUpShortcutKeys();
 		}
 
-		private void SetUpShortcutKeys()
+		private void SetTitle()
 		{
-			NewCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
-			SaveCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
-			OpenCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
+			Title = string.Format("{0}{1}{2}",
+				string.IsNullOrWhiteSpace(_filename)
+					? "Untitled"
+					: Path.GetFileNameWithoutExtension(_filename),
+					_isUnsaved ? "*" : string.Empty,
+					_headerText);
 		}
 
 		#region Division
@@ -81,6 +89,7 @@ namespace FlagMaker
 				                    divisionPicker3.SelectedColor
 			                    });
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void DivisionSliderChanged()
@@ -98,6 +107,7 @@ namespace FlagMaker
 				                    divisionSlider3.Value
 			                    });
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void SetDivisionVisibility()
@@ -154,6 +164,7 @@ namespace FlagMaker
 			_division = new DivisionGrid(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor, (int)divisionSlider1.Value, (int)divisionSlider2.Value);
 			SetDivisionVisibility();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void DivisionFessesClick(object sender, RoutedEventArgs e)
@@ -161,6 +172,7 @@ namespace FlagMaker
 			_division = new DivisionFesses(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor, divisionPicker3.SelectedColor, (int)divisionSlider1.Value, (int)divisionSlider2.Value, (int)divisionSlider3.Value);
 			SetDivisionVisibility();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void DivisionPalesClick(object sender, RoutedEventArgs e)
@@ -168,6 +180,7 @@ namespace FlagMaker
 			_division = new DivisionPales(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor, divisionPicker3.SelectedColor, (int)divisionSlider1.Value, (int)divisionSlider2.Value, (int)divisionSlider3.Value);
 			SetDivisionVisibility();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void DivisionBendsForwardClick(object sender, RoutedEventArgs e)
@@ -175,6 +188,7 @@ namespace FlagMaker
 			_division = new DivisionBendsForward(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor);
 			SetDivisionVisibility();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void DivisionBendsBackwardClick(object sender, RoutedEventArgs e)
@@ -182,6 +196,7 @@ namespace FlagMaker
 			_division = new DivisionBendsBackward(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor);
 			SetDivisionVisibility();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void DivisionXClick(object sender, RoutedEventArgs e)
@@ -189,6 +204,7 @@ namespace FlagMaker
 			_division = new DivisionX(divisionPicker1.SelectedColor, divisionPicker2.SelectedColor);
 			SetDivisionVisibility();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		#endregion
@@ -211,6 +227,7 @@ namespace FlagMaker
 		private void Draw(object sender, EventArgs e)
 		{
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void Remove(object sender, EventArgs e)
@@ -218,6 +235,7 @@ namespace FlagMaker
 			var controlToRemove = (OverlayControl)sender;
 			lstOverlays.Children.Remove(controlToRemove);
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void MoveUp(object sender, EventArgs e)
@@ -249,6 +267,7 @@ namespace FlagMaker
 
 			SetOverlayMargins();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void MoveDown(object sender, EventArgs e)
@@ -280,6 +299,7 @@ namespace FlagMaker
 
 			SetOverlayMargins();
 			Draw();
+			SetAsUnsaved();
 		}
 
 		private void Clone(object sender, EventArgs e)
@@ -325,11 +345,12 @@ namespace FlagMaker
 			if (!_isLoading)
 			{
 				Draw();
+				SetAsUnsaved();
 			}
 		}
 
 		#endregion
-
+		
 		private void SetColorsAndSliders()
 		{
 			_standardColors = ColorFactory.Colors(Palette.FlagsOfAllNations, false);
@@ -367,13 +388,17 @@ namespace FlagMaker
 			FillGridCombobox();
 		}
 
+		private void SetAsUnsaved()
+		{
+			_isUnsaved = true;
+			SetTitle();
+		}
+
 		private void Draw()
 		{
 			canvas.Width = _ratioWidth * 200;
 			canvas.Height = _ratioHeight * 200;
-
 			Flag.Draw(canvas);
-
 			DrawGrid();
 		}
 
@@ -469,7 +494,12 @@ namespace FlagMaker
 				_ratioWidth = newWidth;
 			}
 
-			Draw();
+			if (!_isLoading)
+			{
+				Draw();
+				SetAsUnsaved();
+			}
+
 			FillGridCombobox();
 		}
 
@@ -493,7 +523,11 @@ namespace FlagMaker
 				((OverlayControl)overlay).SetMaximum(sliderMaxX, sliderMaxY);
 			}
 
-			Draw();
+			if (!_isLoading)
+			{
+				Draw();
+				SetAsUnsaved();
+			}
 		}
 
 		#region Export
@@ -583,22 +617,43 @@ namespace FlagMaker
 		private void MenuNewClick(object sender, RoutedEventArgs e)
 		{
 			New();
+			SetTitle();
 		}
 
 		private void New()
 		{
+			if (CheckUnsaved()) return;
 			PlainPreset(2, 2);
 			divisionPicker1.SelectedColor = divisionPicker1.StandardColors[1].Color;
 			divisionPicker2.SelectedColor = divisionPicker2.StandardColors[5].Color;
 			lstOverlays.Children.Clear();
 			SetRatio(3, 2);
+			txtName.Text = "Untitled";
+			_filename = string.Empty;
+
+			_isUnsaved = false;
+			SetTitle();
 		}
 
 		private void MenuSaveClick(object sender, RoutedEventArgs e)
 		{
+			if (string.IsNullOrWhiteSpace(_filename))
+			{
+				MenuSaveAsClick(sender, e);
+			}
+			else
+			{
+				Save();
+			}
+
+			SetTitle();
+		}
+
+		private void MenuSaveAsClick(object sender, RoutedEventArgs e)
+		{
 			var dlg = new SaveFileDialog
 						  {
-							  FileName = "Untitled",
+							  FileName = string.IsNullOrWhiteSpace(_filename) ? "Untitled" : Path.GetFileNameWithoutExtension(_filename),
 							  DefaultExt = ".flag",
 							  Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*"
 						  };
@@ -606,9 +661,16 @@ namespace FlagMaker
 			bool? result = dlg.ShowDialog();
 			if (!((bool)result)) return;
 
-			using (var sr = new StreamWriter(dlg.FileName, false, Encoding.Unicode))
+			_filename = dlg.FileName;
+			SetTitle();
+			Save();
+		}
+
+		private void Save()
+		{
+			using (var sr = new StreamWriter(_filename, false, Encoding.Unicode))
 			{
-				sr.WriteLine("name={0}", string.IsNullOrWhiteSpace(txtName.Text) ? Path.GetFileNameWithoutExtension(dlg.FileName) : txtName.Text);
+				sr.WriteLine("name={0}", string.IsNullOrWhiteSpace(txtName.Text) ? Path.GetFileNameWithoutExtension(_filename) : txtName.Text);
 				sr.WriteLine("ratio={0}:{1}", txtRatioHeight.Text, txtRatioWidth.Text);
 				sr.WriteLine("gridSize={0}", cmbGridSize.SelectedItem);
 
@@ -638,16 +700,38 @@ namespace FlagMaker
 				}
 			}
 
+			_isUnsaved = false;
 			LoadPresets();
 		}
 
 		private void MenuOpenClick(object sender, RoutedEventArgs e)
 		{
+			if (CheckUnsaved()) return;
 			var path = Flag.GetFlagPath();
 			if (!string.IsNullOrWhiteSpace(path))
 			{
 				LoadFlagFromFile(path, true);
 			}
+			SetTitle();
+		}
+
+		// Cancel if returns true
+		private bool CheckUnsaved()
+		{
+			if (!_isUnsaved) return false;
+
+			string message = string.Format("Save changes to \"{0}\"?",
+				string.IsNullOrWhiteSpace(_filename)
+					? "untitled"
+					: Path.GetFileNameWithoutExtension(_filename));
+
+			var result = MessageBox.Show(message, "FlagMaker", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+			if (result == MessageBoxResult.Yes)
+			{
+				MenuSaveClick(null, null);
+			}
+
+			return result == MessageBoxResult.Cancel;
 		}
 
 		private void LoadFlagFromFile(string filename, bool isLoading)
@@ -674,6 +758,8 @@ namespace FlagMaker
 			}
 
 			txtName.Text = flag.Name;
+			_filename = filename;
+			_isUnsaved = false;
 
 			Draw();
 			_isLoading = false;
@@ -765,11 +851,13 @@ namespace FlagMaker
 
 		private void LoadPreset(object sender, RoutedEventArgs routedEventArgs)
 		{
+			if (CheckUnsaved()) return;
 			var menuItem = (MenuItem)sender;
 			LoadFlagFromFile(menuItem.ToolTip.ToString(), true);
+			SetTitle();
 		}
 
-		private string GetPresetFlagName(string filename)
+		private static string GetPresetFlagName(string filename)
 		{
 			using (var sr = new StreamReader(filename))
 			{
