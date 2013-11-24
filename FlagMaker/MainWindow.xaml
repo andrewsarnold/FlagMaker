@@ -34,16 +34,16 @@
             <MenuItem Header="_World flag presets" x:Name="mnuWorldFlagPresets" />
         </Menu>
 
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Label Content="Ratio" />
-            <TextBox x:Name="txtRatioHeight" Width="30" TextChanged="RatioTextboxChanged" />
-            <Label Content=":" />
-            <TextBox x:Name="txtRatioWidth" Width="30" TextChanged="RatioTextboxChanged" />
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label Content="Ratio" VerticalAlignment="Center" />
+            <TextBox x:Name="txtRatioHeight" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
+            <Label Content=":" VerticalAlignment="Center" />
+            <TextBox x:Name="txtRatioWidth" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
 
-            <Label Content="Grid size" Margin="10,0,0,0" />
-            <ComboBox x:Name="cmbGridSize" SelectionChanged="GridSizeDropdownChanged" Width="60" />
+            <Label Content="Grid size" Margin="10,0,0,0" VerticalAlignment="Center" />
+            <ComboBox x:Name="cmbGridSize" SelectionChanged="GridSizeDropdownChanged" Width="60" VerticalAlignment="Center" />
 
-            <Button x:Name="btnGrid" Margin="10,0,0,0" ToolTip="Show grid" Click="GridOnChanged">
+            <Button x:Name="btnGrid" Margin="10,0,0,0" ToolTip="Show grid" Click="GridOnChanged" VerticalAlignment="Center">
                 <Canvas Width="30" Height="20">
                     <Line X1="0" X2="30" Y1="5" Y2="5" StrokeThickness="2" Stroke="Gray" />
                     <Line X1="0" X2="30" Y1="10" Y2="10" StrokeThickness="2" Stroke="Gray" />
@@ -56,7 +56,10 @@
                     <Line X1="25" X2="25" Y1="0" Y2="20" StrokeThickness="2" Stroke="Gray" />
                 </Canvas>
             </Button>
-        </StackPanel>
+            
+            <TextBox x:Name="txtName" Margin="10,0,0,0" Width="200" Text="United Kingdom" FontSize="18"
+                     VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
+        </WrapPanel>
         
         <Separator DockPanel.Dock="Top" />
 

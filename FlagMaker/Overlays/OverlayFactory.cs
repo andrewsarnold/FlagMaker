@@ -19,6 +19,7 @@ namespace FlagMaker.Overlays
 			                                                           { "diamond", typeof (OverlayDiamond) },
 			                                                           { "ellipse", typeof (OverlayEllipse) },
 			                                                           { "flag", typeof (OverlayFlag) },
+			                                                           { "fleur de lis", typeof (OverlayFleurDeLis) },
 			                                                           { "equitorial cross", typeof (OverlayEquitorialCross) },
 			                                                           { "fimbriation backward", typeof (OverlayFimbriationBackward) },
 			                                                           { "fimbriation forward", typeof (OverlayFimbriationForward) },

@@ -104,6 +104,7 @@
     <Compile Include="Flag.cs" />
     <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
@@ -334,6 +335,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\poland.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\quebec.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\romania.flag">

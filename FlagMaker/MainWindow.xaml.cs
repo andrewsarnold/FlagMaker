@@ -608,7 +608,7 @@ namespace FlagMaker
 
 			using (var sr = new StreamWriter(dlg.FileName, false, Encoding.Unicode))
 			{
-				sr.WriteLine("name={0}", Path.GetFileNameWithoutExtension(dlg.FileName));
+				sr.WriteLine("name={0}", string.IsNullOrWhiteSpace(txtName.Text) ? Path.GetFileNameWithoutExtension(dlg.FileName) : txtName.Text);
 				sr.WriteLine("ratio={0}:{1}", txtRatioHeight.Text, txtRatioWidth.Text);
 				sr.WriteLine("gridSize={0}", cmbGridSize.SelectedItem);
 
@@ -672,6 +672,8 @@ namespace FlagMaker
 			{
 				OverlayAdd(lstOverlays.Children.Count, overlay, isLoading);
 			}
+
+			txtName.Text = flag.Name;
 
 			Draw();
 			_isLoading = false;
