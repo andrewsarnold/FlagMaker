@@ -8,9 +8,11 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
@@ -513,10 +515,18 @@ namespace FlagMaker
 			bool? result = dlg.ShowDialog();
 			if (!((bool)result)) return;
 
-			ExportToPng(new Uri(dlg.FileName), canvas, dimensions);
+			// Create a full copy of the canvas so the
+			// scaling of the existing canvas and
+			// grid don't ge messed up
+			string gridXaml = XamlWriter.Save(canvas);
+			var stringReader = new StringReader(gridXaml);
+			XmlReader xmlReader = XmlReader.Create(stringReader);
+			var newGrid = (Canvas)XamlReader.Load(xmlReader);
+
+			ExportToPng(new Uri(dlg.FileName), newGrid, dimensions);
 		}
 
-		private void ExportToPng(Uri path, FrameworkElement surface, Size newSize)
+		private static void ExportToPng(Uri path, FrameworkElement surface, Size newSize)
 		{
 			if (path == null) return;
 
@@ -544,9 +554,6 @@ namespace FlagMaker
 				encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
 				encoder.Save(outStream);
 			}
-
-			// Reset scaling
-			surface.LayoutTransform = new ScaleTransform(size.Width / newSize.Width, size.Height / newSize.Height);
 		}
 
 		private void MenuExportSvgClick(object sender, RoutedEventArgs e)
