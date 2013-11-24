@@ -662,8 +662,8 @@ namespace FlagMaker
 			if (!((bool)result)) return;
 
 			_filename = dlg.FileName;
-			SetTitle();
 			Save();
+			SetTitle();
 		}
 
 		private void Save()
