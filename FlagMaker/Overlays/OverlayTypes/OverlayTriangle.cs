@@ -10,15 +10,17 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayTriangle(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			{
-				new Attribute("Size", true, 1, true)
+				new Attribute("Width", true, 1, true),
+				new Attribute("Height", true, 1, false)
 			}, maximumX, maximumY)
 		{
 		}
 
-		public OverlayTriangle(Color color, double size, int maximumX, int maximumY)
+		public OverlayTriangle(Color color, double width, double height, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			{
-				new Attribute("Size", true, size, true)
+				new Attribute("Width", true, width, true),
+				new Attribute("Height", true, height, false)
 			}, maximumX, maximumY)
 		{
 		}
@@ -27,14 +29,15 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Size").Value / MaximumX);
+			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
+			var margin = (canvas.Height - canvas.Height * (Attributes.Get("Height").Value / MaximumY)) / 2;
 
 			var path = new Path
 							{
 								Fill = new SolidColorBrush(Color),
 								Width = canvas.Width,
 								Height = canvas.Height,
-								Data = Geometry.Parse(string.Format("M 0,0 {0},{1} 0,{2}", width, canvas.Height / 2, canvas.Height)),
+								Data = Geometry.Parse(string.Format("M 0,{0} {1},{2} 0,{3}", margin, width, canvas.Height / 2, canvas.Height - margin)),
 								SnapsToDevicePixels = true
 							};
 			canvas.Children.Add(path);
@@ -42,14 +45,18 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Size").Value = values[0];
+			Attributes.Get("Width").Value = values[0];
+			Attributes.Get("Height").Value = values[1];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			return string.Format("<polygon points=\"0,0 0,{0} {1},{2}\" fill=\"#{3}\" />",
-				height,
-				width * (Attributes.Get("Size").Value / MaximumX),
+			var margin = (height - height * (Attributes.Get("Height").Value / MaximumY)) / 2;
+
+			return string.Format("<polygon points=\"0,{0} 0,{1} {2},{3}\" fill=\"#{4}\" />",
+				margin,
+				height - margin,
+				width * (Attributes.Get("Width").Value / MaximumX),
 				height / 2,
 				Color.ToHexString());
 		}

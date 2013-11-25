@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -895,6 +896,14 @@ namespace FlagMaker
 			}
 
 			DrawGrid();
+		}
+
+		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+		{
+			if (CheckUnsaved())
+			{
+				e.Cancel = true;
+			}
 		}
 	}
 }
