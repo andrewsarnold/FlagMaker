@@ -30,6 +30,7 @@ namespace FlagMaker.Overlays
 			                                                           { "maple leaf", typeof (OverlayMapleLeaf) },
 			                                                           { "pall", typeof (OverlayPall) },
 			                                                           { "pentagram", typeof (OverlayPentagram) },
+																	   { "rays", typeof(OverlayRays) },
 																	   { "repeater lateral", typeof(OverlayRepeaterLateral) },
 																	   { "repeater radial", typeof(OverlayRepeaterRadial) },
 			                                                           { "saltire", typeof (OverlaySaltire) },
