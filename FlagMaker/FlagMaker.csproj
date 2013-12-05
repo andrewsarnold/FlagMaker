@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -105,10 +105,14 @@
     <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagle.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayErmine.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySun.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTree.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeater.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterRadial.cs" />
@@ -185,6 +189,9 @@
     <None Include="Presets\algeria.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\argentina.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\arizona.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -210,6 +217,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\benin.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\brittany.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\burundi.flag">

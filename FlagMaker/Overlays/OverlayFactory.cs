@@ -17,7 +17,9 @@ namespace FlagMaker.Overlays
 			                                                           { "crescent", typeof (OverlayCrescent) },
 			                                                           { "cross", typeof (OverlayCross) },
 			                                                           { "diamond", typeof (OverlayDiamond) },
+			                                                           { "eagle", typeof (OverlayEagle) },
 			                                                           { "ellipse", typeof (OverlayEllipse) },
+			                                                           { "ermine", typeof (OverlayErmine) },
 			                                                           { "flag", typeof (OverlayFlag) },
 			                                                           { "fleur de lis", typeof (OverlayFleurDeLis) },
 			                                                           { "equitorial cross", typeof (OverlayEquitorialCross) },
@@ -40,6 +42,8 @@ namespace FlagMaker.Overlays
 			                                                           { "star of david", typeof (OverlayStarOfDavid) },
 			                                                           { "star seven", typeof (OverlayStarSeven) },
 			                                                           { "star six", typeof (OverlayStarSix) },
+			                                                           { "sun", typeof (OverlaySun) },
+			                                                           { "tree", typeof (OverlayTree) },
 			                                                           { "triangle", typeof (OverlayTriangle) }
 		                                                           };
 
