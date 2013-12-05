@@ -5,8 +5,8 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 {
 	public class OverlayStarSeven : OverlayPath
 	{
-		private const string Path = "m 0.02435,-8.5465374 1.73553,5.39612 5.30095,-2.00753 -3.13677,4.72132021 4.87464,2.89276979 -5.64703,0.49127 0.77763,5.61477 -3.90495,-4.10872 -3.90496,4.10872 0.77763,-5.61477 -5.64702,-0.49127 4.87464,-2.89276979 -3.13678,-4.72132021 5.30095,2.00753 1.73554,-5.39612 z";
-		private static readonly Vector PathSize = new Vector(22, 22);
+		private const string Path = "M 0.22136364,-81.695795 15.998909,-32.640158 64.189364,-50.890431 35.673273,-7.9693381 79.988182,18.328569 28.651545,22.79466 l 7.069364,51.043364 -35.49954536,-37.352 -35.49963664,37.352 7.069364,-51.043364 -51.336546,-4.466091 44.31491,-26.2979071 -28.516182,-42.9210929 48.190454,18.250273 15.77763664,-49.055637 z";
+		private static readonly Vector PathSize = new Vector(160, 156);
 
 		public OverlayStarSeven(int maximumX, int maximumY)
 			: base("star seven", Path, PathSize, maximumX, maximumY)
