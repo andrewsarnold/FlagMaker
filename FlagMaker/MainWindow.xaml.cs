@@ -58,7 +58,7 @@ namespace FlagMaker
 			InitializeComponent();
 
 			var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-			_headerText = string.Format(" - FlagMaker {0}.{1}", version.Major, version.Minor);
+			_headerText = string.Format(" - FlagMaker {0}.{1}{2}", version.Major, version.Minor, version.Build > 0 ? string.Format(".{0}", version.Build) : string.Empty);
 			SetTitle();
 
 			_showGrid = false;
