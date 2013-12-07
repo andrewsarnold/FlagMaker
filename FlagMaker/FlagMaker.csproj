@@ -107,11 +107,15 @@
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagle.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayErmine.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFlash.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIronCross.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMalteseCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySun.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySwastika.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTree.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeater.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />

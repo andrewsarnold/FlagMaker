@@ -42,7 +42,7 @@ namespace FlagMaker
 					       new ColorItem(Color.FromRgb(51, 0, 0), "Dark brown"),
 					       new ColorItem(Color.FromRgb(255, 153, 0), "Light orange"),
 					       new ColorItem(Color.FromRgb(255, 102, 0), "Orange"),
-					       new ColorItem(Color.FromRgb(255, 102, 51), "Very dark red"),
+					       new ColorItem(Color.FromRgb(255, 204, 51), "Gold"),
 					       new ColorItem(Color.FromRgb(255, 255, 204), "Very light yellow"),
 					       new ColorItem(Color.FromRgb(255, 255, 153), "Light yellow"),
 					       new ColorItem(Color.FromRgb(255, 255, 0), "Yellow"),

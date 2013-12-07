@@ -355,7 +355,7 @@ namespace FlagMaker
 		private void SetColorsAndSliders()
 		{
 			_standardColors = ColorFactory.Colors(Palette.FlagsOfAllNations, false);
-			_availableColors = ColorFactory.Colors(Palette.FlagsOfTheWorld, true);
+			_availableColors = ColorFactory.Colors(Palette.FlagsOfTheWorld, false);
 
 			divisionPicker1.AvailableColors = _availableColors;
 			divisionPicker1.StandardColors = _standardColors;
