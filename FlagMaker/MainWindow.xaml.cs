@@ -32,6 +32,7 @@ namespace FlagMaker
 		private Division _division;
 		private ObservableCollection<ColorItem> _standardColors;
 		private ObservableCollection<ColorItem> _availableColors;
+		private ObservableCollection<ColorItem> _recentColors; 
 
 		private bool _isLoading;
 		private bool _showGrid;
@@ -314,7 +315,7 @@ namespace FlagMaker
 		private void OverlayAdd(int index, Overlay overlay, bool isLoading)
 		{
 			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
-			var newOverlay = new OverlayControl(_standardColors, _availableColors, gridSize.Width, gridSize.Height)
+			var newOverlay = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height)
 							 {
 								 IsLoading = isLoading
 							 };
@@ -353,22 +354,31 @@ namespace FlagMaker
 
 		#endregion
 
+		#region Colors
+
 		private void SetColorsAndSliders()
 		{
 			_standardColors = ColorFactory.Colors(Palette.FlagsOfAllNations, false);
 			_availableColors = ColorFactory.Colors(Palette.FlagsOfTheWorld, false);
+			_recentColors = new ObservableCollection<ColorItem>();
 
 			divisionPicker1.AvailableColors = _availableColors;
 			divisionPicker1.StandardColors = _standardColors;
 			divisionPicker1.SelectedColor = divisionPicker1.StandardColors[1].Color;
+			divisionPicker1.ShowRecentColors = true;
+			divisionPicker1.RecentColors = _recentColors;
 
 			divisionPicker2.AvailableColors = _availableColors;
 			divisionPicker2.StandardColors = _standardColors;
 			divisionPicker2.SelectedColor = divisionPicker2.StandardColors[5].Color;
+			divisionPicker2.ShowRecentColors = true;
+			divisionPicker2.RecentColors = _recentColors;
 
 			divisionPicker3.AvailableColors = _availableColors;
 			divisionPicker3.StandardColors = _standardColors;
 			divisionPicker3.SelectedColor = divisionPicker3.StandardColors[8].Color;
+			divisionPicker3.ShowRecentColors = true;
+			divisionPicker3.RecentColors = _recentColors;
 
 			divisionPicker1.SelectedColorChanged += (sender, args) => DivisionColorChanged();
 			divisionPicker2.SelectedColorChanged += (sender, args) => DivisionColorChanged();
@@ -380,6 +390,43 @@ namespace FlagMaker
 			New();
 		}
 
+		private void SetUsedColorPalettes()
+		{
+			_recentColors.Clear();
+
+			var colors = Flag.ColorsUsed();
+			foreach (var color in colors)
+			{
+				_recentColors.Add(new ColorItem(color, null));
+			}
+		}
+
+		private void ShuffleColors(object sender, RoutedEventArgs e)
+		{
+			bool skip2 = _division is DivisionGrid && divisionSlider1.Value == 1 && divisionSlider2.Value == 1;
+			var colors = Flag.ColorsUsed();
+
+			divisionPicker1.SelectedColor = GetNextColor(divisionPicker1.SelectedColor, colors);
+			if (!skip2) divisionPicker2.SelectedColor = GetNextColor(divisionPicker2.SelectedColor, colors);
+			if (divisionPicker3.Visibility == Visibility.Visible)
+				divisionPicker3.SelectedColor = GetNextColor(divisionPicker3.SelectedColor, colors);
+
+			foreach (var overlay in lstOverlays.Children.Cast<OverlayControl>())
+			{
+				overlay.Color = GetNextColor(overlay.Color, colors);
+			}
+		}
+
+		private Color GetNextColor(Color c, List<Color> colors)
+		{
+			var index = colors.FindIndex(i => i == c);
+			return colors[((index + 1) % colors.Count)];
+		}
+
+		#endregion
+
+		#region Grid
+
 		private void SetRatio(int width, int height)
 		{
 			txtRatioHeight.Text = height.ToString();
@@ -389,6 +436,24 @@ namespace FlagMaker
 
 			FillGridCombobox();
 		}
+
+		private void GridOnChanged(object sender, RoutedEventArgs e)
+		{
+			_showGrid = !_showGrid;
+
+			if (_showGrid)
+			{
+				btnGrid.Background = new SolidColorBrush(Colors.LightSkyBlue);
+			}
+			else
+			{
+				btnGrid.ClearValue(BackgroundProperty);
+			}
+
+			DrawGrid();
+		}
+
+		#endregion
 
 		private void SetAsUnsaved()
 		{
@@ -402,6 +467,7 @@ namespace FlagMaker
 			canvas.Height = _ratioHeight * 200;
 			Flag.Draw(canvas);
 			DrawGrid();
+			SetUsedColorPalettes();
 		}
 
 		private void DrawGrid()
@@ -883,61 +949,12 @@ namespace FlagMaker
 			viewbox.MaxHeight = Height - 100;
 		}
 
-		private void GridOnChanged(object sender, RoutedEventArgs e)
-		{
-			_showGrid = !_showGrid;
-
-			if (_showGrid)
-			{
-				btnGrid.Background = new SolidColorBrush(Colors.LightSkyBlue);
-			}
-			else
-			{
-				btnGrid.ClearValue(BackgroundProperty);
-			}
-
-			DrawGrid();
-		}
-
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
 		{
 			if (CheckUnsaved())
 			{
 				e.Cancel = true;
 			}
-		}
-
-		private void ShuffleColors(object sender, RoutedEventArgs e)
-		{
-			bool skip2 = _division is DivisionGrid && divisionSlider1.Value == 1 && divisionSlider2.Value == 1;
-
-			var colors = new List<Color> { divisionPicker1.SelectedColor };
-
-			if (!skip2)
-			{
-				colors.Add(divisionPicker2.SelectedColor);
-			}
-
-			if (divisionPicker3.Visibility == Visibility.Visible) colors.Add(divisionPicker3.SelectedColor);
-			colors.AddRange(lstOverlays.Children.Cast<OverlayControl>().Where(o => !(o.Overlay is OverlayRepeater)).Select(overlay => overlay.Color));
-
-			colors = colors.Distinct().OrderBy(c => c.Hue()).ToList();
-
-			divisionPicker1.SelectedColor = GetNextColor(divisionPicker1.SelectedColor, colors);
-			if (!skip2) divisionPicker2.SelectedColor = GetNextColor(divisionPicker2.SelectedColor, colors);
-			if (divisionPicker3.Visibility == Visibility.Visible)
-				divisionPicker3.SelectedColor = GetNextColor(divisionPicker3.SelectedColor, colors);
-
-			foreach (var overlay in lstOverlays.Children.Cast<OverlayControl>())
-			{
-				overlay.Color = GetNextColor(overlay.Color, colors);
-			}
-		}
-
-		private Color GetNextColor(Color c, List<Color> colors)
-		{
-			var index = colors.FindIndex(i => i == c);
-			return colors[((index + 1) % colors.Count)];
 		}
 	}
 }

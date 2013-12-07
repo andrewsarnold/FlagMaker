@@ -9,27 +9,27 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
 	public class OverlayFlag : OverlayShape
 	{
-		private readonly Flag _flag;
+		public Flag Flag { get; private set; }
 
 		public string Path { get; private set; }
 
 		public OverlayFlag(int maximumX, int maximumY)
 			: base(maximumX, maximumY)
 		{
-			_flag = new Flag("flag", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
+			Flag = new Flag("flag", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
 		}
 
 		public OverlayFlag(Flag flag, string path, int maximumX, int maximumY)
 			: base(maximumX, maximumY)
 		{
-			_flag = flag;
+			Flag = flag;
 			Path = path;
 		}
 
 		public OverlayFlag(Flag flag, string path, double x, double y, double width, double height, int maximumX, int maximumY)
 			: base(Colors.White, x, y, width, height, maximumX, maximumY)
 		{
-			_flag = flag;
+			Flag = flag;
 			Path = path;
 		}
 
@@ -46,7 +46,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 						Height = canvasHeight
 					};
 
-			_flag.Draw(c);
+			Flag.Draw(c);
 			canvas.Children.Add(c);
 
 			Canvas.SetLeft(c, (canvas.Width * (Attributes.Get("X").Value / MaximumX)));
@@ -63,9 +63,9 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 				Attributes.Get("Width").Value / MaximumX,
 				Attributes.Get("Height").Value / MaximumY));
 
-			sb.Append(_flag.Division.ExportSvg(width, height));
+			sb.Append(Flag.Division.ExportSvg(width, height));
 
-			foreach (var overlay in _flag.Overlays)
+			foreach (var overlay in Flag.Overlays)
 			{
 				sb.Append(overlay.ExportSvg(width, height));
 			}

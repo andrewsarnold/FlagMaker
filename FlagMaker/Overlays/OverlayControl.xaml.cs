@@ -26,14 +26,14 @@ namespace FlagMaker.Overlays
 		public event EventHandler OnDraw;
 		public event EventHandler OnClone;
 
-		public OverlayControl(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, int defaultMaximumX, int defaultMaximumY)
+		public OverlayControl(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors, int defaultMaximumX, int defaultMaximumY)
 		{
 			InitializeComponent();
 
 			_defaultMaximumX = defaultMaximumX;
 			_defaultMaximumY = defaultMaximumY;
 
-			SetUpColors(standardColors, availableColors);
+			SetUpColors(standardColors, availableColors, recentColors);
 			FillOverlayList();
 		}
 
@@ -106,10 +106,12 @@ namespace FlagMaker.Overlays
 			}
 		}
 
-		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors)
+		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors)
 		{
 			_overlayPicker.AvailableColors = availableColors;
 			_overlayPicker.StandardColors = standardColors;
+			_overlayPicker.RecentColors = recentColors;
+			_overlayPicker.ShowRecentColors = true;
 			_overlayPicker.SelectedColor = _overlayPicker.StandardColors[10].Color;
 			_overlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
 		}

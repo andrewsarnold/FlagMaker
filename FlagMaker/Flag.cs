@@ -9,6 +9,7 @@ using System.Windows.Media;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
+using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Microsoft.Win32;
 
 namespace FlagMaker
@@ -251,6 +252,44 @@ namespace FlagMaker
 				sw.WriteLine("</svg>");
 			}
 		}
+
+		public List<Color> ColorsUsed()
+		{
+			var colors = new List<Color>();
+
+			if (Division is DivisionGrid && Division.Values[0] == 1 && Division.Values[1] == 1)
+			{
+				colors.Add(Division.Colors[0]);
+			}
+			else
+			{
+				colors.AddRange(Division.Colors);
+			}
+
+			foreach (var overlay in Overlays)
+			{
+				if (overlay is OverlayFlag)
+				{
+					colors.AddRange(((OverlayFlag) overlay).Flag.ColorsUsed());
+				}
+				else if (!(overlay is OverlayRepeater))
+				{
+					colors.Add(overlay.Color);
+				}
+			}
+
+			// Strip duplicates (Distinct() doesn't work)
+			//var distinctColors = new List<Color>();
+			//foreach (var color in colors)
+			//{
+			//	if (!distinctColors.Any(c => c.R == color.R && c.G == color.G && c.B == color.B))
+			//	{
+			//		distinctColors.Add(color);
+			//	}
+			//}
+
+			return colors.Distinct().OrderBy(c => c.Hue()).ToList();
+		} 
 
 		private void SetRepeaterOverlays()
 		{
