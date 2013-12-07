@@ -589,6 +589,7 @@
     <Resource Include="Images\movedown.png" />
     <Resource Include="Images\moveup.png" />
     <Resource Include="Images\clone.png" />
+    <Resource Include="Images\rotate.png" />
     <Content Include="readme.htm" />
   </ItemGroup>
   <ItemGroup>

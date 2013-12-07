@@ -68,6 +68,10 @@
             
             <TextBox x:Name="txtName" Margin="10,0,0,0" Width="200" FontSize="18"
                      VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
+            
+            <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="Shuffle colors" Click="ShuffleColors" Height="32" Width="32">
+                <Image Source="Images\rotate.png" />
+            </Button>
         </WrapPanel>
         
         <Separator DockPanel.Dock="Top" />

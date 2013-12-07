@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
@@ -351,7 +352,7 @@ namespace FlagMaker
 		}
 
 		#endregion
-		
+
 		private void SetColorsAndSliders()
 		{
 			_standardColors = ColorFactory.Colors(Palette.FlagsOfAllNations, false);
@@ -904,6 +905,39 @@ namespace FlagMaker
 			{
 				e.Cancel = true;
 			}
+		}
+
+		private void ShuffleColors(object sender, RoutedEventArgs e)
+		{
+			bool skip2 = _division is DivisionGrid && divisionSlider1.Value == 1 && divisionSlider2.Value == 1;
+
+			var colors = new List<Color> { divisionPicker1.SelectedColor };
+
+			if (!skip2)
+			{
+				colors.Add(divisionPicker2.SelectedColor);
+			}
+
+			if (divisionPicker3.Visibility == Visibility.Visible) colors.Add(divisionPicker3.SelectedColor);
+			colors.AddRange(lstOverlays.Children.Cast<OverlayControl>().Where(o => !(o.Overlay is OverlayRepeater)).Select(overlay => overlay.Color));
+
+			colors = colors.Distinct().OrderBy(c => c.Hue()).ToList();
+
+			divisionPicker1.SelectedColor = GetNextColor(divisionPicker1.SelectedColor, colors);
+			if (!skip2) divisionPicker2.SelectedColor = GetNextColor(divisionPicker2.SelectedColor, colors);
+			if (divisionPicker3.Visibility == Visibility.Visible)
+				divisionPicker3.SelectedColor = GetNextColor(divisionPicker3.SelectedColor, colors);
+
+			foreach (var overlay in lstOverlays.Children.Cast<OverlayControl>())
+			{
+				overlay.Color = GetNextColor(overlay.Color, colors);
+			}
+		}
+
+		private Color GetNextColor(Color c, List<Color> colors)
+		{
+			var index = colors.FindIndex(i => i == c);
+			return colors[((index + 1) % colors.Count)];
 		}
 	}
 }
