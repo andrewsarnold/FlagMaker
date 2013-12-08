@@ -762,7 +762,7 @@ namespace FlagMaker
 
 					for (int i = 0; i < overlay.Overlay.Attributes.Count(); i++)
 					{
-						sr.WriteLine("size{0}={1}", i + 1, overlay.Overlay.Attributes[i].Value);
+						sr.WriteLine("size{0}={1}", i + 1, overlay.Overlay.Attributes[i].Value.ToString(CultureInfo.InvariantCulture));
 					}
 				}
 			}

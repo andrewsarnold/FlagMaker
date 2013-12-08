@@ -112,7 +112,7 @@ namespace FlagMaker
 								}
 								else
 								{
-									overlays[overlayIndex].Values[0] = double.Parse(line.Split('=')[1]);
+									overlays[overlayIndex].Values[0] = GetDoubleFromString(line.Split('=')[1]);
 								}
 								break;
 							case "size2":
@@ -122,7 +122,7 @@ namespace FlagMaker
 								}
 								else
 								{
-									overlays[overlayIndex].Values[1] = double.Parse(line.Split('=')[1]);
+									overlays[overlayIndex].Values[1] = GetDoubleFromString(line.Split('=')[1]);
 								}
 								break;
 							case "size3":
@@ -132,17 +132,17 @@ namespace FlagMaker
 								}
 								else
 								{
-									overlays[overlayIndex].Values[2] = double.Parse(line.Split('=')[1]);
+									overlays[overlayIndex].Values[2] = GetDoubleFromString(line.Split('=')[1]);
 								}
 								break;
 							case "size4":
-								overlays[overlayIndex].Values[3] = double.Parse(line.Split('=')[1]);
+								overlays[overlayIndex].Values[3] = GetDoubleFromString(line.Split('=')[1]);
 								break;
 							case "size5":
-								overlays[overlayIndex].Values[4] = double.Parse(line.Split('=')[1]);
+								overlays[overlayIndex].Values[4] = GetDoubleFromString(line.Split('=')[1]);
 								break;
 							case "size6":
-								overlays[overlayIndex].Values[5] = double.Parse(line.Split('=')[1]);
+								overlays[overlayIndex].Values[5] = GetDoubleFromString(line.Split('=')[1]);
 								break;
 							case "path":
 								overlays[overlayIndex].FlagPath = line.Split('=')[1];
@@ -308,6 +308,14 @@ namespace FlagMaker
 			}
 
 			return Color.FromArgb(a, r, g, b);
+		}
+
+		private static double GetDoubleFromString(string data)
+		{
+			// Doubles in files can be written as "123.45" or "123,45".
+			// (Ignore thousands separators - not really applicable for FlagMaker.)
+			// If the user saved a file with commas, replace and parse with invariant culture.
+			return double.Parse(data.Replace(',', '.'), CultureInfo.InvariantCulture);
 		}
 
 		private class TempOverlay
