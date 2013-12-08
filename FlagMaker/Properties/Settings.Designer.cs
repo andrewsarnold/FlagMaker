@@ -22,5 +22,17 @@ namespace FlagMaker.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("en-US")]
+        public string Culture {
+            get {
+                return ((string)(this["Culture"]));
+            }
+            set {
+                this["Culture"] = value;
+            }
+        }
     }
 }

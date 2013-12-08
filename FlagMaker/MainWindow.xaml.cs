@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,8 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
 using FlagMaker.Divisions;
+using FlagMaker.Localization;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
+using FlagMaker.Properties;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
@@ -56,7 +59,9 @@ namespace FlagMaker
 
 		public MainWindow()
 		{
+			Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(Settings.Default.Culture);
 			InitializeComponent();
+			SetLanguages();
 
 			var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 			_headerText = string.Format(" - FlagMaker {0}.{1}{2}", version.Major, version.Minor, version.Build > 0 ? string.Format(".{0}", version.Build) : string.Empty);
@@ -68,11 +73,30 @@ namespace FlagMaker
 			LoadPresets();
 		}
 
+		private void SetLanguages()
+		{
+			foreach (var lang in new List<CultureInfo>
+			                     {
+				                     new CultureInfo("en-US"),
+									 new CultureInfo("es-ES")
+			                     })
+			{
+				var menuItem = new MenuItem
+				               {
+					               Header = lang.Parent.NativeName,
+								   Tag = lang.Name,
+								   IsChecked = Settings.Default.Culture == lang.Name
+				               };
+				menuItem.Click += LanguageChange;
+				mnuLanguage.Items.Add(menuItem);
+			}
+		}
+
 		private void SetTitle()
 		{
 			Title = string.Format("{0}{1}{2}",
 				string.IsNullOrWhiteSpace(_filename)
-					? "Untitled"
+					? strings.Untitled
 					: Path.GetFileNameWithoutExtension(_filename),
 					_isUnsaved ? "*" : string.Empty,
 					_headerText);
@@ -695,7 +719,7 @@ namespace FlagMaker
 			divisionPicker2.SelectedColor = divisionPicker2.StandardColors[5].Color;
 			lstOverlays.Children.Clear();
 			SetRatio(3, 2);
-			txtName.Text = "Untitled";
+			txtName.Text = strings.Untitled;
 			_filename = string.Empty;
 
 			_isUnsaved = false;
@@ -720,9 +744,9 @@ namespace FlagMaker
 		{
 			var dlg = new SaveFileDialog
 						  {
-							  FileName = string.IsNullOrWhiteSpace(_filename) ? "Untitled" : Path.GetFileNameWithoutExtension(_filename),
+							  FileName = string.IsNullOrWhiteSpace(_filename) ? strings.Untitled : Path.GetFileNameWithoutExtension(_filename),
 							  DefaultExt = ".flag",
-							  Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*"
+							  Filter = string.Format("{0} (*.flag)|*.flag|{1} (*.*)|*.*", strings.Flag, strings.AllFiles)
 						  };
 
 			bool? result = dlg.ShowDialog();
@@ -787,7 +811,7 @@ namespace FlagMaker
 		{
 			if (!_isUnsaved) return false;
 
-			string message = string.Format("Save changes to \"{0}\"?",
+			string message = string.Format(strings.SaveChangesPrompt,
 				string.IsNullOrWhiteSpace(_filename)
 					? "untitled"
 					: Path.GetFileNameWithoutExtension(_filename));
@@ -810,7 +834,7 @@ namespace FlagMaker
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show(string.Format("Couldn't open the file. Check your syntax and try again.\nError at line: \"{0}\"", e.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
+				MessageBox.Show(string.Format(strings.CouldNotOpenError, e.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
 
@@ -922,7 +946,7 @@ namespace FlagMaker
 			}
 			catch (Exception)
 			{
-				MessageBox.Show("Couldn't load presets. Check for a Presets folder in the application directory.");
+				MessageBox.Show(strings.CouldNotLoadPresetsError);
 			}
 		}
 
@@ -964,6 +988,20 @@ namespace FlagMaker
 			{
 				e.Cancel = true;
 			}
+		}
+
+		private void LanguageChange(object sender, RoutedEventArgs e)
+		{
+			foreach (var langMenu in mnuLanguage.Items.OfType<MenuItem>())
+			{
+				langMenu.IsChecked = false;
+			}
+
+			var item = (MenuItem)sender;
+			item.IsChecked = true;
+			Settings.Default.Culture = item.Tag.ToString();
+			Settings.Default.Save();
+			MessageBox.Show(strings.RestartForChanges);
 		}
 	}
 }

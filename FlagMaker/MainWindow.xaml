@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:FlagMaker" MinHeight="120" Width="600"
-        SizeChanged="MainWindowOnSizeChanged" Closing="MainWindow_OnClosing">
+        SizeChanged="MainWindowOnSizeChanged" Closing="MainWindow_OnClosing"
+        xmlns:Localization="clr-namespace:FlagMaker.Localization">
 
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -31,28 +32,29 @@
 
     <DockPanel LastChildFill="True">
         <Menu IsMainMenu="True" DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_New" Click="MenuNewClick" InputGestureText="Ctrl+N" />
-                <MenuItem Header="_Save" Click="MenuSaveClick" InputGestureText="Ctrl+S" />
-                <MenuItem Header="Save _As..." Click="MenuSaveAsClick" InputGestureText="Ctrl+Shift+S" />
-                <MenuItem Header="_Open..." Click="MenuOpenClick" InputGestureText="Ctrl+O" />
+            <MenuItem Header="{x:Static Localization:strings.File}">
+                <MenuItem Header="{x:Static Localization:strings.New}" Click="MenuNewClick" InputGestureText="Ctrl+N" />
+                <MenuItem Header="{x:Static Localization:strings.Open}" Click="MenuOpenClick" InputGestureText="Ctrl+O" />
+                <MenuItem Header="{x:Static Localization:strings.Save}" Click="MenuSaveClick" InputGestureText="Ctrl+S" />
+                <MenuItem Header="{x:Static Localization:strings.SaveAs}" Click="MenuSaveAsClick" InputGestureText="Ctrl+Shift+S" />
                 <Separator />
-                <MenuItem Header="Export as _PNG..." Click="MenuExportPngClick" />
-                <MenuItem Header="Export as _SVG..." Click="MenuExportSvgClick" />
+                <MenuItem Header="{x:Static Localization:strings.ExportAsPng}" Click="MenuExportPngClick" />
+                <MenuItem Header="{x:Static Localization:strings.ExportAsSvg}" Click="MenuExportSvgClick" />
             </MenuItem>
-            <MenuItem Header="_World flag presets" x:Name="mnuWorldFlagPresets" />
+            <MenuItem Header="{x:Static Localization:strings.WorldFlagPresets}" x:Name="mnuWorldFlagPresets" />
+            <MenuItem Header="{x:Static Localization:strings.Language}" x:Name="mnuLanguage" />
         </Menu>
 
         <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Label Content="Ratio" VerticalAlignment="Center" />
+            <Label Content="{x:Static Localization:strings.Ratio}" VerticalAlignment="Center" />
             <TextBox x:Name="txtRatioHeight" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
             <Label Content=":" VerticalAlignment="Center" />
             <TextBox x:Name="txtRatioWidth" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
 
-            <Label Content="Grid size" Margin="10,0,0,0" VerticalAlignment="Center" />
+            <Label Content="{x:Static Localization:strings.GridSize}" Margin="10,0,0,0" VerticalAlignment="Center" />
             <ComboBox x:Name="cmbGridSize" SelectionChanged="GridSizeDropdownChanged" Width="60" VerticalAlignment="Center" />
 
-            <Button x:Name="btnGrid" Margin="10,0,0,0" ToolTip="Show grid" Click="GridOnChanged" VerticalAlignment="Center">
+            <Button x:Name="btnGrid" Margin="10,0,0,0" ToolTip="{x:Static Localization:strings.ShowGrid}" Click="GridOnChanged" VerticalAlignment="Center">
                 <Canvas Width="30" Height="20">
                     <Line X1="0" X2="30" Y1="5" Y2="5" StrokeThickness="2" Stroke="Gray" />
                     <Line X1="0" X2="30" Y1="10" Y2="10" StrokeThickness="2" Stroke="Gray" />
@@ -68,8 +70,8 @@
             
             <TextBox x:Name="txtName" Margin="10,0,0,0" Width="200" FontSize="18"
                      VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
-            
-            <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="Shuffle colors" Click="ShuffleColors" Height="32" Width="32">
+
+            <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static Localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
                 <Image Source="Images\rotate.png" />
             </Button>
         </WrapPanel>
@@ -101,11 +103,11 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Vertical" Margin="5,0,5,0">
-                    <Label Content="Division" FontSize="16" FontWeight="Bold" />
+                    <Label Content="{x:Static Localization:strings.Division}" FontSize="16" FontWeight="Bold" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <WrapPanel Width="110" HorizontalAlignment="Left" Margin="0,0,0,4">
-                            <Button Click="DivisionGridClick" ToolTip="Grid">
+                            <Button Click="DivisionGridClick" ToolTip="{x:Static Localization:strings.DivisionGrid}">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <Rectangle Width="6" Height="5" Fill="Red" />
@@ -138,7 +140,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Click="DivisionFessesClick" ToolTip="Fesses">
+                            <Button Click="DivisionFessesClick" ToolTip="{x:Static Localization:strings.DivisionFesses}">
                                 <StackPanel Orientation="Vertical">
                                     <Rectangle Width="30" Height="7" Fill="Red" />
                                     <Rectangle Width="30" Height="6" Fill="White" />
@@ -146,7 +148,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Click="DivisionPalesClick" ToolTip="Pales">
+                            <Button Click="DivisionPalesClick" ToolTip="{x:Static Localization:strings.DivisionPales}">
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="10" Height="20" Fill="Red" />
                                     <Rectangle Width="10" Height="20" Fill="White" />
@@ -154,21 +156,21 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Click="DivisionBendsForwardClick" ToolTip="Bends forward">
+                            <Button Click="DivisionBendsForwardClick" ToolTip="{x:Static Localization:strings.DivisionBendsForward}">
                                 <Canvas Width="30" Height="20">
                                     <Path Fill="Red" Data="M 0,0 30,0 0,20 0,0" />
                                     <Path Fill="Blue" Data="M 30,0 30,20 0,20 30,0" />
                                 </Canvas>
                             </Button>
 
-                            <Button Click="DivisionBendsBackwardClick" ToolTip="Bends backward">
+                            <Button Click="DivisionBendsBackwardClick" ToolTip="{x:Static Localization:strings.DivisionBendsBackward}">
                                 <Canvas Width="30" Height="20">
                                     <Path Fill="Red" Data="M 0,0 30,0 30,20 0,0" />
                                     <Path Fill="Blue" Data="M 30,20 0,20 0,0 30,20" />
                                 </Canvas>
                             </Button>
 
-                            <Button Click="DivisionXClick" ToolTip="Bends both">
+                            <Button Click="DivisionXClick" ToolTip="{x:Static Localization:strings.DivisionBendsBoth}">
                                 <Canvas Width="30" Height="20">
                                     <Path Fill="Red" Data="M 0,0 30,0 15,10 0,0" />
                                     <Path Fill="Red" Data="M 0,20 30,20 15,10 0,20" />
@@ -179,13 +181,13 @@
                         </WrapPanel>
 
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <Label Content="Presets" />
+                            <Label Content="{x:Static Localization:strings.DivisionPresets}" />
                             <ComboBox x:Name="cmbPresets" VerticalAlignment="Center" SelectionChanged="PresetChanged">
-                                <ComboBoxItem Content="Blank" Selected="PresetBlank" />
-                                <ComboBoxItem Content="Horizontal halves" Selected="PresetHorizontal" />
-                                <ComboBoxItem Content="Vertical halves" Selected="PresetVertical" />
-                                <ComboBoxItem Content="Quad" Selected="PresetQuad" />
-                                <ComboBoxItem Content="Stripes" Selected="PresetStripes" />
+                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionBlank}" Selected="PresetBlank" />
+                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionHorizontalHalves}" Selected="PresetHorizontal" />
+                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionVerticalHalves}" Selected="PresetVertical" />
+                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionQuartered}" Selected="PresetQuad" />
+                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionStripes}" Selected="PresetStripes" />
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
@@ -211,8 +213,8 @@
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" ShowsPreview="False" ResizeDirection="Rows" Height="5" />
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="Overlays" FontSize="16" FontWeight="Bold" />
-                    <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="Add new overlay" Click="OverlayAdd">
+                    <Label Content="{x:Static Localization:strings.Overlays}" FontSize="16" FontWeight="Bold" />
+                    <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static Localization:strings.OverlayAdd}" Click="OverlayAdd">
                         <Image Source="Images\add.png" />
                     </Button>
                 </StackPanel>

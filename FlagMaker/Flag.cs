@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using FlagMaker.Divisions;
+using FlagMaker.Localization;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
@@ -35,7 +36,7 @@ namespace FlagMaker
 		{
 			if (string.IsNullOrEmpty(filename))
 			{
-				throw new FileNotFoundException("No file selected.");
+				throw new FileNotFoundException(strings.NoFile);
 			}
 
 			var name = string.Empty;
@@ -190,7 +191,7 @@ namespace FlagMaker
 			var dlg = new OpenFileDialog
 			{
 				DefaultExt = ".flag",
-				Filter = "Flag (*.flag)|*.flag|All files (*.*)|*.*",
+				Filter = string.Format("{0} (*.flag)|*.flag|{1} (*.*)|*.*", strings.Flag, strings.AllFiles),
 				Multiselect = false
 			};
 
