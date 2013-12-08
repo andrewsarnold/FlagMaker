@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
-using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
@@ -804,7 +803,17 @@ namespace FlagMaker
 
 		private void LoadFlagFromFile(string filename, bool isLoading)
 		{
-			var flag = Flag.LoadFromFile(filename);
+			Flag flag;
+			try
+			{
+				flag = Flag.LoadFromFile(filename);
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(string.Format("Couldn't open the file. Check your syntax and try again.\nError at line: \"{0}\"", e.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+
 			_isLoading = true;
 
 			txtRatioHeight.Text = flag.Ratio.Height.ToString(CultureInfo.InvariantCulture);

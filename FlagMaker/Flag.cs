@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using FlagMaker.Divisions;
@@ -36,7 +35,7 @@ namespace FlagMaker
 		{
 			if (string.IsNullOrEmpty(filename))
 			{
-				return new Flag("none", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
+				throw new FileNotFoundException("No file selected.");
 			}
 
 			var name = string.Empty;
@@ -52,13 +51,12 @@ namespace FlagMaker
 			int divisionVal3 = 1;
 
 			var overlays = new List<TempOverlay>();
+
+			var line = string.Empty;
 			try
 			{
-
 				using (var sr = new StreamReader(filename))
 				{
-					string line;
-
 					bool isDivision = false;
 					int overlayIndex = -1;
 
@@ -183,8 +181,7 @@ namespace FlagMaker
 			}
 			catch (Exception)
 			{
-				MessageBox.Show("Couldn't open the file. Check your syntax and try again.");
-				return new Flag("none", new Ratio(2, 3), new Ratio(2, 3), new DivisionGrid(Colors.White, Colors.Black, 2, 2), new List<Overlay>());
+				throw new FileLoadException(line);
 			}
 		}
 
@@ -277,16 +274,6 @@ namespace FlagMaker
 					colors.Add(overlay.Color);
 				}
 			}
-
-			// Strip duplicates (Distinct() doesn't work)
-			//var distinctColors = new List<Color>();
-			//foreach (var color in colors)
-			//{
-			//	if (!distinctColors.Any(c => c.R == color.R && c.G == color.G && c.B == color.B))
-			//	{
-			//		distinctColors.Add(color);
-			//	}
-			//}
 
 			return colors.Distinct().OrderBy(c => c.Hue()).ToList();
 		} 

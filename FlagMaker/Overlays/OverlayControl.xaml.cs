@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
+using MessageBox = System.Windows.MessageBox;
 
 namespace FlagMaker.Overlays
 {
@@ -176,7 +177,19 @@ namespace FlagMaker.Overlays
 				if (!IsLoading)
 				{
 					string path = Flag.GetFlagPath();
-					Overlay = new OverlayFlag(Flag.LoadFromFile(path), path, _defaultMaximumX, _defaultMaximumY);
+
+					Flag flag;
+					try
+					{
+						flag = Flag.LoadFromFile(path);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(string.Format("Couldn't open the file. Check your syntax and try again.\nError at line: \"{0}\"", ex.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
+						return;
+					}
+
+					Overlay = new OverlayFlag(flag, path, _defaultMaximumX, _defaultMaximumY);
 				}
 			}
 			else
