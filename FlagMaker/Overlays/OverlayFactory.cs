@@ -36,6 +36,7 @@ namespace FlagMaker.Overlays
 			                                                           { "hand", typeof (OverlayHand) },
 			                                                           { "iran", typeof (OverlayIran) },
 			                                                           { "iron cross", typeof (OverlayIronCross) },
+			                                                           { "laurel", typeof (OverlayLaurel) },
 			                                                           { "line horizontal", typeof (OverlayLineHorizontal) },
 			                                                           { "line vertical", typeof (OverlayLineVertical) },
 			                                                           { "maltese cross", typeof (OverlayMalteseCross) },

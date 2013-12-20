@@ -93,7 +93,7 @@
         <li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the
             FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from <a href="http://www.crwflags.com/fotw/flags/xf-colo.html">this page</a> and converted to the closest matching RGB color. You can also click "Advanced" to pick any color you like.</li>
         <li><b>How can I adjust the overlay slider values?</b> Uncheck the checkbox to allow for any decimal value you want. Click the value to type
-            something in manually, or use the up and down arrow keys to nudge by 0.01.</li>
+            something in manually, or use the up and down arrow keys to nudge by 0.01 and press Enter to confirm.</li>
         <li><b>How do I use the repeaters?</b> This requires two overlays: one repeater, and one other overlay of your choice. The repeater should be
             directly <i>above</i> the other overlay in the list. (You can use any kind of overlay you want to be repeated&mdash;even another repeater!)</li>
         <li><b>How do I make just a solid color flag?</b> &ndash; Just use a grid with size 1&times;1. Same thing for stripes; just use 1&times;<i>n</i>.
@@ -155,6 +155,7 @@
                 <li><span class="tt">hammer and sickle</span></li>
                 <li><span class="tt">iran</span></li>
                 <li><span class="tt">iron cross</span></li>
+                <li><span class="tt">laurel</span></li>
                 <li><span class="tt">line horizontal</span></li>
 			    <li><span class="tt">line vertical</span></li>
                 <li><span class="tt">maltese cross</span></li>
@@ -206,17 +207,18 @@
                 <li>New overlay type: Flash (lightning bolt)</li>
                 <li>New overlay type: Hand</li>
                 <li>New overlay type: Iron cross</li>
+                <li>New overlay type: Laurel wreath</li>
                 <li>New overlay type: Maltese cross</li>
-                <li>New overlay type: Olive branches</li>
+                <li>New overlay type: Olive branches (Cyprus)</li>
                 <li>New overlay types: Parteiadler / reichsadler</li>
                 <li>New overlay type: Shahadah</li>
                 <li>New overlay type: Swastika</li>
                 <li>New overlay type: Yin (yang not included)</li>
                 <li>Support for different languages</li>
                 <li>(Awful) Spanish translation included</li>
-                <li>Fixed major bug where the program would crash on computers using comma-decimal cultures since WPF can't handle "1,23" as a valid double</li>
+                <li>Fixed major bug where the program would crash on computers using comma-decimal cultures</li>
+                <li>Fixed similar bug when reading .flag files</li>
                 <li>Fixed bug when loading a broken flag file</li>
-                <li>Fixed flag loading bug for cultures that use a comma decimal point</li>
             </ul>
         </li>
         <li><b>1.4.1</b> &ndash; <a href="http://www.reddit.com/r/vexillology/comments/1s4e8l/flagmaker_14/">2013-12-04</a>

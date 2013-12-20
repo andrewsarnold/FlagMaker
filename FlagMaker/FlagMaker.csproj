@@ -127,6 +127,7 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayHand.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIran.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIronCross.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayLaurel.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMalteseCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayParteiadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayReichsadler.cs" />
