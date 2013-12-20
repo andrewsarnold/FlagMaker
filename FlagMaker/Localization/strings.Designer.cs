@@ -88,6 +88,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t open the file. Check your syntax and try again..
+        /// </summary>
+        public static string CouldNotOpenFileError {
+            get {
+                return ResourceManager.GetString("CouldNotOpenFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Division.
         /// </summary>
         public static string Division {
@@ -201,6 +210,15 @@ namespace FlagMaker.Localization {
         public static string DivisionVerticalHalves {
             get {
                 return ResourceManager.GetString("DivisionVerticalHalves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error at line:.
+        /// </summary>
+        public static string ErrorAtLine {
+            get {
+                return ResourceManager.GetString("ErrorAtLine", resourceCulture);
             }
         }
         

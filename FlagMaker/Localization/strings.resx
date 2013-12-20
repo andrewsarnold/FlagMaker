@@ -126,6 +126,9 @@
   <data name="CouldNotOpenError" xml:space="preserve">
     <value>Couldn't open the file. Check your syntax and try again.\nError at line: \"{0}\"</value>
   </data>
+  <data name="CouldNotOpenFileError" xml:space="preserve">
+    <value>Couldn't open the file. Check your syntax and try again.</value>
+  </data>
   <data name="Division" xml:space="preserve">
     <value>Division</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="DivisionVerticalHalves" xml:space="preserve">
     <value>Vertical halves</value>
+  </data>
+  <data name="ErrorAtLine" xml:space="preserve">
+    <value>Error at line:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
     <value>Export as _PNG...</value>

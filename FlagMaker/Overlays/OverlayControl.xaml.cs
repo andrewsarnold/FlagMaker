@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
@@ -185,7 +186,7 @@ namespace FlagMaker.Overlays
 					}
 					catch (Exception ex)
 					{
-						MessageBox.Show(string.Format("Couldn't open the file. Check your syntax and try again.\nError at line: \"{0}\"", ex.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
+						MessageBox.Show(string.Format("{0}\n{1} \"{2}\"", strings.CouldNotOpenFileError, strings.ErrorAtLine, ex.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
 						return;
 					}
 
