@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -11,7 +12,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlaySaltire(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Ratio", true, 1, true)
+				       new Attribute(strings.Thickness, true, 1, true)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -19,7 +20,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlaySaltire(Color color, double ratio, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("Ratio", true, ratio, true)
+				             new Attribute(strings.Thickness, true, ratio, true)
 			             }, maximumX, maximumY)
 		{
 		}
@@ -28,8 +29,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var widthX = (int)(canvas.Width / (Attributes.Get("Ratio").Value + 3));
-			var widthY = (int)(canvas.Height / (Attributes.Get("Ratio").Value + 3));
+			var widthX = (int)(canvas.Width / (Attributes.Get(strings.Thickness).Value + 3));
+			var widthY = (int)(canvas.Height / (Attributes.Get(strings.Thickness).Value + 3));
 
 			var path1 = new Path
 			{
@@ -58,13 +59,13 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Ratio").Value = values[0];
+			Attributes.Get(strings.Thickness).Value = values[0];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			var wX = (int)(width / (Attributes.Get("Ratio").Value + 3));
-			var wY = (int)(height / (Attributes.Get("Ratio").Value + 3));
+			var wX = (int)(width / (Attributes.Get(strings.Thickness).Value + 3));
+			var wY = (int)(height / (Attributes.Get(strings.Thickness).Value + 3));
 
 			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},0 0,0 0,{5} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{6}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{6}\" />",
 				wX, width - wX, height, width, height - wY, wY, Color.ToHexString());

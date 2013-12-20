@@ -129,6 +129,15 @@
   <data name="CouldNotOpenFileError" xml:space="preserve">
     <value>No se pudo abrir el archivo. Compruebe la sintaxis y vuelva a intentarlo.</value>
   </data>
+  <data name="Count" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="CountX" xml:space="preserve">
+    <value>Cuenta horizontal</value>
+  </data>
+  <data name="CountY" xml:space="preserve">
+    <value>Cuenta vertical</value>
+  </data>
   <data name="Division" xml:space="preserve">
     <value>Separación</value>
   </data>
@@ -186,6 +195,9 @@
   <data name="GridSize" xml:space="preserve">
     <value>Tamaño de la cuadrícula</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Altura</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>_Idioma</value>
   </data>
@@ -204,11 +216,20 @@
   <data name="Overlays" xml:space="preserve">
     <value>Capas superpuesta</value>
   </data>
+  <data name="Radius" xml:space="preserve">
+    <value>Radio</value>
+  </data>
   <data name="Ratio" xml:space="preserve">
     <value>Proporción</value>
   </data>
   <data name="RestartForChanges" xml:space="preserve">
     <value>Debe reiniciar para que los cambios surtan efecto.</value>
+  </data>
+  <data name="Rotate" xml:space="preserve">
+    <value>¿Girar?</value>
+  </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Rotación</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>_Guardar</value>
@@ -225,10 +246,25 @@
   <data name="ShuffleColors" xml:space="preserve">
     <value>Mezclar colores</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Magnitud</value>
+  </data>
+  <data name="Thickness" xml:space="preserve">
+    <value>Espesor</value>
+  </data>
   <data name="Untitled" xml:space="preserve">
     <value>Intitulado</value>
   </data>
+  <data name="Width" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
   <data name="WorldFlagPresets" xml:space="preserve">
     <value>_Banderas del mundo</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Top</value>
   </data>
 </root>

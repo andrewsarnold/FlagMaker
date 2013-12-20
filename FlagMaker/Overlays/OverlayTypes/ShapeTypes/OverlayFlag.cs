@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Divisions;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
@@ -38,8 +39,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var canvasWidth = canvas.Width * Attributes.Get("Width").Value / MaximumX;
-			var canvasHeight = canvas.Height * Attributes.Get("Height").Value / MaximumY;
+			var canvasWidth = canvas.Width * Attributes.Get(strings.Width).Value / MaximumX;
+			var canvasHeight = canvas.Height * Attributes.Get(strings.Height).Value / MaximumY;
 
 			var c = new Canvas
 					{
@@ -50,8 +51,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			Flag.Draw(c);
 			canvas.Children.Add(c);
 
-			Canvas.SetLeft(c, (canvas.Width * (Attributes.Get("X").Value / MaximumX)));
-			Canvas.SetTop(c, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)));
+			Canvas.SetLeft(c, (canvas.Width * (Attributes.Get(strings.X).Value / MaximumX)));
+			Canvas.SetTop(c, (canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY)));
 		}
 
 		public override string ExportSvg(int width, int height)
@@ -59,10 +60,10 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			var sb = new StringBuilder();
 
 			sb.Append(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}) scale({2} {3})\">",
-				width * (Attributes.Get("X").Value / MaximumX),
-				height * (Attributes.Get("Y").Value / MaximumY),
-				Attributes.Get("Width").Value / MaximumX,
-				Attributes.Get("Height").Value / MaximumY));
+				width * (Attributes.Get(strings.X).Value / MaximumX),
+				height * (Attributes.Get(strings.Y).Value / MaximumY),
+				Attributes.Get(strings.Width).Value / MaximumX,
+				Attributes.Get(strings.Height).Value / MaximumY));
 
 			sb.Append(Flag.Division.ExportSvg(width, height));
 

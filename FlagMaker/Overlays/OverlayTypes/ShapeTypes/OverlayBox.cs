@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
@@ -37,10 +38,10 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
-			var height = Attributes.Get("Height").Value == 0
+			var width = canvas.Width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var height = Attributes.Get(strings.Height).Value == 0
 							 ? width
-							 : canvas.Height * (Attributes.Get("Height").Value / MaximumY);
+							 : canvas.Height * (Attributes.Get(strings.Height).Value / MaximumY);
 
 			var rect = new Rectangle
 						   {
@@ -50,21 +51,21 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 							   SnapsToDevicePixels = true
 						   };
 			canvas.Children.Add(rect);
-			Canvas.SetTop(rect, canvas.Height * (Attributes.Get("Y").Value / MaximumY));
-			Canvas.SetLeft(rect, canvas.Width * (Attributes.Get("X").Value / MaximumX));
+			Canvas.SetTop(rect, canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY));
+			Canvas.SetLeft(rect, canvas.Width * (Attributes.Get(strings.X).Value / MaximumX));
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			var w = width * (Attributes.Get("Width").Value / MaximumX);
-			var h = Attributes.Get("Height").Value == 0
+			var w = width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var h = Attributes.Get(strings.Height).Value == 0
 				? w
-				: height * (Attributes.Get("Height").Value / MaximumY);
+				: height * (Attributes.Get(strings.Height).Value / MaximumY);
 
 			return string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" x=\"{2}\" y=\"{3}\" fill=\"#{4}\" />",
 				w, h,
-				width * (Attributes.Get("X").Value / MaximumX),
-				height * (Attributes.Get("Y").Value / MaximumY),
+				width * (Attributes.Get(strings.X).Value / MaximumX),
+				height * (Attributes.Get(strings.Y).Value / MaximumY),
 				Color.ToHexString());
 		}
 	}

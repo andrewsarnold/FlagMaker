@@ -16,6 +16,7 @@ namespace FlagMaker.Overlays
 			InitializeComponent();
 
 			LblName.Content = name;
+			LblName.ToolTip = name;
 			_isDiscrete = isDiscrete;
 			chkDiscrete.IsChecked = _isDiscrete;
 			LblValue.Content = value;

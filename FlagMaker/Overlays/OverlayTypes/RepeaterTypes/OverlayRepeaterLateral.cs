@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 {
@@ -12,12 +13,12 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public OverlayRepeaterLateral(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1, true),
-				       new Attribute("Y", true, 1, false),
-				       new Attribute("Width", true, 1, true),
-				       new Attribute("Height", true, 1, false),
-				       new Attribute("CountX", true, 1, true),
-				       new Attribute("CountY", true, 1, false)
+				       new Attribute(strings.X, true, 1, true),
+				       new Attribute(strings.Y, true, 1, false),
+				       new Attribute(strings.Width, true, 1, true),
+				       new Attribute(strings.Height, true, 1, false),
+				       new Attribute(strings.CountX, true, 1, true),
+				       new Attribute(strings.CountY, true, 1, false)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -25,12 +26,12 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public OverlayRepeaterLateral(double x, double y, double width, double height, int countX, int countY, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, x, true),
-				       new Attribute("Y", true, y, false),
-				       new Attribute("Width", true, width, true),
-				       new Attribute("Height", true, height, false),
-				       new Attribute("CountX", true, countX, true),
-				       new Attribute("CountY", true, countY, false)
+				       new Attribute(strings.X, true, x, true),
+				       new Attribute(strings.Y, true, y, false),
+				       new Attribute(strings.Width, true, width, true),
+				       new Attribute(strings.Height, true, height, false),
+				       new Attribute(strings.CountX, true, countX, true),
+				       new Attribute(strings.CountY, true, countY, false)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -44,13 +45,13 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		{
 			if (Overlay == null) return;
 
-			var countX = (int)Attributes.Get("CountX").Value;
-			var countY = (int)Attributes.Get("CountY").Value;
-			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
-			var height = canvas.Height * (Attributes.Get("Height").Value / MaximumY);
+			var countX = (int)Attributes.Get(strings.CountX).Value;
+			var countY = (int)Attributes.Get(strings.CountY).Value;
+			var width = canvas.Width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var height = canvas.Height * (Attributes.Get(strings.Height).Value / MaximumY);
 
-			var locX = canvas.Width * (Attributes.Get("X").Value / MaximumX) - width / 2;
-			var locY = canvas.Height * (Attributes.Get("Y").Value / MaximumY) - height / 2;
+			var locX = canvas.Width * (Attributes.Get(strings.X).Value / MaximumX) - width / 2;
+			var locY = canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY) - height / 2;
 
 			double intervalX = width / (countX > 1 ? countX - 1 : countX);
 			double intervalY = height / (countY > 1 ? countY - 1 : countY);
@@ -75,25 +76,25 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("X").Value = values[0];
-			Attributes.Get("Y").Value = values[1];
-			Attributes.Get("Width").Value = values[2];
-			Attributes.Get("Height").Value = values[3];
-			Attributes.Get("CountX").Value = values[4];
-			Attributes.Get("CountY").Value = values[5];
+			Attributes.Get(strings.X).Value = values[0];
+			Attributes.Get(strings.Y).Value = values[1];
+			Attributes.Get(strings.Width).Value = values[2];
+			Attributes.Get(strings.Height).Value = values[3];
+			Attributes.Get(strings.CountX).Value = values[4];
+			Attributes.Get(strings.CountY).Value = values[5];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
 			if (Overlay == null) return string.Empty;
 
-			var countX = (int)Attributes.Get("CountX").Value;
-			var countY = (int)Attributes.Get("CountY").Value;
-			var w = width * (Attributes.Get("Width").Value / MaximumX);
-			var h = height * (Attributes.Get("Height").Value / MaximumY);
+			var countX = (int)Attributes.Get(strings.CountX).Value;
+			var countY = (int)Attributes.Get(strings.CountY).Value;
+			var w = width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var h = height * (Attributes.Get(strings.Height).Value / MaximumY);
 
-			var locX = width * (Attributes.Get("X").Value / MaximumX) - w / 2;
-			var locY = height * (Attributes.Get("Y").Value / MaximumY) - h / 2;
+			var locX = width * (Attributes.Get(strings.X).Value / MaximumX) - w / 2;
+			var locY = height * (Attributes.Get(strings.Y).Value / MaximumY) - h / 2;
 
 			double intervalX = w / (countX > 1 ? countX - 1 : countX);
 			double intervalY = h / (countY > 1 ? countY - 1 : countY);

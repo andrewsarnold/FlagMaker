@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -11,8 +12,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayPall(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1, true),
-				       new Attribute("Width", true, 1, true)
+				       new Attribute(strings.X, true, 1, true),
+				       new Attribute(strings.Width, true, 1, true)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -20,8 +21,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayPall(Color color, double x, double size, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("X", true, x, true),
-				             new Attribute("Width", true, size, true)
+				             new Attribute(strings.X, true, x, true),
+				             new Attribute(strings.Width, true, size, true)
 			             }, maximumX, maximumY)
 		{
 		}
@@ -30,8 +31,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var theWidth = (int)(canvas.Width / (Attributes.Get("Width").Value + 3));
-			var x = canvas.Width * (Attributes.Get("X").Value / MaximumX);
+			var theWidth = (int)(canvas.Width / (Attributes.Get(strings.Width).Value + 3));
+			var x = canvas.Width * (Attributes.Get(strings.X).Value / MaximumX);
 
 			/*
 			 * 01 0,0
@@ -96,14 +97,14 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("X").Value = values[0];
-			Attributes.Get("Width").Value = values[1];
+			Attributes.Get(strings.X).Value = values[0];
+			Attributes.Get(strings.Width).Value = values[1];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			var w = (int)(width / (Attributes.Get("Width").Value + 3));
-			var x = width * (Attributes.Get("X").Value / MaximumX);
+			var w = (int)(width / (Attributes.Get(strings.Width).Value + 3));
+			var x = width * (Attributes.Get(strings.X).Value / MaximumX);
 
 			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {1},{2} {3},{2} {3},{5} {1},{5} {0},{4} 0,{4} 0,{6} {8},{7} 0,{0}\" fill=\"#{9}\" />",
 					w / 2,

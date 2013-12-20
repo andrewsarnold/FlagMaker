@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 {
@@ -14,11 +15,11 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public OverlayRepeaterRadial(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1, true),
-				       new Attribute("Y", true, 1, false),
-				       new Attribute("Radius", true, 1, true),
-				       new Attribute("Count", true, 1, true),
-				       new Attribute("Rotate?", true, 1, true)
+				       new Attribute(strings.X, true, 1, true),
+				       new Attribute(strings.Y, true, 1, false),
+				       new Attribute(strings.Radius, true, 1, true),
+				       new Attribute(strings.Count, true, 1, true),
+				       new Attribute(strings.Rotate, true, 1, true)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -26,10 +27,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public OverlayRepeaterRadial(double x, double y, double radius, int count, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, x, true),
-				       new Attribute("Y", true, y, false),
-				       new Attribute("Radius", true, radius, true),
-				       new Attribute("Rotate?", true, count, true),
+				       new Attribute(strings.X, true, x, true),
+				       new Attribute(strings.Y, true, y, false),
+				       new Attribute(strings.Radius, true, radius, true),
+				       new Attribute(strings.Rotate, true, count, true),
 			       }, maximumX, maximumY)
 		{
 		}
@@ -43,13 +44,13 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		{
 			if (Overlay == null) return;
 
-			var locX = canvas.Width * (Attributes.Get("X").Value / MaximumX);
-			var locY = canvas.Height * (Attributes.Get("Y").Value / MaximumY);
-			var radius = canvas.Width * (Attributes.Get("Radius").Value / MaximumX);
-			var interval = 2 * Math.PI / Attributes.Get("Count").Value;
-			bool rotate = Attributes.Get("Rotate?").Value > MaximumX / 2.0;
+			var locX = canvas.Width * (Attributes.Get(strings.X).Value / MaximumX);
+			var locY = canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY);
+			var radius = canvas.Width * (Attributes.Get(strings.Radius).Value / MaximumX);
+			var interval = 2 * Math.PI / Attributes.Get(strings.Count).Value;
+			bool rotate = Attributes.Get(strings.Rotate).Value > MaximumX / 2.0;
 
-			for (int i = 0; i < Attributes.Get("Count").Value; i++)
+			for (int i = 0; i < Attributes.Get(strings.Count).Value; i++)
 			{
 				var c = new Canvas
 				{
@@ -61,7 +62,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				
 				if (rotate)
 				{
-					c.RenderTransform = new RotateTransform(i * 360 / Attributes.Get("Count").Value);
+					c.RenderTransform = new RotateTransform(i * 360 / Attributes.Get(strings.Count).Value);
 				}
 
 				canvas.Children.Add(c);
@@ -73,31 +74,31 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("X").Value = values[0];
-			Attributes.Get("Y").Value = values[1];
-			Attributes.Get("Radius").Value = values[2];
-			Attributes.Get("Count").Value = values[3];
-			Attributes.Get("Rotate?").Value = values[4];
+			Attributes.Get(strings.X).Value = values[0];
+			Attributes.Get(strings.Y).Value = values[1];
+			Attributes.Get(strings.Radius).Value = values[2];
+			Attributes.Get(strings.Count).Value = values[3];
+			Attributes.Get(strings.Rotate).Value = values[4];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
 			if (Overlay == null) return string.Empty;
 
-			var locX = width * (Attributes.Get("X").Value / MaximumX);
-			var locY = height * (Attributes.Get("Y").Value / MaximumY);
-			var radius = width * (Attributes.Get("Radius").Value / MaximumX);
-			var interval = 2 * Math.PI / Attributes.Get("Count").Value;
-			bool rotate = Attributes.Get("Rotate?").Value > MaximumX / 2.0;
+			var locX = width * (Attributes.Get(strings.X).Value / MaximumX);
+			var locY = height * (Attributes.Get(strings.Y).Value / MaximumY);
+			var radius = width * (Attributes.Get(strings.Radius).Value / MaximumX);
+			var interval = 2 * Math.PI / Attributes.Get(strings.Count).Value;
+			bool rotate = Attributes.Get(strings.Rotate).Value > MaximumX / 2.0;
 			
 			var sb = new StringBuilder();
 
-			for (int i = 0; i < Attributes.Get("Count").Value; i++)
+			for (int i = 0; i < Attributes.Get(strings.Count).Value; i++)
 			{
 				sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}){2}\">",
 					locX + Math.Cos(i * interval - Math.PI / 2) * radius,
 					locY + Math.Sin(i * interval - Math.PI / 2) * radius,
-					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0})", i * 360 / Attributes.Get("Count").Value) : string.Empty));
+					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0})", i * 360 / Attributes.Get(strings.Count).Value) : string.Empty));
 				sb.AppendLine(Overlay.ExportSvg((int)radius, (int)radius));
 				sb.AppendLine("</g>");
 			}

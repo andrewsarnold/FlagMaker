@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
@@ -22,10 +23,10 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
-			var height = Attributes.Get("Height").Value == 0
+			var width = canvas.Width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var height = Attributes.Get(strings.Height).Value == 0
 							 ? width
-							 : canvas.Height * (Attributes.Get("Height").Value / MaximumY);
+							 : canvas.Height * (Attributes.Get(strings.Height).Value / MaximumY);
 
 			var path = new Path
 			{
@@ -39,8 +40,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 			canvas.Children.Add(path);
 
-			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get("X").Value / MaximumX)) - width / 2);
-			Canvas.SetTop(path, (canvas.Height * (Attributes.Get("Y").Value / MaximumY)) - height / 2);
+			Canvas.SetLeft(path, (canvas.Width * (Attributes.Get(strings.X).Value / MaximumX)) - width / 2);
+			Canvas.SetTop(path, (canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY)) - height / 2);
 		}
 
 		public override IEnumerable<Shape> Thumbnail
@@ -59,13 +60,13 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var w = width * (Attributes.Get("Width").Value / MaximumX);
-			var h = Attributes.Get("Height").Value == 0
+			var w = width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var h = Attributes.Get(strings.Height).Value == 0
 							 ? w
-							 : height * (Attributes.Get("Height").Value / MaximumY);
+							 : height * (Attributes.Get(strings.Height).Value / MaximumY);
 
-			double x = width * (Attributes.Get("X").Value / MaximumX);
-			double y = height * (Attributes.Get("Y").Value / MaximumY);
+			double x = width * (Attributes.Get(strings.X).Value / MaximumX);
+			double y = height * (Attributes.Get(strings.Y).Value / MaximumY);
 
 			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},{1} {2},{3} {0},{4} {5},{3} \" fill=\"#{6}\" />",
 				x, y - h / 2, x + w / 2, y, y + h / 2, x - w / 2,

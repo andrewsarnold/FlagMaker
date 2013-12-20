@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -12,7 +13,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayHalfSaltire(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Ratio", true, 1, true)
+				       new Attribute(strings.Thickness, true, 1, true)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -20,7 +21,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayHalfSaltire(Color color, double ratio, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("Ratio", true, ratio, true)
+				             new Attribute(strings.Thickness, true, ratio, true)
 			             }, maximumX, maximumY)
 		{
 		}
@@ -29,8 +30,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var widthX = (int)(canvas.Width / (Attributes.Get("Ratio").Value + 3));
-			var widthY = (int)(canvas.Height / (Attributes.Get("Ratio").Value + 3));
+			var widthX = (int)(canvas.Width / (Attributes.Get(strings.Thickness).Value + 3));
+			var widthY = (int)(canvas.Height / (Attributes.Get(strings.Thickness).Value + 3));
 
 			var centerX = canvas.Width/2;
 			var centerY = canvas.Height/2;
@@ -86,13 +87,13 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Ratio").Value = values[0];
+			Attributes.Get(strings.Thickness).Value = values[0];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			var wX = (int)(width / (Attributes.Get("Ratio").Value + 3));
-			var wY = (int)(height / (Attributes.Get("Ratio").Value + 3));
+			var wX = (int)(width / (Attributes.Get(strings.Thickness).Value + 3));
+			var wY = (int)(height / (Attributes.Get(strings.Thickness).Value + 3));
 
 			var centerX = width/2;
 			var centerY = height/2;

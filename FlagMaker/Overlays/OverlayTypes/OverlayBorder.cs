@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -13,7 +13,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayBorder(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Thickness", true, 1, true)
+				       new Attribute(strings.Thickness, true, 1, true)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -21,7 +21,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayBorder(Color color, double thickness, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
-				              new Attribute("Thickness", true, thickness, true)
+				              new Attribute(strings.Thickness, true, thickness, true)
 			              }, maximumX, maximumY)
 		{
 		}
@@ -30,7 +30,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thickness = (canvas.Width / 2) * ((Attributes.Get("Thickness").Value + 1) / (MaximumX * 2));
+			double thickness = (canvas.Width / 2) * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumX * 2));
 
 			var path = new Path
 			{
@@ -46,12 +46,12 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Thickness").Value = values[0];
+			Attributes.Get(strings.Thickness).Value = values[0];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thickness = (width / 2.0) * ((Attributes.Get("Thickness").Value + 1) / (MaximumX * 2));
+			double thickness = (width / 2.0) * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumX * 2));
 
 			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0},0 {0},{1} 0,{1} Z M {2},{2} {3},{2} {3},{4} {2},{4} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
 				width, height,

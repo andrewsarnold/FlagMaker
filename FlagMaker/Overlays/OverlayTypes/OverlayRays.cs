@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -15,9 +16,9 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayRays(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("X", true, 1, true),
-				       new Attribute("Y", true, 1, false),
-				       new Attribute("Count", true, 4, true)
+				       new Attribute(strings.X, true, 1, true),
+				       new Attribute(strings.Y, true, 1, false),
+				       new Attribute(strings.Count, true, 4, true)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -25,9 +26,9 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayRays(Color color, int x, int y, int count, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
-				              new Attribute("X", true, x, true),
-				              new Attribute("Y", true, y, false),
-				              new Attribute("Count", true, count, true)
+				              new Attribute(strings.X, true, x, true),
+				              new Attribute(strings.Y, true, y, false),
+				              new Attribute(strings.Count, true, count, true)
 			              }, maximumX, maximumY)
 		{
 		}
@@ -62,9 +63,9 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		private IEnumerable<string> GetPaths(double width, double height)
 		{
-			var centerX = width * (Attributes.Get("X").Value / MaximumX);
-			var centerY = height * (Attributes.Get("Y").Value / MaximumY);
-			var count = (int)Attributes.Get("Count").Value;
+			var centerX = width * (Attributes.Get(strings.X).Value / MaximumX);
+			var centerY = height * (Attributes.Get(strings.Y).Value / MaximumY);
+			var count = (int)Attributes.Get(strings.Count).Value;
 			double angularInterval = Math.PI / count;
 
 			for (int i = 0; i < count; i++)
@@ -151,9 +152,9 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("X").Value = values[0];
-			Attributes.Get("Y").Value = values[1];
-			Attributes.Get("Count").Value = values[2];
+			Attributes.Get(strings.X).Value = values[0];
+			Attributes.Get(strings.Y).Value = values[1];
+			Attributes.Get(strings.Count).Value = values[2];
 		}
 
 		public override IEnumerable<Shape> Thumbnail

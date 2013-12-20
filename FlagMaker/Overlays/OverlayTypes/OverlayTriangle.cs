@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -11,8 +12,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayTriangle(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			{
-				new Attribute("Width", true, 1, true),
-				new Attribute("Height", true, 1, false)
+				new Attribute(strings.Width, true, 1, true),
+				new Attribute(strings.Height, true, 1, false)
 			}, maximumX, maximumY)
 		{
 		}
@@ -20,8 +21,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayTriangle(Color color, double width, double height, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			{
-				new Attribute("Width", true, width, true),
-				new Attribute("Height", true, height, false)
+				new Attribute(strings.Width, true, width, true),
+				new Attribute(strings.Height, true, height, false)
 			}, maximumX, maximumY)
 		{
 		}
@@ -30,8 +31,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get("Width").Value / MaximumX);
-			var margin = (canvas.Height - canvas.Height * (Attributes.Get("Height").Value / MaximumY)) / 2;
+			var width = canvas.Width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var margin = (canvas.Height - canvas.Height * (Attributes.Get(strings.Height).Value / MaximumY)) / 2;
 
 			var path = new Path
 							{
@@ -46,18 +47,18 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Width").Value = values[0];
-			Attributes.Get("Height").Value = values[1];
+			Attributes.Get(strings.Width).Value = values[0];
+			Attributes.Get(strings.Height).Value = values[1];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			var margin = (height - height * (Attributes.Get("Height").Value / MaximumY)) / 2;
+			var margin = (height - height * (Attributes.Get(strings.Height).Value / MaximumY)) / 2;
 
 			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0} 0,{1} {2},{3}\" fill=\"#{4}\" />",
 				margin,
 				height - margin,
-				width * (Attributes.Get("Width").Value / MaximumX),
+				width * (Attributes.Get(strings.Width).Value / MaximumX),
 				height / 2,
 				Color.ToHexString());
 		}

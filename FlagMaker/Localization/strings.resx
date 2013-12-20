@@ -129,6 +129,15 @@
   <data name="CouldNotOpenFileError" xml:space="preserve">
     <value>Couldn't open the file. Check your syntax and try again.</value>
   </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="CountX" xml:space="preserve">
+    <value>Horizontal count</value>
+  </data>
+  <data name="CountY" xml:space="preserve">
+    <value>Vertical count</value>
+  </data>
   <data name="Division" xml:space="preserve">
     <value>Division</value>
   </data>
@@ -186,6 +195,9 @@
   <data name="GridSize" xml:space="preserve">
     <value>GridSize</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>_Language</value>
   </data>
@@ -204,11 +216,20 @@
   <data name="Overlays" xml:space="preserve">
     <value>Overlays</value>
   </data>
+  <data name="Radius" xml:space="preserve">
+    <value>Radius</value>
+  </data>
   <data name="Ratio" xml:space="preserve">
     <value>Ratio</value>
   </data>
   <data name="RestartForChanges" xml:space="preserve">
     <value>You must restart in order for the changes to take effect.</value>
+  </data>
+  <data name="Rotate" xml:space="preserve">
+    <value>Rotate?</value>
+  </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Rotation</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>_Save</value>
@@ -225,10 +246,25 @@
   <data name="ShuffleColors" xml:space="preserve">
     <value>Shuffle colors</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Thickness" xml:space="preserve">
+    <value>Thickness</value>
+  </data>
   <data name="Untitled" xml:space="preserve">
     <value>Untitled</value>
   </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
   <data name="WorldFlagPresets" xml:space="preserve">
     <value>_World flag presets</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Top</value>
   </data>
 </root>

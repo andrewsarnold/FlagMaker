@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
@@ -11,8 +12,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayLineHorizontal(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Y", true, 1, false),
-				       new Attribute("Thickness", true, 1, false)
+				       new Attribute(strings.Y, true, 1, false),
+				       new Attribute(strings.Thickness, true, 1, false)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -20,8 +21,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayLineHorizontal(Color color, double thickness, double y, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
-				             new Attribute("Y", true, y, false),
-				             new Attribute("Thickness", true, thickness, false)
+				             new Attribute(strings.Y, true, y, false),
+				             new Attribute(strings.Thickness, true, thickness, false)
 			             }, maximumX, maximumY)
 		{
 		}
@@ -30,7 +31,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thick = canvas.Height * ((Attributes.Get("Thickness").Value + 1) / (MaximumY * 2));
+			double thick = canvas.Height * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumY * 2));
 			
 			var horizontal = new Rectangle
 								 {
@@ -41,22 +42,22 @@ namespace FlagMaker.Overlays.OverlayTypes
 								 };
 			canvas.Children.Add(horizontal);
 
-			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get("Y").Value / MaximumY) - thick / 2);
+			Canvas.SetTop(horizontal, canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY) - thick / 2);
 		}
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Y").Value = values[0];
-			Attributes.Get("Thickness").Value = values[1];
+			Attributes.Get(strings.Y).Value = values[0];
+			Attributes.Get(strings.Thickness).Value = values[1];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thick = height * ((Attributes.Get("Thickness").Value + 1) / (MaximumY * 2));
+			double thick = height * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumY * 2));
 
 			double y = MaximumY % 2 == 0
-				? height * (Attributes.Get("Y").Value / MaximumY) - thick / 2
-				: height * (Attributes.Get("Y").Value / (MaximumY + 1)) - thick / 2;
+				? height * (Attributes.Get(strings.Y).Value / MaximumY) - thick / 2
+				: height * (Attributes.Get(strings.Y).Value / (MaximumY + 1)) - thick / 2;
 
 			return string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" x=\"0\" y=\"{2}\" fill=\"#{3}\" />",
 				width, thick, y, Color.ToHexString());
