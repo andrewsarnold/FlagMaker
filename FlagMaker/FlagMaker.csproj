@@ -115,14 +115,22 @@
     <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBranches.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCedar.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayChakra.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCrown.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagle.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEgypt.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayErmine.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFlash.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayHand.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIran.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIronCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMalteseCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayParteiadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayReichsadler.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayShahadah.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
@@ -211,7 +219,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Presets\abkhazia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\algeria.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\amsterdam.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\argentina.flag">
@@ -283,6 +297,9 @@
     <None Include="Presets\comoros.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\confederacy.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\cookislands.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -296,6 +313,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\easttimor.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\egypt.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\england.flag">
@@ -352,6 +372,9 @@
     <None Include="Presets\indonesia.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\iran.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\ireland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -377,6 +400,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\latvia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\lebanon.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\liberia.flag">
@@ -413,6 +439,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\morocco.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\namibia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\nauru.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\netherlands.flag">
@@ -530,6 +562,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\somalia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\somaliland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\southafrica.flag">

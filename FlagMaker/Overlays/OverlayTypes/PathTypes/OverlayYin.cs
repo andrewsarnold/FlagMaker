@@ -5,8 +5,8 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 {
 	public class OverlayYin : OverlayPath
 	{
-		private const string Path = "M -118.53125 -116.59375 A 150.00017 150 0 0 0 131.09375 49.8125 A 75.00009 75.000005 0 1 0 6.28125 -33.375 A 75.000085 75 0 1 1 -118.53125 -116.59375 z";
-		private static readonly Vector PathSize = new Vector(314, 255);
+		private const string Path = "M -21.643592,-14.393365 A 12.993263,12.993263 0 1 0 -0.02149594,0.02136686 12.993263,12.993263 0 0 1 21.600599,14.436096 25.986525,25.986525 0 0 1 -21.643592,-14.393365 z";
+		private static readonly Vector PathSize = new Vector(56, 45);
 
 		public OverlayYin(int maximumX, int maximumY)
 			: base("yin", Path, PathSize, maximumX, maximumY)

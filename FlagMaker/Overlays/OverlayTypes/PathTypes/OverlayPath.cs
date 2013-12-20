@@ -112,7 +112,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		{
 			get
 			{
-				double scale = 20.0 / _pathSize.X;
+				double scale = 20.0 / Math.Max(_pathSize.X, _pathSize.Y);
 				return new List<Shape>
 				       {
 					       new Path
