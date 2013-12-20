@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -52,7 +53,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			double thickness = (width / 2.0) * ((Attributes.Get("Thickness").Value + 1) / (MaximumX * 2));
 
-			return string.Format("<path d=\"M 0,0 {0},0 {0},{1} 0,{1} Z M {2},{2} {3},{2} {3},{4} {2},{4} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0},0 {0},{1} 0,{1} Z M {2},{2} {3},{2} {3},{4} {2},{4} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
 				width, height,
 				thickness,
 				width - thickness,

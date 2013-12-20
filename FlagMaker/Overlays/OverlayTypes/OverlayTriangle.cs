@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -37,7 +38,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 								Fill = new SolidColorBrush(Color),
 								Width = canvas.Width,
 								Height = canvas.Height,
-								Data = Geometry.Parse(string.Format("M 0,{0} {1},{2} 0,{3}", margin, width, canvas.Height / 2, canvas.Height - margin)),
+								Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,{0} {1},{2} 0,{3}", margin, width, canvas.Height / 2, canvas.Height - margin)),
 								SnapsToDevicePixels = true
 							};
 			canvas.Children.Add(path);
@@ -53,7 +54,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			var margin = (height - height * (Attributes.Get("Height").Value / MaximumY)) / 2;
 
-			return string.Format("<polygon points=\"0,{0} 0,{1} {2},{3}\" fill=\"#{4}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0} 0,{1} {2},{3}\" fill=\"#{4}\" />",
 				margin,
 				height - margin,
 				width * (Attributes.Get("Width").Value / MaximumX),

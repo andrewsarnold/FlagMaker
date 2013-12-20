@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -57,7 +58,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				? height * (Attributes.Get("Y").Value / MaximumY) - thick / 2
 				: height * (Attributes.Get("Y").Value / (MaximumY + 1)) - thick / 2;
 
-			return string.Format("<rect width=\"{0}\" height=\"{1}\" x=\"0\" y=\"{2}\" fill=\"#{3}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" x=\"0\" y=\"{2}\" fill=\"#{3}\" />",
 				width, thick, y, Color.ToHexString());
 		}
 

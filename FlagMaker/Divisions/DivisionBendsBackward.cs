@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -25,7 +26,7 @@ namespace FlagMaker.Divisions
 								  Fill = new SolidColorBrush(Colors[0]),
 								  Width = canvas.Width,
 								  Height = canvas.Height,
-								  Data = Geometry.Parse(string.Format("M 0,0 {0},0 {0},{1} 0,0", canvas.Width, canvas.Height)),
+								  Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,0 {0},0 {0},{1} 0,0", canvas.Width, canvas.Height)),
 								  SnapsToDevicePixels = true
 							  };
 			canvas.Children.Add(topLeft);
@@ -37,7 +38,7 @@ namespace FlagMaker.Divisions
 					                  Fill = new SolidColorBrush(Colors[1]),
 					                  Width = canvas.Width,
 					                  Height = canvas.Height,
-									  Data = Geometry.Parse(string.Format("M {0},{1} 0,{1} 0,0 {0},{1}", canvas.Width, canvas.Height)),
+									  Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M {0},{1} 0,{1} 0,0 {0},{1}", canvas.Width, canvas.Height)),
 					                  SnapsToDevicePixels = true
 				                  };
 			canvas.Children.Add(bottomRight);
@@ -60,13 +61,13 @@ namespace FlagMaker.Divisions
 			var sb = new StringBuilder();
 
 			// right
-			sb.Append(string.Format("<polygon points=\"0,0 {0},0 {0},{1}\" style=\"fill:{2};\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {0},{1}\" style=\"fill:{2};\" />",
 				width,
 				height,
 				Colors[0].ToHexString()));
 
 			// left
-			sb.Append(string.Format("<polygon points=\"0,0 0,{0} {0},{1}\" style=\"fill:{2};\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0} {0},{1}\" style=\"fill:{2};\" />",
 				width,
 				height,
 				Colors[1].ToHexString()));

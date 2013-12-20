@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -57,7 +58,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 		{
 			var sb = new StringBuilder();
 
-			sb.Append(string.Format("<g transform=\"translate({0},{1}) scale({2} {3})\">",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}) scale({2} {3})\">",
 				width * (Attributes.Get("X").Value / MaximumX),
 				height * (Attributes.Get("Y").Value / MaximumY),
 				Attributes.Get("Width").Value / MaximumX,

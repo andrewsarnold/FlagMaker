@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -103,7 +104,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			{
 				for (int y = 0; y < countY; y++)
 				{
-					sb.AppendLine(string.Format("<g transform=\"translate({0},{1})\">",
+					sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1})\">",
 						locX + x * intervalX,
 						locY + y * intervalY));
 					sb.AppendLine(Overlay.ExportSvg((int)w, (int)h));

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -52,7 +53,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 			foreach (var path in GetPaths(width, height))
 			{
-				sb.Append(string.Format("<path d=\"{0}\" fill=\"#{1}\" />",
+				sb.Append(string.Format(CultureInfo.InvariantCulture, "<path d=\"{0}\" fill=\"#{1}\" />",
 					path, Color.ToHexString()));
 			}
 
@@ -81,19 +82,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 					}
 					else if (point1.X == 0)
 					{
-						point3 = string.Format("0,{0} ", height);
+						point3 = string.Format(CultureInfo.InvariantCulture, "0,{0} ", height);
 					}
 					else if (point1.Y == height)
 					{
-						point3 = string.Format("{0},{1} ", width, height);
+						point3 = string.Format(CultureInfo.InvariantCulture, "{0},{1} ", width, height);
 					}
 					else if (point1.X == width)
 					{
-						point3 = string.Format("{0},0 ", width);
+						point3 = string.Format(CultureInfo.InvariantCulture, "{0},0 ", width);
 					}
 				}
 
-				yield return string.Format("M {0},{1} {2},{3} {4}{5},{6} Z",
+				yield return string.Format(CultureInfo.InvariantCulture, "M {0},{1} {2},{3} {4}{5},{6} Z",
 					centerX, centerY,
 					point1.X, point1.Y,
 					point3,

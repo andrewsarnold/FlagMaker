@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace FlagMaker.Overlays
@@ -28,7 +29,7 @@ namespace FlagMaker.Overlays
 
 		public override string ToString()
 		{
-			return string.Format("{0}: {1}", Name, Value);
+			return string.Format(CultureInfo.InvariantCulture, "{0}: {1}", Name, Value);
 		}
 	}
 

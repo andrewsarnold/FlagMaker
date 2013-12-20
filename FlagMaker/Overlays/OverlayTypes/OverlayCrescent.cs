@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -77,15 +78,15 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var sb = new StringBuilder();
 
 			sb.AppendLine("<defs><mask id=\"c\">");
-			sb.Append(string.Format("<circle cx=\"0\" cy=\"0\" r=\"{0}\" fill=\"#ffffff\" mask=\"url(#c)\" />", size));
-			sb.Append(string.Format("<circle cx=\"{0}\" cy=\"0\" r=\"{1}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<circle cx=\"0\" cy=\"0\" r=\"{0}\" fill=\"#ffffff\" mask=\"url(#c)\" />", size));
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<circle cx=\"{0}\" cy=\"0\" r=\"{1}\" />",
 				size - size / Math.Pow(Ratio, 1.5), size / Ratio));
 			sb.AppendLine("</mask></defs>");
 
-			sb.Append(string.Format("<g transform=\"translate({0},{1}) rotate({2})\">",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}) rotate({2})\">",
 				x, y, 360 * (Attributes.Get("Rotation").Value / MaximumX)));
 
-			sb.Append(string.Format("<circle cx=\"0\" cy=\"0\" r=\"{0}\" fill=\"#{1}\" mask=\"url(#c)\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<circle cx=\"0\" cy=\"0\" r=\"{0}\" fill=\"#{1}\" mask=\"url(#c)\" />",
 				size, Color.ToHexString()));
 			sb.Append("</g>");
 			return sb.ToString();

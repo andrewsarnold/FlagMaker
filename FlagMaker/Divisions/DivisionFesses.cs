@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -79,18 +80,18 @@ namespace FlagMaker.Divisions
 			double r2Size = height * (Values[1] / (Values[0] + Values[1] + Values[2]));
 			double r3Size = height * (Values[2] / (Values[0] + Values[1] + Values[2]));
 
-			sb.Append(string.Format("<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"0\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"0\" />",
 				width,
 				r1Size,
 				Colors[0].ToHexString()));
 
-			sb.Append(string.Format("<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"{3}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"{3}\" />",
 				width,
 				r2Size,
 				Colors[1].ToHexString(),
 				r1Size));
 
-			sb.Append(string.Format("<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"{3}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"0\" y=\"{3}\" />",
 				width,
 				r3Size,
 				Colors[2].ToHexString(),

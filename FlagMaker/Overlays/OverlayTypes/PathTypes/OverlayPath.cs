@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -102,7 +103,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			var scaleFactor = idealPixelSize / _pathSize.X;
 			var rotate = (Attributes.Get("Rotation").Value / MaximumX) * 360;
 
-			return string.Format("<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
+			return string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
 					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToHexString());
 		}
 

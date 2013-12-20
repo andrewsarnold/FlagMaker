@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace FlagMaker
 {
 	public class Ratio

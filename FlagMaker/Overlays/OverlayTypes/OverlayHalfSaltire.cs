@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -40,7 +41,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				Width = canvas.Width,
 				Height = canvas.Height,
 				Data =
-					Geometry.Parse(string.Format("M 0,0 {0},{1} {2},{1} 0,{3}",
+					Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,0 {0},{1} {2},{1} 0,{3}",
 						centerX, centerY, centerX - widthX, widthY)),
 				SnapsToDevicePixels = true
 			};
@@ -52,7 +53,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				Width = canvas.Width,
 				Height = canvas.Height,
 				Data =
-					Geometry.Parse(string.Format("M {0},{1} {0},{2} {3},0 {4},0",
+					Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M {0},{1} {0},{2} {3},0 {4},0",
 					centerX, centerY, centerY - widthY, canvas.Width - widthX, canvas.Width)),
 				SnapsToDevicePixels = true
 			};
@@ -64,7 +65,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				Width = canvas.Width,
 				Height = canvas.Height,
 				Data =
-					Geometry.Parse(string.Format("M {0},{1} {0},{2} {3},{4} 0,{4}",
+					Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M {0},{1} {0},{2} {3},{4} 0,{4}",
 					centerX, centerY, centerY + widthY, widthX, canvas.Height)),
 				SnapsToDevicePixels = true
 			};
@@ -76,7 +77,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				Width = canvas.Width,
 				Height = canvas.Height,
 				Data =
-					Geometry.Parse(string.Format("M {0},{1} {2},{1} {3},{4} {3},{5}",
+					Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M {0},{1} {2},{1} {3},{4} {3},{5}",
 					centerX, centerY, centerX + widthX, canvas.Width, canvas.Height - widthY, canvas.Height)),
 				SnapsToDevicePixels = true
 			};
@@ -100,16 +101,16 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 			var sb = new StringBuilder();
 
-			sb.Append(string.Format("<polygon points=\"0,0 {0},{1} {2},{1} 0,{3}\" fill=\"#{4}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},{1} {2},{1} 0,{3}\" fill=\"#{4}\" />",
 				centerX, centerY, centerX - wX, wY, c));
 
-			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},0 {4},0\" fill=\"#{5}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},{1} {0},{2} {3},0 {4},0\" fill=\"#{5}\" />",
 				centerX, centerY, centerY - wY, width - wX, width, c));
 
-			sb.Append(string.Format("<polygon points=\"{0},{1} {0},{2} {3},{4} 0,{4}\" fill=\"#{5}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},{1} {0},{2} {3},{4} 0,{4}\" fill=\"#{5}\" />",
 				centerX, centerY, centerY + wY, wX, height, c));
 
-			sb.Append(string.Format("<polygon points=\"{0},{1} {2},{1} {3},{4} {3},{5}\" fill=\"#{6}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},{1} {2},{1} {3},{4} {3},{5}\" fill=\"#{6}\" />",
 				centerX, centerY, centerX + wX, width, height - wY, height, c));
 
 			return sb.ToString();

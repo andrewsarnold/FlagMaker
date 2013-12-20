@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -93,10 +94,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 			for (int i = 0; i < Attributes.Get("Count").Value; i++)
 			{
-				sb.AppendLine(string.Format("<g transform=\"translate({0},{1}){2}\">",
+				sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}){2}\">",
 					locX + Math.Cos(i * interval - Math.PI / 2) * radius,
 					locY + Math.Sin(i * interval - Math.PI / 2) * radius,
-					rotate ? string.Format("rotate({0})", i * 360 / Attributes.Get("Count").Value) : string.Empty));
+					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0})", i * 360 / Attributes.Get("Count").Value) : string.Empty));
 				sb.AppendLine(Overlay.ExportSvg((int)radius, (int)radius));
 				sb.AppendLine("</g>");
 			}

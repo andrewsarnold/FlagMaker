@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -104,7 +105,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var w = (int)(width / (Attributes.Get("Width").Value + 3));
 			var x = width * (Attributes.Get("X").Value / MaximumX);
 
-			return string.Format("<polygon points=\"0,0 {0},0 {1},{2} {3},{2} {3},{5} {1},{5} {0},{4} 0,{4} 0,{6} {8},{7} 0,{0}\" fill=\"#{9}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {1},{2} {3},{2} {3},{5} {1},{5} {0},{4} 0,{4} 0,{6} {8},{7} 0,{0}\" fill=\"#{9}\" />",
 					w / 2,
 					x + (double)w / 3,
 					height / 2.0 - (double)w / 3,

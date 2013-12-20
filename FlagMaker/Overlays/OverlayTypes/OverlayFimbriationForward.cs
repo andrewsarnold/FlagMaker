@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -36,7 +37,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				           Width = canvas.Width,
 				           Height = canvas.Height,
 				           Data =
-					           Geometry.Parse(string.Format("M {0},0 {1},0 {1},{5} {2},{3} 0,{3} 0,{4} {0},0", canvas.Width - widthX,
+					           Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M {0},0 {1},0 {1},{5} {2},{3} 0,{3} 0,{4} {0},0", canvas.Width - widthX,
 						           canvas.Width, widthX, canvas.Height, canvas.Height - widthY, widthY)),
 				           SnapsToDevicePixels = true
 			           };
@@ -53,7 +54,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var wX = (int)(width / (Attributes.Get("Ratio").Value + 2));
 			var wY = (int)(height / (Attributes.Get("Ratio").Value + 2));
 
-			return string.Format("<polygon points=\"{0},0 {1},0 {1},{5} {2},{3} 0,{3} 0,{4} {0},0\" fill=\"#{6}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},0 {1},0 {1},{5} {2},{3} 0,{3} 0,{4} {0},0\" fill=\"#{6}\" />",
 				width - wX, width, wX, height, height - wY, wY,
 				Color.ToHexString());
 		}

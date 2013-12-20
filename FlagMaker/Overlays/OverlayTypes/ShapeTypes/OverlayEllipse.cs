@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -49,7 +50,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			double x = width * (Attributes.Get("X").Value / MaximumX);
 			double y = height * (Attributes.Get("Y").Value / MaximumY);
 
-			return string.Format("<ellipse cx=\"{0}\" cy=\"{1}\" rx=\"{2}\" ry=\"{3}\" fill=\"#{4}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<ellipse cx=\"{0}\" cy=\"{1}\" rx=\"{2}\" ry=\"{3}\" fill=\"#{4}\" />",
 				x, y, w / 2, h / 2,
 				Color.ToHexString());
 		}
