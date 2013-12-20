@@ -121,12 +121,15 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIronCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMalteseCross.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayParteiadler.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayReichsadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySun.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySwastika.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTree.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayYin.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeater.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterRadial.cs" />
@@ -271,6 +274,9 @@
     <None Include="Presets\china.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\chinarepublic.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\colombia.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -359,6 +365,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\jordan.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\kreigsmarine.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\kuwait.flag">

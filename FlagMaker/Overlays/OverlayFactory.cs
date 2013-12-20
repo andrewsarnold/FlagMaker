@@ -34,8 +34,10 @@ namespace FlagMaker.Overlays
 			                                                           { "maltese cross", typeof (OverlayMalteseCross) },
 			                                                           { "maple leaf", typeof (OverlayMapleLeaf) },
 			                                                           { "pall", typeof (OverlayPall) },
+			                                                           { "parteiadler", typeof (OverlayParteiadler) },
 			                                                           { "pentagram", typeof (OverlayPentagram) },
 																	   { "rays", typeof(OverlayRays) },
+			                                                           { "reichsadler", typeof (OverlayReichsadler) },
 																	   { "repeater lateral", typeof(OverlayRepeaterLateral) },
 																	   { "repeater radial", typeof(OverlayRepeaterRadial) },
 			                                                           { "saltire", typeof (OverlaySaltire) },
@@ -48,7 +50,8 @@ namespace FlagMaker.Overlays
 			                                                           { "swastika", typeof (OverlaySwastika) },
 			                                                           { "sun", typeof (OverlaySun) },
 			                                                           { "tree", typeof (OverlayTree) },
-			                                                           { "triangle", typeof (OverlayTriangle) }
+			                                                           { "triangle", typeof (OverlayTriangle) },
+			                                                           { "yin", typeof (OverlayYin) }
 		                                                           };
 
 		public static IEnumerable<Type> GetOverlayTypes()
