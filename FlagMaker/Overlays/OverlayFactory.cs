@@ -60,6 +60,7 @@ namespace FlagMaker.Overlays
 			                                                           { "swastika", typeof (OverlaySwastika) },
 			                                                           { "tree", typeof (OverlayTree) },
 			                                                           { "triangle", typeof (OverlayTriangle) },
+			                                                           { "triskele", typeof (OverlayTriskele) },
 			                                                           { "yin", typeof (OverlayYin) }
 		                                                           };
 

@@ -138,6 +138,7 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySun.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySwastika.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTree.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTriskele.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayYin.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeater.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />
