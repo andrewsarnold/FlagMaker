@@ -22,6 +22,7 @@ namespace FlagMaker.Overlays
 			                                                           { "crown", typeof (OverlayCrown) },
 			                                                           { "diamond", typeof (OverlayDiamond) },
 			                                                           { "eagle", typeof (OverlayEagle) },
+			                                                           { "eagle american", typeof (OverlayEagleAmerican) },
 			                                                           { "egypt", typeof (OverlayEgypt) },
 			                                                           { "ellipse", typeof (OverlayEllipse) },
 			                                                           { "ermine", typeof (OverlayErmine) },

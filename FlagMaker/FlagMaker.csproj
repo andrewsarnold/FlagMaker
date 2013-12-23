@@ -120,6 +120,7 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayChakra.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCrown.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagle.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagleAmerican.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEgypt.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayErmine.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFlash.cs" />
