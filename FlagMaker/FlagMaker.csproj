@@ -115,9 +115,11 @@
     <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAngola.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBranches.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCedar.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayChakra.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCpusa.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCrown.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagle.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagleAmerican.cs" />
@@ -125,19 +127,23 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayErmine.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFlash.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayForthInternational.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayHand.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIran.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIronCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayLaurel.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMalteseCross.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMozambique.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayParteiadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayReichsadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayShahadah.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySikh.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySun.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySwastika.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySword.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTree.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTriskele.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayYin.cs" />
@@ -229,6 +235,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\amsterdam.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\angola.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\argentina.flag">
@@ -429,6 +438,9 @@
     <None Include="Presets\mali.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\maltacivil.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\mauritania.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -547,6 +559,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\saotome.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\saudiarabia.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\scotland.flag">
