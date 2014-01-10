@@ -33,7 +33,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thick = canvas.Width * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumX * 2));
+			double thick = canvas.Width * (Attributes.Get(strings.Thickness).Value / MaximumX);
 
 			var vertical = new Rectangle
 							   {
@@ -66,7 +66,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thick = width * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumX * 2));
+			double thick = width * (Attributes.Get(strings.Thickness).Value / MaximumX);
 
 			double x = width * (Attributes.Get(strings.X).Value / MaximumX) - thick / 2;
 			double y = height * (Attributes.Get(strings.Y).Value / MaximumY) - thick / 2;

@@ -31,7 +31,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thick = canvas.Height * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumY * 2));
+			double thick = canvas.Height * (Attributes.Get(strings.Thickness).Value / MaximumY);
 			
 			var horizontal = new Rectangle
 								 {
@@ -53,14 +53,10 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thick = height * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumY * 2));
-
-			double y = MaximumY % 2 == 0
-				? height * (Attributes.Get(strings.Y).Value / MaximumY) - thick / 2
-				: height * (Attributes.Get(strings.Y).Value / (MaximumY + 1)) - thick / 2;
+			double thick = height * (Attributes.Get(strings.Thickness).Value / MaximumY);
 
 			return string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" x=\"0\" y=\"{2}\" fill=\"#{3}\" />",
-				width, thick, y, Color.ToHexString());
+				width, thick, height * (Attributes.Get(strings.Y).Value / MaximumY) - thick / 2, Color.ToHexString());
 		}
 
 		public override IEnumerable<Shape> Thumbnail

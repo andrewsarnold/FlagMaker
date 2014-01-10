@@ -29,8 +29,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var widthX = (int)(canvas.Width / (Attributes.Get(strings.Thickness).Value + 3));
-			var widthY = (int)(canvas.Height / (Attributes.Get(strings.Thickness).Value + 3));
+			var widthX = canvas.Width * (Attributes.Get(strings.Thickness).Value / MaximumX) / 2;
+			var widthY = canvas.Height * (Attributes.Get(strings.Thickness).Value / MaximumX) / 2;
 
 			var path1 = new Path
 			{
@@ -64,8 +64,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var wX = (int)(width / (Attributes.Get(strings.Thickness).Value + 3));
-			var wY = (int)(height / (Attributes.Get(strings.Thickness).Value + 3));
+			var wX = width * (Attributes.Get(strings.Thickness).Value / MaximumX) / 2;
+			var wY = height * (Attributes.Get(strings.Thickness).Value / MaximumX) / 2;
 
 			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},0 0,0 0,{5} {1},{2} {3},{2} {3},{4} {0},0\" fill=\"#{6}\" /><polygon points=\"{1},0 {3},0 {3},{0} {0},{2} 0,{2} 0,{4} {1},0\" fill=\"#{6}\" />",
 				wX, width - wX, height, width, height - wY, wY, Color.ToHexString());
