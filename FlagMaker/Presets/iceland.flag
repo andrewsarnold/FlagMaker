@@ -14,11 +14,11 @@ type=cross
 color=ffffff
 size1=9
 size2=9
-size3=7
+size3=4
 
 overlay
 type=cross
 color=d72828
 size1=9
 size2=9
-size3=3
+size3=2

@@ -30,7 +30,17 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double thickness = (canvas.Width / 2) * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumX * 2));
+			double thickness = canvas.Width * (Attributes.Get(strings.Thickness).Value / MaximumX) / 2;
+
+			// Prevent the border from overlapping itself
+			if (canvas.Width - thickness * 2 < 0)
+			{
+				thickness = canvas.Width / 2;
+			}
+			if (canvas.Height - thickness*2 < 0)
+			{
+				thickness = canvas.Height/2;
+			}
 
 			var path = new Path
 			{
@@ -51,7 +61,17 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double thickness = (width / 2.0) * ((Attributes.Get(strings.Thickness).Value + 1) / (MaximumX * 2));
+			double thickness = width * (Attributes.Get(strings.Thickness).Value / MaximumX) / 2;
+
+			// Prevent the border from overlapping itself
+			if (width - thickness * 2 < 0)
+			{
+				thickness = width / 2;
+			}
+			if (height - thickness * 2 < 0)
+			{
+				thickness = height / 2;
+			}
 
 			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0},0 {0},{1} 0,{1} Z M {2},{2} {3},{2} {3},{4} {2},{4} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
 				width, height,
@@ -66,16 +86,16 @@ namespace FlagMaker.Overlays.OverlayTypes
 			get
 			{
 				return new List<Shape>
-				       {
-						   new Rectangle
-						   {
-						       Width = 30,
-						       Height = 20,
-							   Stroke = Brushes.Black,
-							   StrokeThickness = 3,
-							   Fill = Brushes.Transparent
-						   }
-				       };
+				{
+					new Rectangle
+					{
+						Width = 30,
+						Height = 20,
+						Stroke = Brushes.Black,
+						StrokeThickness = 3,
+						Fill = Brushes.Transparent
+					}
+				};
 			}
 		}
 	}

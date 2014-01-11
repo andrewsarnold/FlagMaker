@@ -30,8 +30,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var widthX = (int)(canvas.Width / (Attributes.Get(strings.Thickness).Value + 3));
-			var widthY = (int)(canvas.Height / (Attributes.Get(strings.Thickness).Value + 3));
+			var widthX = canvas.Width * (Attributes.Get(strings.Thickness).Value / MaximumX) / 4;
+			var widthY = canvas.Height * (Attributes.Get(strings.Thickness).Value / MaximumX) / 4;
 
 			var centerX = canvas.Width/2;
 			var centerY = canvas.Height/2;
@@ -92,8 +92,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			var wX = (int)(width / (Attributes.Get(strings.Thickness).Value + 3));
-			var wY = (int)(height / (Attributes.Get(strings.Thickness).Value + 3));
+			var wX = width * (Attributes.Get(strings.Thickness).Value / MaximumX) / 4;
+			var wY = height * (Attributes.Get(strings.Thickness).Value / MaximumX) / 4;
 
 			var centerX = width/2;
 			var centerY = height/2;
