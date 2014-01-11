@@ -119,6 +119,7 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBranches.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCedar.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayChakra.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCoronet.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCpusa.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCrown.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEagle.cs" />

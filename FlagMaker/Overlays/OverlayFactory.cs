@@ -18,6 +18,7 @@ namespace FlagMaker.Overlays
 			                                                           { "branches", typeof (OverlayBranches) },
 			                                                           { "cedar", typeof (OverlayCedar) },
 			                                                           { "chakra", typeof (OverlayChakra) },
+			                                                           { "coronet", typeof (OverlayCoronet) },
 			                                                           { "cpusa", typeof (OverlayCpusa) },
 			                                                           { "crescent", typeof (OverlayCrescent) },
 			                                                           { "cross", typeof (OverlayCross) },
