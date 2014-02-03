@@ -93,7 +93,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 						Height = 20,
 						Stroke = Brushes.Black,
 						StrokeThickness = 3,
-						Fill = Brushes.Transparent
+						Fill = Brushes.Transparent,
+						Margin = new Thickness(0,5,0,0)
 					}
 				};
 			}

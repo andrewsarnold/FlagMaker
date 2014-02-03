@@ -52,7 +52,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 				       {
 					       new Path
 					       {
-						       Data = Geometry.Parse("M 0,10 15,0 30,10 15,20 Z")
+						       Data = Geometry.Parse("M 0,15 15,0 30,15 15,30 Z")
 					       }
 				       };
 			}

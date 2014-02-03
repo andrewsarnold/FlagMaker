@@ -83,7 +83,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 						       X1 = 0,
 						       X2 = 30,
 						       Y1 = 0,
-						       Y2 = 20
+						       Y2 = 30
 					       },
 					       new Line
 					       {
@@ -91,7 +91,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 						       X1 = 30,
 						       X2 = 0,
 						       Y1 = 0,
-						       Y2 = 20
+						       Y2 = 30
 					       }
 				       };
 			}

@@ -71,7 +71,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				       {
 						   new Path
 						   {
-							   Data = Geometry.Parse("M 0,0 15,10 0,20 0,0")
+							   Data = Geometry.Parse("M 0,0 15,15 0,30 0,0")
 						   }
 				       };
 			}

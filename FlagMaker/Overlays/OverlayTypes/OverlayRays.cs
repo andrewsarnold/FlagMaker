@@ -168,7 +168,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 							   Data = Geometry.Parse(
 								"M 15,10 18,0 12,0 Z M 15,10 0,8 0,12 Z M 15,10 18,20 12,20 Z M 15,10 30,8 30,12 Z" +
 								"M 15,10 6,0 0,0 0,3 Z M 15,10 24,0 30,0 30,3 Z M 15,10 24,20 30,20 30,17 Z M 15,10 6,20 0,20 0,17 Z"),
-						       SnapsToDevicePixels = true
+						       SnapsToDevicePixels = true,
+							   Margin = new Thickness(0,5,0,0)
 						   }
 				       };
 			}

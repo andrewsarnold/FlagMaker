@@ -71,7 +71,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 							   X1 = 15,
 							   X2 = 15,
 							   Y1 = 0,
-							   Y2 = 20
+							   Y2 = 30
 						   }
 				       };
 			}

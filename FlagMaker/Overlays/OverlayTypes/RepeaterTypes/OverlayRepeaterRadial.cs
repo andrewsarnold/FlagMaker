@@ -118,7 +118,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				for (int i = 0; i < count; i++)
 				{
 					var left = Math.Cos(i * interval) * radius + 11.5;
-					var top = Math.Sin(i * interval) * radius + 6.5;
+					var top = Math.Sin(i * interval) * radius + 11.5;
 					shapes.Add(new Ellipse
 							   {
 								   Width = 3,

@@ -87,15 +87,15 @@ namespace FlagMaker.Overlays.OverlayTypes
 							   X1 = 10,
 							   X2 = 10,
 							   Y1 = 0,
-							   Y2 = 20
+							   Y2 = 30
 						   },
 						   new Line
 						   {
 							   StrokeThickness = 5,
 							   X1 = 0,
 							   X2 = 30,
-							   Y1 = 10,
-							   Y2 = 10
+							   Y1 = 15,
+							   Y2 = 15
 						   }
 				       };
 			}

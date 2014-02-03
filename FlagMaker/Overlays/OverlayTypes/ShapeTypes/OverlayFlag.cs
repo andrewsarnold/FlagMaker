@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -88,7 +89,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 						       Width = 30,
 						       Height = 20,
 							   Stroke = Brushes.Black,
-							   StrokeThickness = 3
+							   StrokeThickness = 3,
+							   Margin = new Thickness(0,5,0,0)
 						   },
 						   new Line
 						   {
@@ -96,8 +98,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 							   StrokeThickness = 5,
 							   X1 = 10,
 							   X2 = 10,
-							   Y1 = 0,
-							   Y2 = 20
+							   Y1 = 5,
+							   Y2 = 25
 						   },
 						   new Line
 						   {
@@ -105,8 +107,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 							   StrokeThickness = 5,
 							   X1 = 0,
 							   X2 = 30,
-							   Y1 = 10,
-							   Y2 = 10
+							   Y1 = 15,
+							   Y2 = 15
 						   }
 				       };
 			}

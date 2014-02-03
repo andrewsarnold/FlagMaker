@@ -103,8 +103,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 					       {
 						       Data = new CombinedGeometry
 						              {
-							              Geometry1 = new EllipseGeometry(new Point(15, 10), 7, 7),
-							              Geometry2 = new EllipseGeometry(new Point(17.5, 10), 5, 5),
+							              Geometry1 = new EllipseGeometry(new Point(15, 15), 7, 7),
+							              Geometry2 = new EllipseGeometry(new Point(17.5, 15), 5, 5),
 							              GeometryCombineMode = GeometryCombineMode.Exclude
 						              }
 					       }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -65,7 +66,8 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 					       new Ellipse
 					       {
 						       Width = 20,
-						       Height = 20
+						       Height = 20,
+						       Margin = new Thickness(0, 5, 0, 0)
 					       }
 				       };
 			}

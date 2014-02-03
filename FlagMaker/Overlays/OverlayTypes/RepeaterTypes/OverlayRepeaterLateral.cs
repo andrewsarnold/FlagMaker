@@ -126,19 +126,19 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 					       {
 						       Width = 5,
 						       Height = 5,
-							   Margin = new Thickness(0,7.5,0,0)
+							   Margin = new Thickness(0,12.5,0,0)
 					       },
 					       new Ellipse
 					       {
 						       Width = 5,
 						       Height = 5,
-							   Margin = new Thickness(10,7.5,0,0)
+							   Margin = new Thickness(10,12.5,0,0)
 					       },
 					       new Ellipse
 					       {
 						       Width = 5,
 						       Height = 5,
-							   Margin = new Thickness(20,7.5,0,0)
+							   Margin = new Thickness(20,12.5,0,0)
 					       }
 				       };
 			}

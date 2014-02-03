@@ -70,8 +70,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 							   StrokeThickness = 5,
 							   X1 = 0,
 							   X2 = 30,
-							   Y1 = 10,
-							   Y2 = 10
+							   Y1 = 15,
+							   Y2 = 15
 						   }
 				       };
 			}
