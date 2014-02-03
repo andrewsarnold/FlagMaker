@@ -75,7 +75,8 @@
     <h2>Contents</h2>
     <ol>
         <li><a href="#what">What is FlagMaker?</a></li>
-        <li><a href="#faq">FAQ</a></li>
+	    <li><a href="#faq">FAQ</a></li>
+		<li><a href="#overlay">Creating custom overlays</a></li>
         <li><a href="#file">The <span class="tt">.flag</span> file type</a></li>
         <li><a href="#vhist">Version history</a></li>
         <li><a href="#planned">Planned features</a></li>
@@ -83,16 +84,11 @@
     </ol>
 
     <h2><a id="what"></a>What is FlagMaker?</h2>
-    <p>FlagMaker is a little tool I built to easily create flags without having to use complicated image editors like Inkscape or Photoshop, and
-        includes most common flag elements.</p>
-    <p>In this version, you can create a flag with six different base types and then add as many overlays as you like. You can save your work to a
-        proprietary file format (see below) or export to a PNG or SVG file.</p>
+    <p>FlagMaker is a little tool I built to easily create flags without having to use complicated image editors like Inkscape or Photoshop, and includes many different flag elements and emblems. You can create a flag with six different base types and then add as many overlays as you like. You can save your work to a proprietary file format (see below) or export to a PNG or SVG file.</p>
 
     <h2><a id="faq"></a>FAQ</h2>
     <ul>
-        <li><b>Is there a Mac version?</b> &ndash; No, and <i>for the love of god stop asking</i>. If one ever does come up, it won't be made by me.</li>
-        <li><b>Can you make it so we can import our own overlays?</b> &ndash; It already say it's "planned", which means no, not at this point. And
-            please stop asking this, too.</li>
+        <li><b>Is there a Mac or Linux version?</b> &ndash; No, and <i>for the love of god stop asking</i>. If one ever does come up, it won't be made by me.</li>
         <li><b>What colors are available?</b> &ndash; Two pre-set palettes exist, taken from <a href="http://www.crwflags.com/fotw/flags/index.html">the
             FOTW website</a>. One ("available colors") is FOTW's own standard palette, taken from <a href="http://www.crwflags.com/fotw/flags/fotwcols.html">this
             page</a>. The second ("standard colors") is the British Navy's "Flags of All Nations" palette, taken from
@@ -109,8 +105,33 @@
         <li><b>You should add ______ to FlagMaker.</b> &ndash; If it's not listed in the <a href="#planned">planned features section</a>, send
             me a message and I'll think about it.</li>
     </ul>
+	
+	<h2><a id="overlay"></a>Creating custom overlays</h2>
+	
+	<p>Yes, you can now create your own overlays! There are some caveats, so please <b>read this section very carefully before you actually do anything</b>. I have included the Ukrainian emblem as an example.</p>
+	
+	<h3>Designing an overlay</h3>
+	<p>I recommend using Inkscape to whip up a design, or edit one you pull off the Internet. All the special path overlays built into FlagMaker were taken from Wikipedia and edited with Inkscape.</p>
+	<img src="readme1.png" style="width:200px; float: right; padding-left: 10px;" />
+	<p>A FlagMaker overlay must be <b>a single SVG path</b>. Again, see the Ukrainian file for an example. That means: no transforms, no groups, no NOTHING. Just ONE single path. So if you open up the SVG file in a text editor, it should just have one path tag inside the main svg tag. (Why? FlagMaker is built with <a href="https://en.wikipedia.org/wiki/Windows_Presentation_Foundation">WPF</a>, which uses its own proprietary pathing engine. It so happens that it has the same syntax as SVG, but it doesn't support the same kinds of effects. It's kind of complicated. Just trust me on this.) Make liberal use of Inkscape's Union tool (in the Path menu) to combine shapes together.</p>
+	<p>FlagMaker is built so that the center of the overlay is at coordinates (0,0). So, in Inkscape, move your path so that the center is in the upper-left-hand corner, like in the screenshot.</p>
+	<p>Also make sure Inkscape doesn't hide any zoom information in the file when you save it. That can result in incorrect size info and make the overlay impossible to use. I have noticed an attribute called <span class="tt">inkscape:zoom</span> to be particularly bothersome, so be sure to remove that. There might be other info in the SVG file that can cause issues, so try removing different things if you are having problems.</p>
+	<p>Anyway, try to end up with as simple of an SVG file as possible. When I'm done, I like to open it up in a browser and check out its dimensions with the dev tools (F12) and check the dimensions, just in case Inkscape is showing you the wrong numbers.</p>
 
-    <h2><a id="file"></a>The <span class="tt">.flag</span> file type</h2>
+	<h3>The <span class="tt">.ovr</span> file type</h3>
+	<p>In the application directory, you'll notice a folder called "Custom". This is where all your overlays will go. Each overlay is represented by a single file with the extension <span class="tt">.ovr</span> (for overlay, of course). The file should have just four lines, and it should look like the following:</p>
+	<p><span class="tt">name=XXXXX<br />width=XXXX<br />height=XXXX<br />data=XXXX</span></p>
+	<p>These elements can appear in any order, but they must all be there.</p>
+	<ul>
+		<li><span class="tt">name</span> - The name of the overlay. You can put just about anything here.</li>
+		<li><span class="tt">width</span> - The "ideal" width of the SVG path that describes the overlay, in pixels. Integer values only.</li>
+		<li><span class="tt">height</span> - The "ideal" height of the SVG path that describes the overlay, in pixels. Integer values only.</li>
+		<li><span class="tt">path</span> - The SVG path data. See below.</li>
+	</ul>
+	<p>The name, width, and height values should all be self-explanatory. For the path data, insert only the text inside the "<span class="tt">d=</span>" section. It will look like a bunch of seemingly-random numbers and letters. (If you use SVG a lot, you should be familiar with it already.) The path syntax is described in detail here: <a href="http://msdn.microsoft.com/en-us/library/ms752293(v=vs.110).aspx"><b>Path Markup Syntax</b></a>. As long as your data gels with this (and if it's a simple SVG path, it already should), everything should be peachy.</p>
+	<p>Once your file is ready, drop it into the Custom folder and reboot FlagMaker. It will notify you if there are any errors. You will have to reboot FlagMaker to pick up any changes you make to the overlay.</p>
+
+	<h2><a id="file"></a>The <span class="tt">.flag</span> file type</h2>
     <p><span class="tt">.flag</span> is a file type you can use to save and open your flags. It's a plain text file so you can also use your
         favorite text editor to modify them. Feel free to look at the presets for some examples, but here's a rundown of the
         <span class="tt">.flag</span> file syntax:</p>
@@ -218,7 +239,7 @@
 
     <h2><a id="vhist"></a>Version history</h2>
     <ul>
-        <li><b>1.5</b> &ndash; <a href="http://www.reddit.com/r/vexillology/">TBA</a>
+        <li><b>1.5</b> &ndash; <a href="http://www.reddit.com/r/vexillology/">2014-02-02</a>
 	        <ul>
 		        <li>Updated lines, border, cross, saltires, and fimbriations to line up with the grid (this WILL break some saved flags!)</li>
 		        <li>All currently-used colors (custom or not) displayed in palette</li>
@@ -345,11 +366,10 @@
 
     <p>Source code available at <a href="https://github.com/andrewsarnold/FlagMaker">GitHub</a> under a GPL v2 license.</p>
 
-    <h2><a id="planned"></a>Planned features</h2>
+    <h2><a id="planned"></a>Features I daydream about on dull days</h2>
     <ul>
         <li>Robust and full-featured overlay selector dialog</li>
         <li>Actual installer</li>
-        <li>Import custom overlay images</li>
         <li>Quick upload to imgur and/or /r/vex</li>
         <li>More translations (if you'd like to help with this, let me know!)</li>
     </ul>

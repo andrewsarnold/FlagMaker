@@ -79,6 +79,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ColorFactory.cs" />
+    <None Include="Custom\ukraine.ovr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Divisions\Division.cs" />
     <Compile Include="Divisions\DivisionBendsBackward.cs" />
     <Compile Include="Divisions\DivisionX.cs" />
@@ -715,6 +718,7 @@
     <Resource Include="Images\icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="readme1.png" />
     <Resource Include="Images\add.png" />
     <Resource Include="Images\remove.png" />
     <Resource Include="Images\movedown.png" />

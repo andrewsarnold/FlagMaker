@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Windows;
 using FlagMaker.Overlays.OverlayTypes;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
@@ -80,14 +83,18 @@ namespace FlagMaker.Overlays
 			                                                           { "yin", typeof (OverlayYin) }
 		                                                           };
 
+		public static Dictionary<string, OverlayPath> CustomTypes;
+
 		public static IEnumerable<Type> GetOverlayTypes()
 		{
 			return TypeMap.Select(t => t.Value);
-		} 
+		}
 
 		public static Type GetOverlayType(string name)
 		{
-			return TypeMap.First(t => t.Key == name).Value;
+			return CustomTypes.Any(t => t.Key == name)
+				? CustomTypes[name].GetType()
+				: TypeMap.First(t => t.Key == name).Value;
 		}
 
 		public static Overlay GetInstance(string name, int maxX = 1, int maxY = 1)
@@ -102,7 +109,72 @@ namespace FlagMaker.Overlays
 
 		public static Overlay GetInstance(Type type, int maxX = 1, int maxY = 1)
 		{
+			if (type == typeof(OverlayPath)) // custom overlay
+			{
+				var overlay = CustomTypes.First(t => t.Value.GetType() == type).Value;
+				overlay.SetMaximum(maxX, maxY);
+				return overlay;
+			}
+
 			return (Overlay)Activator.CreateInstance(type, maxX, maxY);
+		}
+
+		public static void FillCustomOverlays()
+		{
+			CustomTypes = new Dictionary<string, OverlayPath>();
+
+			var path = string.Format("{0}Custom", AppDomain.CurrentDomain.BaseDirectory);
+
+			foreach (var file in Directory.GetFiles(path, "*.ovr"))
+			{
+				try
+				{
+					var name = string.Empty;
+					double width = 0;
+					double height = 0;
+					var pathData = string.Empty;
+
+					using (var sr = new StreamReader(file))
+					{
+						string line;
+						while ((line = sr.ReadLine()) != null)
+						{
+							switch (line.Split('=')[0].ToLower())
+							{
+								case "name":
+									name = line.Split('=')[1];
+									break;
+								case "width":
+									width = int.Parse(line.Split('=')[1]);
+									break;
+								case "height":
+									height = int.Parse(line.Split('=')[1]);
+									break;
+								case "path":
+									pathData = line.Split('=')[1];
+									break;
+							}
+						}
+					}
+
+					if (CustomTypes.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)) ||
+					    TypeMap.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)))
+					{
+						throw new DuplicateNameException(string.Format("An overlay with the name \"{0}\" already exists.", name));
+					}
+
+					var overlay = new OverlayPath(name, pathData, new Vector(width, height), 1, 1);
+					CustomTypes.Add(name, overlay);
+				}
+				catch (DuplicateNameException)
+				{
+					throw;
+				}
+				catch (Exception)
+				{
+					throw new Exception(string.Format("Couldn't load custom overlay \"{0}\".", Path.GetFileNameWithoutExtension(file)));
+				}
+			}
 		}
 	}
 }

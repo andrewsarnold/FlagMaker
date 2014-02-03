@@ -71,6 +71,15 @@ namespace FlagMaker
 
 			SetColorsAndSliders();
 			LoadPresets();
+
+			try
+			{
+				OverlayFactory.FillCustomOverlays();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 		}
 
 		private void SetLanguages()

@@ -15,7 +15,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		private readonly Vector _pathSize;
 		private readonly string _path;
 
-		protected OverlayPath(string name, string path, Vector pathSize, int maximumX, int maximumY)
+		public OverlayPath(string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
 				       new Attribute(strings.X, true, 1, true),
@@ -29,7 +29,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			_pathSize = pathSize;
 		}
 
-		protected OverlayPath(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
+		public OverlayPath(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			       {
 				       new Attribute(strings.X, true, 1, true),
@@ -50,36 +50,43 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			double xGridSize = canvas.Width / MaximumX;
-			double yGridSize = canvas.Height / MaximumY;
-
-			double x = Attributes.Get(strings.X).Value;
-			double y = Attributes.Get(strings.Y).Value;
-
-			var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
-
-			var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(canvas.Width, canvas.Height);
-
-			var scaleFactor = idealPixelSize / _pathSize.X;
-
-			var transformGroup = new TransformGroup();
-			var rotateTransform = new RotateTransform((Attributes.Get(strings.Rotation).Value / MaximumX) * 360);
-			transformGroup.Children.Add(rotateTransform);
-			var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
-			transformGroup.Children.Add(scaleTransform);
-
-			var path = new Path
+			try
 			{
-				Fill = new SolidColorBrush(Color),
-				RenderTransform = transformGroup,
-				Data = Geometry.Parse(_path),
-				SnapsToDevicePixels = true
-			};
+				double xGridSize = canvas.Width / MaximumX;
+				double yGridSize = canvas.Height / MaximumY;
 
-			canvas.Children.Add(path);
+				double x = Attributes.Get(strings.X).Value;
+				double y = Attributes.Get(strings.Y).Value;
 
-			Canvas.SetLeft(path, finalCenterPoint.X);
-			Canvas.SetTop(path, finalCenterPoint.Y);
+				var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
+
+				var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(canvas.Width, canvas.Height);
+
+				var scaleFactor = idealPixelSize / _pathSize.X;
+
+				var transformGroup = new TransformGroup();
+				var rotateTransform = new RotateTransform((Attributes.Get(strings.Rotation).Value / MaximumX) * 360);
+				transformGroup.Children.Add(rotateTransform);
+				var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
+				transformGroup.Children.Add(scaleTransform);
+
+				var path = new Path
+				{
+					Fill = new SolidColorBrush(Color),
+					RenderTransform = transformGroup,
+					Data = Geometry.Parse(_path),
+					SnapsToDevicePixels = true
+				};
+
+				canvas.Children.Add(path);
+
+				Canvas.SetLeft(path, finalCenterPoint.X);
+				Canvas.SetTop(path, finalCenterPoint.Y);
+			}
+			catch (Exception)
+			{
+				MessageBox.Show(string.Format("Couldn't draw custom overlay \"{0}\".", Name));
+			}
 		}
 
 		public override void SetValues(List<double> values)
@@ -92,20 +99,29 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			double xGridSize = (double)width / MaximumX;
-			double yGridSize = (double)height / MaximumY;
+			try
+			{
+				double xGridSize = (double)width / MaximumX;
+				double yGridSize = (double)height / MaximumY;
 
-			double x = Attributes.Get(strings.X).Value;
-			double y = Attributes.Get(strings.Y).Value;
+				double x = Attributes.Get(strings.X).Value;
+				double y = Attributes.Get(strings.Y).Value;
 
-			var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
+				var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
 
-			var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(width, height);
-			var scaleFactor = idealPixelSize / _pathSize.X;
-			var rotate = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
+				var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(width, height);
+				var scaleFactor = idealPixelSize / _pathSize.X;
+				var rotate = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
 
-			return string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
-					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToHexString());
+				return string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({2},{3}) rotate({0}) scale({1})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
+						rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToHexString());
+			}
+			catch (Exception)
+			{
+				MessageBox.Show(string.Format("Couldn't export custom overlay \"{0}\".", Name));
+			}
+
+			return string.Empty;
 		}
 
 		public override IEnumerable<Shape> Thumbnail

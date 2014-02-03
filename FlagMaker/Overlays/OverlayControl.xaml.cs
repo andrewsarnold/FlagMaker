@@ -147,6 +147,38 @@ namespace FlagMaker.Overlays
 									  });
 			}
 
+			foreach (var overlayPath in OverlayFactory.CustomTypes.Select(p => p.Value))
+			{
+				try
+				{
+					var thumbnail = new Canvas
+					{
+						MinWidth = 30,
+						MinHeight = 30
+					};
+
+					IEnumerable<Shape> thumbs = overlayPath.Thumbnail;
+					foreach (var thumb in thumbs)
+					{
+						if (thumb.Stroke == null) thumb.Stroke = Brushes.Black;
+						if (thumb.Fill == null) thumb.Fill = Brushes.Black;
+						thumbnail.Children.Add(thumb);
+					}
+
+					cmbOverlays.Items.Add(new ComboBoxItem
+					{
+						ToolTip = overlayPath.DisplayName,
+						Content = thumbnail,
+						Tag = overlayPath.Name,
+						Padding = new Thickness(2)
+					});
+				}
+				catch (Exception)
+				{
+					MessageBox.Show(string.Format("Couldn't load custom overlay \"{0}\".", overlayPath.Name));
+				}
+			}
+
 			cmbOverlays.SelectedIndex = 0;
 		}
 
