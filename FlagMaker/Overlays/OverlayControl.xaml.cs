@@ -127,7 +127,7 @@ namespace FlagMaker.Overlays
 				var thumbnail = new Canvas
 				{
 					MinWidth = 30,
-					MinHeight = 20
+					MinHeight = 30
 				};
 
 				IEnumerable<Shape> thumbs = instance.Thumbnail;

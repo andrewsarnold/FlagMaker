@@ -112,7 +112,8 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		{
 			get
 			{
-				double scale = 20.0 / Math.Max(_pathSize.X, _pathSize.Y);
+				const double thumbSize = 30.0;
+				double scale = thumbSize / Math.Max(_pathSize.X, _pathSize.Y);
 				return new List<Shape>
 				       {
 					       new Path
@@ -122,7 +123,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 							                         Children = new TransformCollection
 							                                    {
 								                                    new ScaleTransform(scale, scale),
-								                                    new TranslateTransform(10, 10)
+								                                    new TranslateTransform(thumbSize / 2, thumbSize / 2)
 							                                    }
 						                         },
 						       Data = Geometry.Parse(_path),

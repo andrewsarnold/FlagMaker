@@ -115,7 +115,9 @@
     <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAnchor.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAngola.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBarbados.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBranches.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCedar.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayChakra.cs" />
@@ -130,15 +132,21 @@
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFleurDeLis.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayForthInternational.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayHand.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayHarp.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIran.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTakbir.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayIronCross.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayKangaroo.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayKiwi.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayLaurel.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMalteseCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayMozambique.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayPapuaNewGuinea.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayParteiadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayReichsadler.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayShahadah.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySikh.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySpringbok.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarEight.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarFour.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStarSix.cs" />
@@ -230,6 +238,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Presets\abkhazia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\aland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\algeria.flag">
@@ -391,6 +402,9 @@
     <None Include="Presets\iran.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\iraq.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\ireland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -532,6 +546,7 @@
     <None Include="Presets\peru.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\png.flag" />
     <None Include="Presets\poland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -616,6 +631,9 @@
     <None Include="Presets\syria.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\tanzania.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\thailand.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -653,6 +671,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\yemen.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\zanzibar.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
