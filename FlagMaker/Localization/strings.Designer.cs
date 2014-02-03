@@ -286,7 +286,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GridSize.
+        ///   Looks up a localized string similar to Grid size.
         /// </summary>
         public static string GridSize {
             get {

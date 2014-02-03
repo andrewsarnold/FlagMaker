@@ -14,7 +14,6 @@ namespace FlagMaker.Overlays
 		                                                           {
 			                                                           { "anchor", typeof (OverlayAnchor) },
 			                                                           { "angola", typeof (OverlayAngola) },
-			                                                           { "barbados", typeof (OverlayBarbados) },
 			                                                           { "box", typeof (OverlayBox) },
 			                                                           { "border", typeof (OverlayBorder) },
 			                                                           { "branches", typeof (OverlayBranches) },
@@ -76,6 +75,7 @@ namespace FlagMaker.Overlays
 			                                                           { "takbir", typeof (OverlayTakbir) },
 			                                                           { "tree", typeof (OverlayTree) },
 			                                                           { "triangle", typeof (OverlayTriangle) },
+			                                                           { "trident", typeof (OverlayTrident) },
 			                                                           { "triskele", typeof (OverlayTriskele) },
 			                                                           { "yin", typeof (OverlayYin) }
 		                                                           };

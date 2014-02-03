@@ -117,7 +117,7 @@
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAnchor.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAngola.cs" />
-    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBarbados.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayTrident.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBranches.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayCedar.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayChakra.cs" />
@@ -243,6 +243,9 @@
     <None Include="Presets\aland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\alaska.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\algeria.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -273,6 +276,9 @@
     <None Include="Presets\bangladesh.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\barbados.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\basque.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -280,6 +286,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\benin.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\bolivia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\brazilnaval.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\brittany.flag">
@@ -328,6 +340,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\crimea.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\dc.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\denmark.flag">
@@ -546,7 +561,9 @@
     <None Include="Presets\peru.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Presets\png.flag" />
+    <None Include="Presets\png.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\poland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -643,6 +660,9 @@
     <None Include="Presets\tonga.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\transnistria.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\tunisia.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -668,6 +688,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\vietnam.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\westernsahara.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\westflanders.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\yemen.flag">
