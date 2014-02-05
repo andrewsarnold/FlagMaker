@@ -99,7 +99,7 @@ namespace FlagMaker.Overlays
 
 		public static Overlay GetInstance(string name, int maxX = 1, int maxY = 1)
 		{
-			return GetInstance(GetOverlayType(name), name, maxX, maxY);
+			return GetInstance(GetOverlayType(name), maxX, maxY, name);
 		}
 
 		public static Overlay GetInstance(string name, string path, int maxX = 1, int maxY = 1)
@@ -107,16 +107,13 @@ namespace FlagMaker.Overlays
 			return new OverlayFlag(Flag.LoadFromFile(path), path, maxX, maxY);
 		}
 
-		public static Overlay GetInstance(Type type, string name, int maxX = 1, int maxY = 1)
+		public static Overlay GetInstance(Type type, int maxX = 1, int maxY = 1, string name = "")
 		{
 			if (type == typeof(OverlayPath)) // custom overlay
 			{
 				var overlay = CustomTypes[name];
 				overlay.SetMaximum(maxX, maxY);
 				return overlay;
-				//var overlay = CustomTypes.First(t => t.Value.GetType() == type).Value;
-				//overlay.SetMaximum(maxX, maxY);
-				//return overlay;
 			}
 
 			return (Overlay)Activator.CreateInstance(type, maxX, maxY);

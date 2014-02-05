@@ -122,7 +122,7 @@ namespace FlagMaker.Overlays
 		{
 			foreach (var overlay in OverlayFactory.GetOverlayTypes())
 			{
-				var instance = OverlayFactory.GetInstance(overlay, string.Empty, _defaultMaximumX, _defaultMaximumY);
+				var instance = OverlayFactory.GetInstance(overlay, _defaultMaximumX, _defaultMaximumY);
 
 				var thumbnail = new Canvas
 				{
