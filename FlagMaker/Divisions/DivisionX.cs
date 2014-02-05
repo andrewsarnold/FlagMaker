@@ -92,21 +92,21 @@ namespace FlagMaker.Divisions
 			int centerY = height / 2;
 
 			// top
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {1},{2}\" fill=\"#{3}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0:0.###},0 {1:0.###},{2:0.###}\" fill=\"#{3}\" />",
 				width,
 				centerX,
 				centerY,
 				Colors[0].ToHexString()));
 
 			// left
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0} {1},{2}\" fill=\"#{3}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0:0.###} {1:0.###},{2:0.###}\" fill=\"#{3}\" />",
 				height,
 				centerX,
 				centerY,
 				Colors[1].ToHexString()));
 
 			// bottom
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0} {1},{0} {2},{3}\" fill=\"#{4}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0:0.###} {1:0.###},{0:0.###} {2:0.###},{3:0.###}\" fill=\"#{4}\" />",
 				height,
 				width,
 				centerX,
@@ -114,7 +114,7 @@ namespace FlagMaker.Divisions
 				Colors[0].ToHexString()));
 
 			// right
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0},0 {0},{1} {2},{3}\" fill=\"#{4}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},0 {0:0.###},{1:0.###} {2:0.###},{3:0.###}\" fill=\"#{4}\" />",
 				width,
 				height,
 				centerX,

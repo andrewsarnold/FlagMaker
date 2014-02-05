@@ -73,7 +73,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				thickness = height / 2;
 			}
 
-			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0},0 {0},{1} 0,{1} Z M {2},{2} {3},{2} {3},{4} {2},{4} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0:0.###},0 {0:0.###},{1:0.###} 0,{1:0.###} Z M {2:0.###},{2:0.###} {3:0.###},{2:0.###} {3:0.###},{4:0.###} {2:0.###},{4:0.###} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
 				width, height,
 				thickness,
 				width - thickness,

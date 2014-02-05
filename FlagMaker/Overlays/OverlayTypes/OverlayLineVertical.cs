@@ -55,7 +55,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			double thick = width * (Attributes.Get(strings.Thickness).Value / MaximumX);
 
-			return string.Format(CultureInfo.InvariantCulture, "<rect height=\"{0}\" width=\"{1}\" x=\"{2}\" y=\"0\" fill=\"#{3}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<rect height=\"{0:0.###}\" width=\"{1:0.###}\" x=\"{2:0.###}\" y=\"0\" fill=\"#{3}\" />",
 				height, thick, width * (Attributes.Get(strings.X).Value / MaximumX) - thick / 2, Color.ToHexString());
 		}
 

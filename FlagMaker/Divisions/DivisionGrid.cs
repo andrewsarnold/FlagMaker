@@ -68,7 +68,7 @@ namespace FlagMaker.Divisions
 			{
 				for (int y = 0; y < Values[1]; y++)
 				{
-					sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0}\" height=\"{1}\" fill=\"#{2}\" x=\"{3}\" y=\"{4}\"/>",
+					sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"{3:0.###}\" y=\"{4:0.###}\"/>",
 						w, h, ((x + y) % 2 == 0 ? Colors[0] : Colors[1]).ToHexString(), x * w, y * h));
 				}
 			}

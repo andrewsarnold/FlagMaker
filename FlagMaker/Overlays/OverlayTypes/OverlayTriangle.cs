@@ -55,7 +55,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			var margin = (height - height * (Attributes.Get(strings.Height).Value / MaximumY)) / 2;
 
-			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0} 0,{1} {2},{3}\" fill=\"#{4}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0:0.###} 0,{1:0.###} {2:0.###},{3:0.###}\" fill=\"#{4}\" />",
 				margin,
 				height - margin,
 				width * (Attributes.Get(strings.Width).Value / MaximumX),

@@ -87,12 +87,13 @@ namespace FlagMaker
 			foreach (var lang in new List<CultureInfo>
 			                     {
 				                     new CultureInfo("en-US"),
-									 new CultureInfo("es-ES")
+									 new CultureInfo("es-ES"),
+									 new CultureInfo("ru-RU")
 			                     })
 			{
 				var menuItem = new MenuItem
 				               {
-					               Header = lang.Parent.NativeName,
+					               Header = lang.TextInfo.ToTitleCase(lang.Parent.NativeName),
 								   Tag = lang.Name,
 								   IsChecked = Settings.Default.Culture == lang.Name
 				               };

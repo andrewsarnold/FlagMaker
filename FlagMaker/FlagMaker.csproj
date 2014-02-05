@@ -105,6 +105,11 @@
     </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Flag.cs" />
+    <Compile Include="Localization\strings.ru.Designer.cs">
+      <DependentUpon>strings.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Localization\strings.es.Designer.cs">
       <DependentUpon>strings.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -227,6 +232,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Localization\strings.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\strings.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.es.Designer.cs</LastGenOutput>

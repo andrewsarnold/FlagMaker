@@ -95,10 +95,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 			for (int i = 0; i < Attributes.Get(strings.Count).Value; i++)
 			{
-				sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}){2}\">",
+				sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0:0###},{1:0###}){2:0###}\">",
 					locX + Math.Cos(i * interval - Math.PI / 2) * radius,
 					locY + Math.Sin(i * interval - Math.PI / 2) * radius,
-					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0})", i * 360 / Attributes.Get(strings.Count).Value) : string.Empty));
+					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0:0###})", i * 360 / Attributes.Get(strings.Count).Value) : string.Empty));
 				sb.AppendLine(Overlay.ExportSvg((int)radius, (int)radius));
 				sb.AppendLine("</g>");
 			}

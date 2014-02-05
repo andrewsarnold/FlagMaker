@@ -60,7 +60,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 		{
 			var sb = new StringBuilder();
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0},{1}) scale({2} {3})\">",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0:0.###},{1:0.###}) scale({2:0.###} {3:0.###})\">",
 				width * (Attributes.Get(strings.X).Value / MaximumX),
 				height * (Attributes.Get(strings.Y).Value / MaximumY),
 				Attributes.Get(strings.Width).Value / MaximumX,

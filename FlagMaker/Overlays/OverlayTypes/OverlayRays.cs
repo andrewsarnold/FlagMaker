@@ -83,19 +83,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 					}
 					else if (point1.X == 0)
 					{
-						point3 = string.Format(CultureInfo.InvariantCulture, "0,{0} ", height);
+						point3 = string.Format(CultureInfo.InvariantCulture, "0,{0:0.###} ", height);
 					}
 					else if (point1.Y == height)
 					{
-						point3 = string.Format(CultureInfo.InvariantCulture, "{0},{1} ", width, height);
+						point3 = string.Format(CultureInfo.InvariantCulture, "{0:0.###},{1:0.###} ", width, height);
 					}
 					else if (point1.X == width)
 					{
-						point3 = string.Format(CultureInfo.InvariantCulture, "{0},0 ", width);
+						point3 = string.Format(CultureInfo.InvariantCulture, "{0:0.###},0 ", width);
 					}
 				}
 
-				yield return string.Format(CultureInfo.InvariantCulture, "M {0},{1} {2},{3} {4}{5},{6} Z",
+				yield return string.Format(CultureInfo.InvariantCulture, "M {0:0.###},{1:0.###} {2:0.###},{3:0.###} {4:0.###}{5:0.###},{6:0.###} Z",
 					centerX, centerY,
 					point1.X, point1.Y,
 					point3,

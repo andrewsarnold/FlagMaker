@@ -52,7 +52,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			double x = width * (Attributes.Get(strings.X).Value / MaximumX);
 			double y = height * (Attributes.Get(strings.Y).Value / MaximumY);
 
-			return string.Format(CultureInfo.InvariantCulture, "<ellipse cx=\"{0}\" cy=\"{1}\" rx=\"{2}\" ry=\"{3}\" fill=\"#{4}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<ellipse cx=\"{0:0.###}\" cy=\"{1:0.###}\" rx=\"{2:0.###}\" ry=\"{3:0.###}\" fill=\"#{4}\" />",
 				x, y, w / 2, h / 2,
 				Color.ToHexString());
 		}
