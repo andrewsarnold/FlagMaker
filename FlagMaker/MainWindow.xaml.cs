@@ -657,10 +657,10 @@ namespace FlagMaker
 			XmlReader xmlReader = XmlReader.Create(stringReader);
 			var newGrid = (Canvas)XamlReader.Load(xmlReader);
 
-			ExportToPng(new Uri(dlg.FileName), newGrid, dimensions);
+			ExportToPng(dlg.FileName, newGrid, dimensions);
 		}
 
-		private static void ExportToPng(Uri path, FrameworkElement surface, Size newSize)
+		private static void ExportToPng(string path, FrameworkElement surface, Size newSize)
 		{
 			if (path == null) return;
 
@@ -682,7 +682,7 @@ namespace FlagMaker
 					PixelFormats.Pbgra32);
 			renderBitmap.Render(surface);
 
-			using (var outStream = new FileStream(path.LocalPath, FileMode.Create))
+			using (var outStream = new FileStream(path, FileMode.Create))
 			{
 				var encoder = new PngBitmapEncoder();
 				encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
@@ -702,10 +702,10 @@ namespace FlagMaker
 			bool? result = dlg.ShowDialog();
 			if (!((bool)result)) return;
 
-			ExportToSvg(new Uri(dlg.FileName));
+			ExportToSvg(dlg.FileName);
 		}
 
-		private void ExportToSvg(Uri path)
+		private void ExportToSvg(string path)
 		{
 			Flag.ExportToSvg(path);
 		}
