@@ -354,6 +354,7 @@ namespace FlagMaker
 							 };
 			if (overlay != null)
 			{
+				newOverlay.Color = overlay.Color;
 				newOverlay.SetType(overlay.Name);
 
 				if (overlay is OverlayFlag)
@@ -361,7 +362,6 @@ namespace FlagMaker
 					newOverlay.Overlay = overlay;
 				}
 
-				newOverlay.Color = overlay.Color;
 				for (int i = 0; i < overlay.Attributes.Count; i++)
 				{
 					newOverlay.SetSlider(i, overlay.Attributes[i].Value);

@@ -124,7 +124,7 @@
     <value>Couldn't load presets. Check for a Presets folder in the application directory.</value>
   </data>
   <data name="CouldNotOpenError" xml:space="preserve">
-    <value>Couldn't open the file. Check your syntax and try again.\nError at line: \"{0}\"</value>
+    <value>Couldn't open the file. Check your syntax and try again. Error at line: \"{0}\"</value>
   </data>
   <data name="CouldNotOpenFileError" xml:space="preserve">
     <value>Couldn't open the file. Check your syntax and try again.</value>

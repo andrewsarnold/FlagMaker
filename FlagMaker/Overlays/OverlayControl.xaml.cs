@@ -62,7 +62,7 @@ namespace FlagMaker.Overlays
 			int theitem = -1;
 			for (int i = 0; i < cmbOverlays.Items.Count; i++)
 			{
-				if (((ComboBoxItem)cmbOverlays.Items[i]).ToolTip.ToString().ToLower() == typename)
+				if (string.Equals(((ComboBoxItem)cmbOverlays.Items[i]).ToolTip.ToString(), typename, StringComparison.CurrentCultureIgnoreCase))
 				{
 					theitem = i;
 					break;
@@ -122,7 +122,7 @@ namespace FlagMaker.Overlays
 		{
 			foreach (var overlay in OverlayFactory.GetOverlayTypes())
 			{
-				var instance = OverlayFactory.GetInstance(overlay, _defaultMaximumX, _defaultMaximumY);
+				var instance = OverlayFactory.GetInstance(overlay, string.Empty, _defaultMaximumX, _defaultMaximumY);
 
 				var thumbnail = new Canvas
 				{
