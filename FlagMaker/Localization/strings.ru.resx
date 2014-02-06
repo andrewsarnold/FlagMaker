@@ -133,10 +133,10 @@
     <value>Кол-во</value>
   </data>
   <data name="CountX" xml:space="preserve">
-    <value>Кол-во по горизонтали</value>
+    <value>По горизонтали</value>
   </data>
   <data name="CountY" xml:space="preserve">
-    <value>Кол-во по вертикали</value>
+    <value>По вертикали</value>
   </data>
   <data name="Division" xml:space="preserve">
     <value>Разбиение</value>
@@ -166,7 +166,7 @@
     <value>Вертикальный триколор</value>
   </data>
   <data name="DivisionPresets" xml:space="preserve">
-    <value>По умолчанию</value>
+    <value>Заготовки</value>
   </data>
   <data name="DivisionQuartered" xml:space="preserve">
     <value>Накрест</value>
@@ -223,7 +223,7 @@
     <value>Соотношение сторон</value>
   </data>
   <data name="RestartForChanges" xml:space="preserve">
-    <value>Для применения изменений требуется перезапуск программы.</value>
+    <value>Для вступления изменений в силу требуется перезапуск программы.</value>
   </data>
   <data name="Rotate" xml:space="preserve">
     <value>Повернуть?</value>
