@@ -349,6 +349,24 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t load custom overlay &quot;{0}&quot;..
+        /// </summary>
+        public static string OverlayLoadError {
+            get {
+                return ResourceManager.GetString("OverlayLoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An overlay with the name &quot;{0}&quot; already exists..
+        /// </summary>
+        public static string OverlayNameExists {
+            get {
+                return ResourceManager.GetString("OverlayNameExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overlays.
         /// </summary>
         public static string Overlays {
