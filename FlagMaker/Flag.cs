@@ -36,7 +36,7 @@ namespace FlagMaker
 		{
 			if (string.IsNullOrEmpty(filename))
 			{
-				throw new FileNotFoundException(strings.NoFile);
+				throw new OperationCanceledException();
 			}
 
 			var name = string.Empty;

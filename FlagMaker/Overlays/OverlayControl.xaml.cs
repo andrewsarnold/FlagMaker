@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using FlagMaker.Localization;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
-using MessageBox = System.Windows.MessageBox;
 
 namespace FlagMaker.Overlays
 {
@@ -36,7 +32,7 @@ namespace FlagMaker.Overlays
 			_defaultMaximumY = defaultMaximumY;
 
 			SetUpColors(standardColors, availableColors, recentColors);
-			FillOverlayList();
+			Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
 		}
 
 		public Overlay Overlay
@@ -45,11 +41,12 @@ namespace FlagMaker.Overlays
 			set
 			{
 				_overlay = value;
+				BtnOverlays.Content = _overlay.CanvasThumbnail();
 
 				// Save old slider/color values
-				_overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
+				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
-				var sliderValues = _pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
+				var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
 				if (sliderValues.Count > 0)
 				{
 					for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
@@ -59,48 +56,39 @@ namespace FlagMaker.Overlays
 					_overlay.SetValues(sliderValues);
 				}
 
-				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;
+				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;
 
-				_pnlSliders.Children.Clear();
+				PnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))
 				{
 					slider.ValueChanged += OverlaySliderChanged;
-					_pnlSliders.Children.Add(slider);
+					PnlSliders.Children.Add(slider);
 				}
 			}
 		}
 
 		public void SetType(string typename)
 		{
-			int theitem = -1;
-			for (int i = 0; i < cmbOverlays.Items.Count; i++)
-			{
-				if (string.Equals(((ComboBoxItem)cmbOverlays.Items[i]).ToolTip.ToString(), typename, StringComparison.CurrentCultureIgnoreCase))
-				{
-					theitem = i;
-					break;
-				}
-			}
-
-			if (theitem >= 0) cmbOverlays.SelectedIndex = theitem;
+			var type = OverlayFactory.GetOverlayType(typename);
+			Overlay = OverlayFactory.GetInstance(type, _defaultMaximumX, _defaultMaximumY);
 		}
 
 		public Color Color
 		{
-			get { return _overlayPicker.SelectedColor; }
-			set { _overlayPicker.SelectedColor = value; }
+			get { return OverlayPicker.SelectedColor; }
+			set { OverlayPicker.SelectedColor = value; }
 		}
 
 		public void SetSlider(int slider, double value)
 		{
-			if (slider >= _pnlSliders.Children.Count) return;
+			if (slider >= PnlSliders.Children.Count) return;
 
 			if (Math.Abs(value - (int)value) > 0.01)
 			{
-				((AttributeSlider)_pnlSliders.Children[slider]).chkDiscrete.IsChecked = false;
+				((AttributeSlider)PnlSliders.Children[slider]).chkDiscrete.IsChecked = false;
 			}
 
-			((AttributeSlider)_pnlSliders.Children[slider]).Value = value;
+			((AttributeSlider)PnlSliders.Children[slider]).Value = value;
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
@@ -110,7 +98,7 @@ namespace FlagMaker.Overlays
 
 			Overlay.SetMaximum(maximumX, maximumY);
 
-			var sliders = _pnlSliders.Children.OfType<AttributeSlider>().ToList();
+			var sliders = PnlSliders.Children.OfType<AttributeSlider>().ToList();
 			for (int i = 0; i < _overlay.Attributes.Count; i++)
 			{
 				var slider = sliders[i];
@@ -123,127 +111,26 @@ namespace FlagMaker.Overlays
 
 		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors)
 		{
-			_overlayPicker.AvailableColors = availableColors;
-			_overlayPicker.StandardColors = standardColors;
-			_overlayPicker.RecentColors = recentColors;
-			_overlayPicker.ShowRecentColors = true;
-			_overlayPicker.SelectedColor = _overlayPicker.StandardColors[10].Color;
-			_overlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
-		}
-
-		private void FillOverlayList()
-		{
-			foreach (var overlay in OverlayFactory.GetOverlayTypes())
-			{
-				var instance = OverlayFactory.GetInstance(overlay, _defaultMaximumX, _defaultMaximumY);
-
-				var thumbnail = new Canvas
-				{
-					MinWidth = 30,
-					MinHeight = 30
-				};
-
-				IEnumerable<Shape> thumbs = instance.Thumbnail;
-				foreach (var thumb in thumbs)
-				{
-					if (thumb.Stroke == null) thumb.Stroke = Brushes.Black;
-					if (thumb.Fill == null) thumb.Fill = Brushes.Black;
-					thumbnail.Children.Add(thumb);
-				}
-
-				cmbOverlays.Items.Add(new ComboBoxItem
-									  {
-										  ToolTip = instance.DisplayName,
-										  Content = thumbnail,
-										  Tag = instance.Name,
-										  Padding = new Thickness(2)
-									  });
-			}
-
-			foreach (var overlayPath in OverlayFactory.CustomTypes.Select(p => p.Value))
-			{
-				try
-				{
-					var thumbnail = new Canvas
-					{
-						MinWidth = 30,
-						MinHeight = 30
-					};
-
-					IEnumerable<Shape> thumbs = overlayPath.Thumbnail;
-					foreach (var thumb in thumbs)
-					{
-						if (thumb.Stroke == null) thumb.Stroke = Brushes.Black;
-						if (thumb.Fill == null) thumb.Fill = Brushes.Black;
-						thumbnail.Children.Add(thumb);
-					}
-
-					cmbOverlays.Items.Add(new ComboBoxItem
-					{
-						ToolTip = overlayPath.DisplayName,
-						Content = thumbnail,
-						Tag = overlayPath.Name,
-						Padding = new Thickness(2)
-					});
-				}
-				catch (Exception)
-				{
-					MessageBox.Show(string.Format("Couldn't load custom overlay \"{0}\".", overlayPath.Name));
-				}
-			}
-
-			cmbOverlays.SelectedIndex = 0;
+			OverlayPicker.AvailableColors = availableColors;
+			OverlayPicker.StandardColors = standardColors;
+			OverlayPicker.RecentColors = recentColors;
+			OverlayPicker.ShowRecentColors = true;
+			OverlayPicker.SelectedColor = OverlayPicker.StandardColors[10].Color;
+			OverlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
 		}
 
 		private void OverlayColorChanged()
 		{
 			if (Overlay == null) return;
 
-			Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor, Colors.Transparent });
+			Overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor, Colors.Transparent });
 			Draw();
 		}
 
 		private void OverlaySliderChanged(object sender, EventArgs e)
 		{
-			Overlay.SetValues(_pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList());
+			Overlay.SetValues(PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList());
 			Draw();
-		}
-
-		private void OverlayChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var item = (ComboBoxItem)((ComboBox)sender).SelectedItem;
-
-			if (item == null) return;
-
-			var tag = item.Tag as string;
-			if (tag == null) return;
-
-			if (tag == "flag")
-			{
-				if (!IsLoading)
-				{
-					string path = Flag.GetFlagPath();
-
-					Flag flag;
-					try
-					{
-						flag = Flag.LoadFromFile(path);
-					}
-					catch (Exception ex)
-					{
-						MessageBox.Show(string.Format("{0}\n{1} \"{2}\"", strings.CouldNotOpenFileError, strings.ErrorAtLine, ex.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
-						return;
-					}
-
-					Overlay = new OverlayFlag(flag, path, _defaultMaximumX, _defaultMaximumY);
-				}
-			}
-			else
-			{
-				Overlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
-			}
-
-			if (!IsLoading) Draw();
 		}
 
 		private void OverlaySelect(object sender, EventArgs e)
@@ -252,7 +139,11 @@ namespace FlagMaker.Overlays
 			{
 				Owner = Application.Current.MainWindow
 			};
+
 			selector.ShowDialog();
+			if (selector.SelectedOverlay == null) return;
+			Overlay = selector.SelectedOverlay;
+			if (!IsLoading) Draw();
 		}
 
 		private void Draw()
