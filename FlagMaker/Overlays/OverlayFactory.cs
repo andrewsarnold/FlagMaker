@@ -180,5 +180,10 @@ namespace FlagMaker.Overlays
 				}
 			}
 		}
+
+		public static IEnumerable<Type> GetOverlaysByType(Type type)
+		{
+			return TypeMap.Where(o => o.Value.IsSubclassOf(type)).Select(o => o.Value);
+		}
 	}
 }

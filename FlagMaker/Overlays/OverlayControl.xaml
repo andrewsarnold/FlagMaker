@@ -12,6 +12,7 @@
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <ComboBox x:Name="cmbOverlays" SelectionChanged="OverlayChanged" VerticalContentAlignment="Center" />
+			<Button x:Name="btnOverlays" Click="OverlaySelect" VerticalContentAlignment="Center" />
             <Button ToolTip="Remove" Click="Remove" Margin="15,0,0,0" Style="{DynamicResource ResourceKey=GraphicButton}">
                 <Image Source="..\Images\remove.png" />
             </Button>

@@ -246,6 +246,15 @@ namespace FlagMaker.Overlays
 			if (!IsLoading) Draw();
 		}
 
+		private void OverlaySelect(object sender, EventArgs e)
+		{
+			var selector = new OverlaySelector(_defaultMaximumX, _defaultMaximumY)
+			{
+				Owner = Application.Current.MainWindow
+			};
+			selector.ShowDialog();
+		}
+
 		private void Draw()
 		{
 			if (OnDraw != null)
