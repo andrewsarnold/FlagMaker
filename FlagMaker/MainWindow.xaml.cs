@@ -34,7 +34,7 @@ namespace FlagMaker
 		private Division _division;
 		private ObservableCollection<ColorItem> _standardColors;
 		private ObservableCollection<ColorItem> _availableColors;
-		private ObservableCollection<ColorItem> _recentColors; 
+		private ObservableCollection<ColorItem> _recentColors;
 
 		private bool _isLoading;
 		private bool _showGrid;
@@ -84,19 +84,18 @@ namespace FlagMaker
 
 		private void SetLanguages()
 		{
-			foreach (var lang in new List<CultureInfo>
-			                     {
-				                     new CultureInfo("en-US"),
-									 new CultureInfo("es-ES"),
-									 new CultureInfo("ru-RU")
-			                     })
+			foreach (var menuItem in new List<CultureInfo>
 			{
-				var menuItem = new MenuItem
-				               {
-					               Header = lang.TextInfo.ToTitleCase(lang.Parent.NativeName),
-								   Tag = lang.Name,
-								   IsChecked = Settings.Default.Culture == lang.Name
-				               };
+				new CultureInfo("en-US"),
+				new CultureInfo("es-ES"),
+				new CultureInfo("ru-RU")
+			}.Select(lang => new MenuItem
+			{
+				Header = lang.TextInfo.ToTitleCase(lang.Parent.NativeName),
+				Tag = lang.Name,
+				IsChecked = Settings.Default.Culture == lang.Name
+			}))
+			{
 				menuItem.Click += LanguageChange;
 				mnuLanguage.Items.Add(menuItem);
 			}

@@ -283,9 +283,10 @@ namespace FlagMaker
 		{
 			for (int i = Overlays.Count - 1; i > 0; i--)
 			{
-				if (Overlays[i - 1] is OverlayRepeater)
+				var repeater = Overlays[i - 1] as OverlayRepeater;
+				if (repeater != null)
 				{
-					((OverlayRepeater)Overlays[i - 1]).SetOverlay(Overlays[i]);
+					repeater.SetOverlay(Overlays[i]);
 				}
 			}
 		}

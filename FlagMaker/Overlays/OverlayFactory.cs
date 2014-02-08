@@ -112,8 +112,11 @@ namespace FlagMaker.Overlays
 			if (type == typeof(OverlayPath)) // custom overlay
 			{
 				var overlay = CustomTypes[name];
-				overlay.SetMaximum(maxX, maxY);
-				return overlay;
+
+				// Create a unique copy
+				var overlayCopy = overlay.Copy();
+				overlayCopy.SetMaximum(maxX, maxY);
+				return overlayCopy;
 			}
 
 			return (Overlay)Activator.CreateInstance(type, maxX, maxY);
