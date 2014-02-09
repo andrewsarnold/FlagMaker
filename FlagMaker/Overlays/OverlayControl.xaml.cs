@@ -49,14 +49,17 @@ namespace FlagMaker.Overlays
 				// Save old slider/color values
 				_overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
 
-				var sliderValues = _pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
-				if (sliderValues.Count > 0)
+				if (!(_overlay is OverlayFlag))
 				{
-					for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
+					var sliderValues = _pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
+					if (sliderValues.Count > 0)
 					{
-						sliderValues.Add(0);
+						for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
+						{
+							sliderValues.Add(0);
+						}
+						_overlay.SetValues(sliderValues);
 					}
-					_overlay.SetValues(sliderValues);
 				}
 
 				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;
@@ -228,6 +231,10 @@ namespace FlagMaker.Overlays
 					try
 					{
 						flag = Flag.LoadFromFile(path);
+					}
+					catch (OperationCanceledException)
+					{
+						return;
 					}
 					catch (Exception ex)
 					{
