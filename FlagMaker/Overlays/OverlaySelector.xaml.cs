@@ -38,10 +38,12 @@ namespace FlagMaker.Overlays
 
 		private void FillOverlays()
 		{
-			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayShape))
+			AddTab(OverlayFactory.GetOverlaysNotInTypes(new[] { typeof(OverlayRepeater), typeof(OverlayPath) })
+				.Where(t => t != typeof(OverlayFlag))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), "Shapes");
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayRepeater))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), "Repeaters");
+			AddTab(new Overlay[]{ new OverlayFlag(_defaultMaximumY, _defaultMaximumY) }, "Flags");
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayPath))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), "Emblems");
 			AddTab(OverlayFactory.CustomTypes.Select(o => o.Value).OrderBy(o => o.DisplayName), "Custom");

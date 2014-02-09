@@ -190,5 +190,10 @@ namespace FlagMaker.Overlays
 		{
 			return TypeMap.Where(o => o.Value.IsSubclassOf(type)).Select(o => o.Value);
 		}
+
+		public static IEnumerable<Type> GetOverlaysNotInTypes(IEnumerable<Type> types)
+		{
+			return TypeMap.Where(o => !types.Any(t => o.Value.IsSubclassOf(t))).Select(o => o.Value);
+		} 
 	}
 }
