@@ -86,11 +86,6 @@ namespace FlagMaker.Overlays
 
 		public static Dictionary<string, OverlayPath> CustomTypes;
 
-		public static IEnumerable<Type> GetOverlayTypes()
-		{
-			return TypeMap.Select(t => t.Value);
-		}
-
 		public static Type GetOverlayType(string name)
 		{
 			return CustomTypes.Any(t => t.Key == name)
@@ -103,7 +98,7 @@ namespace FlagMaker.Overlays
 			return GetInstance(GetOverlayType(name), maxX, maxY, name);
 		}
 
-		public static Overlay GetInstance(string name, string path, int maxX = 1, int maxY = 1)
+		public static Overlay GetFlagInstance(string path, int maxX = 1, int maxY = 1)
 		{
 			return new OverlayFlag(Flag.LoadFromFile(path), path, maxX, maxY);
 		}
@@ -125,7 +120,7 @@ namespace FlagMaker.Overlays
 
 		public static Overlay GetDefaultOverlay(int maxX = 1, int maxY = 1)
 		{
-			return GetInstance(TypeMap.First().Value, maxX, maxY);
+			return GetInstance(TypeMap["box"], maxX, maxY);
 		}
 
 		public static void FillCustomOverlays()
