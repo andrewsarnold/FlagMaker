@@ -42,6 +42,7 @@ namespace FlagMaker.Overlays
 			{
 				_overlay = value;
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
+				BtnOverlays.ToolTip = _overlay.DisplayName;
 
 				// Save old slider/color values
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
