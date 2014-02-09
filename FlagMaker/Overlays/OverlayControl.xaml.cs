@@ -47,14 +47,17 @@ namespace FlagMaker.Overlays
 				// Save old slider/color values
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
-				var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
-				if (sliderValues.Count > 0)
+				if (!(_overlay is OverlayFlag))
 				{
-					for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
+					var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
+					if (sliderValues.Count > 0)
 					{
-						sliderValues.Add(0);
+						for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
+						{
+							sliderValues.Add(0);
+						}
+						_overlay.SetValues(sliderValues);
 					}
-					_overlay.SetValues(sliderValues);
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;

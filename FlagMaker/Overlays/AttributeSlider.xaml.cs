@@ -17,12 +17,12 @@ namespace FlagMaker.Overlays
 
 			LblName.Content = name;
 			LblName.ToolTip = name;
-			_isDiscrete = isDiscrete;
+			_isDiscrete = isDiscrete && (value % 1 == 0);
 			chkDiscrete.IsChecked = _isDiscrete;
 			LblValue.Content = value;
 			Slider.Minimum = 0;
 			Slider.Maximum = maximum;
-			Slider.IsSnapToTickEnabled = isDiscrete;
+			Slider.IsSnapToTickEnabled = _isDiscrete;
 			Slider.Value = value;
 			Slider.TickFrequency = 1;
 			Slider.TickPlacement = TickPlacement.BottomRight;
