@@ -52,5 +52,23 @@ namespace FlagMaker.Overlays
 			MaximumX = maximumX;
 			MaximumY = maximumY;
 		}
+
+		public Canvas CanvasThumbnail()
+		{
+			var thumbnail = new Canvas
+			{
+				MinWidth = 30,
+				MinHeight = 30
+			};
+
+			foreach (var thumb in Thumbnail)
+			{
+				if (thumb.Stroke == null) thumb.Stroke = Brushes.Black;
+				if (thumb.Fill == null) thumb.Fill = Brushes.Black;
+				thumbnail.Children.Add(thumb);
+			}
+
+			return thumbnail;
+		}
 	}
 }

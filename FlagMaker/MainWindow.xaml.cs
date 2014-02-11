@@ -348,10 +348,7 @@ namespace FlagMaker
 		private void OverlayAdd(int index, Overlay overlay, bool isLoading)
 		{
 			var gridSize = ((Ratio)cmbGridSize.SelectedItem);
-			var newOverlay = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height)
-							 {
-								 IsLoading = isLoading
-							 };
+			var newOverlay = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height, isLoading);
 			if (overlay != null)
 			{
 				newOverlay.Color = overlay.Color;

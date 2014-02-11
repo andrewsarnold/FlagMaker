@@ -86,16 +86,18 @@ namespace FlagMaker.Overlays
 
 		public static Dictionary<string, OverlayPath> CustomTypes;
 
-		public static IEnumerable<Type> GetOverlayTypes()
-		{
-			return TypeMap.Select(t => t.Value);
-		}
-
 		public static Type GetOverlayType(string name)
 		{
-			return CustomTypes.Any(t => t.Key == name)
+			var result = CustomTypes.Any(t => t.Key == name)
 				? CustomTypes[name].GetType()
 				: TypeMap.First(t => t.Key == name).Value;
+
+			if (result == null)
+			{
+				throw new Exception(string.Format(strings.OverlayLoadError, name));
+			}
+
+			return result;
 		}
 
 		public static Overlay GetInstance(string name, int maxX = 1, int maxY = 1)
@@ -103,7 +105,7 @@ namespace FlagMaker.Overlays
 			return GetInstance(GetOverlayType(name), maxX, maxY, name);
 		}
 
-		public static Overlay GetInstance(string name, string path, int maxX = 1, int maxY = 1)
+		public static Overlay GetFlagInstance(string path, int maxX = 1, int maxY = 1)
 		{
 			return new OverlayFlag(Flag.LoadFromFile(path), path, maxX, maxY);
 		}
@@ -121,6 +123,11 @@ namespace FlagMaker.Overlays
 			}
 
 			return (Overlay)Activator.CreateInstance(type, maxX, maxY);
+		}
+
+		public static Overlay GetDefaultOverlay(int maxX = 1, int maxY = 1)
+		{
+			return GetInstance(TypeMap["box"], maxX, maxY);
 		}
 
 		public static void FillCustomOverlays()
@@ -180,5 +187,15 @@ namespace FlagMaker.Overlays
 				}
 			}
 		}
+
+		public static IEnumerable<Type> GetOverlaysByType(Type type)
+		{
+			return TypeMap.Where(o => o.Value.IsSubclassOf(type)).Select(o => o.Value);
+		}
+
+		public static IEnumerable<Type> GetOverlaysNotInTypes(IEnumerable<Type> types)
+		{
+			return TypeMap.Where(o => !types.Any(t => o.Value.IsSubclassOf(t))).Select(o => o.Value);
+		} 
 	}
 }

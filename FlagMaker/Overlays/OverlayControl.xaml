@@ -10,8 +10,8 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal">
-            <ComboBox x:Name="cmbOverlays" SelectionChanged="OverlayChanged" VerticalContentAlignment="Center" />
+		<StackPanel Orientation="Horizontal">
+			<Button x:Name="BtnOverlays" Click="OverlaySelect" VerticalContentAlignment="Center" MinWidth="30" />
             <Button ToolTip="Remove" Click="Remove" Margin="15,0,0,0" Style="{DynamicResource ResourceKey=GraphicButton}">
                 <Image Source="..\Images\remove.png" />
             </Button>
@@ -26,8 +26,8 @@
             </Button>
         </StackPanel>
 
-        <xctk:ColorPicker x:Name="_overlayPicker" Margin="0,4,0,0" />
+        <xctk:ColorPicker x:Name="OverlayPicker" Margin="0,4,0,0" />
 
-        <StackPanel x:Name="_pnlSliders" />
+        <StackPanel x:Name="PnlSliders" />
     </StackPanel>
 </UserControl>
