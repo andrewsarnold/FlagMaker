@@ -267,10 +267,28 @@
   <data name="Y" xml:space="preserve">
     <value>Top</value>
   </data>
-	<data name="OverlayNameExists" xml:space="preserve">
+  <data name="OverlayNameExists" xml:space="preserve">
     <value>An overlay with the name "{0}" already exists.</value>
   </data>
-	<data name="OverlayLoadError" xml:space="preserve">
+  <data name="OverlayLoadError" xml:space="preserve">
     <value>Couldn't load custom overlay "{0}".</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Emblems" xml:space="preserve">
+    <value>Emblems</value>
+  </data>
+  <data name="Flags" xml:space="preserve">
+    <value>Flags</value>
+  </data>
+  <data name="Repeaters" xml:space="preserve">
+    <value>Repeaters</value>
+  </data>
+  <data name="Shapes" xml:space="preserve">
+    <value>Shapes</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
 </root>
