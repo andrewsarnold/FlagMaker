@@ -12,12 +12,12 @@ namespace FlagMaker.Overlays.OverlayTypes
 		public OverlayTriangle(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			{
-				new Attribute("X1", true, 1, true),
-				new Attribute("Y1", true, 1, false),
-				new Attribute("X2", true, 1, true),
-				new Attribute("Y2", true, 2, false),
-				new Attribute("X3", true, 2, true),
-				new Attribute("Y3", true, 1, false)
+				new Attribute(strings.X1, true, 1, true),
+				new Attribute(strings.Y1, true, 1, false),
+				new Attribute(strings.X2, true, 1, true),
+				new Attribute(strings.Y2, true, 2, false),
+				new Attribute(strings.X3, true, 2, true),
+				new Attribute(strings.Y3, true, 1, false)
 			}, maximumX, maximumY)
 		{
 		}
@@ -26,12 +26,12 @@ namespace FlagMaker.Overlays.OverlayTypes
 			double y2, double x3, double y3, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			{
-				new Attribute("X1", true, x1, true),
-				new Attribute("Y1", true, y1, false),
-				new Attribute("X2", true, x2, true),
-				new Attribute("Y2", true, y2, false),
-				new Attribute("X3", true, x3, true),
-				new Attribute("Y3", true, y3, false),
+				new Attribute(strings.X1, true, x1, true),
+				new Attribute(strings.Y1, true, y1, false),
+				new Attribute(strings.X2, true, x2, true),
+				new Attribute(strings.Y2, true, y2, false),
+				new Attribute(strings.X3, true, x3, true),
+				new Attribute(strings.Y3, true, y3, false),
 			}, maximumX, maximumY)
 		{
 		}
@@ -40,12 +40,12 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var x1 = canvas.Width * (Attributes.Get("X1").Value / MaximumX);
-			var y1 = canvas.Height * (Attributes.Get("Y1").Value / MaximumY);
-			var x2 = canvas.Width * (Attributes.Get("X2").Value / MaximumX);
-			var y2 = canvas.Height * (Attributes.Get("Y2").Value / MaximumY);
-			var x3 = canvas.Width * (Attributes.Get("X3").Value / MaximumX);
-			var y3 = canvas.Height * (Attributes.Get("Y3").Value / MaximumY);
+			var x1 = canvas.Width * (Attributes.Get(strings.X1).Value / MaximumX);
+			var y1 = canvas.Height * (Attributes.Get(strings.Y1).Value / MaximumY);
+			var x2 = canvas.Width * (Attributes.Get(strings.X2).Value / MaximumX);
+			var y2 = canvas.Height * (Attributes.Get(strings.Y2).Value / MaximumY);
+			var x3 = canvas.Width * (Attributes.Get(strings.X3).Value / MaximumX);
+			var y3 = canvas.Height * (Attributes.Get(strings.Y3).Value / MaximumY);
 
 			var path = new Path
 			{
@@ -62,22 +62,22 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("X1").Value = values[0];
-			Attributes.Get("Y1").Value = values[1];
-			Attributes.Get("X2").Value = values[2];
-			Attributes.Get("Y2").Value = values[3];
-			Attributes.Get("X3").Value = values[4];
-			Attributes.Get("Y3").Value = values[5];
+			Attributes.Get(strings.X1).Value = values[0];
+			Attributes.Get(strings.Y1).Value = values[1];
+			Attributes.Get(strings.X2).Value = values[2];
+			Attributes.Get(strings.Y2).Value = values[3];
+			Attributes.Get(strings.X3).Value = values[4];
+			Attributes.Get(strings.Y3).Value = values[5];
 		}
 
 		public override string ExportSvg(int width, int height)
 		{
-			var x1 = width * (Attributes.Get("X1").Value / MaximumX);
-			var y1 = height * (Attributes.Get("Y1").Value / MaximumY);
-			var x2 = width * (Attributes.Get("X2").Value / MaximumX);
-			var y2 = height * (Attributes.Get("Y2").Value / MaximumY);
-			var x3 = width * (Attributes.Get("X3").Value / MaximumX);
-			var y3 = height * (Attributes.Get("Y3").Value / MaximumY);
+			var x1 = width * (Attributes.Get(strings.X1).Value / MaximumX);
+			var y1 = height * (Attributes.Get(strings.Y1).Value / MaximumY);
+			var x2 = width * (Attributes.Get(strings.X2).Value / MaximumX);
+			var y2 = height * (Attributes.Get(strings.Y2).Value / MaximumY);
+			var x3 = width * (Attributes.Get(strings.X3).Value / MaximumX);
+			var y3 = height * (Attributes.Get(strings.Y3).Value / MaximumY);
 
 			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{3:0.###} {4:0.###},{5:0.###}\" fill=\"#{6}\" />",
 				x1, y1, x2, y2, x3, y3,

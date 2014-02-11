@@ -520,11 +520,65 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X1.
+        /// </summary>
+        public static string X1 {
+            get {
+                return ResourceManager.GetString("X1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X2.
+        /// </summary>
+        public static string X2 {
+            get {
+                return ResourceManager.GetString("X2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X3.
+        /// </summary>
+        public static string X3 {
+            get {
+                return ResourceManager.GetString("X3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top.
         /// </summary>
         public static string Y {
             get {
                 return ResourceManager.GetString("Y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y1.
+        /// </summary>
+        public static string Y1 {
+            get {
+                return ResourceManager.GetString("Y1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y2.
+        /// </summary>
+        public static string Y2 {
+            get {
+                return ResourceManager.GetString("Y2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y3.
+        /// </summary>
+        public static string Y3 {
+            get {
+                return ResourceManager.GetString("Y3", resourceCulture);
             }
         }
     }
