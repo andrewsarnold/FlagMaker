@@ -120,6 +120,9 @@
   <data name="AllFiles" xml:space="preserve">
     <value>Todos los archivos</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
   <data name="CouldNotLoadPresetsError" xml:space="preserve">
     <value>No se puede cargar presets. Compruebe si hay una carpeta Presets en el directorio de la aplicación.</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="CountY" xml:space="preserve">
     <value>Cuenta vertical</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Personalizado</value>
   </data>
   <data name="Division" xml:space="preserve">
     <value>Separación</value>
@@ -177,6 +183,9 @@
   <data name="DivisionVerticalHalves" xml:space="preserve">
     <value>Mitades verticales</value>
   </data>
+  <data name="Emblems" xml:space="preserve">
+    <value>Símbolos</value>
+  </data>
   <data name="ErrorAtLine" xml:space="preserve">
     <value>Error estaba en esta línea:</value>
   </data>
@@ -191,6 +200,9 @@
   </data>
   <data name="Flag" xml:space="preserve">
     <value>Bandera</value>
+  </data>
+  <data name="Flags" xml:space="preserve">
+    <value>Banderas</value>
   </data>
   <data name="GridSize" xml:space="preserve">
     <value>Tamaño de la cuadrícula</value>
@@ -222,6 +234,9 @@
   <data name="Ratio" xml:space="preserve">
     <value>Proporción</value>
   </data>
+  <data name="Repeaters" xml:space="preserve">
+    <value>Repetidores</value>
+  </data>
   <data name="RestartForChanges" xml:space="preserve">
     <value>Debe reiniciar para que los cambios surtan efecto.</value>
   </data>
@@ -239,6 +254,9 @@
   </data>
   <data name="SaveChangesPrompt" xml:space="preserve">
     <value>¿Guardar los cambios en {0}?</value>
+  </data>
+  <data name="Shapes" xml:space="preserve">
+    <value>Formas</value>
   </data>
   <data name="ShowGrid" xml:space="preserve">
     <value>Mostrar cuadrícula</value>

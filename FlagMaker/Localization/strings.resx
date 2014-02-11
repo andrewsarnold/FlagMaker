@@ -291,4 +291,22 @@
   <data name="Y3" xml:space="preserve">
     <value>Y3</value>
   </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Emblems" xml:space="preserve">
+    <value>Emblems</value>
+  </data>
+  <data name="Flags" xml:space="preserve">
+    <value>Flags</value>
+  </data>
+  <data name="Repeaters" xml:space="preserve">
+    <value>Repeaters</value>
+  </data>
+  <data name="Shapes" xml:space="preserve">
+    <value>Shapes</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

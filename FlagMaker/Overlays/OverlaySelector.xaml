@@ -1,10 +1,19 @@
 ﻿<Window x:Class="FlagMaker.Overlays.OverlaySelector"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		Width="400" Height="300" KeyDown="OnKeyDown"
+        xmlns:Localization="clr-namespace:FlagMaker.Localization"
+        Width="400" Height="300" KeyDown="OnKeyDown"
 		WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
 	<Window.Resources>
 		<ResourceDictionary Source="..\Style.xaml" />
 	</Window.Resources>
-	<TabControl x:Name="tabs" />
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TabControl x:Name="tabs" Grid.Row="0" />
+		<Button x:Name="cancel" Content="{x:Static Localization:strings.Cancel}" Click="Cancel"
+				Height="30" HorizontalAlignment="Right" Margin="5" Grid.Row="1" />
+	</Grid>
 </Window>

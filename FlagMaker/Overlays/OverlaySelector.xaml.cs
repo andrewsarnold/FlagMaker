@@ -41,13 +41,13 @@ namespace FlagMaker.Overlays
 		{
 			AddTab(OverlayFactory.GetOverlaysNotInTypes(new[] { typeof(OverlayRepeater), typeof(OverlayPath) })
 				.Where(t => t != typeof(OverlayFlag))
-				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), "Shapes");
+				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Shapes);
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayRepeater))
-				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), "Repeaters");
-			AddTab(new Overlay[]{ new OverlayFlag(_defaultMaximumY, _defaultMaximumY) }, "Flags");
+				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Repeaters);
+			AddTab(new Overlay[]{ new OverlayFlag(_defaultMaximumY, _defaultMaximumY) }, strings.Flags);
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayPath))
-				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), "Emblems");
-			AddTab(OverlayFactory.CustomTypes.Select(o => o.Value).OrderBy(o => o.DisplayName), "Custom");
+				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Emblems);
+			AddTab(OverlayFactory.CustomTypes.Select(o => o.Value).OrderBy(o => o.DisplayName), strings.Custom);
 		}
 
 		private void AddTab(IEnumerable<Overlay> overlays, string tabName)
@@ -113,6 +113,11 @@ namespace FlagMaker.Overlays
 			{
 				Close();
 			}
+		}
+
+		private void Cancel(object sender, RoutedEventArgs e)
+		{
+			Close();
 		}
 	}
 }
