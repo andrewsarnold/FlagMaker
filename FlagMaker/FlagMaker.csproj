@@ -743,14 +743,12 @@
     <Resource Include="Images\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="readme1.png" />
     <Resource Include="Images\add.png" />
     <Resource Include="Images\remove.png" />
     <Resource Include="Images\movedown.png" />
     <Resource Include="Images\moveup.png" />
     <Resource Include="Images\clone.png" />
     <Resource Include="Images\rotate.png" />
-    <Content Include="readme.htm" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
