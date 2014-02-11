@@ -15,6 +15,7 @@ namespace FlagMaker.Overlays
 		private Overlay _overlay;
 		private int _defaultMaximumX;
 		private int _defaultMaximumY;
+		private readonly bool _isFirst;
 
 		public bool IsLoading;
 
@@ -24,15 +25,24 @@ namespace FlagMaker.Overlays
 		public event EventHandler OnDraw;
 		public event EventHandler OnClone;
 
-		public OverlayControl(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors, int defaultMaximumX, int defaultMaximumY)
+		public OverlayControl(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors, int defaultMaximumX, int defaultMaximumY, bool isLoading)
 		{
 			InitializeComponent();
 
+			IsLoading = isLoading;
 			_defaultMaximumX = defaultMaximumX;
 			_defaultMaximumY = defaultMaximumY;
+			_isFirst = true;
 
 			SetUpColors(standardColors, availableColors, recentColors);
 			Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
+			
+			if (!IsLoading)
+			{
+				OverlaySelect(this, null);
+			}
+
+			_isFirst = false;
 		}
 
 		public Overlay Overlay
@@ -44,10 +54,10 @@ namespace FlagMaker.Overlays
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
 				BtnOverlays.ToolTip = _overlay.DisplayName;
 
-				// Save old slider/color values
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
-				if (!(_overlay is OverlayFlag))
+				// Save old slider/color values
+				if (!_isFirst && !(_overlay is OverlayFlag))
 				{
 					var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
 					if (sliderValues.Count > 0)

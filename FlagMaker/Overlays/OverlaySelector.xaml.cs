@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using FlagMaker.Localization;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
@@ -104,6 +105,14 @@ namespace FlagMaker.Overlays
 			};
 			var tabItem = new TabItem { Header = tabName, Content = scrollViewer };
 			tabs.Items.Add(tabItem);
+		}
+
+		private void OnKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Escape)
+			{
+				Close();
+			}
 		}
 	}
 }
