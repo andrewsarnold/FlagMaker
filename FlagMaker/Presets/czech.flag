@@ -13,5 +13,9 @@ size3=1
 overlay
 type=triangle
 color=11457e
-size1=3
-size2=4
+size1=0
+size2=0
+size3=3
+size4=2
+size5=0
+size6=4

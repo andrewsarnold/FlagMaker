@@ -361,7 +361,7 @@ namespace FlagMaker
 			{
 				Overlay overlay = string.IsNullOrWhiteSpace(FlagPath)
 					? OverlayFactory.GetInstance(Type, maxX, maxY)
-					: OverlayFactory.GetInstance(Type, FlagPath, maxX, maxY);
+					: OverlayFactory.GetFlagInstance(FlagPath, maxX, maxY);
 
 				if (overlay != null)
 				{

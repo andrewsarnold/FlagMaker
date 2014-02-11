@@ -70,6 +70,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t load presets. Check for a Presets folder in the application directory..
         /// </summary>
         public static string CouldNotLoadPresetsError {
@@ -120,6 +129,15 @@ namespace FlagMaker.Localization {
         public static string CountY {
             get {
                 return ResourceManager.GetString("CountY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        public static string Custom {
+            get {
+                return ResourceManager.GetString("Custom", resourceCulture);
             }
         }
         
@@ -241,6 +259,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emblems.
+        /// </summary>
+        public static string Emblems {
+            get {
+                return ResourceManager.GetString("Emblems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error at line:.
         /// </summary>
         public static string ErrorAtLine {
@@ -282,6 +309,15 @@ namespace FlagMaker.Localization {
         public static string Flag {
             get {
                 return ResourceManager.GetString("Flag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flags.
+        /// </summary>
+        public static string Flags {
+            get {
+                return ResourceManager.GetString("Flags", resourceCulture);
             }
         }
         
@@ -394,6 +430,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Repeaters.
+        /// </summary>
+        public static string Repeaters {
+            get {
+                return ResourceManager.GetString("Repeaters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must restart in order for the changes to take effect..
         /// </summary>
         public static string RestartForChanges {
@@ -444,6 +489,15 @@ namespace FlagMaker.Localization {
         public static string SaveChangesPrompt {
             get {
                 return ResourceManager.GetString("SaveChangesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shapes.
+        /// </summary>
+        public static string Shapes {
+            get {
+                return ResourceManager.GetString("Shapes", resourceCulture);
             }
         }
         
@@ -520,11 +574,65 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X1.
+        /// </summary>
+        public static string X1 {
+            get {
+                return ResourceManager.GetString("X1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X2.
+        /// </summary>
+        public static string X2 {
+            get {
+                return ResourceManager.GetString("X2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X3.
+        /// </summary>
+        public static string X3 {
+            get {
+                return ResourceManager.GetString("X3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top.
         /// </summary>
         public static string Y {
             get {
                 return ResourceManager.GetString("Y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y1.
+        /// </summary>
+        public static string Y1 {
+            get {
+                return ResourceManager.GetString("Y1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y2.
+        /// </summary>
+        public static string Y2 {
+            get {
+                return ResourceManager.GetString("Y2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y3.
+        /// </summary>
+        public static string Y3 {
+            get {
+                return ResourceManager.GetString("Y3", resourceCulture);
             }
         }
     }
