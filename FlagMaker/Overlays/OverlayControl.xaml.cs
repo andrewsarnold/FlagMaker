@@ -84,7 +84,7 @@ namespace FlagMaker.Overlays
 		public void SetType(string typename)
 		{
 			var type = OverlayFactory.GetOverlayType(typename);
-			Overlay = OverlayFactory.GetInstance(type, _defaultMaximumX, _defaultMaximumY);
+			Overlay = OverlayFactory.GetInstance(type, _defaultMaximumX, _defaultMaximumY, typename);
 		}
 
 		public Color Color

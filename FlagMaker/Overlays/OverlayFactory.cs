@@ -88,9 +88,16 @@ namespace FlagMaker.Overlays
 
 		public static Type GetOverlayType(string name)
 		{
-			return CustomTypes.Any(t => t.Key == name)
+			var result = CustomTypes.Any(t => t.Key == name)
 				? CustomTypes[name].GetType()
 				: TypeMap.First(t => t.Key == name).Value;
+
+			if (result == null)
+			{
+				throw new Exception(string.Format(strings.OverlayLoadError, name));
+			}
+
+			return result;
 		}
 
 		public static Overlay GetInstance(string name, int maxX = 1, int maxY = 1)
