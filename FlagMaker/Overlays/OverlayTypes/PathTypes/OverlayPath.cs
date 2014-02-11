@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -147,6 +148,11 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					       }
 				       };
 			}
+		}
+
+		public OverlayPath Copy()
+		{
+			return new OverlayPath(_name, _path, _pathSize, MaximumX, MaximumY);
 		}
 	}
 }

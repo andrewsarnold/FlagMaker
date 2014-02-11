@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using FlagMaker.Localization;
 using FlagMaker.Overlays.OverlayTypes;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
@@ -112,8 +113,11 @@ namespace FlagMaker.Overlays
 			if (type == typeof(OverlayPath)) // custom overlay
 			{
 				var overlay = CustomTypes[name];
-				overlay.SetMaximum(maxX, maxY);
-				return overlay;
+
+				// Create a unique copy
+				var overlayCopy = overlay.Copy();
+				overlayCopy.SetMaximum(maxX, maxY);
+				return overlayCopy;
 			}
 
 			return (Overlay)Activator.CreateInstance(type, maxX, maxY);
@@ -160,7 +164,7 @@ namespace FlagMaker.Overlays
 					if (CustomTypes.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)) ||
 					    TypeMap.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)))
 					{
-						throw new DuplicateNameException(string.Format("An overlay with the name \"{0}\" already exists.", name));
+						throw new DuplicateNameException(string.Format(strings.OverlayNameExists, name));
 					}
 
 					var overlay = new OverlayPath(name, pathData, new Vector(width, height), 1, 1);
@@ -172,7 +176,7 @@ namespace FlagMaker.Overlays
 				}
 				catch (Exception)
 				{
-					throw new Exception(string.Format("Couldn't load custom overlay \"{0}\".", Path.GetFileNameWithoutExtension(file)));
+					throw new Exception(string.Format(strings.OverlayLoadError, Path.GetFileNameWithoutExtension(file)));
 				}
 			}
 		}

@@ -46,6 +46,22 @@ namespace FlagMaker.Overlays
 			{
 				_overlay = value;
 
+				// Save old slider/color values
+				_overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
+
+				if (!(_overlay is OverlayFlag))
+				{
+					var sliderValues = _pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
+					if (sliderValues.Count > 0)
+					{
+						for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
+						{
+							sliderValues.Add(0);
+						}
+						_overlay.SetValues(sliderValues);
+					}
+				}
+
 				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;
 
 				_pnlSliders.Children.Clear();
@@ -216,6 +232,10 @@ namespace FlagMaker.Overlays
 					{
 						flag = Flag.LoadFromFile(path);
 					}
+					catch (OperationCanceledException)
+					{
+						return;
+					}
 					catch (Exception ex)
 					{
 						MessageBox.Show(string.Format("{0}\n{1} \"{2}\"", strings.CouldNotOpenFileError, strings.ErrorAtLine, ex.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -229,7 +249,6 @@ namespace FlagMaker.Overlays
 			{
 				Overlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
 			}
-			Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
 
 			if (!IsLoading) Draw();
 		}

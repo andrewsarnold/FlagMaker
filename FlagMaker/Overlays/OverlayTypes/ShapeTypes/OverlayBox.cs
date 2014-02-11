@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -29,8 +30,9 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 				       {
 					       new Rectangle
 					       {
-						       Width = 15,
-						       Height = 10
+						       Width = 20,
+						       Height = 15,
+							   Margin = new Thickness(5, 7.5, 0, 0)
 					       }
 				       };
 			}
