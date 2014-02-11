@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
@@ -145,6 +146,12 @@ namespace FlagMaker
 							case "size6":
 								overlays[overlayIndex].Values[5] = GetDoubleFromString(line.Split('=')[1]);
 								break;
+							case "size7":
+								overlays[overlayIndex].Values[6] = GetDoubleFromString(line.Split('=')[1]);
+								break;
+							case "size8":
+								overlays[overlayIndex].Values[7] = GetDoubleFromString(line.Split('=')[1]);
+								break;
 							case "path":
 								overlays[overlayIndex].FlagPath = line.Split('=')[1];
 								break;
@@ -205,13 +212,21 @@ namespace FlagMaker
 			canvas.Children.Clear();
 			Division.Draw(canvas);
 
+			canvas.Children.Add(new Image
+								{
+									Source = new BitmapImage(new Uri(@"C:\Users\Andrew\Desktop\Untitled.png")),
+									Width = canvas.Width,
+									Height = canvas.Height,
+									Stretch = Stretch.Fill
+								});
+
 			SetRepeaterOverlays();
 
 			for (int i = 0; i < Overlays.Count; i++)
 			{
 				// Skip overlays used in repeaters
 				if (i > 0 && Overlays[i - 1] is OverlayRepeater) continue;
-				
+
 				Overlays[i].Draw(canvas);
 			}
 		}
@@ -228,9 +243,9 @@ namespace FlagMaker
 				sw.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"{0}\" height=\"{1}\">", width, height);
 
 				sw.WriteLine(Division.ExportSvg(width, height));
-				
+
 				SetRepeaterOverlays();
-				
+
 				for (int i = 0; i < Overlays.Count; i++)
 				{
 					if (i > 0 && Overlays[i - 1] is OverlayRepeater) continue;
@@ -268,7 +283,7 @@ namespace FlagMaker
 			{
 				if (overlay is OverlayFlag)
 				{
-					colors.AddRange(((OverlayFlag) overlay).Flag.ColorsUsed());
+					colors.AddRange(((OverlayFlag)overlay).Flag.ColorsUsed());
 				}
 				else if (!(overlay is OverlayRepeater))
 				{
@@ -277,7 +292,7 @@ namespace FlagMaker
 			}
 
 			return colors.Distinct().OrderBy(c => c.Hue()).ToList();
-		} 
+		}
 
 		private void SetRepeaterOverlays()
 		{
@@ -330,6 +345,8 @@ namespace FlagMaker
 			{
 				Values = new List<double>
 				{
+					1,
+					1,
 					1,
 					1,
 					1,
