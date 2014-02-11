@@ -342,7 +342,7 @@ namespace FlagMaker
 		{
 			var controlToClone = (OverlayControl)sender;
 			int index = lstOverlays.Children.IndexOf(controlToClone);
-			OverlayAdd(index, controlToClone.Overlay, false);
+			OverlayAdd(index, controlToClone.Overlay, true);
 		}
 
 		private void OverlayAdd(int index, Overlay overlay, bool isLoading)
