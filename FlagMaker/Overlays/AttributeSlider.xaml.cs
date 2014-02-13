@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -64,7 +65,7 @@ namespace FlagMaker.Overlays
 
 			if (_isDiscrete)
 			{
-				Slider.Value = (int) Math.Round(Slider.Value, 0);
+				Slider.Value = (int)Math.Round(Slider.Value, 0);
 			}
 		}
 
@@ -82,11 +83,41 @@ namespace FlagMaker.Overlays
 			{
 				TxtValue.Visibility = Visibility.Hidden;
 
-				double value;
-				if (double.TryParse(TxtValue.Text, out value))
+				if (TxtValue.Text.Contains("%"))
 				{
-					chkDiscrete.IsChecked = ((int) value == value);
-					Slider.Value = value;
+					var stringVal = TxtValue.Text.Split('%')[0];
+					double value;
+					if (double.TryParse(stringVal, out value))
+					{
+						SetValueByFraction(value / 100);
+					}
+				}
+				else if (TxtValue.Text.Contains("/"))
+				{
+					var fraction = TxtValue.Text.Split('/');
+					
+					if (fraction.Length != 2)
+					{
+						return;
+					}
+
+					var numerator = fraction[0];
+					var denominator = fraction[1];
+					double num, den;
+					if (double.TryParse(numerator, out num) &&
+						double.TryParse(denominator, out den))
+					{
+						SetValueByFraction(num/den);
+					}
+				}
+				else
+				{
+					double value;
+					if (double.TryParse(TxtValue.Text, out value))
+					{
+						chkDiscrete.IsChecked = ((int)value == value);
+						Slider.Value = value;
+					}
 				}
 			}
 			else if (e.Key == Key.Escape)
@@ -104,6 +135,17 @@ namespace FlagMaker.Overlays
 					Slider.Value = value;
 				}
 			}
+		}
+
+		private void SetValueByFraction(double fraction)
+		{
+			if (fraction > 1) fraction = 1;
+			if (fraction < 0) fraction = 0;
+			var result = fraction * Maximum;
+			result = Math.Round(result, 3);
+
+			chkDiscrete.IsChecked = ((int)result == result);
+			Slider.Value = result;
 		}
 
 		private void TxtValueLostFocus(object sender, RoutedEventArgs e)
