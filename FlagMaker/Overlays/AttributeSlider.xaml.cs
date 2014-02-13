@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -89,6 +90,31 @@ namespace FlagMaker.Overlays
 					if (double.TryParse(stringVal, out value))
 					{
 						value /= 100;
+						if (value > 1) value = 1;
+						if (value < 0) value = 0;
+						var result = value * Maximum;
+						result = Math.Round(result, 3);
+
+						chkDiscrete.IsChecked = ((int)result == result);
+						Slider.Value = result;
+					}
+				}
+				else if (TxtValue.Text.Contains("/"))
+				{
+					var fraction = TxtValue.Text.Split('/');
+					
+					if (fraction.Length != 2)
+					{
+						return;
+					}
+
+					var numerator = fraction[0];
+					var denominator = fraction[1];
+					double num, den;
+					if (double.TryParse(numerator, out num) &&
+						double.TryParse(denominator, out den))
+					{
+						var value = num / den;
 						if (value > 1) value = 1;
 						if (value < 0) value = 0;
 						var result = value * Maximum;
