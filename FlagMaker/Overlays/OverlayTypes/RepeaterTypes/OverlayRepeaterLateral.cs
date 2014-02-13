@@ -83,7 +83,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				}
 			}
 
-			repeaterCanvas.RenderTransform = new SkewTransform(skewX, skewY);
+			repeaterCanvas.RenderTransform = new SkewTransform(skewX, skewY, width / 2, height / 2);
 			Canvas.SetLeft(repeaterCanvas, locX);
 			Canvas.SetTop(repeaterCanvas, locY);
 			canvas.Children.Add(repeaterCanvas);

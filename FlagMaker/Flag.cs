@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
@@ -211,14 +210,6 @@ namespace FlagMaker
 		{
 			canvas.Children.Clear();
 			Division.Draw(canvas);
-
-			canvas.Children.Add(new Image
-								{
-									Source = new BitmapImage(new Uri(@"C:\Users\Andrew\Desktop\Untitled.png")),
-									Width = canvas.Width,
-									Height = canvas.Height,
-									Stretch = Stretch.Fill
-								});
 
 			SetRepeaterOverlays();
 
