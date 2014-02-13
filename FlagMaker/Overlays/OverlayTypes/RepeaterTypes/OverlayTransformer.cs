@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -45,28 +46,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			var transformCanvas = new Canvas
 			{
 				Width = canvas.Width,
-				Height = canvas.Height
+				Height = canvas.Height,
+				RenderTransform = GetTransformation((int)canvas.Width, (int)canvas.Height)
 			};
 
-			var centerX = transformCanvas.Width / 2;
-			var centerY = transformCanvas.Height / 2;
-
-			var skewX = 90 * (Attributes.Get("Skew X").Value - MaximumX / 2.0) / MaximumX;
-			var skewY = 90 * (Attributes.Get("Skew Y").Value - MaximumY / 2.0) / MaximumY;
-
-			var scaleX = Attributes.Get("Size X").Value;
-			var scaleY = Attributes.Get("Size Y").Value;
-
-			var transformGroup = new TransformGroup();
-			var skewTransform = new SkewTransform(skewX, skewY, centerX, centerY);
-			var rotateTransform = new RotateTransform((Attributes.Get(strings.Rotation).Value / MaximumX) * 360, centerX, centerY);
-			var scaleTransform = new ScaleTransform(scaleX, scaleY, centerX, centerY);
-
-			transformGroup.Children.Add(rotateTransform);
-			transformGroup.Children.Add(scaleTransform);
-			transformGroup.Children.Add(skewTransform);
-
-			transformCanvas.RenderTransform = transformGroup;
 			Overlay.Draw(transformCanvas);
 			canvas.Children.Add(transformCanvas);
 		}
@@ -82,8 +65,18 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			//throw new System.NotImplementedException();
-			return string.Empty;
+			if (Overlay == null) return string.Empty;
+
+			var matrix = GetTransformation(width, height).Value;
+
+			return string.Format(CultureInfo.InvariantCulture, "<g transform=\"matrix({0:0.###},{1:0.###},{2:0.###},{3:0.###},{4:0.###},{5:0.###})\">{6}</g>",
+				matrix.M11,
+				matrix.M12,
+				matrix.M21,
+				matrix.M22,
+				matrix.OffsetX,
+				matrix.OffsetY,
+				Overlay.ExportSvg(width, height));
 		}
 
 		public override IEnumerable<Shape> Thumbnail
@@ -104,6 +97,31 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 					}
 				};
 			}
+		}
+
+		private TransformGroup GetTransformation(int width, int height)
+		{
+			var centerX = width / 2;
+			var centerY = height / 2;
+
+			var skewX = 90 * (Attributes.Get("Skew X").Value - MaximumX / 2.0) / MaximumX;
+			var skewY = 90 * (Attributes.Get("Skew Y").Value - MaximumY / 2.0) / MaximumY;
+
+			var scaleX = Attributes.Get("Size X").Value;
+			var scaleY = Attributes.Get("Size Y").Value;
+
+			var rotation = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
+
+			var transformGroup = new TransformGroup();
+			var skewTransform = new SkewTransform(skewX, skewY, centerX, centerY);
+			var rotateTransform = new RotateTransform(rotation, centerX, centerY);
+			var scaleTransform = new ScaleTransform(scaleX, scaleY, centerX, centerY);
+
+			transformGroup.Children.Add(rotateTransform);
+			transformGroup.Children.Add(scaleTransform);
+			transformGroup.Children.Add(skewTransform);
+
+			return transformGroup;
 		}
 	}
 }
