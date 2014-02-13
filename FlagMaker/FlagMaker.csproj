@@ -115,6 +115,7 @@
       <DependentUpon>OverlaySelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayCheckerboard.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAnchor.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAngola.cs" />
