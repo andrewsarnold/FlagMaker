@@ -60,14 +60,17 @@ namespace FlagMaker.Overlays.OverlayTypes
 				{
 					if ((x + y) % 2 == 0)
 					{
-						canvas.Children.Add(new Rectangle
+						var rect = new Rectangle
 						{
 							Width = blockWidth,
 							Height = blockHeight,
-							Margin = new Thickness(left + x * blockWidth, top + y * blockHeight, 0, 0),
 							Fill = new SolidColorBrush(Color),
 							SnapsToDevicePixels = true
-						});
+						};
+
+						canvas.Children.Add(rect);
+						Canvas.SetTop(rect, top + y * blockHeight);
+						Canvas.SetLeft(rect, left + x * blockWidth);
 					}
 				}
 			}
