@@ -287,6 +287,13 @@ namespace FlagMaker
 
 		private void SetRepeaterOverlays()
 		{
+			// Clear last repeater in list
+			if (Overlays.Count > 0 && Overlays[Overlays.Count - 1] is OverlayRepeater)
+			{
+				((OverlayRepeater)Overlays[Overlays.Count - 1]).SetOverlay(null);
+			}
+
+			// Set overlays for others
 			for (int i = Overlays.Count - 1; i > 0; i--)
 			{
 				var repeater = Overlays[i - 1] as OverlayRepeater;

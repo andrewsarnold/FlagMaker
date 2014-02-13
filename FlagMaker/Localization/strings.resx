@@ -300,8 +300,8 @@
   <data name="Flags" xml:space="preserve">
     <value>Flags</value>
   </data>
-  <data name="Repeaters" xml:space="preserve">
-    <value>Repeaters</value>
+  <data name="Special" xml:space="preserve">
+    <value>Special</value>
   </data>
   <data name="Shapes" xml:space="preserve">
     <value>Shapes</value>

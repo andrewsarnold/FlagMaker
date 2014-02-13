@@ -234,9 +234,6 @@
   <data name="Ratio" xml:space="preserve">
     <value>Proporción</value>
   </data>
-  <data name="Repeaters" xml:space="preserve">
-    <value>Repetidores</value>
-  </data>
   <data name="RestartForChanges" xml:space="preserve">
     <value>Debe reiniciar para que los cambios surtan efecto.</value>
   </data>
@@ -266,6 +263,9 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>Magnitud</value>
+  </data>
+  <data name="Special" xml:space="preserve">
+    <value>Especial</value>
   </data>
   <data name="Thickness" xml:space="preserve">
     <value>Espesor</value>

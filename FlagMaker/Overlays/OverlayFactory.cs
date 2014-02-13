@@ -77,6 +77,7 @@ namespace FlagMaker.Overlays
 			                                                           { "sun", typeof (OverlaySun) },
 			                                                           { "swastika", typeof (OverlaySwastika) },
 			                                                           { "takbir", typeof (OverlayTakbir) },
+																	   { "transformer", typeof (OverlayTransformer) },
 			                                                           { "tree", typeof (OverlayTree) },
 			                                                           { "triangle", typeof (OverlayTriangle) },
 			                                                           { "trident", typeof (OverlayTrident) },

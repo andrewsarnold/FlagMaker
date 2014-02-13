@@ -43,7 +43,7 @@ namespace FlagMaker.Overlays
 				.Where(t => t != typeof(OverlayFlag))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Shapes);
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayRepeater))
-				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Repeaters);
+				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Special);
 			AddTab(new Overlay[]{ new OverlayFlag(_defaultMaximumY, _defaultMaximumY) }, strings.Flags);
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayPath))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Emblems);

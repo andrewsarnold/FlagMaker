@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Localization;
 
@@ -19,14 +18,12 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				       new Attribute(strings.Width, true, 1, true),
 				       new Attribute(strings.Height, true, 1, false),
 				       new Attribute(strings.CountX, true, 1, true),
-				       new Attribute(strings.CountY, true, 1, false),
-				       new Attribute("Skew X", true, maximumX / 2.0, true),
-				       new Attribute("Skew Y", true, maximumY / 2.0, false)
+				       new Attribute(strings.CountY, true, 1, false)
 			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayRepeaterLateral(double x, double y, double width, double height, int countX, int countY, double skewX, double skewY, int maximumX, int maximumY)
+		public OverlayRepeaterLateral(double x, double y, double width, double height, int countX, int countY, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
 				       new Attribute(strings.X, true, x, true),
@@ -34,9 +31,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				       new Attribute(strings.Width, true, width, true),
 				       new Attribute(strings.Height, true, height, false),
 				       new Attribute(strings.CountX, true, countX, true),
-				       new Attribute(strings.CountY, true, countY, false),
-				       new Attribute("Skew X", true, skewX, true),
-				       new Attribute("Skew Y", true, skewY, false)
+				       new Attribute(strings.CountY, true, countY, false)
 			       }, maximumX, maximumY)
 		{
 		}
@@ -61,9 +56,6 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			double intervalX = width / (countX > 1 ? countX - 1 : countX);
 			double intervalY = height / (countY > 1 ? countY - 1 : countY);
 
-			var skewX = 90 * (Attributes.Get("Skew X").Value - MaximumX / 2.0) / MaximumX;
-			var skewY = 90 * (Attributes.Get("Skew Y").Value - MaximumY / 2.0) / MaximumY;
-
 			var repeaterCanvas = new Canvas();
 
 			for (int x = 0; x < countX; x++)
@@ -83,7 +75,6 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				}
 			}
 
-			repeaterCanvas.RenderTransform = new SkewTransform(skewX, skewY, width / 2, height / 2);
 			Canvas.SetLeft(repeaterCanvas, locX);
 			Canvas.SetTop(repeaterCanvas, locY);
 			canvas.Children.Add(repeaterCanvas);
@@ -97,8 +88,6 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			Attributes.Get(strings.Height).Value = values[3];
 			Attributes.Get(strings.CountX).Value = values[4];
 			Attributes.Get(strings.CountY).Value = values[5];
-			Attributes.Get("Skew X").Value = values[6];
-			Attributes.Get("Skew Y").Value = values[7];
 		}
 
 		public override string ExportSvg(int width, int height)
