@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Localization;
@@ -85,7 +85,34 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			throw new System.NotImplementedException();
+			var centerX = width * (Attributes.Get(strings.X).Value / MaximumX);
+			var centerY = height * (Attributes.Get(strings.Y).Value / MaximumY);
+			var thisWidth = width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var thisHeight = height * (Attributes.Get(strings.Height).Value / MaximumY);
+			if (thisHeight == 0) thisHeight = thisWidth;
+			var countX = Attributes.Get(strings.CountX).Value;
+			var countY = Attributes.Get(strings.CountY).Value;
+
+			var left = centerX - thisWidth / 2;
+			var top = centerY - thisHeight / 2;
+			var blockWidth = thisWidth / countX;
+			var blockHeight = thisHeight / countY;
+
+			var sb = new StringBuilder();
+
+			for (int x = 0; x < countX; x++)
+			{
+				for (int y = 0; y < countY; y++)
+				{
+					if ((x + y) % 2 == 0)
+					{
+						sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"{3:0.###}\" y=\"{4:0.###}\"/>",
+							blockWidth, blockHeight, Color.ToHexString(), left + x * blockWidth, top + y * blockHeight));
+					}
+				}
+			}
+
+			return sb.ToString();
 		}
 
 		public override IEnumerable<Shape> Thumbnail
