@@ -89,14 +89,7 @@ namespace FlagMaker.Overlays
 					double value;
 					if (double.TryParse(stringVal, out value))
 					{
-						value /= 100;
-						if (value > 1) value = 1;
-						if (value < 0) value = 0;
-						var result = value * Maximum;
-						result = Math.Round(result, 3);
-
-						chkDiscrete.IsChecked = ((int)result == result);
-						Slider.Value = result;
+						SetValueByFraction(value / 100);
 					}
 				}
 				else if (TxtValue.Text.Contains("/"))
@@ -114,14 +107,7 @@ namespace FlagMaker.Overlays
 					if (double.TryParse(numerator, out num) &&
 						double.TryParse(denominator, out den))
 					{
-						var value = num / den;
-						if (value > 1) value = 1;
-						if (value < 0) value = 0;
-						var result = value * Maximum;
-						result = Math.Round(result, 3);
-
-						chkDiscrete.IsChecked = ((int)result == result);
-						Slider.Value = result;
+						SetValueByFraction(num/den);
 					}
 				}
 				else
@@ -149,6 +135,17 @@ namespace FlagMaker.Overlays
 					Slider.Value = value;
 				}
 			}
+		}
+
+		private void SetValueByFraction(double fraction)
+		{
+			if (fraction > 1) fraction = 1;
+			if (fraction < 0) fraction = 0;
+			var result = fraction * Maximum;
+			result = Math.Round(result, 3);
+
+			chkDiscrete.IsChecked = ((int)result == result);
+			Slider.Value = result;
 		}
 
 		private void TxtValueLostFocus(object sender, RoutedEventArgs e)
