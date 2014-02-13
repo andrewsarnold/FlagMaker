@@ -23,7 +23,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayRays(Color color, int x, int y, int count, int maximumX, int maximumY)
+		public OverlayRays(Color color, double x, double y, double count, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
 				              new Attribute(strings.X, true, x, true),
