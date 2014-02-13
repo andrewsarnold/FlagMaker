@@ -13,10 +13,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public OverlayTransformer(int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Skew X", true, maximumX / 2.0, true),
-				       new Attribute("Skew Y", true, maximumY / 2.0, false),
-				       new Attribute("Size X", true, 1, true),
-				       new Attribute("Size Y", true, 1, false),
+				       new Attribute(strings.SkewX, true, maximumX / 2.0, true),
+				       new Attribute(strings.SkewY, true, maximumY / 2.0, false),
+				       new Attribute(strings.Width, true, 1, true),
+				       new Attribute(strings.Height, true, 1, false),
 				       new Attribute(strings.Rotation, true, 0, true)
 			       }, maximumX, maximumY)
 		{
@@ -25,10 +25,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public OverlayTransformer(double skewX, double skewY, double sizeX, double sizeY, double rotation, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
-				       new Attribute("Skew X", true, skewX, true),
-				       new Attribute("Skew Y", true, skewY, false),
-				       new Attribute("Size X", true, sizeX, true),
-				       new Attribute("Size Y", true, sizeY, false),
+				       new Attribute(strings.SkewX, true, skewX, true),
+				       new Attribute(strings.SkewY, true, skewY, false),
+				       new Attribute(strings.Width, true, sizeX, true),
+				       new Attribute(strings.Height, true, sizeY, false),
 				       new Attribute(strings.Rotation, true, rotation, true)
 			       }, maximumX, maximumY)
 		{
@@ -56,10 +56,10 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 		public override void SetValues(List<double> values)
 		{
-			Attributes.Get("Skew X").Value = values[0];
-			Attributes.Get("Skew Y").Value = values[1];
-			Attributes.Get("Size X").Value = values[2];
-			Attributes.Get("Size Y").Value = values[3];
+			Attributes.Get(strings.SkewX).Value = values[0];
+			Attributes.Get(strings.SkewY).Value = values[1];
+			Attributes.Get(strings.Width).Value = values[2];
+			Attributes.Get(strings.Height).Value = values[3];
 			Attributes.Get(strings.Rotation).Value = values[4];
 		}
 
@@ -104,11 +104,11 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			var centerX = width / 2;
 			var centerY = height / 2;
 
-			var skewX = 90 * (Attributes.Get("Skew X").Value - MaximumX / 2.0) / MaximumX;
-			var skewY = 90 * (Attributes.Get("Skew Y").Value - MaximumY / 2.0) / MaximumY;
+			var skewX = 90 * (Attributes.Get(strings.SkewX).Value - MaximumX / 2.0) / MaximumX;
+			var skewY = 90 * (Attributes.Get(strings.SkewY).Value - MaximumY / 2.0) / MaximumY;
 
-			var scaleX = Attributes.Get("Size X").Value;
-			var scaleY = Attributes.Get("Size Y").Value;
+			var scaleX = Attributes.Get(strings.Width).Value;
+			var scaleY = Attributes.Get(strings.Height).Value;
 
 			var rotation = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
 

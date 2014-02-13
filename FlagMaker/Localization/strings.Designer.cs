@@ -520,6 +520,24 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skew X.
+        /// </summary>
+        public static string SkewX {
+            get {
+                return ResourceManager.GetString("SkewX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skew Y.
+        /// </summary>
+        public static string SkewY {
+            get {
+                return ResourceManager.GetString("SkewY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Special.
         /// </summary>
         public static string Special {
