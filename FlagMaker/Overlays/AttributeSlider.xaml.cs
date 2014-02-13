@@ -64,7 +64,7 @@ namespace FlagMaker.Overlays
 
 			if (_isDiscrete)
 			{
-				Slider.Value = (int) Math.Round(Slider.Value, 0);
+				Slider.Value = (int)Math.Round(Slider.Value, 0);
 			}
 		}
 
@@ -82,11 +82,30 @@ namespace FlagMaker.Overlays
 			{
 				TxtValue.Visibility = Visibility.Hidden;
 
-				double value;
-				if (double.TryParse(TxtValue.Text, out value))
+				if (TxtValue.Text.Contains("%"))
 				{
-					chkDiscrete.IsChecked = ((int) value == value);
-					Slider.Value = value;
+					var stringVal = TxtValue.Text.Split('%')[0];
+					double value;
+					if (double.TryParse(stringVal, out value))
+					{
+						value /= 100;
+						if (value > 1) value = 1;
+						if (value < 0) value = 0;
+						var result = value * Maximum;
+						result = Math.Round(result, 3);
+
+						chkDiscrete.IsChecked = ((int)result == result);
+						Slider.Value = result;
+					}
+				}
+				else
+				{
+					double value;
+					if (double.TryParse(TxtValue.Text, out value))
+					{
+						chkDiscrete.IsChecked = ((int)value == value);
+						Slider.Value = value;
+					}
 				}
 			}
 			else if (e.Key == Key.Escape)
