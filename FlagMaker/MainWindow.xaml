@@ -87,7 +87,7 @@
 
             <Viewbox Grid.Column="0" Margin="10" SnapsToDevicePixels="True" x:Name="viewbox">
                 <Grid>
-                    <Canvas x:Name="canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+					<Canvas x:Name="canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" ClipToBounds="True" />
                     <Canvas x:Name="canvasGrid" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
                 </Grid>
             </Viewbox>
