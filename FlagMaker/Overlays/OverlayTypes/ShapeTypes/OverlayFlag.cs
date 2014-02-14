@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
+using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
@@ -68,9 +69,12 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 			sb.Append(Flag.Division.ExportSvg(width, height));
 
-			foreach (var overlay in Flag.Overlays)
+			for (int i = 0; i < Flag.Overlays.Count; i++)
 			{
-				sb.Append(overlay.ExportSvg(width, height));
+				if (i == 0 || !(Flag.Overlays[i - 1] is OverlayRepeater))
+				{
+					sb.Append(Flag.Overlays[i].ExportSvg(width, height));
+				}
 			}
 
 			sb.Append("</g>");
