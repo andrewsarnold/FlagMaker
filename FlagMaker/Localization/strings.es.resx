@@ -201,9 +201,6 @@
   <data name="Flag" xml:space="preserve">
     <value>Bandera</value>
   </data>
-  <data name="Flags" xml:space="preserve">
-    <value>Banderas</value>
-  </data>
   <data name="GridSize" xml:space="preserve">
     <value>Tamaño de la cuadrícula</value>
   </data>
@@ -264,6 +261,12 @@
   <data name="Size" xml:space="preserve">
     <value>Magnitud</value>
   </data>
+  <data name="SkewX" xml:space="preserve">
+    <value>Oblicuidad X</value>
+  </data>
+  <data name="SkewY" xml:space="preserve">
+    <value>Oblicuidad Y</value>
+  </data>
   <data name="Special" xml:space="preserve">
     <value>Especial</value>
   </data>
@@ -282,7 +285,31 @@
   <data name="X" xml:space="preserve">
     <value>Izquierda</value>
   </data>
+  <data name="X1" xml:space="preserve">
+    <value>X1</value>
+  </data>
+  <data name="X2" xml:space="preserve">
+    <value>X2</value>
+  </data>
+  <data name="X3" xml:space="preserve">
+    <value>X3</value>
+  </data>
   <data name="Y" xml:space="preserve">
     <value>Top</value>
+  </data>
+  <data name="Y1" xml:space="preserve">
+    <value>Y1</value>
+  </data>
+  <data name="Y2" xml:space="preserve">
+    <value>Y2</value>
+  </data>
+  <data name="Y3" xml:space="preserve">
+    <value>Y3</value>
+  </data>
+  <data name="OverlayNameExists" xml:space="preserve">
+    <value>Una capa superpuesta su con el nombre "{0}" ya existe.</value>
+  </data>
+  <data name="OverlayLoadError" xml:space="preserve">
+    <value>No se pudo cargar capa superpuesta personalizada "{0}".</value>
   </data>
 </root>

@@ -12,7 +12,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 	internal class OverlayImage : OverlayShape
 	{
 		private string _path;
-		private string _directory;
+		private readonly string _directory;
 		private BitmapImage _bitmap;
 
 		public string Path
@@ -91,7 +91,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			return string.Empty;
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

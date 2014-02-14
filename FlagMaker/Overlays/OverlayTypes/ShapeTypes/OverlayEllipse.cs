@@ -57,7 +57,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 				Color.ToHexString());
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

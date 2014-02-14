@@ -272,9 +272,10 @@ namespace FlagMaker
 
 			foreach (var overlay in Overlays)
 			{
-				if (overlay is OverlayFlag)
+				var flag = overlay as OverlayFlag;
+				if (flag != null)
 				{
-					colors.AddRange(((OverlayFlag)overlay).Flag.ColorsUsed());
+					colors.AddRange(flag.Flag.ColorsUsed());
 				}
 				else if (!(overlay is OverlayRepeater))
 				{
@@ -361,26 +362,19 @@ namespace FlagMaker
 
 				if (!string.IsNullOrWhiteSpace(Path))
 				{
-					if (Type == "flag")
-					{
-						overlay = OverlayFactory.GetFlagInstance(Path, maxX, maxY);
-					}
-					else
-					{
-						overlay = OverlayFactory.GetImageInstance(Path, directory, maxX, maxY);
-					}
+					overlay = Type == "flag"
+						? OverlayFactory.GetFlagInstance(Path, maxX, maxY)
+						: OverlayFactory.GetImageInstance(Path, directory, maxX, maxY);
 				}
 				else
 				{
 					overlay = OverlayFactory.GetInstance(Type, maxX, maxY);
 				}
 
-				if (overlay != null)
-				{
-					overlay.SetColors(new List<Color> { Color });
-					overlay.SetValues(Values);
-				}
+				if (overlay == null) return null;
 
+				overlay.SetColors(new List<Color> { Color });
+				overlay.SetValues(Values);
 				return overlay;
 			}
 		}

@@ -297,9 +297,6 @@
   <data name="Emblems" xml:space="preserve">
     <value>Emblems</value>
   </data>
-  <data name="Flags" xml:space="preserve">
-    <value>Flags</value>
-  </data>
   <data name="Special" xml:space="preserve">
     <value>Special</value>
   </data>

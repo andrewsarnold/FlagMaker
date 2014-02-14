@@ -119,7 +119,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 					Color.ToHexString());
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

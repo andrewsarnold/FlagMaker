@@ -122,7 +122,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			return sb.ToString();
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

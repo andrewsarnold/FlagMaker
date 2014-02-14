@@ -44,7 +44,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			Canvas.SetTop(path, (canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY)) - height / 2);
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

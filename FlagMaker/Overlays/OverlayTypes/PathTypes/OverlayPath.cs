@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -30,7 +29,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			_pathSize = pathSize;
 		}
 
-		public OverlayPath(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
+		protected OverlayPath(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			       {
 				       new Attribute(strings.X, true, 1, true),
@@ -125,7 +124,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			return string.Empty;
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

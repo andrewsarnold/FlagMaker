@@ -78,7 +78,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			return sb.ToString();
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

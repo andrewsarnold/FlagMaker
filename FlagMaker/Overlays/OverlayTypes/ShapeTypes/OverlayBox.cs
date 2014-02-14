@@ -22,7 +22,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override string Name { get { return "box"; } }
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

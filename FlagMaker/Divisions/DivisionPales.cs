@@ -83,7 +83,7 @@ namespace FlagMaker.Divisions
 			double r2Size = width * (Values[1] / (Values[0] + Values[1] + Values[2]));
 			double r3Size = width * (Values[2] / (Values[0] + Values[1] + Values[2]));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"0\" y=\"0\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"0\" y=\"0\" />",
 				r1Size,
 				height,
 				Colors[0].ToHexString()));

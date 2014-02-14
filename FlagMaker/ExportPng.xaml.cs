@@ -27,7 +27,7 @@ namespace FlagMaker
 			set
 			{
 				_width = value;
-				txtWidth.Text = _width.ToString();
+				_txtWidth.Text = _width.ToString();
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace FlagMaker
 			set
 			{
 				_height = value;
-				txtHeight.Text = _height.ToString();
+				_txtHeight.Text = _height.ToString();
 			}
 		}
 
@@ -47,14 +47,14 @@ namespace FlagMaker
 			_update = false;
 			int newWidth;
 
-			if (int.TryParse(txtWidth.Text, out newWidth))
+			if (int.TryParse(_txtWidth.Text, out newWidth))
 			{
 				_width = newWidth;
 				PngHeight = (int)((_ratio.Height / (double)_ratio.Width) * _width);
 			}
 			else
 			{
-				txtWidth.Text = _width.ToString();
+				_txtWidth.Text = _width.ToString();
 			}
 			_update = true;
 		}
@@ -65,14 +65,14 @@ namespace FlagMaker
 			_update = false;
 			int newHeight;
 
-			if (int.TryParse(txtHeight.Text, out newHeight))
+			if (int.TryParse(_txtHeight.Text, out newHeight))
 			{
 				_width = newHeight;
 				PngWidth = (int)((_ratio.Width / (double)_ratio.Height) * _height);
 			}
 			else
 			{
-				txtHeight.Text = _height.ToString();
+				_txtHeight.Text = _height.ToString();
 			}
 			_update = true;
 		}

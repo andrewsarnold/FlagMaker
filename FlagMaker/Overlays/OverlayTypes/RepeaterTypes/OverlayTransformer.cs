@@ -79,7 +79,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 				Overlay.ExportSvg(width, height));
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

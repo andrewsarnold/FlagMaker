@@ -59,7 +59,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				height, thick, width * (Attributes.Get(strings.X).Value / MaximumX) - thick / 2, Color.ToHexString());
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

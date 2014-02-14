@@ -157,7 +157,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 			Attributes.Get(strings.Count).Value = values[2];
 		}
 
-		public override IEnumerable<Shape> Thumbnail
+		protected override IEnumerable<Shape> Thumbnail
 		{
 			get
 			{

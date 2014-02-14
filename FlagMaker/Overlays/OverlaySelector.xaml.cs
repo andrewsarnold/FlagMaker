@@ -116,7 +116,7 @@ namespace FlagMaker.Overlays
 				VerticalScrollBarVisibility = ScrollBarVisibility.Auto
 			};
 			var tabItem = new TabItem { Header = tabName, Content = scrollViewer };
-			tabs.Items.Add(tabItem);
+			_tabs.Items.Add(tabItem);
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)

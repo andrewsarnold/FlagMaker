@@ -18,7 +18,7 @@ namespace FlagMaker.Overlays
 		public List<Attribute> Attributes { get; set; }
 		protected int MaximumX;
 		protected int MaximumY;
-		public abstract IEnumerable<Shape> Thumbnail { get; }
+		protected abstract IEnumerable<Shape> Thumbnail { get; }
 
 		protected Overlay(List<Attribute> attributes, int maximumX, int maximumY)
 		{

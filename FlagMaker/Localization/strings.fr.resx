@@ -120,6 +120,9 @@
   <data name="AllFiles" xml:space="preserve">
     <value>Tous les fichiers</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
   <data name="CouldNotLoadPresetsError" xml:space="preserve">
     <value>Impossible de charger des presets. Vérifiez que le dossier Presets existe dans le répertoire de l'application.</value>
   </data>

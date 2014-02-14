@@ -27,8 +27,8 @@
         <Label Grid.Row="0" Grid.Column="0">Width</Label>
         <Label Grid.Row="1" Grid.Column="0">Height</Label>
         
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtWidth" TextChanged="WidthChanged" />
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtHeight" TextChanged="HeightChanged" />
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="_txtWidth" TextChanged="WidthChanged" />
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="_txtHeight" TextChanged="HeightChanged" />
         
         <Label Grid.Row="0" Grid.Column="2">px</Label>
         <Label Grid.Row="1" Grid.Column="2">px</Label>

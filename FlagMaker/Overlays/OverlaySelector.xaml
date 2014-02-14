@@ -12,8 +12,8 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<TabControl x:Name="tabs" Grid.Row="0" />
-		<Button x:Name="cancel" Content="{x:Static Localization:strings.Cancel}" Click="Cancel"
+		<TabControl x:Name="_tabs" Grid.Row="0" />
+		<Button Content="{x:Static Localization:strings.Cancel}" Click="Cancel"
 				Height="30" HorizontalAlignment="Right" Margin="5" Grid.Row="1" />
 	</Grid>
 </Window>
