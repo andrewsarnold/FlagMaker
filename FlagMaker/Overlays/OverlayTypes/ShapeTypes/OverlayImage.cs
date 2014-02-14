@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,7 +15,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 	internal class OverlayImage : OverlayShape
 	{
 		private string _path;
-		private string _directory;
+		private readonly string _directory;
 		private BitmapImage _bitmap;
 
 		public string Path
@@ -88,7 +91,21 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			return string.Empty;
+			var imageWidth = width * Attributes.Get(strings.Width).Value / MaximumX;
+			var imageHeight = height * Attributes.Get(strings.Height).Value / MaximumY;
+			if (imageHeight == 0)
+			{
+				var ratio = _bitmap.Height / _bitmap.Width;
+				imageHeight = imageWidth * ratio;
+			}
+
+			return string.Format(CultureInfo.InvariantCulture, "<image x=\"{0:0.###}\" y=\"{1:0.###}\" width=\"{2:0.###}\" height=\"{3:0.###}\" preserveAspectRatio=\"none\" xlink:href=\"data:image/{4};base64,{5}\" />",
+				width * (Attributes.Get(strings.X).Value / MaximumX) - imageWidth / 2,
+				height * (Attributes.Get(strings.Y).Value / MaximumY) - imageHeight / 2,
+				imageWidth,
+				imageHeight,
+				_path.Split('.').Last(), // extension (png or jpg)
+				BitmapToBase64(_bitmap));
 		}
 
 		public override IEnumerable<Shape> Thumbnail
@@ -129,6 +146,17 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 					       }
 				       };
 			}
+		}
+
+		private static string BitmapToBase64(BitmapSource bi)
+		{
+			var ms = new MemoryStream();
+			var encoder = new PngBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(bi));
+			encoder.Save(ms);
+			byte[] bitmapdata = ms.ToArray();
+
+			return Convert.ToBase64String(bitmapdata);
 		}
 	}
 }
