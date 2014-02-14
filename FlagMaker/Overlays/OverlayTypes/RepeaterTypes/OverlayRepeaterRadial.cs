@@ -90,16 +90,20 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 			var radius = width * (Attributes.Get(strings.Radius).Value / MaximumX);
 			var interval = 2 * Math.PI / Attributes.Get(strings.Count).Value;
 			bool rotate = Attributes.Get(strings.Rotate).Value > MaximumX / 2.0;
-			
+
+			var id = Guid.NewGuid();
 			var sb = new StringBuilder();
+
+			sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<defs><g id=\"{0}\">{1}</g></defs>",
+				id, Overlay.ExportSvg((int)radius, (int)radius)));
 
 			for (int i = 0; i < Attributes.Get(strings.Count).Value; i++)
 			{
-				sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0:0###},{1:0###}){2:0###}\">",
+				sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0:0.###},{1:0.###}){2:0.###}\">",
 					locX + Math.Cos(i * interval - Math.PI / 2) * radius,
 					locY + Math.Sin(i * interval - Math.PI / 2) * radius,
-					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0:0###})", i * 360 / Attributes.Get(strings.Count).Value) : string.Empty));
-				sb.AppendLine(Overlay.ExportSvg((int)radius, (int)radius));
+					rotate ? string.Format(CultureInfo.InvariantCulture, "rotate({0:0.###})", i * 360 / Attributes.Get(strings.Count).Value) : string.Empty));
+				sb.AppendLine(string.Format("<use xlink:href=\"#{0}\" />", id));
 				sb.AppendLine("</g>");
 			}
 			

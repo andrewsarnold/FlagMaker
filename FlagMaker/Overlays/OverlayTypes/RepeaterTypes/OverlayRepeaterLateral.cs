@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows;
@@ -104,17 +105,21 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 
 			double intervalX = w / (countX > 1 ? countX - 1 : countX);
 			double intervalY = h / (countY > 1 ? countY - 1 : countY);
-
+			
+			var id = Guid.NewGuid();
 			var sb = new StringBuilder();
+
+			sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<defs><g id=\"{0}\">{1}</g></defs>",
+				id, Overlay.ExportSvg((int)w, (int)h)));
 
 			for (int x = 0; x < countX; x++)
 			{
 				for (int y = 0; y < countY; y++)
 				{
-					sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0:0###},{1:0###})\">",
+					sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({0:0.###},{1:0.###})\">",
 						locX + x * intervalX,
 						locY + y * intervalY));
-					sb.AppendLine(Overlay.ExportSvg((int)w, (int)h));
+					sb.AppendLine(string.Format("<use xlink:href=\"#{0}\" />", id));
 					sb.AppendLine("</g>");
 				}
 			}
