@@ -46,6 +46,7 @@ namespace FlagMaker.Overlays
 			                                                           { "hammer and sickle", typeof (OverlayHammerSickle) },
 			                                                           { "hand", typeof (OverlayHand) },
 			                                                           { "harp", typeof (OverlayHarp) },
+			                                                           { "image", typeof (OverlayImage) },
 			                                                           { "iran", typeof (OverlayIran) },
 			                                                           { "iron cross", typeof (OverlayIronCross) },
 			                                                           { "laurel", typeof (OverlayLaurel) },
@@ -110,6 +111,11 @@ namespace FlagMaker.Overlays
 		public static Overlay GetFlagInstance(string path, int maxX = 1, int maxY = 1)
 		{
 			return new OverlayFlag(Flag.LoadFromFile(path), path, maxX, maxY);
+		}
+
+		public static Overlay GetImageInstance(string path, string directory, int maxX = 1, int maxY = 1)
+		{
+			return new OverlayImage(path, directory, maxX, maxY);
 		}
 
 		public static Overlay GetInstance(Type type, int maxX = 1, int maxY = 1, string name = "")

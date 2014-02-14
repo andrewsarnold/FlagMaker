@@ -66,11 +66,11 @@ namespace FlagMaker.Overlays.OverlayTypes
 			// Prevent the border from overlapping itself
 			if (width - thickness * 2 < 0)
 			{
-				thickness = width / 2;
+				thickness = width / 2.0;
 			}
 			if (height - thickness * 2 < 0)
 			{
-				thickness = height / 2;
+				thickness = height / 2.0;
 			}
 
 			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0:0.###},0 {0:0.###},{1:0.###} 0,{1:0.###} Z M {2:0.###},{2:0.###} {3:0.###},{2:0.###} {3:0.###},{4:0.###} {2:0.###},{4:0.###} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",

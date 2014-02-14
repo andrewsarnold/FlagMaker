@@ -164,6 +164,7 @@
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterRadial.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayFlag.cs" />
+    <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayImage.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
     <Compile Include="Ratio.cs" />
     <Compile Include="IElement.cs" />

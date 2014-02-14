@@ -354,7 +354,7 @@ namespace FlagMaker
 				newOverlay.Color = overlay.Color;
 				newOverlay.SetType(overlay.Name);
 
-				if (overlay is OverlayFlag)
+				if (overlay is OverlayFlag || overlay is OverlayImage)
 				{
 					newOverlay.Overlay = overlay;
 				}
@@ -789,6 +789,7 @@ namespace FlagMaker
 					sr.WriteLine("overlay");
 					sr.WriteLine("type={0}", overlay.Overlay.Name);
 					if (overlay.Overlay.Name == "flag") sr.WriteLine("path={0}", ((OverlayFlag)overlay.Overlay).Path);
+					if (overlay.Overlay.Name == "image") sr.WriteLine("path={0}", ((OverlayImage)overlay.Overlay).Path);
 					else sr.WriteLine("color={0}", overlay.Color.ToHexString());
 
 					for (int i = 0; i < overlay.Overlay.Attributes.Count(); i++)

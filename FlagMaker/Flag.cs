@@ -152,7 +152,7 @@ namespace FlagMaker
 								overlays[overlayIndex].Values[7] = GetDoubleFromString(line.Split('=')[1]);
 								break;
 							case "path":
-								overlays[overlayIndex].FlagPath = line.Split('=')[1];
+								overlays[overlayIndex].Path = line.Split('=')[1];
 								break;
 						}
 					}
@@ -184,7 +184,7 @@ namespace FlagMaker
 				}
 
 				return new Flag(name, ratio, gridRatio, division,
-					overlays.Select(o => o.ToOverlay(gridRatio.Width, gridRatio.Height)));
+					overlays.Select(o => o.ToOverlay(gridRatio.Width, gridRatio.Height, Path.GetDirectoryName(filename))));
 			}
 			catch (Exception)
 			{
@@ -338,7 +338,7 @@ namespace FlagMaker
 			public string Type;
 			public readonly List<double> Values;
 			public Color Color;
-			public string FlagPath;
+			public string Path;
 
 			public TempOverlay()
 			{
@@ -355,11 +355,25 @@ namespace FlagMaker
 				};
 			}
 
-			public Overlay ToOverlay(int maxX, int maxY)
+			public Overlay ToOverlay(int maxX, int maxY, string directory)
 			{
-				Overlay overlay = string.IsNullOrWhiteSpace(FlagPath)
-					? OverlayFactory.GetInstance(Type, maxX, maxY)
-					: OverlayFactory.GetFlagInstance(FlagPath, maxX, maxY);
+				Overlay overlay;
+
+				if (!string.IsNullOrWhiteSpace(Path))
+				{
+					if (Type == "flag")
+					{
+						overlay = OverlayFactory.GetFlagInstance(Path, maxX, maxY);
+					}
+					else
+					{
+						overlay = OverlayFactory.GetImageInstance(Path, directory, maxX, maxY);
+					}
+				}
+				else
+				{
+					overlay = OverlayFactory.GetInstance(Type, maxX, maxY);
+				}
 
 				if (overlay != null)
 				{

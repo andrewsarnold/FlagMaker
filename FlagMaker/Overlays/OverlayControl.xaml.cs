@@ -57,7 +57,7 @@ namespace FlagMaker.Overlays
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
 				// Save old slider/color values
-				if (!_isFirst && !(_overlay is OverlayFlag))
+				if (!_isFirst && !(_overlay is OverlayFlag || _overlay is OverlayImage))
 				{
 					var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
 					if (sliderValues.Count > 0)
@@ -70,7 +70,7 @@ namespace FlagMaker.Overlays
 					}
 				}
 
-				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater) ? Visibility.Collapsed : Visibility.Visible;
+				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
 
 				PnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))

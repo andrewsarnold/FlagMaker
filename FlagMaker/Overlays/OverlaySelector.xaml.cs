@@ -8,6 +8,7 @@ using FlagMaker.Localization;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
+using Microsoft.Win32;
 
 namespace FlagMaker.Overlays
 {
@@ -40,13 +41,20 @@ namespace FlagMaker.Overlays
 		private void FillOverlays()
 		{
 			AddTab(OverlayFactory.GetOverlaysNotInTypes(new[] { typeof(OverlayRepeater), typeof(OverlayPath) })
-				.Where(t => t != typeof(OverlayFlag))
+				.Where(t => t != typeof(OverlayFlag) && t != typeof(OverlayImage))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Shapes);
-			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayRepeater))
-				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Special);
-			AddTab(new Overlay[]{ new OverlayFlag(_defaultMaximumY, _defaultMaximumY) }, strings.Flags);
+
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayPath))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Emblems);
+
+			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayRepeater))
+				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY))
+				.Union(new Overlay[]
+			       {
+				       new OverlayFlag(_defaultMaximumY, _defaultMaximumY),
+					   new OverlayImage(string.Empty, string.Empty, _defaultMaximumX, _defaultMaximumX)
+			       }), strings.Special);
+
 			AddTab(OverlayFactory.CustomTypes.Select(o => o.Value).OrderBy(o => o.DisplayName), strings.Custom);
 		}
 
@@ -89,6 +97,10 @@ namespace FlagMaker.Overlays
 
 						SelectedOverlay = new OverlayFlag(flag, path, _defaultMaximumX, _defaultMaximumY);
 					}
+					else if (tag == "image")
+					{
+						SelectedOverlay = new OverlayImage(GetImagePath(), string.Empty, _defaultMaximumX, _defaultMaximumY);
+					}
 					else
 					{
 						SelectedOverlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
@@ -118,6 +130,20 @@ namespace FlagMaker.Overlays
 		private void Cancel(object sender, RoutedEventArgs e)
 		{
 			Close();
+		}
+
+		public static string GetImagePath()
+		{
+			var dlg = new OpenFileDialog
+			{
+				DefaultExt = ".png",
+				Filter = "Images (*.png;*.jpg)|*.png;*.jpg",
+				Multiselect = false
+			};
+
+			bool? result = dlg.ShowDialog();
+			if (!((bool)result)) return string.Empty;
+			return dlg.FileName;
 		}
 	}
 }
