@@ -22,7 +22,7 @@ namespace FlagMaker.Overlays
 		public Attribute(string name, bool isDiscrete, double initialValue, bool useMaxX)
 		{
 			Name = name;
-			IsDiscrete = isDiscrete;
+			IsDiscrete = isDiscrete && ((int)initialValue == initialValue);
 			Value = initialValue;
 			UseMaxX = useMaxX;
 		}
