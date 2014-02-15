@@ -277,7 +277,7 @@ namespace FlagMaker
 				{
 					colors.AddRange(flag.Flag.ColorsUsed());
 				}
-				else if (!(overlay is OverlayRepeater))
+				else if (!(overlay is OverlayRepeater || overlay is OverlayImage))
 				{
 					colors.Add(overlay.Color);
 				}
