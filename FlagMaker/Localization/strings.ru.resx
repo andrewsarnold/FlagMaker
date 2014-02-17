@@ -141,6 +141,9 @@
   <data name="CountY" xml:space="preserve">
     <value>По вертикали</value>
   </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Пользовательские</value>
+  </data>
   <data name="Division" xml:space="preserve">
     <value>Разбиение</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="DivisionVerticalHalves" xml:space="preserve">
     <value>Вертикально пополам</value>
+  </data>
+  <data name="Emblems" xml:space="preserve">
+    <value>Формы</value>
   </data>
   <data name="ErrorAtLine" xml:space="preserve">
     <value>Ошибка в строке:</value>
@@ -243,6 +249,9 @@
   <data name="SaveChangesPrompt" xml:space="preserve">
     <value>Сохранить изменения в {0}?</value>
   </data>
+  <data name="Shapes" xml:space="preserve">
+    <value>Символы</value>
+  </data>
   <data name="ShowGrid" xml:space="preserve">
     <value>Показать сетку</value>
   </data>
@@ -251,6 +260,15 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>Размер</value>
+  </data>
+  <data name="SkewX" xml:space="preserve">
+    <value>Скос по X</value>
+  </data>
+  <data name="SkewY" xml:space="preserve">
+    <value>Скос по Y</value>
+  </data>
+  <data name="Special" xml:space="preserve">
+    <value>Функциональные</value>
   </data>
   <data name="Thickness" xml:space="preserve">
     <value>Толщина</value>
@@ -267,7 +285,25 @@
   <data name="X" xml:space="preserve">
     <value>Слева</value>
   </data>
+  <data name="X1" xml:space="preserve">
+    <value>X1</value>
+  </data>
+  <data name="X2" xml:space="preserve">
+    <value>X2</value>
+  </data>
+  <data name="X3" xml:space="preserve">
+    <value>X3</value>
+  </data>
   <data name="Y" xml:space="preserve">
     <value>Сверху</value>
+  </data>
+  <data name="Y1" xml:space="preserve">
+    <value>Y1</value>
+  </data>
+  <data name="Y2" xml:space="preserve">
+    <value>Y2</value>
+  </data>
+  <data name="Y3" xml:space="preserve">
+    <value>Y3</value>
   </data>
 </root>
