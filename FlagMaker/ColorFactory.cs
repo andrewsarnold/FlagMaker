@@ -26,7 +26,7 @@ namespace FlagMaker
 				: new ObservableCollection<ColorItem>(unsorted);
 		}
 
-		public static IEnumerable<ColorItem> FlagsOfTheWorld
+		private static IEnumerable<ColorItem> FlagsOfTheWorld
 		{
 			get
 			{
@@ -68,7 +68,7 @@ namespace FlagMaker
 			}
 		}
 
-		public static IEnumerable<ColorItem> FlagsOfAllNations
+		private static IEnumerable<ColorItem> FlagsOfAllNations
 		{
 			get
 			{

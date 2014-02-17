@@ -22,7 +22,7 @@ namespace FlagMaker.Overlays
 		public Attribute(string name, bool isDiscrete, double initialValue, bool useMaxX)
 		{
 			Name = name;
-			IsDiscrete = isDiscrete && ((int)initialValue == initialValue);
+			IsDiscrete = isDiscrete && (initialValue % 1 == 0);
 			Value = initialValue;
 			UseMaxX = useMaxX;
 		}
@@ -35,7 +35,7 @@ namespace FlagMaker.Overlays
 
 	public static class AttributeExtensions
 	{
-		public static Attribute Get(this IEnumerable<Attribute> attributes, string name)
+		public static Attribute Get(this List<Attribute> attributes, string name)
 		{
 			return attributes.First(a => a.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? attributes.First();
 		}

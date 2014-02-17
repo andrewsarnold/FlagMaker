@@ -78,61 +78,61 @@ namespace FlagMaker.Overlays
 
 		private void TxtValueKeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.Enter)
+			switch (e.Key)
 			{
-				_txtValue.Visibility = Visibility.Hidden;
+				case Key.Enter:
+					_txtValue.Visibility = Visibility.Hidden;
+					if (_txtValue.Text.Contains("%"))
+					{
+						var stringVal = _txtValue.Text.Split('%')[0];
+						double percentValue;
+						if (double.TryParse(stringVal, out percentValue))
+						{
+							SetValueByFraction(percentValue / 100);
+						}
+					}
+					else if (_txtValue.Text.Contains("/"))
+					{
+						var fraction = _txtValue.Text.Split('/');
 
-				if (_txtValue.Text.Contains("%"))
-				{
-					var stringVal = _txtValue.Text.Split('%')[0];
-					double value;
-					if (double.TryParse(stringVal, out value))
-					{
-						SetValueByFraction(value / 100);
-					}
-				}
-				else if (_txtValue.Text.Contains("/"))
-				{
-					var fraction = _txtValue.Text.Split('/');
-					
-					if (fraction.Length != 2)
-					{
-						return;
-					}
+						if (fraction.Length != 2)
+						{
+							return;
+						}
 
-					var numerator = fraction[0];
-					var denominator = fraction[1];
-					double num, den;
-					if (double.TryParse(numerator, out num) &&
-						double.TryParse(denominator, out den))
-					{
-						SetValueByFraction(num/den);
+						var numerator = fraction[0];
+						var denominator = fraction[1];
+						double num, den;
+						if (double.TryParse(numerator, out num) &&
+							double.TryParse(denominator, out den))
+						{
+							SetValueByFraction(num / den);
+						}
 					}
-				}
-				else
-				{
+					else
+					{
+						double fractionValue;
+						if (double.TryParse(_txtValue.Text, out fractionValue))
+						{
+							_chkDiscrete.IsChecked = (fractionValue % 1 == 0);
+							_slider.Value = fractionValue;
+						}
+					}
+					break;
+				case Key.Escape:
+					_txtValue.Visibility = Visibility.Hidden;
+					break;
+				case Key.Down:
+				case Key.Up:
 					double value;
 					if (double.TryParse(_txtValue.Text, out value))
 					{
-						_chkDiscrete.IsChecked = ((int)value == value);
+						value = value + (e.Key == Key.Up ? 0.01 : -0.01);
+						_chkDiscrete.IsChecked = false;
+						_txtValue.Text = value.ToString();
 						_slider.Value = value;
 					}
-				}
-			}
-			else if (e.Key == Key.Escape)
-			{
-				_txtValue.Visibility = Visibility.Hidden;
-			}
-			else if (e.Key == Key.Up || e.Key == Key.Down)
-			{
-				double value;
-				if (double.TryParse(_txtValue.Text, out value))
-				{
-					value = value + (e.Key == Key.Up ? 0.01 : -0.01);
-					_chkDiscrete.IsChecked = false;
-					_txtValue.Text = value.ToString();
-					_slider.Value = value;
-				}
+					break;
 			}
 		}
 
@@ -143,7 +143,7 @@ namespace FlagMaker.Overlays
 			var result = fraction * Maximum;
 			result = Math.Round(result, 3);
 
-			_chkDiscrete.IsChecked = ((int)result == result);
+			_chkDiscrete.IsChecked = (result % 1 == 0);
 			_slider.Value = result;
 		}
 

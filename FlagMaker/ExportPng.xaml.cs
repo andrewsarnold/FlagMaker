@@ -24,7 +24,7 @@ namespace FlagMaker
 		public int PngWidth
 		{
 			get { return _width; }
-			set
+			private set
 			{
 				_width = value;
 				_txtWidth.Text = _width.ToString();
@@ -34,7 +34,7 @@ namespace FlagMaker
 		public int PngHeight
 		{
 			get { return _height; }
-			set
+			private set
 			{
 				_height = value;
 				_txtHeight.Text = _height.ToString();
