@@ -106,6 +106,8 @@ namespace FlagMaker.Overlays
 						if (double.TryParse(numerator, out num) &&
 							double.TryParse(denominator, out den))
 						{
+							if (den <= 0) return;
+
 							SetValueByFraction(num / den);
 						}
 					}
