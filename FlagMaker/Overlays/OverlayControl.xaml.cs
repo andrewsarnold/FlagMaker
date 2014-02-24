@@ -18,6 +18,7 @@ namespace FlagMaker.Overlays
 		private readonly bool _isFirst;
 
 		public bool IsLoading;
+		public bool WasCanceled { get; private set; }
 
 		public event EventHandler OnRemove;
 		public event EventHandler OnMoveUp;
@@ -155,7 +156,12 @@ namespace FlagMaker.Overlays
 			};
 
 			selector.ShowDialog();
-			if (selector.SelectedOverlay == null) return;
+			if (selector.SelectedOverlay == null)
+			{
+				WasCanceled = true;
+				return;
+			}
+
 			Overlay = selector.SelectedOverlay;
 			if (!IsLoading) Draw();
 		}

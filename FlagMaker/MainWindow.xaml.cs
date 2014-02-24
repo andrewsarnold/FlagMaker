@@ -362,6 +362,12 @@ namespace FlagMaker
 		{
 			var gridSize = ((Ratio)_cmbGridSize.SelectedItem);
 			var newOverlay = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height, isLoading);
+
+			if (newOverlay.WasCanceled)
+			{
+				return;
+			}
+
 			if (overlay != null)
 			{
 				newOverlay.Color = overlay.Color;
