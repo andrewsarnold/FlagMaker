@@ -312,4 +312,10 @@
   <data name="SkewY" xml:space="preserve">
     <value>Skew Y</value>
   </data>
+  <data name="X4" xml:space="preserve">
+    <value>X4</value>
+  </data>
+  <data name="Y4" xml:space="preserve">
+    <value>Y4</value>
+  </data>
 </root>

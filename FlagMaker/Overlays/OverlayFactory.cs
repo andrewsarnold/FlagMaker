@@ -62,6 +62,7 @@ namespace FlagMaker.Overlays
 			                                                           { "papua new guinea", typeof (OverlayPapuaNewGuinea) },
 			                                                           { "parteiadler", typeof (OverlayParteiadler) },
 			                                                           { "pentagram", typeof (OverlayPentagram) },
+			                                                           { "quadrilateral", typeof (OverlayQuadrilateral) },
 																	   { "rays", typeof(OverlayRays) },
 			                                                           { "reichsadler", typeof (OverlayReichsadler) },
 																	   { "repeater lateral", typeof(OverlayRepeaterLateral) },
