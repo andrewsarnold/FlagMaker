@@ -1020,6 +1020,7 @@ namespace FlagMaker
 
 			var item = (MenuItem)sender;
 			item.IsChecked = true;
+			Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(item.Tag.ToString());
 			Settings.Default.Culture = item.Tag.ToString();
 			Settings.Default.Save();
 			MessageBox.Show(strings.RestartForChanges);

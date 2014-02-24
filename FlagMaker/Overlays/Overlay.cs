@@ -14,8 +14,8 @@ namespace FlagMaker.Overlays
 		public abstract void SetValues(List<double> values);
 		public abstract string ExportSvg(int width, int height);
 
-		public Color Color { get; set; }
-		public List<Attribute> Attributes { get; set; }
+		public Color Color { get; private set; }
+		public List<Attribute> Attributes { get; private set; }
 		protected int MaximumX;
 		protected int MaximumY;
 		protected abstract IEnumerable<Shape> Thumbnail { get; }
