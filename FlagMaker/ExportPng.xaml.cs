@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace FlagMaker
@@ -27,7 +28,7 @@ namespace FlagMaker
 			private set
 			{
 				_width = value;
-				_txtWidth.Text = _width.ToString();
+				TxtWidth.Text = _width.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -37,7 +38,7 @@ namespace FlagMaker
 			private set
 			{
 				_height = value;
-				_txtHeight.Text = _height.ToString();
+				TxtHeight.Text = _height.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -47,14 +48,14 @@ namespace FlagMaker
 			_update = false;
 			int newWidth;
 
-			if (int.TryParse(_txtWidth.Text, out newWidth))
+			if (int.TryParse(TxtWidth.Text, out newWidth))
 			{
 				_width = newWidth;
 				PngHeight = (int)((_ratio.Height / (double)_ratio.Width) * _width);
 			}
 			else
 			{
-				_txtWidth.Text = _width.ToString();
+				TxtWidth.Text = _width.ToString(CultureInfo.InvariantCulture);
 			}
 			_update = true;
 		}
@@ -65,14 +66,14 @@ namespace FlagMaker
 			_update = false;
 			int newHeight;
 
-			if (int.TryParse(_txtHeight.Text, out newHeight))
+			if (int.TryParse(TxtHeight.Text, out newHeight))
 			{
 				_width = newHeight;
 				PngWidth = (int)((_ratio.Width / (double)_ratio.Height) * _height);
 			}
 			else
 			{
-				_txtHeight.Text = _height.ToString();
+				TxtHeight.Text = _height.ToString(CultureInfo.InvariantCulture);
 			}
 			_update = true;
 		}

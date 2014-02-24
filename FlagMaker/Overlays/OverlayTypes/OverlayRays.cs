@@ -103,7 +103,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 			}
 		}
 
-		private Point BorderIntersection(double centerX, double centerY, double angle, double width, double height)
+		private static Point BorderIntersection(double centerX, double centerY, double angle, double width, double height)
 		{
 			var possiblePoints = new List<Point>();
 
@@ -145,7 +145,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 				: new Point(centerX, centerY);
 		}
 
-		private double Length(Point p1, Point p2)
+		private static double Length(Point p1, Point p2)
 		{
 			return Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
 		}

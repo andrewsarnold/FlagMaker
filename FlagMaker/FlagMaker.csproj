@@ -117,6 +117,7 @@
     <Compile Include="Overlays\OverlayTypes\OverlayBorder.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayCheckerboard.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayQuadrilateral.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayTransformer.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAnchor.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAngola.cs" />
@@ -164,10 +165,10 @@
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterLateral.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayRepeaterRadial.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayFlag.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayHalfEllipse.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayImage.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
     <Compile Include="Ratio.cs" />
-    <Compile Include="IElement.cs" />
     <Compile Include="Divisions\DivisionBendsForward.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -250,6 +251,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Presets\greenland.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\phillippines.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

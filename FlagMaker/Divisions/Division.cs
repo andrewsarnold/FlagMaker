@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace FlagMaker.Divisions
 {
-	public abstract class Division : IElement
+	public abstract class Division
 	{
 		public List<Color> Colors { get; private set; }
 		public List<double> Values { get; private set; }
@@ -21,9 +21,5 @@ namespace FlagMaker.Divisions
 		public abstract void SetColors(List<Color> colors);
 		public abstract void SetValues(List<double> values);
 		public abstract string ExportSvg(int width, int height);
-
-		public void SetMaximum(int maximumX, int maximumY)
-		{
-		}
 	}
 }

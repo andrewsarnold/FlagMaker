@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -7,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace FlagMaker.Overlays
 {
-	public abstract class Overlay : IElement
+	public abstract class Overlay
 	{
 		public abstract string Name { get; }
 		public abstract void Draw(Canvas canvas);
@@ -38,7 +39,7 @@ namespace FlagMaker.Overlays
 		{
 			get
 			{
-				return Name.First().ToString().ToUpper() + String.Join("", Name.Skip(1));
+				return Name.First().ToString(CultureInfo.InvariantCulture).ToUpper() + String.Join("", Name.Skip(1));
 			}
 		}
 
