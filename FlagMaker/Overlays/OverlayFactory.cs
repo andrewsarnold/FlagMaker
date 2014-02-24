@@ -42,6 +42,7 @@ namespace FlagMaker.Overlays
 			                                                           { "equitorial cross", typeof (OverlayEquitorialCross) },
 			                                                           { "fimbriation backward", typeof (OverlayFimbriationBackward) },
 			                                                           { "fimbriation forward", typeof (OverlayFimbriationForward) },
+			                                                           { "half ellipse", typeof (OverlayHalfEllipse) },
 			                                                           { "half saltire", typeof (OverlayHalfSaltire) },
 			                                                           { "hammer and sickle", typeof (OverlayHammerSickle) },
 			                                                           { "hand", typeof (OverlayHand) },
