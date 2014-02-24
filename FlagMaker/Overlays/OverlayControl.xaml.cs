@@ -52,15 +52,15 @@ namespace FlagMaker.Overlays
 			set
 			{
 				_overlay = value;
-				_btnOverlays.Content = _overlay.CanvasThumbnail();
-				_btnOverlays.ToolTip = _overlay.DisplayName;
+				BtnOverlays.Content = _overlay.CanvasThumbnail();
+				BtnOverlays.ToolTip = _overlay.DisplayName;
 
-				_overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor });
+				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
 				// Save old slider/color values
 				if (!_isFirst && !(_overlay is OverlayFlag || _overlay is OverlayImage))
 				{
-					var sliderValues = _pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
+					var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
 					if (sliderValues.Count > 0)
 					{
 						for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
@@ -71,13 +71,13 @@ namespace FlagMaker.Overlays
 					}
 				}
 
-				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
+				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
 
-				_pnlSliders.Children.Clear();
+				PnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))
 				{
 					slider.ValueChanged += OverlaySliderChanged;
-					_pnlSliders.Children.Add(slider);
+					PnlSliders.Children.Add(slider);
 				}
 			}
 		}
@@ -90,20 +90,20 @@ namespace FlagMaker.Overlays
 
 		public Color Color
 		{
-			get { return _overlayPicker.SelectedColor; }
-			set { _overlayPicker.SelectedColor = value; }
+			get { return OverlayPicker.SelectedColor; }
+			set { OverlayPicker.SelectedColor = value; }
 		}
 
 		public void SetSlider(int slider, double value)
 		{
-			if (slider >= _pnlSliders.Children.Count) return;
+			if (slider >= PnlSliders.Children.Count) return;
 
 			if (Math.Abs(value - (int)value) > 0.01)
 			{
-				((AttributeSlider)_pnlSliders.Children[slider]).ChkDiscrete.IsChecked = false;
+				((AttributeSlider)PnlSliders.Children[slider]).ChkDiscrete.IsChecked = false;
 			}
 
-			((AttributeSlider)_pnlSliders.Children[slider]).Value = value;
+			((AttributeSlider)PnlSliders.Children[slider]).Value = value;
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
@@ -113,7 +113,7 @@ namespace FlagMaker.Overlays
 
 			Overlay.SetMaximum(maximumX, maximumY);
 
-			var sliders = _pnlSliders.Children.OfType<AttributeSlider>().ToList();
+			var sliders = PnlSliders.Children.OfType<AttributeSlider>().ToList();
 			for (int i = 0; i < _overlay.Attributes.Count; i++)
 			{
 				var slider = sliders[i];
@@ -127,25 +127,25 @@ namespace FlagMaker.Overlays
 
 		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors)
 		{
-			_overlayPicker.AvailableColors = availableColors;
-			_overlayPicker.StandardColors = standardColors;
-			_overlayPicker.RecentColors = recentColors;
-			_overlayPicker.ShowRecentColors = true;
-			_overlayPicker.SelectedColor = _overlayPicker.StandardColors[10].Color;
-			_overlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
+			OverlayPicker.AvailableColors = availableColors;
+			OverlayPicker.StandardColors = standardColors;
+			OverlayPicker.RecentColors = recentColors;
+			OverlayPicker.ShowRecentColors = true;
+			OverlayPicker.SelectedColor = OverlayPicker.StandardColors[10].Color;
+			OverlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
 		}
 
 		private void OverlayColorChanged()
 		{
 			if (Overlay == null) return;
 
-			Overlay.SetColors(new List<Color> { _overlayPicker.SelectedColor, Colors.Transparent });
+			Overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor, Colors.Transparent });
 			Draw();
 		}
 
 		private void OverlaySliderChanged(object sender, EventArgs e)
 		{
-			Overlay.SetValues(_pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList());
+			Overlay.SetValues(PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList());
 			Draw();
 		}
 

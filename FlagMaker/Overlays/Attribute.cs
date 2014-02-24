@@ -12,13 +12,6 @@ namespace FlagMaker.Overlays
 		public double Value;
 		public bool UseMaxX { get; private set; }
 
-		public Attribute(string name, bool isDiscrete)
-		{
-			Name = name;
-			IsDiscrete = isDiscrete;
-			UseMaxX = true;
-		}
-
 		public Attribute(string name, bool isDiscrete, double initialValue, bool useMaxX)
 		{
 			Name = name;

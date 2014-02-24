@@ -1,9 +1,9 @@
 ﻿<Window x:Class="FlagMaker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:Local="clr-namespace:FlagMaker" MinHeight="120" Width="600"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:FlagMaker" MinHeight="120" Width="600"
         SizeChanged="MainWindowOnSizeChanged" Closing="MainWindow_OnClosing"
-        xmlns:Localization="clr-namespace:FlagMaker.Localization">
+        xmlns:localization="clr-namespace:FlagMaker.Localization">
 
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -17,44 +17,44 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Command="{x:Static Local:MainWindow.NewCommand}" Gesture="Ctrl+N" />
-        <KeyBinding Command="{x:Static Local:MainWindow.SaveCommand}" Gesture="Ctrl+S" />
-        <KeyBinding Command="{x:Static Local:MainWindow.SaveAsCommand}" Gesture="Ctrl+Shift+S" />
-        <KeyBinding Command="{x:Static Local:MainWindow.OpenCommand}" Gesture="Ctrl+O" />
+        <KeyBinding Command="{x:Static local:MainWindow.NewCommand}" Gesture="Ctrl+N" />
+        <KeyBinding Command="{x:Static local:MainWindow.SaveCommand}" Gesture="Ctrl+S" />
+        <KeyBinding Command="{x:Static local:MainWindow.SaveAsCommand}" Gesture="Ctrl+Shift+S" />
+        <KeyBinding Command="{x:Static local:MainWindow.OpenCommand}" Gesture="Ctrl+O" />
     </Window.InputBindings>
 
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static Local:MainWindow.NewCommand}" Executed="MenuNewClick"/>
-        <CommandBinding Command="{x:Static Local:MainWindow.SaveCommand}" Executed="MenuSaveClick"/>
-        <CommandBinding Command="{x:Static Local:MainWindow.SaveAsCommand}" Executed="MenuSaveAsClick"/>
-        <CommandBinding Command="{x:Static Local:MainWindow.OpenCommand}" Executed="MenuOpenClick"/>
+        <CommandBinding Command="{x:Static local:MainWindow.NewCommand}" Executed="MenuNewClick"/>
+        <CommandBinding Command="{x:Static local:MainWindow.SaveCommand}" Executed="MenuSaveClick"/>
+        <CommandBinding Command="{x:Static local:MainWindow.SaveAsCommand}" Executed="MenuSaveAsClick"/>
+        <CommandBinding Command="{x:Static local:MainWindow.OpenCommand}" Executed="MenuOpenClick"/>
     </Window.CommandBindings>
 
     <DockPanel LastChildFill="True">
         <Menu IsMainMenu="True" DockPanel.Dock="Top">
-            <MenuItem Header="{x:Static Localization:strings.File}">
-                <MenuItem Header="{x:Static Localization:strings.New}" Click="MenuNewClick" InputGestureText="Ctrl+N" />
-                <MenuItem Header="{x:Static Localization:strings.Open}" Click="MenuOpenClick" InputGestureText="Ctrl+O" />
-                <MenuItem Header="{x:Static Localization:strings.Save}" Click="MenuSaveClick" InputGestureText="Ctrl+S" />
-                <MenuItem Header="{x:Static Localization:strings.SaveAs}" Click="MenuSaveAsClick" InputGestureText="Ctrl+Shift+S" />
+            <MenuItem Header="{x:Static localization:strings.File}">
+                <MenuItem Header="{x:Static localization:strings.New}" Click="MenuNewClick" InputGestureText="Ctrl+N" />
+                <MenuItem Header="{x:Static localization:strings.Open}" Click="MenuOpenClick" InputGestureText="Ctrl+O" />
+                <MenuItem Header="{x:Static localization:strings.Save}" Click="MenuSaveClick" InputGestureText="Ctrl+S" />
+                <MenuItem Header="{x:Static localization:strings.SaveAs}" Click="MenuSaveAsClick" InputGestureText="Ctrl+Shift+S" />
                 <Separator />
-                <MenuItem Header="{x:Static Localization:strings.ExportAsPng}" Click="MenuExportPngClick" />
-                <MenuItem Header="{x:Static Localization:strings.ExportAsSvg}" Click="MenuExportSvgClick" />
+                <MenuItem Header="{x:Static localization:strings.ExportAsPng}" Click="MenuExportPngClick" />
+                <MenuItem Header="{x:Static localization:strings.ExportAsSvg}" Click="MenuExportSvgClick" />
             </MenuItem>
-            <MenuItem Header="{x:Static Localization:strings.WorldFlagPresets}" x:Name="_mnuWorldFlagPresets" />
-            <MenuItem Header="{x:Static Localization:strings.Language}" x:Name="_mnuLanguage" />
+            <MenuItem Header="{x:Static localization:strings.WorldFlagPresets}" x:Name="MnuWorldFlagPresets" />
+            <MenuItem Header="{x:Static localization:strings.Language}" x:Name="MnuLanguage" />
         </Menu>
 
         <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Label Content="{x:Static Localization:strings.Ratio}" VerticalAlignment="Center" />
-            <TextBox x:Name="_txtRatioHeight" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
+            <Label Content="{x:Static localization:strings.Ratio}" VerticalAlignment="Center" />
+            <TextBox x:Name="TxtRatioHeight" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
             <Label Content=":" VerticalAlignment="Center" />
-            <TextBox x:Name="_txtRatioWidth" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
+            <TextBox x:Name="TxtRatioWidth" Width="30" TextChanged="RatioTextboxChanged" VerticalAlignment="Center" />
 
-            <Label Content="{x:Static Localization:strings.GridSize}" Margin="10,0,0,0" VerticalAlignment="Center" />
-            <ComboBox x:Name="_cmbGridSize" SelectionChanged="GridSizeDropdownChanged" Width="60" VerticalAlignment="Center" />
+            <Label Content="{x:Static localization:strings.GridSize}" Margin="10,0,0,0" VerticalAlignment="Center" />
+            <ComboBox x:Name="CmbGridSize" SelectionChanged="GridSizeDropdownChanged" Width="60" VerticalAlignment="Center" />
 
-            <Button x:Name="_btnGrid" Margin="10,0,0,0" ToolTip="{x:Static Localization:strings.ShowGrid}" Click="GridOnChanged" VerticalAlignment="Center">
+            <Button x:Name="BtnGrid" Margin="10,0,0,0" ToolTip="{x:Static localization:strings.ShowGrid}" Click="GridOnChanged" VerticalAlignment="Center">
                 <Canvas Width="30" Height="20">
                     <Line X1="0" X2="30" Y1="5" Y2="5" StrokeThickness="2" Stroke="Gray" />
                     <Line X1="0" X2="30" Y1="10" Y2="10" StrokeThickness="2" Stroke="Gray" />
@@ -68,10 +68,10 @@
                 </Canvas>
             </Button>
             
-            <TextBox x:Name="_txtName" Margin="10,0,0,0" Width="200" FontSize="18"
+            <TextBox x:Name="TxtName" Margin="10,0,0,0" Width="200" FontSize="18"
                      VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
 
-            <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static Localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
+            <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
                 <Image Source="Images\rotate.png" />
             </Button>
         </WrapPanel>
@@ -85,10 +85,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Viewbox Grid.Column="0" Margin="10" SnapsToDevicePixels="True" x:Name="_viewbox">
+            <Viewbox Grid.Column="0" Margin="10" SnapsToDevicePixels="True" x:Name="Viewbox">
                 <Grid>
-					<Canvas x:Name="_canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" ClipToBounds="True" />
-                    <Canvas x:Name="_canvasGrid" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+					<Canvas x:Name="Canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" ClipToBounds="True" />
+                    <Canvas x:Name="CanvasGrid" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
                 </Grid>
             </Viewbox>
 
@@ -103,11 +103,11 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Vertical" Margin="5,0,5,0">
-                    <Label Content="{x:Static Localization:strings.Division}" FontSize="16" FontWeight="Bold" />
+                    <Label Content="{x:Static localization:strings.Division}" FontSize="16" FontWeight="Bold" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <WrapPanel Width="110" HorizontalAlignment="Left" Margin="0,0,0,4">
-                            <Button Click="DivisionGridClick" ToolTip="{x:Static Localization:strings.DivisionGrid}">
+                            <Button Click="DivisionGridClick" ToolTip="{x:Static localization:strings.DivisionGrid}">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <Rectangle Width="6" Height="5" Fill="Red" />
@@ -140,7 +140,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Click="DivisionFessesClick" ToolTip="{x:Static Localization:strings.DivisionFesses}">
+                            <Button Click="DivisionFessesClick" ToolTip="{x:Static localization:strings.DivisionFesses}">
                                 <StackPanel Orientation="Vertical">
                                     <Rectangle Width="30" Height="7" Fill="Red" />
                                     <Rectangle Width="30" Height="6" Fill="White" />
@@ -148,7 +148,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Click="DivisionPalesClick" ToolTip="{x:Static Localization:strings.DivisionPales}">
+                            <Button Click="DivisionPalesClick" ToolTip="{x:Static localization:strings.DivisionPales}">
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="10" Height="20" Fill="Red" />
                                     <Rectangle Width="10" Height="20" Fill="White" />
@@ -156,21 +156,21 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Click="DivisionBendsForwardClick" ToolTip="{x:Static Localization:strings.DivisionBendsForward}">
+                            <Button Click="DivisionBendsForwardClick" ToolTip="{x:Static localization:strings.DivisionBendsForward}">
                                 <Canvas Width="30" Height="20">
                                     <Path Fill="Red" Data="M 0,0 30,0 0,20 0,0" />
                                     <Path Fill="Blue" Data="M 30,0 30,20 0,20 30,0" />
                                 </Canvas>
                             </Button>
 
-                            <Button Click="DivisionBendsBackwardClick" ToolTip="{x:Static Localization:strings.DivisionBendsBackward}">
+                            <Button Click="DivisionBendsBackwardClick" ToolTip="{x:Static localization:strings.DivisionBendsBackward}">
                                 <Canvas Width="30" Height="20">
                                     <Path Fill="Red" Data="M 0,0 30,0 30,20 0,0" />
                                     <Path Fill="Blue" Data="M 30,20 0,20 0,0 30,20" />
                                 </Canvas>
                             </Button>
 
-                            <Button Click="DivisionXClick" ToolTip="{x:Static Localization:strings.DivisionBendsBoth}">
+                            <Button Click="DivisionXClick" ToolTip="{x:Static localization:strings.DivisionBendsBoth}">
                                 <Canvas Width="30" Height="20">
                                     <Path Fill="Red" Data="M 0,0 30,0 15,10 0,0" />
                                     <Path Fill="Red" Data="M 0,20 30,20 15,10 0,20" />
@@ -181,46 +181,46 @@
                         </WrapPanel>
 
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <Label Content="{x:Static Localization:strings.DivisionPresets}" />
-                            <ComboBox x:Name="_cmbPresets" VerticalAlignment="Center" SelectionChanged="PresetChanged">
-                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionBlank}" Selected="PresetBlank" />
-                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionHorizontalHalves}" Selected="PresetHorizontal" />
-                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionVerticalHalves}" Selected="PresetVertical" />
-                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionQuartered}" Selected="PresetQuad" />
-                                <ComboBoxItem Content="{x:Static Localization:strings.DivisionStripes}" Selected="PresetStripes" />
+                            <Label Content="{x:Static localization:strings.DivisionPresets}" />
+                            <ComboBox x:Name="CmbPresets" VerticalAlignment="Center" SelectionChanged="PresetChanged">
+                                <ComboBoxItem Content="{x:Static localization:strings.DivisionBlank}" Selected="PresetBlank" />
+                                <ComboBoxItem Content="{x:Static localization:strings.DivisionHorizontalHalves}" Selected="PresetHorizontal" />
+                                <ComboBoxItem Content="{x:Static localization:strings.DivisionVerticalHalves}" Selected="PresetVertical" />
+                                <ComboBoxItem Content="{x:Static localization:strings.DivisionQuartered}" Selected="PresetQuad" />
+                                <ComboBoxItem Content="{x:Static localization:strings.DivisionStripes}" Selected="PresetStripes" />
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
 
-                    <Xctk:ColorPicker x:Name="_divisionPicker1" />
-                    <Xctk:ColorPicker x:Name="_divisionPicker2" />
-                    <Xctk:ColorPicker x:Name="_divisionPicker3" />
+                    <xctk:ColorPicker x:Name="DivisionPicker1" />
+                    <xctk:ColorPicker x:Name="DivisionPicker2" />
+                    <xctk:ColorPicker x:Name="DivisionPicker3" />
 
                     <DockPanel LastChildFill="True" Margin="0,4,0,0">
-                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="_divisionSliderLabel1" />
-                        <Slider Minimum="1" Maximum="16" x:Name="_divisionSlider1" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="DivisionSliderLabel1" />
+                        <Slider Minimum="1" Maximum="16" x:Name="DivisionSlider1" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
                     </DockPanel>
                     <DockPanel LastChildFill="True">
-                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="_divisionSliderLabel2" />
-                        <Slider Minimum="1" Maximum="16" x:Name="_divisionSlider2" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="DivisionSliderLabel2" />
+                        <Slider Minimum="1" Maximum="16" x:Name="DivisionSlider2" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
                     </DockPanel>
                     <DockPanel LastChildFill="True">
-                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="_divisionSliderLabel3" />
-                        <Slider Minimum="1" Maximum="16" x:Name="_divisionSlider3" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
+                        <TextBlock Text="0" Margin="0,0,5,0" Width="15" x:Name="DivisionSliderLabel3" />
+                        <Slider Minimum="1" Maximum="16" x:Name="DivisionSlider3" TickFrequency="1" TickPlacement="BottomRight" IsSnapToTickEnabled="True" />
                     </DockPanel>
                 </StackPanel>
 
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" ShowsPreview="False" ResizeDirection="Rows" Height="5" />
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="{x:Static Localization:strings.Overlays}" FontSize="16" FontWeight="Bold" />
-                    <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static Localization:strings.OverlayAdd}" Click="OverlayAdd">
+                    <Label Content="{x:Static localization:strings.Overlays}" FontSize="16" FontWeight="Bold" />
+                    <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.OverlayAdd}" Click="OverlayAdd">
                         <Image Source="Images\add.png" />
                     </Button>
                 </StackPanel>
 
                 <ScrollViewer Grid.Row="3">
-                    <StackPanel Orientation="Vertical" x:Name="_lstOverlays" Margin="5,0,5,0" />
+                    <StackPanel Orientation="Vertical" x:Name="LstOverlays" Margin="5,0,5,0" />
                 </ScrollViewer>
             </Grid>
         </Grid>

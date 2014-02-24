@@ -294,6 +294,9 @@
   <data name="X3" xml:space="preserve">
     <value>X3</value>
   </data>
+  <data name="X4" xml:space="preserve">
+    <value>X4</value>
+  </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
   </data>
@@ -305,5 +308,8 @@
   </data>
   <data name="Y3" xml:space="preserve">
     <value>Y3</value>
+  </data>
+  <data name="Y4" xml:space="preserve">
+    <value>Y4</value>
   </data>
 </root>
