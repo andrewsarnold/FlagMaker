@@ -37,7 +37,7 @@ namespace FlagMaker.Overlays
 
 			SetUpColors(standardColors, availableColors, recentColors);
 			Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
-			
+
 			if (!IsLoading)
 			{
 				OverlaySelect(this, null);
@@ -100,7 +100,7 @@ namespace FlagMaker.Overlays
 
 			if (Math.Abs(value - (int)value) > 0.01)
 			{
-				((AttributeSlider)_pnlSliders.Children[slider])._chkDiscrete.IsChecked = false;
+				((AttributeSlider)_pnlSliders.Children[slider]).ChkDiscrete.IsChecked = false;
 			}
 
 			((AttributeSlider)_pnlSliders.Children[slider]).Value = value;
@@ -118,9 +118,10 @@ namespace FlagMaker.Overlays
 			{
 				var slider = sliders[i];
 				var max = _overlay.Attributes[i].UseMaxX ? maximumX : maximumY;
-				var ratio = (double)max / slider.Maximum;
+				var newValue = slider.Value * ((double)max / slider.Maximum);
+				slider.ChkDiscrete.IsChecked = newValue % 1 == 0;
 				slider.Maximum = max;
-				slider.Value *= ratio;
+				slider.Value = newValue;
 			}
 		}
 

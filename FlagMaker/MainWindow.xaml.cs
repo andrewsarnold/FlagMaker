@@ -502,23 +502,6 @@ namespace FlagMaker
 			DrawGrid();
 		}
 
-		#endregion
-
-		private void SetAsUnsaved()
-		{
-			_isUnsaved = true;
-			SetTitle();
-		}
-
-		private void Draw()
-		{
-			_canvas.Width = _ratioWidth * 200;
-			_canvas.Height = _ratioHeight * 200;
-			Flag.Draw(_canvas);
-			DrawGrid();
-			SetUsedColorPalettes();
-		}
-
 		private void DrawGrid()
 		{
 			_canvasGrid.Children.Clear();
@@ -645,6 +628,23 @@ namespace FlagMaker
 				Draw();
 				SetAsUnsaved();
 			}
+		}
+
+		#endregion
+
+		private void SetAsUnsaved()
+		{
+			_isUnsaved = true;
+			SetTitle();
+		}
+
+		private void Draw()
+		{
+			_canvas.Width = _ratioWidth * 200;
+			_canvas.Height = _ratioHeight * 200;
+			Flag.Draw(_canvas);
+			DrawGrid();
+			SetUsedColorPalettes();
 		}
 
 		#region Export

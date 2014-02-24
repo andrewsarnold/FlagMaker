@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace FlagMaker.Overlays
 {
-	public abstract class Overlay : IElement
+	public abstract class Overlay
 	{
 		public abstract string Name { get; }
 		public abstract void Draw(Canvas canvas);

@@ -169,7 +169,6 @@
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayImage.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
     <Compile Include="Ratio.cs" />
-    <Compile Include="IElement.cs" />
     <Compile Include="Divisions\DivisionBendsForward.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

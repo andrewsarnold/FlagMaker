@@ -18,7 +18,7 @@ namespace FlagMaker.Overlays
 			_lblName.Content = name;
 			_lblName.ToolTip = name;
 			_isDiscrete = isDiscrete && (value % 1 == 0);
-			_chkDiscrete.IsChecked = _isDiscrete;
+			ChkDiscrete.IsChecked = _isDiscrete;
 			_lblValue.Content = value;
 			_slider.Minimum = 0;
 			_slider.Maximum = maximum;
@@ -46,7 +46,7 @@ namespace FlagMaker.Overlays
 				_slider.Value = value;
 			}
 		}
-
+		
 		private void SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			_lblValue.Content = _slider.Value.ToString(_isDiscrete ? "0" : "0.00");
@@ -59,7 +59,7 @@ namespace FlagMaker.Overlays
 
 		private void CheckChanged(object sender, RoutedEventArgs e)
 		{
-			_isDiscrete = _chkDiscrete.IsChecked ?? false;
+			_isDiscrete = ChkDiscrete.IsChecked ?? false;
 			_slider.IsSnapToTickEnabled = _isDiscrete;
 
 			if (_isDiscrete)
@@ -114,7 +114,7 @@ namespace FlagMaker.Overlays
 						double fractionValue;
 						if (double.TryParse(_txtValue.Text, out fractionValue))
 						{
-							_chkDiscrete.IsChecked = (fractionValue % 1 == 0);
+							ChkDiscrete.IsChecked = (fractionValue % 1 == 0);
 							_slider.Value = fractionValue;
 						}
 					}
@@ -128,7 +128,7 @@ namespace FlagMaker.Overlays
 					if (double.TryParse(_txtValue.Text, out value))
 					{
 						value = value + (e.Key == Key.Up ? 0.01 : -0.01);
-						_chkDiscrete.IsChecked = false;
+						ChkDiscrete.IsChecked = false;
 						_txtValue.Text = value.ToString();
 						_slider.Value = value;
 					}
@@ -143,7 +143,7 @@ namespace FlagMaker.Overlays
 			var result = fraction * Maximum;
 			result = Math.Round(result, 3);
 
-			_chkDiscrete.IsChecked = (result % 1 == 0);
+			ChkDiscrete.IsChecked = (result % 1 == 0);
 			_slider.Value = result;
 		}
 

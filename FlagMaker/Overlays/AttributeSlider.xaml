@@ -16,7 +16,7 @@
         <Label x:Name="_lblValue" Grid.Column="1" Cursor="Hand" MouseUp="Clicked" />
         <TextBox x:Name="_txtValue" Grid.Column="1" PreviewKeyDown="TxtValueKeyDown" LostFocus="TxtValueLostFocus" />
         <Slider x:Name="_slider" Grid.Column="2" ValueChanged="SliderValueChanged" />
-        <CheckBox x:Name="_chkDiscrete" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Stretch"
+        <CheckBox x:Name="ChkDiscrete" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Stretch"
                   ToolTip="Integer values only" Unchecked="CheckChanged" Checked="CheckChanged" Grid.Column="3" />
     </Grid>
 </UserControl>
