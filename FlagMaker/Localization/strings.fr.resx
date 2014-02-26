@@ -142,7 +142,7 @@
     <value>Compte vertical</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Personnalisée</value>
+    <value>Personnalisés</value>
   </data>
   <data name="Division" xml:space="preserve">
     <value>Separation</value>
@@ -250,7 +250,7 @@
     <value>Enregistrer les modifications {0}?</value>
   </data>
   <data name="Shapes" xml:space="preserve">
-    <value>Contours</value>
+    <value>Formes</value>
   </data>
   <data name="ShowGrid" xml:space="preserve">
     <value>Afficher la grille</value>
@@ -268,7 +268,7 @@
     <value>Oblique Y</value>
   </data>
   <data name="Special" xml:space="preserve">
-    <value>Spécial</value>
+    <value>Spéciaux</value>
   </data>
   <data name="Thickness" xml:space="preserve">
     <value>Epaisseur</value>
