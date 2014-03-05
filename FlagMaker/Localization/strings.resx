@@ -181,7 +181,7 @@
     <value>Error at line:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
-    <value>Export as _PNG...</value>
+    <value>Export as PNG</value>
   </data>
   <data name="ExportAsSvg" xml:space="preserve">
     <value>Export as SV_G...</value>
@@ -231,7 +231,7 @@
   <data name="Rotation" xml:space="preserve">
     <value>Rotation</value>
   </data>
-  <data name="Save" xml:space="preserve">
+  <data name="SaveMenu" xml:space="preserve">
     <value>_Save</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
@@ -317,5 +317,23 @@
   </data>
   <data name="Y4" xml:space="preserve">
     <value>Y4</value>
+  </data>
+  <data name="Clone" xml:space="preserve">
+    <value>Clone</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ExportAsPngMenu" xml:space="preserve">
+    <value>Export as _PNG...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

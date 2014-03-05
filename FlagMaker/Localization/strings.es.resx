@@ -190,7 +190,7 @@
     <value>Error estaba en esta línea:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
-    <value>Guardar como _PNG...</value>
+    <value>Guardar como PNG</value>
   </data>
   <data name="ExportAsSvg" xml:space="preserve">
     <value>Guardar como _SVG...</value>
@@ -241,7 +241,7 @@
     <value>Rotación</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>_Guardar</value>
+    <value>Guardar</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
     <value>Guardar _como...</value>
@@ -317,5 +317,11 @@
   </data>
   <data name="Y4" xml:space="preserve">
     <value>Y4</value>
+  </data>
+  <data name="ExportAsPngMenu" xml:space="preserve">
+    <value>Guardar como _PNG...</value>
+  </data>
+  <data name="SaveMenu" xml:space="preserve">
+    <value>_Guardar</value>
   </data>
 </root>

@@ -190,6 +190,9 @@
     <value>Ошибка в строке:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
+    <value>Сохранить как PNG</value>
+  </data>
+  <data name="ExportAsPngMenu" xml:space="preserve">
     <value>Сохранить как PNG...</value>
   </data>
   <data name="ExportAsSvg" xml:space="preserve">
@@ -241,13 +244,16 @@
     <value>Поворот</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>_Сохранить</value>
+    <value>Сохранить</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
     <value>Сохранить _как...</value>
   </data>
   <data name="SaveChangesPrompt" xml:space="preserve">
     <value>Сохранить изменения в {0}?</value>
+  </data>
+  <data name="SaveMenu" xml:space="preserve">
+    <value>_Сохранить</value>
   </data>
   <data name="Shapes" xml:space="preserve">
     <value>Символы</value>

@@ -79,6 +79,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clone.
+        /// </summary>
+        public static string Clone {
+            get {
+                return ResourceManager.GetString("Clone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t load presets. Check for a Presets folder in the application directory..
         /// </summary>
         public static string CouldNotLoadPresetsError {
@@ -277,11 +286,20 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export as _PNG....
+        ///   Looks up a localized string similar to Export as PNG.
         /// </summary>
         public static string ExportAsPng {
             get {
                 return ResourceManager.GetString("ExportAsPng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export as _PNG....
+        /// </summary>
+        public static string ExportAsPngMenu {
+            get {
+                return ResourceManager.GetString("ExportAsPngMenu", resourceCulture);
             }
         }
         
@@ -336,6 +354,24 @@ namespace FlagMaker.Localization {
         public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        public static string MoveDown {
+            get {
+                return ResourceManager.GetString("MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        public static string MoveUp {
+            get {
+                return ResourceManager.GetString("MoveUp", resourceCulture);
             }
         }
         
@@ -421,6 +457,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must restart in order for the changes to take effect..
         /// </summary>
         public static string RestartForChanges {
@@ -448,7 +493,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Save.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
@@ -471,6 +516,15 @@ namespace FlagMaker.Localization {
         public static string SaveChangesPrompt {
             get {
                 return ResourceManager.GetString("SaveChangesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save.
+        /// </summary>
+        public static string SaveMenu {
+            get {
+                return ResourceManager.GetString("SaveMenu", resourceCulture);
             }
         }
         

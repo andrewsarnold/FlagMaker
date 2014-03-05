@@ -190,6 +190,9 @@
     <value>Erreur à la ligne:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
+    <value>Exporter comme PNG</value>
+  </data>
+  <data name="ExportAsPngMenu" xml:space="preserve">
     <value>Exporter comme _PNG...</value>
   </data>
   <data name="ExportAsSvg" xml:space="preserve">
@@ -241,13 +244,16 @@
     <value>Rotation</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>_Enregistrer</value>
+    <value>Enregistrer</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
     <value>Enregistrer _sous...</value>
   </data>
   <data name="SaveChangesPrompt" xml:space="preserve">
     <value>Enregistrer les modifications {0}?</value>
+  </data>
+  <data name="SaveMenu" xml:space="preserve">
+    <value>_Enregistrer</value>
   </data>
   <data name="Shapes" xml:space="preserve">
     <value>Formes</value>
