@@ -15,6 +15,7 @@ namespace FlagMaker.Overlays
 		public abstract void SetValues(List<double> values);
 		public abstract string ExportSvg(int width, int height);
 
+		public bool IsEnabled;
 		public Color Color { get; private set; }
 		public List<Attribute> Attributes { get; private set; }
 		protected int MaximumX;
@@ -23,6 +24,7 @@ namespace FlagMaker.Overlays
 
 		protected Overlay(List<Attribute> attributes, int maximumX, int maximumY)
 		{
+			IsEnabled = true;
 			Color = Colors.Black;
 			Attributes = attributes;
 			SetMaximum(maximumX, maximumY);
@@ -30,6 +32,7 @@ namespace FlagMaker.Overlays
 
 		protected Overlay(Color color, List<Attribute> attributes, int maximumX, int maximumY)
 		{
+			IsEnabled = true;
 			Color = color;
 			Attributes = attributes;
 			SetMaximum(maximumX, maximumY);

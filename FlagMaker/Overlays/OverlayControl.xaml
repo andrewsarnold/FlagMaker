@@ -12,7 +12,9 @@
     <StackPanel Orientation="Vertical">
 		<StackPanel Orientation="Horizontal">
 			<Button x:Name="BtnOverlays" Click="OverlaySelect" VerticalContentAlignment="Center" MinWidth="30" />
-            <Button ToolTip="Remove" Click="Remove" Margin="15,0,0,0" Style="{DynamicResource ResourceKey=GraphicButton}">
+			<CheckBox x:Name="CheckVisibility" ToolTip="Visibility" Checked="SetVisibility" Unchecked="SetVisibility"
+					  VerticalAlignment="Center" Margin="10,0,0,0" />
+            <Button ToolTip="Remove" Click="Remove" Margin="10,0,0,0" Style="{DynamicResource ResourceKey=GraphicButton}">
                 <Image Source="..\Images\remove.png" />
             </Button>
             <Button ToolTip="Move up" Click="MoveUp" Style="{DynamicResource ResourceKey=GraphicButton}">
