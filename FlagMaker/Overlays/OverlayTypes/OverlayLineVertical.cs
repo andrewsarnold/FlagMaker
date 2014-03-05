@@ -55,8 +55,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 			double thick = width * (Attributes.Get(strings.Thickness).Value / MaximumX);
 
-			return string.Format(CultureInfo.InvariantCulture, "<rect height=\"{0:0.###}\" width=\"{1:0.###}\" x=\"{2:0.###}\" y=\"0\" fill=\"#{3}\" />",
-				height, thick, width * (Attributes.Get(strings.X).Value / MaximumX) - thick / 2, Color.ToHexString());
+			return string.Format(CultureInfo.InvariantCulture, "<rect height=\"{0:0.###}\" width=\"{1:0.###}\" x=\"{2:0.###}\" y=\"0\" {3} />",
+				height, thick, width * (Attributes.Get(strings.X).Value / MaximumX) - thick / 2, Color.ToSvgFillWithOpacity());
 		}
 
 		protected override IEnumerable<Shape> Thumbnail

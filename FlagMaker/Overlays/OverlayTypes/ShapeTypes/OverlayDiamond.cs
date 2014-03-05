@@ -68,9 +68,9 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			double x = width * (Attributes.Get(strings.X).Value / MaximumX);
 			double y = height * (Attributes.Get(strings.Y).Value / MaximumY);
 
-			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{3:0.###} {0:0.###},{4:0.###} {5:0.###},{3:0.###} \" fill=\"#{6}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{3:0.###} {0:0.###},{4:0.###} {5:0.###},{3:0.###} \" {6} />",
 				x, y - h / 2, x + w / 2, y, y + h / 2, x - w / 2,
-				Color.ToHexString());
+				Color.ToSvgFillWithOpacity());
 		}
 	}
 }

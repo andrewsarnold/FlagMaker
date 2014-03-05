@@ -113,8 +113,8 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				var scaleFactor = idealPixelSize / _pathSize.X;
 				var rotate = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
 
-				return string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({2:0.###},{3:0.###}) rotate({0:0.###}) scale({1:0.###})\"><path d=\"{4}\" fill=\"#{5}\" /></g>",
-						rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToHexString());
+				return string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({2:0.###},{3:0.###}) rotate({0:0.###}) scale({1:0.###})\"><path d=\"{4}\" {5} /></g>",
+						rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToSvgFillWithOpacity());
 			}
 			catch (Exception)
 			{

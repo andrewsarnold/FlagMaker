@@ -64,11 +64,11 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 				? w
 				: height * (Attributes.Get(strings.Height).Value / MaximumY);
 
-			return string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" x=\"{2:0.###}\" y=\"{3:0.###}\" fill=\"#{4}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" x=\"{2:0.###}\" y=\"{3:0.###}\" {4} />",
 				w, h,
 				width * (Attributes.Get(strings.X).Value / MaximumX),
 				height * (Attributes.Get(strings.Y).Value / MaximumY),
-				Color.ToHexString());
+				Color.ToSvgFillWithOpacity());
 		}
 	}
 }

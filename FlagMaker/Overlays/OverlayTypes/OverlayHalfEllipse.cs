@@ -63,8 +63,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			return string.Format(CultureInfo.InvariantCulture, "<path d=\"{0}\" fill=\"#{1}\" />",
-				GetPath(width, height), Color.ToHexString());
+			return string.Format(CultureInfo.InvariantCulture, "<path d=\"{0}\" {1} />",
+				GetPath(width, height), Color.ToSvgFillWithOpacity());
 		}
 
 		protected override IEnumerable<Shape> Thumbnail

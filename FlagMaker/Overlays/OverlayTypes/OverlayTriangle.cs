@@ -79,9 +79,9 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var x3 = width * (Attributes.Get(strings.X3).Value / MaximumX);
 			var y3 = height * (Attributes.Get(strings.Y3).Value / MaximumY);
 
-			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{3:0.###} {4:0.###},{5:0.###}\" fill=\"#{6}\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{3:0.###} {4:0.###},{5:0.###}\" {6} />",
 				x1, y1, x2, y2, x3, y3,
-				Color.ToHexString());
+				Color.ToSvgFillWithOpacity());
 		}
 
 		protected override IEnumerable<Shape> Thumbnail

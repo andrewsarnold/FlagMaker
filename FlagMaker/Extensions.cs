@@ -5,11 +5,20 @@ namespace FlagMaker
 {
 	public static class Extensions
 	{
-		public static string ToHexString(this Color c)
+		public static string ToHexString(this Color c, bool includeOpacity = true)
 		{
 			return string.Format("{0}{1}{2}{3}",
-				c.A < 0xff ? c.A.ToString("x2") : string.Empty,
+				includeOpacity && c.A < 0xff ? c.A.ToString("x2") : string.Empty,
 				c.R.ToString("x2"), c.G.ToString("x2"), c.B.ToString("x2"));
+		}
+
+		public static string ToSvgFillWithOpacity(this Color c)
+		{
+			return string.Format("fill=\"#{0}\"{1}",
+				c.ToHexString(false),
+				c.A < 0xff
+					? string.Format(" fill-opacity=\"{0:0.###}\"", c.A / 255.0)
+					: string.Empty);
 		}
 
 		public static double Hue(this Color c)

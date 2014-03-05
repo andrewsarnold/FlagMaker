@@ -54,8 +54,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 			foreach (var path in GetPaths(width, height))
 			{
-				sb.Append(string.Format(CultureInfo.InvariantCulture, "<path d=\"{0}\" fill=\"#{1}\" />",
-					path, Color.ToHexString()));
+				sb.Append(string.Format(CultureInfo.InvariantCulture, "<path d=\"{0}\" {1} />",
+					path, Color.ToSvgFillWithOpacity()));
 			}
 
 			return sb.ToString();

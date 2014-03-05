@@ -98,20 +98,20 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var centerX = width/2;
 			var centerY = height/2;
 
-			var c = Color.ToHexString();
+			var c = Color.ToSvgFillWithOpacity();
 
 			var sb = new StringBuilder();
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0:0.###},{1:0.###} {2:0.###},{1:0.###} 0,{3:0.###}\" fill=\"#{4}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0:0.###},{1:0.###} {2:0.###},{1:0.###} 0,{3:0.###}\" {4} />",
 				centerX, centerY, centerX - wX, wY, c));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {0:0.###},{2:0.###} {3:0.###},0 {4:0.###},0\" fill=\"#{5}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {0:0.###},{2:0.###} {3:0.###},0 {4:0.###},0\" {5} />",
 				centerX, centerY, centerY - wY, width - wX, width, c));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {0:0.###},{2:0.###} {3:0.###},{4:0.###} 0,{4:0.###}\" fill=\"#{5}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {0:0.###},{2:0.###} {3:0.###},{4:0.###} 0,{4:0.###}\" {5} />",
 				centerX, centerY, centerY + wY, wX, height, c));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{1:0.###} {3:0.###},{4:0.###} {3:0.###},{5:0.###}\" fill=\"#{6}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},{1:0.###} {2:0.###},{1:0.###} {3:0.###},{4:0.###} {3:0.###},{5:0.###}\" {6} />",
 				centerX, centerY, centerX + wX, width, height - wY, height, c));
 
 			return sb.ToString();

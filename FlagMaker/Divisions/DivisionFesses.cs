@@ -80,21 +80,21 @@ namespace FlagMaker.Divisions
 			double r2Size = height * (Values[1] / (Values[0] + Values[1] + Values[2]));
 			double r3Size = height * (Values[2] / (Values[0] + Values[1] + Values[2]));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"0\" y=\"0\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" {2} x=\"0\" y=\"0\" />",
 				width,
 				r1Size,
-				Colors[0].ToHexString()));
+				Colors[0].ToSvgFillWithOpacity()));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"0\" y=\"{3:0.###}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" {2} x=\"0\" y=\"{3:0.###}\" />",
 				width,
 				r2Size,
-				Colors[1].ToHexString(),
+				Colors[1].ToSvgFillWithOpacity(),
 				r1Size));
 
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"0\" y=\"{3:0.###}\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" {2} x=\"0\" y=\"{3:0.###}\" />",
 				width,
 				r3Size,
-				Colors[2].ToHexString(),
+				Colors[2].ToSvgFillWithOpacity(),
 				r1Size + r2Size));
 
 			return sb.ToString();

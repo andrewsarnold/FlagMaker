@@ -61,16 +61,16 @@ namespace FlagMaker.Divisions
 			var sb = new StringBuilder();
 
 			// right
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {0},{1}\" style=\"fill:{2};\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {0},{1}\" {2} />",
 				width,
 				height,
-				Colors[0].ToHexString()));
+				Colors[0].ToSvgFillWithOpacity()));
 
 			// left
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0} {0},{1}\" style=\"fill:{2};\" />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0} {0},{1}\" {2} />",
 				width,
 				height,
-				Colors[1].ToHexString()));
+				Colors[1].ToSvgFillWithOpacity()));
 
 			return sb.ToString();
 		}

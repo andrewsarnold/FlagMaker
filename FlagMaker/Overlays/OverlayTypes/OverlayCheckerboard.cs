@@ -109,8 +109,8 @@ namespace FlagMaker.Overlays.OverlayTypes
 				{
 					if ((x + y) % 2 == 0)
 					{
-						sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" fill=\"#{2}\" x=\"{3:0.###}\" y=\"{4:0.###}\"/>",
-							blockWidth, blockHeight, Color.ToHexString(), left + x * blockWidth, top + y * blockHeight));
+						sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" {2} x=\"{3:0.###}\" y=\"{4:0.###}\"/>",
+							blockWidth, blockHeight, Color.ToSvgFillWithOpacity(), left + x * blockWidth, top + y * blockHeight));
 					}
 				}
 			}

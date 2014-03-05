@@ -73,12 +73,12 @@ namespace FlagMaker.Overlays.OverlayTypes
 				thickness = height / 2.0;
 			}
 
-			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0:0.###},0 {0:0.###},{1:0.###} 0,{1:0.###} Z M {2:0.###},{2:0.###} {3:0.###},{2:0.###} {3:0.###},{4:0.###} {2:0.###},{4:0.###} Z\" fill=\"#{5}\" fill-rule=\"evenodd\" />",
+			return string.Format(CultureInfo.InvariantCulture, "<path d=\"M 0,0 {0:0.###},0 {0:0.###},{1:0.###} 0,{1:0.###} Z M {2:0.###},{2:0.###} {3:0.###},{2:0.###} {3:0.###},{4:0.###} {2:0.###},{4:0.###} Z\" {5} fill-rule=\"evenodd\" />",
 				width, height,
 				thickness,
 				width - thickness,
 				height - thickness,
-				Color.ToHexString());
+				Color.ToSvgFillWithOpacity());
 		}
 
 		protected override IEnumerable<Shape> Thumbnail
