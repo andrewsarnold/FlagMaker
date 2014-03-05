@@ -46,6 +46,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public override void Draw(Canvas canvas)
 		{
 			if (Overlay == null) return;
+			if (!Overlay.IsEnabled) return;
 
 			var transformCanvas = new Canvas
 			{
@@ -72,6 +73,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public override string ExportSvg(int width, int height)
 		{
 			if (Overlay == null) return string.Empty;
+			if (!Overlay.IsEnabled) return string.Empty;
 
 			var matrix = GetTransformation(width, height).Value;
 
