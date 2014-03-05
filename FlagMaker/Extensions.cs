@@ -7,7 +7,9 @@ namespace FlagMaker
 	{
 		public static string ToHexString(this Color c)
 		{
-			return c.R.ToString("x2") + c.G.ToString("x2") + c.B.ToString("x2");
+			return string.Format("{0}{1}{2}{3}",
+				c.A < 0xff ? c.A.ToString("x2") : string.Empty,
+				c.R.ToString("x2"), c.G.ToString("x2"), c.B.ToString("x2"));
 		}
 
 		public static double Hue(this Color c)
