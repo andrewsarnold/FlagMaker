@@ -656,7 +656,7 @@ namespace FlagMaker
 
 			var dlg = new SaveFileDialog
 			{
-				FileName = Path.GetFileNameWithoutExtension(_filename),
+				FileName = string.IsNullOrWhiteSpace(_filename) ? strings.Untitled : Path.GetFileNameWithoutExtension(_filename),
 				DefaultExt = ".png",
 				Filter = "PNG (*.png)|*.png"
 			};
@@ -709,7 +709,7 @@ namespace FlagMaker
 		{
 			var dlg = new SaveFileDialog
 			{
-				FileName = Path.GetFileNameWithoutExtension(_filename),
+				FileName = string.IsNullOrWhiteSpace(_filename) ? strings.Untitled : Path.GetFileNameWithoutExtension(_filename),
 				DefaultExt = ".svg",
 				Filter = "SVG (*.svg)|*.svg"
 			};
