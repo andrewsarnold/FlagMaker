@@ -54,6 +54,7 @@ namespace FlagMaker.Overlays
 				_overlay = value;
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
 				BtnOverlays.ToolTip = _overlay.DisplayName;
+				CheckVisibility.IsChecked = _overlay.IsEnabled;
 
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
@@ -205,6 +206,12 @@ namespace FlagMaker.Overlays
 			{
 				OnClone(this, new EventArgs());
 			}
+		}
+
+		private void SetVisibility(object sender, RoutedEventArgs e)
+		{
+			Overlay.IsEnabled = CheckVisibility.IsChecked ?? false;
+			Draw();
 		}
 	}
 }
