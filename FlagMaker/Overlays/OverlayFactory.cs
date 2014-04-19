@@ -70,6 +70,7 @@ namespace FlagMaker.Overlays
 			                                                           { "saltire", typeof (OverlaySaltire) },
 			                                                           { "shahadah", typeof (OverlayShahadah) },
 			                                                           { "sikh", typeof (OverlaySikh) },
+			                                                           { "snake", typeof (OverlaySnake) },
 			                                                           { "springbok", typeof (OverlaySpringbok) },
 			                                                           { "star", typeof (OverlayStar) },
 			                                                           { "star four", typeof (OverlayStarFour) },
