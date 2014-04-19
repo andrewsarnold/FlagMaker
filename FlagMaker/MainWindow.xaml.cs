@@ -38,6 +38,7 @@ namespace FlagMaker
 
 		private bool _isLoading;
 		private bool _showGrid;
+		private bool _showTexture;
 
 		private Flag Flag
 		{
@@ -641,8 +642,40 @@ namespace FlagMaker
 			Canvas.Width = _ratioWidth * 200;
 			Canvas.Height = _ratioHeight * 200;
 			Flag.Draw(Canvas);
+			DrawTexture(Canvas);
 			DrawGrid();
 			SetUsedColorPalettes();
+		}
+
+		private void DrawTexture(Canvas canvas)
+		{
+			if (!_showTexture) return;
+
+			var bitmap = new BitmapImage();
+			bitmap.BeginInit();
+			bitmap.UriSource = new Uri(@"pack://application:,,,/Images/overlay.png");
+			bitmap.CacheOption = BitmapCacheOption.OnLoad;
+			bitmap.EndInit();
+
+			var image = new Image
+			{
+				Source = bitmap,
+				Width = canvas.Width,
+				Height = canvas.Height,
+				Stretch = Stretch.Fill
+			};
+
+			RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
+
+			canvas.Children.Add(image);
+			Canvas.SetLeft(image, 0);
+			Canvas.SetTop(image, 0);
+		}
+
+		private void ToggleTexture(object sender, RoutedEventArgs e)
+		{
+			_showTexture = !_showTexture;
+			Draw();
 		}
 
 		#region Export

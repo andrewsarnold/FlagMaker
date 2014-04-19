@@ -336,4 +336,7 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ToggleTexture" xml:space="preserve">
+    <value>Toggle texture</value>
+  </data>
 </root>

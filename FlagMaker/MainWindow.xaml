@@ -74,7 +74,10 @@
             <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
                 <Image Source="Images\rotate.png" />
             </Button>
-        </WrapPanel>
+			<Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.ToggleTexture}" Click="ToggleTexture" Height="32" Width="32">
+				<Image Source="Images\overlay.png" />
+			</Button>
+		</WrapPanel>
         
         <Separator DockPanel.Dock="Top" />
 
@@ -88,8 +91,8 @@
             <Viewbox Grid.Column="0" Margin="10" SnapsToDevicePixels="True" x:Name="Viewbox">
                 <Grid>
 					<Canvas x:Name="Canvas" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" ClipToBounds="True" />
-                    <Canvas x:Name="CanvasGrid" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
-                </Grid>
+					<Canvas x:Name="CanvasGrid" Background="Transparent" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+				</Grid>
             </Viewbox>
 
             <GridSplitter Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
