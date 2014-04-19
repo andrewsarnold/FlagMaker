@@ -18,6 +18,7 @@ namespace FlagMaker.Overlays
 		                                                           {
 			                                                           { "anchor", typeof (OverlayAnchor) },
 			                                                           { "angola", typeof (OverlayAngola) },
+			                                                           { "bolnisi cross", typeof (OverlayBolnisiCross) },
 			                                                           { "box", typeof (OverlayBox) },
 			                                                           { "border", typeof (OverlayBorder) },
 			                                                           { "branches", typeof (OverlayBranches) },
