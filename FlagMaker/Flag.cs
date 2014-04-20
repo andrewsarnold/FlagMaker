@@ -218,6 +218,8 @@ namespace FlagMaker
 				// Skip overlays used in repeaters
 				if (i > 0 && Overlays[i - 1] is OverlayRepeater) continue;
 
+				if (!Overlays[i].IsEnabled) continue;
+
 				Overlays[i].Draw(canvas);
 			}
 		}
@@ -242,6 +244,7 @@ namespace FlagMaker
 					if (i > 0 && Overlays[i - 1] is OverlayRepeater) continue;
 
 					var overlay = Overlays[i];
+					if (!overlay.IsEnabled) continue;
 
 					try
 					{

@@ -245,6 +245,7 @@
     <EmbeddedResource Include="Localization\strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -794,6 +795,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\overlay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\check_off.png" />
+    <Resource Include="Images\check_on.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -181,7 +181,7 @@
     <value>Error at line:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
-    <value>Export as PNG</value>
+    <value>Export as _PNG...</value>
   </data>
   <data name="ExportAsSvg" xml:space="preserve">
     <value>Export as SV_G...</value>
@@ -338,5 +338,8 @@
   </data>
   <data name="ToggleTexture" xml:space="preserve">
     <value>Toggle texture</value>
+  </data>
+  <data name="ToggleVisibility" xml:space="preserve">
+    <value>Toggle visibility</value>
   </data>
 </root>

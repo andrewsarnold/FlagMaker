@@ -286,7 +286,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export as PNG.
+        ///   Looks up a localized string similar to Export as _PNG....
         /// </summary>
         public static string ExportAsPng {
             get {
@@ -606,6 +606,15 @@ namespace FlagMaker.Localization {
         public static string ToggleTexture {
             get {
                 return ResourceManager.GetString("ToggleTexture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle visibility.
+        /// </summary>
+        public static string ToggleVisibility {
+            get {
+                return ResourceManager.GetString("ToggleVisibility", resourceCulture);
             }
         }
         

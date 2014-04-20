@@ -43,6 +43,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public override void Draw(Canvas canvas)
 		{
 			if (Overlay == null) return;
+			if (!Overlay.IsEnabled) return;
 
 			var locX = canvas.Width * (Attributes.Get(strings.X).Value / MaximumX);
 			var locY = canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY);
@@ -84,6 +85,7 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		public override string ExportSvg(int width, int height)
 		{
 			if (Overlay == null) return string.Empty;
+			if (!Overlay.IsEnabled) return string.Empty;
 
 			var locX = width * (Attributes.Get(strings.X).Value / MaximumX);
 			var locY = height * (Attributes.Get(strings.Y).Value / MaximumY);
