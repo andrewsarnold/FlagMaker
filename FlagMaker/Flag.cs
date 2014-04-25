@@ -201,8 +201,7 @@ namespace FlagMaker
 				Multiselect = false
 			};
 
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return string.Empty;
+			if (!(dlg.ShowDialog() ?? false)) return string.Empty;
 			return dlg.FileName;
 		}
 

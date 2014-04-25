@@ -342,4 +342,7 @@
   <data name="ToggleVisibility" xml:space="preserve">
     <value>Toggle visibility</value>
   </data>
+  <data name="GenerateRandomFlag" xml:space="preserve">
+    <value>Generate random flag</value>
+  </data>
 </root>

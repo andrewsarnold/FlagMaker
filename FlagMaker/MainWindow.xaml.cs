@@ -20,6 +20,7 @@ using FlagMaker.Localization;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using FlagMaker.Properties;
+using FlagMaker.RandomFlag;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
@@ -694,8 +695,7 @@ namespace FlagMaker
 				Filter = "PNG (*.png)|*.png"
 			};
 
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return;
+			if (!(dlg.ShowDialog() ?? false)) return;
 
 			// Create a full copy of the canvas so the
 			// scaling of the existing canvas and
@@ -747,9 +747,7 @@ namespace FlagMaker
 				Filter = "SVG (*.svg)|*.svg"
 			};
 
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return;
-
+			if (!(dlg.ShowDialog() ?? false)) return;
 			ExportToSvg(dlg.FileName);
 		}
 
@@ -806,9 +804,7 @@ namespace FlagMaker
 							  Filter = string.Format("{0} (*.flag)|*.flag|{1} (*.*)|*.*", strings.Flag, strings.AllFiles)
 						  };
 
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return;
-
+			if (!(dlg.ShowDialog() ?? false)) return;
 			_filename = dlg.FileName;
 			Save();
 			SetTitle();
@@ -859,7 +855,7 @@ namespace FlagMaker
 			var path = Flag.GetFlagPath();
 			if (!string.IsNullOrWhiteSpace(path))
 			{
-				LoadFlagFromFile(path, true);
+				LoadFlagFromFile(path);
 			}
 			SetTitle();
 		}
@@ -883,19 +879,21 @@ namespace FlagMaker
 			return result == MessageBoxResult.Cancel;
 		}
 
-		private void LoadFlagFromFile(string filename, bool isLoading)
+		private void LoadFlagFromFile(string filename)
 		{
-			Flag flag;
 			try
 			{
-				flag = Flag.LoadFromFile(filename);
+				LoadFlag(Flag.LoadFromFile(filename));
+				_filename = filename;
 			}
 			catch (Exception e)
 			{
 				MessageBox.Show(string.Format(strings.CouldNotOpenError, e.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
-				return;
 			}
+		}
 
+		private void LoadFlag(Flag flag)
+		{
 			_isLoading = true;
 
 			TxtRatioHeight.Text = flag.Ratio.Height.ToString(CultureInfo.InvariantCulture);
@@ -913,11 +911,10 @@ namespace FlagMaker
 			LstOverlays.Children.Clear();
 			foreach (var overlay in flag.Overlays)
 			{
-				OverlayAdd(LstOverlays.Children.Count, overlay, isLoading);
+				OverlayAdd(LstOverlays.Children.Count, overlay, true);
 			}
 
 			TxtName.Text = flag.Name;
-			_filename = filename;
 			_isUnsaved = false;
 
 			Draw();
@@ -1012,7 +1009,7 @@ namespace FlagMaker
 		{
 			if (CheckUnsaved()) return;
 			var menuItem = (MenuItem)sender;
-			LoadFlagFromFile(menuItem.ToolTip.ToString(), true);
+			LoadFlagFromFile(menuItem.ToolTip.ToString());
 			SetTitle();
 		}
 
@@ -1031,6 +1028,12 @@ namespace FlagMaker
 			}
 
 			return string.Empty;
+		}
+
+		private void GenerateRandomFlag(object sender, RoutedEventArgs e)
+		{
+			if (CheckUnsaved()) return;
+			LoadFlag(RandomFlagFactory.GenerateFlag());
 		}
 
 		#endregion
