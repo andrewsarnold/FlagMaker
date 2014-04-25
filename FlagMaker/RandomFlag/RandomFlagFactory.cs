@@ -82,8 +82,8 @@ namespace FlagMaker.RandomFlag
 		private static Division GetDivision()
 		{
 			// Roughly based on what's used in the presets
-			//_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 3, 4, 7, 1, 2, 1, 4, 1, 1, 8 });
-			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 9, 16, 50, 2, 4, 2, 18, 2, 1, 62 });
+			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 3, 4, 7, 1, 2, 1, 4, 1, 1, 8 });
+
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -163,10 +163,46 @@ namespace FlagMaker.RandomFlag
 					AddEmblem(0.4, list);
 					break;
 				case DivisionTypes.DiagonalForward:
-					AddFimbriationForward(list);
+					if (Randomizer.ProbabilityOfTrue(0.5))
+					{
+						AddFimbriationForward(list);
+					}
+					else
+					{
+						_emblemColor = _metal;
+						AddEmblem(1.0, list, new Rect
+						                     {
+							                     Top = 0,
+							                     Bottom = _gridSize.Height * 2 / 3.0,
+							                     Left = 0,
+							                     Right = _gridSize.Width / 2.0
+						                     }, false);
+						if (Randomizer.ProbabilityOfTrue(0.3))
+						{
+							AddFimbriationForward(list);
+						}
+					}
 					break;
 				case DivisionTypes.DiagonalBackward:
-					AddFimbriationBackward(list);
+					if (Randomizer.ProbabilityOfTrue(0.5))
+					{
+						AddFimbriationBackward(list);
+					}
+					else
+					{
+						_emblemColor = _metal;
+						AddEmblem(1.0, list, new Rect
+						                     {
+							                     Top = 0,
+							                     Bottom = _gridSize.Height * 2 / 3.0,
+							                     Left = _gridSize.Width / 2.0,
+							                     Right = _gridSize.Width
+											 }, false);
+						if (Randomizer.ProbabilityOfTrue(0.3))
+						{
+							AddFimbriationBackward(list);
+						}
+					}
 					break;
 				case DivisionTypes.X:
 					AddOverlaysX(list, false);
@@ -353,15 +389,15 @@ namespace FlagMaker.RandomFlag
 						if (width < height) width = (int)height;
 					}
 					list.Add(new OverlayBox(_color2, 0, 0, width, height, 0, 0));
-					AddEmblem(1.0, list, new Rect { Top = 0, Left = 0, Bottom = height, Right = width });
+					AddEmblem(1.0, list, new Rect { Top = 0, Left = 0, Bottom = height, Right = width }, false);
 					break;
 				case 1: // Full hoist box
 					list.Add(new OverlayBox(_color2, 0, 0, width, _gridSize.Height, 0, 0));
-					AddEmblem(0.6, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width });
+					AddEmblem(0.6, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width }, true);
 					break;
 				case 2: // Triangle
 					list.Add(new OverlayTriangle(_color2, 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, 0, 0));
-					AddEmblem(0.5, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 });
+					AddEmblem(0.5, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 }, true);
 					break;
 			}
 		}
@@ -425,14 +461,14 @@ namespace FlagMaker.RandomFlag
 			const double size = 0.25;
 			AddEmblem(probability, list, new Rect
 			                             {
-				                             Bottom = _gridSize.Height / size + _emblemY,
-				                             Top = _gridSize.Height / size - _emblemY,
-				                             Left = _gridSize.Width / size - _emblemX,
-				                             Right = _gridSize.Width / size + _emblemX,
-			                             });
+											 Bottom = _emblemY + _gridSize.Height * size,
+											 Top = _emblemY - _gridSize.Height * size,
+				                             Left = _emblemX - _gridSize.Width * size,
+				                             Right = _emblemX + _gridSize.Width * size,
+			                             }, false);
 		}
 
-		private static void AddEmblem(double probability, ICollection<Overlay> list, Rect rect)
+		private static void AddEmblem(double probability, ICollection<Overlay> list, Rect rect, bool isSmall)
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
 
@@ -440,7 +476,7 @@ namespace FlagMaker.RandomFlag
 			var type = types[Randomizer.Next(types.Count)];
 			var emblem = (Overlay)Activator.CreateInstance(type, 0, 0);
 			emblem.SetColors(new List<Color> { _emblemColor });
-			emblem.SetValues(new List<double> { (rect.Right - rect.Left) / 2, (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / 3, 0 });
+			emblem.SetValues(new List<double> { rect.Left + (rect.Right - rect.Left) / 2, rect.Top + (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / (isSmall ? 3.0 : 1.5), 0 });
 			list.Add(emblem);
 		}
 
