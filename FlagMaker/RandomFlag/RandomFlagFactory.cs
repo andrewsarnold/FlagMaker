@@ -15,6 +15,7 @@ namespace FlagMaker.RandomFlag
 		#region Color definitions
 
 		private static readonly Color Yellow = Color.FromRgb(253, 200, 47);
+		private static readonly Color Silver = Color.FromRgb(141, 129, 123);
 		private static readonly Color White = Color.FromRgb(255, 255, 255);
 		private static readonly Color Black = Color.FromRgb(0, 0, 0);
 		private static readonly Color Red = Color.FromRgb(198, 12, 48);
@@ -46,13 +47,11 @@ namespace FlagMaker.RandomFlag
 
 		private static void GetColorScheme()
 		{
-			_metal = Randomizer.ProbabilityOfTrue(0.4) ? Yellow : White;
-
-			var colorsUsed = Randomizer.Clamp(Randomizer.NextNormalized(2, 1), 2, 5);
+			_metal = Randomizer.ProbabilityOfTrue(0.3) ? Yellow : White;
 			_colors = new List<Color>
 			          {
-				          Black, Red, Green, LightBlue, DarkBlue
-			          }.OrderBy(c => Randomizer.NextDouble()).Take(colorsUsed).ToList();
+				          Black, Red, Green, LightBlue, DarkBlue, Silver
+			          }.OrderBy(c => Randomizer.NextDouble()).Take(2).ToList();
 		}
 
 		private static void GetRatio()
@@ -100,7 +99,7 @@ namespace FlagMaker.RandomFlag
 
 		private static Division SetUpFessesAndPales()
 		{
-			var color3 = _colors.Count > 1
+			var color3 = Randomizer.ProbabilityOfTrue(0.4)
 				? _colors[1]
 				: _colors[0];
 
