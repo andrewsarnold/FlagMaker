@@ -35,38 +35,6 @@ namespace FlagMaker.RandomFlag
 		}
 
 		/// <summary>
-		/// Returns a nonnegative number less than the specified maxiumum.
-		/// </summary>
-		/// <param name="max">The exclusive upper bound of the random number returned.</param>
-		/// <returns></returns>
-		public static int Next(int max)
-		{
-			return R.Next(max);
-		}
-
-		/// <summary>
-		/// Returns a value within a specified range.
-		/// </summary>
-		/// <param name="min">The inclusive lower bound of the random number returned.</param>
-		/// <param name="max">The exclusive upper bound of the random number returned.</param>
-		/// <returns></returns>
-		public static int Next(int min, int max)
-		{
-			return R.Next(min, max);
-		}
-
-		/// <summary>
-		/// Returns a value within a specified range.
-		/// </summary>
-		/// <param name="min">The inclusive lower bound of the random number returned.</param>
-		/// <param name="max">The inclusive upper bound of the random number returned.</param>
-		/// <returns></returns>
-		public static int NextInclusive(int min, int max)
-		{
-			return Next(min, max + 1);
-		}
-
-		/// <summary>
 		/// Generates a random number with probability based on a bell curve.
 		/// </summary>
 		/// <param name="mean"></param>
