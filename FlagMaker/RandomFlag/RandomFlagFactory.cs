@@ -161,6 +161,7 @@ namespace FlagMaker.RandomFlag
 					AddHoist(list, false);
 					break;
 				case DivisionTypes.Vertical:
+					AddVerticalOverlays(list);
 					break;
 				case DivisionTypes.Quartered:
 					AddCross(list, _gridSize.Width / 2.0);
@@ -172,9 +173,64 @@ namespace FlagMaker.RandomFlag
 			return list;
 		}
 
+		private static void AddVerticalOverlays(ICollection<Overlay> list)
+		{
+			var type = Randomizer.RandomWeighted(new List<int> { 1, 1, 1, 1, 1, 1 });
+
+			_emblemX = _gridSize.Width / 2.0;
+			_emblemY = _gridSize.Height / 2.0;
+			
+			switch (type)
+			{
+				case 0:
+					AddFimbriationBackward(list);
+					break;
+				case 1:
+					AddFimbriationForward(list);
+					break;
+				case 2: // Centered cross
+					AddCross(list, _gridSize.Width / 2.0);
+					break;
+				case 3:
+					AddDiamond(list);
+					break;
+				case 4:
+					var forceMetal = GetEmblemPositionForVertical(false);
+					AddCircle(list, _emblemX, _emblemY, 0.9, forceMetal);
+					break;
+				case 5:
+					GetEmblemPositionForVertical(true);
+					_emblemColor = _metal;
+					AddEmblem(1.0, list);
+					break;
+			}
+		}
+
+		private static bool GetEmblemPositionForVertical(bool allowRaise)
+		{
+			var forceMetal = true;
+
+			if (Randomizer.ProbabilityOfTrue(0.33))
+			{
+				_emblemX = _gridSize.Width * 0.75;
+			}
+			else if (Randomizer.ProbabilityOfTrue(0.5))
+			{
+				_emblemX = _gridSize.Width * 0.25;
+				forceMetal = false;
+
+				if (allowRaise && Randomizer.ProbabilityOfTrue(0.5))
+				{
+					_emblemY = _gridSize.Height / 4.0;
+				}
+			}
+
+			return forceMetal;
+		}
+
 		private static void AddAnyOverlays(ICollection<Overlay> list)
 		{
-			var type = Randomizer.RandomWeighted(new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1 });
+			var type = Randomizer.RandomWeighted(new List<int> { 2, 4, 3, 2, 2, 2, 1, 1, 3 });
 			var left = _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.3) ? 3.0 : 2.0);
 			switch (type)
 			{
@@ -202,10 +258,10 @@ namespace FlagMaker.RandomFlag
 				case 7:
 					list.Add(new OverlayRays(_metal, left, _gridSize.Height / 2.0,
 						Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), 0, 0));
-					AddCircle(list, left, _gridSize.Height / 2.0, 0.7);
+					AddCircle(list, left, _gridSize.Height / 2.0, 0.7, false);
 					break;
 				case 8:
-					AddCircle(list, left, _gridSize.Height / 2.0, 0.9);
+					AddCircle(list, left, _gridSize.Height / 2.0, 0.9, false);
 					break;
 			}
 		}
@@ -297,16 +353,16 @@ namespace FlagMaker.RandomFlag
 			}
 		}
 
-		private static void AddCircle(ICollection<Overlay> list, double x, double y, double emblemProbability)
+		private static void AddCircle(ICollection<Overlay> list, double x, double y, double emblemProbability, bool forceMetal)
 		{
-			if (Randomizer.ProbabilityOfTrue(0.5))
-			{
-				list.Add(new OverlayEllipse(_colors[1], x, y, _gridSize.Width * 0.35, 0, 0, 0));
-			}
-			else
+			if (forceMetal || Randomizer.ProbabilityOfTrue(0.5))
 			{
 				list.Add(new OverlayEllipse(_metal, x, y, _gridSize.Width * 0.35, 0, 0, 0));
 				list.Add(new OverlayEllipse(_colors[1], x, y, _gridSize.Width * 0.3, 0, 0, 0));
+			}
+			else
+			{
+				list.Add(new OverlayEllipse(_colors[1], x, y, _gridSize.Width * 0.35, 0, 0, 0));
 			}
 
 			_emblemColor = _metal;
