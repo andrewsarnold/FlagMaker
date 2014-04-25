@@ -9,6 +9,16 @@ namespace FlagMaker.RandomFlag
 		private static readonly Random R = new Random();
 
 		/// <summary>
+		/// Returns a nonnegative number less than the specified maxiumum.
+		/// </summary>
+		/// <param name="max">The exclusive upper bound of the random number returned.</param>
+		/// <returns></returns>
+		public static int Next(int max)
+		{
+			return R.Next(max);
+		}
+
+		/// <summary>
 		/// Given an indexed list of weights, return an index
 		/// from the list selected by weighted randomness.
 		/// </summary>

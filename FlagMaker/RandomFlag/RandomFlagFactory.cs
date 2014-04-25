@@ -5,6 +5,7 @@ using System.Windows.Media;
 using FlagMaker.Divisions;
 using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 
 namespace FlagMaker.RandomFlag
@@ -64,9 +65,8 @@ namespace FlagMaker.RandomFlag
 		private static Division GetDivision()
 		{
 			// Roughly based on what's used in the presets
-			_divisionType = (DivisionTypes) Randomizer.RandomWeighted(new List<int> { 9, 16, 50, 2, 4, 2, 18, 2, 1, 62 });
+			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 9, 16, 50, 2, 4, 2, 18, 2, 1, 62 });
 
-			//_divisionType = DivisionTypes.Horizontal;
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -77,11 +77,11 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.DiagonalForward:
 					return new DivisionBendsForward(_colors[0], _colors[1]);
 				case DivisionTypes.DiagonalBackward:
-						return new DivisionBendsBackward(_colors[0], _colors[1]);
+					return new DivisionBendsBackward(_colors[0], _colors[1]);
 				case DivisionTypes.X:
 					return new DivisionX(_colors[0], _colors[1]);
 				case DivisionTypes.Horizontal:
-					return Randomizer.ProbabilityOfTrue(0.6) 
+					return Randomizer.ProbabilityOfTrue(0.6)
 						? new DivisionGrid(_colors[0], _metal, 1, 2)
 						: new DivisionGrid(_metal, _colors[0], 1, 2);
 				case DivisionTypes.Vertical:
@@ -130,24 +130,105 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Pales:
 				case DivisionTypes.Fesses:
 				case DivisionTypes.DiagonalForward:
+					AddFimbriationForward(list);
+					break;
 				case DivisionTypes.DiagonalBackward:
+					AddFimbriationBackward(list);
+					break;
 				case DivisionTypes.X:
-					//AddOverlaysX(list);
 					break;
 				case DivisionTypes.Horizontal:
 					AddHoist(list, false);
 					break;
 				case DivisionTypes.Vertical:
 				case DivisionTypes.Quartered:
+					break;
 				case DivisionTypes.Blank:
+					AddAnyOverlays(list);
 					break;
 			}
 			return list;
 		}
 
-		private static double HoistElementWidth()
+		private static void AddAnyOverlays(ICollection<Overlay> list)
 		{
-			return Math.Round(_gridSize.Width * Randomizer.NextNormalized(0.35, 0.05), 3);
+			var type = Randomizer.RandomWeighted(new List<int> { 1, 1, 1, 1, 1, 0, 0, 1 });
+			switch (type)
+			{
+				case 0: // Saltire
+					AddOverlaysX(list);
+					break;
+				case 1:
+					AddFimbriationBackward(list);
+					break;
+				case 2:
+					AddFimbriationForward(list);
+					break;
+				case 3: // Nordic cross
+					AddCross(list, _gridSize.Width / 3.0);
+					break;
+				case 4: // Centered cross
+					AddCross(list, _gridSize.Width / 2.0);
+					break;
+				case 5: // Diamond
+					break;
+				case 6: // Pall
+					break;
+				case 7: // Rays
+					var left = _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.3) ? 3.0 : 2.0);
+					list.Add(new OverlayRays(_metal, left, _gridSize.Height / 2.0,
+						Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), 0, 0));
+					AddCircle(list, _metal, left, _gridSize.Height / 2.0);
+					AddEmblem(list, _colors[0], left, _gridSize.Height / 2.0);
+					break;
+			}
+		}
+
+		private static void AddFimbriationBackward(ICollection<Overlay> list)
+		{
+			var width = Randomizer.NextNormalized(3, 1);
+			if (Randomizer.ProbabilityOfTrue(0.4))
+			{
+				list.Add(new OverlayFimbriationBackward(_metal, (int)(_gridSize.Width / (width - 1)), 0, 0));
+				list.Add(new OverlayFimbriationBackward(_colors[1], (int)(_gridSize.Width / (width + 1)), 0, 0));
+			}
+			else
+			{
+				list.Add(new OverlayFimbriationBackward(_metal, (int)(_gridSize.Width / width), 0, 0));
+			}
+		}
+
+		private static void AddFimbriationForward(ICollection<Overlay> list)
+		{
+			var width = Randomizer.NextNormalized(3, 1);
+			if (Randomizer.ProbabilityOfTrue(0.4))
+			{
+				list.Add(new OverlayFimbriationForward(_metal, (int)(_gridSize.Width / (width - 1)), 0, 0));
+				list.Add(new OverlayFimbriationForward(_colors[1], (int)(_gridSize.Width / (width + 1)), 0, 0));
+			}
+			else
+			{
+				list.Add(new OverlayFimbriationForward(_metal, (int)(_gridSize.Width / width), 0, 0));
+			}
+		}
+
+		private static void AddCross(ICollection<Overlay> list, double left)
+		{
+			var width = Randomizer.NextNormalized(7, 1);
+			if (Randomizer.ProbabilityOfTrue(0.4))
+			{
+				list.Add(new OverlayCross(_metal, (int)(_gridSize.Width / (width - 1)), left, _gridSize.Height / 2.0, 0, 0));
+				list.Add(new OverlayCross(_colors[1], (int)(_gridSize.Width / (width + 2)), left, _gridSize.Height / 2.0, 0, 0));
+			}
+			else
+			{
+				list.Add(new OverlayCross(_metal, (int)(_gridSize.Width / width), left, _gridSize.Height / 2.0, 0, 0));
+			}
+		} 
+
+		private static int HoistElementWidth()
+		{
+			return (int)(_gridSize.Width * Randomizer.NextNormalized(0.35, 0.05));
 		}
 
 		private static void AddHoist(ICollection<Overlay> list, bool allowCanton)
@@ -166,12 +247,15 @@ namespace FlagMaker.RandomFlag
 						height = _gridSize.Height * (stripe / _division.Values[1]);
 					}
 					list.Add(new OverlayBox(_colors[1], 0, 0, width, height, 0, 0));
+					AddEmblem(list, _metal, new Rect { Top = 0, Left = 0, Bottom = height, Right = width });
 					break;
 				case 1: // Full hoist box
 					list.Add(new OverlayBox(_colors[1], 0, 0, width, _gridSize.Height, 0, 0));
+					AddEmblem(list, _metal, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width });
 					break;
 				case 2: // Triangle
 					list.Add(new OverlayTriangle(_colors[1], 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, 0, 0));
+					AddEmblem(list, _metal, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 });
 					break;
 			}
 		}
@@ -186,6 +270,33 @@ namespace FlagMaker.RandomFlag
 			}
 		}
 
+		private static void AddCircle(ICollection<Overlay> list, Color color, double x, double y)
+		{
+			list.Add(new OverlayEllipse(color, x, y, _gridSize.Width * 0.3, 0, 0, 0));
+		}
+
+		private static void AddEmblem(ICollection<Overlay> list, Color color, double x, double y)
+		{
+			const double size = 0.25;
+			AddEmblem(list, color, new Rect
+			                       {
+				                       Bottom = _gridSize.Height / size + y,
+				                       Top = _gridSize.Height / size - y,
+				                       Left = _gridSize.Width / size - x,
+				                       Right = _gridSize.Width / size + x,
+			                       });
+		}
+
+		private static void AddEmblem(ICollection<Overlay> list, Color color, Rect rect)
+		{
+			var types = OverlayFactory.GetOverlaysByType(typeof(OverlayPath)).ToList();
+			var type = types[Randomizer.Next(types.Count)];
+			var emblem = (Overlay)Activator.CreateInstance(type, 0, 0);
+			emblem.SetColors(new List<Color> { color });
+			emblem.SetValues(new List<double> { (rect.Right - rect.Left) / 2, (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / 3, 0 });
+			list.Add(emblem);
+		}
+
 		private enum DivisionTypes
 		{
 			Stripes,
@@ -198,6 +309,14 @@ namespace FlagMaker.RandomFlag
 			Vertical,
 			Quartered,
 			Blank
+		}
+
+		private struct Rect
+		{
+			public double Top;
+			public double Bottom;
+			public double Left;
+			public double Right;
 		}
 	}
 }
