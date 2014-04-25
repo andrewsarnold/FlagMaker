@@ -114,13 +114,17 @@ namespace FlagMaker.RandomFlag
 
 		private static Division SetUpFessesAndPales()
 		{
+			var colors = new[] { _color1, _color2, _metal }.OrderBy(c => Randomizer.NextDouble()).ToList();
+
+			var color1 = colors[0];
+			var color2 = colors[1];
 			var color3 = Randomizer.ProbabilityOfTrue(0.4)
-				? _color2
-				: _color1;
+				? colors[2]
+				: colors[0];
 
 			var isBalanced = Randomizer.ProbabilityOfTrue(0.4); // Middle is larger than outsides
 			var isOffset = !isBalanced && Randomizer.ProbabilityOfTrue(0.2); // One large section, two small
-			_emblemColor = isOffset ? _metal : Randomizer.ProbabilityOfTrue(0.5) ? _color1 : _color2;
+			_emblemColor = isOffset ? color2 : Randomizer.ProbabilityOfTrue(0.5) ? color1 : color3;
 			var emblemOffset = isOffset && Randomizer.ProbabilityOfTrue(0.5) ? 3.0 : 2.0;
 
 			if (_divisionType == DivisionTypes.Fesses)
@@ -130,7 +134,7 @@ namespace FlagMaker.RandomFlag
 					? _gridSize.Height / 4.0
 					: _gridSize.Height / 2.0;
 
-				return new DivisionFesses(_color1, _metal, color3,
+				return new DivisionFesses(color1, color2, color3,
 					isOffset ? 2 : 1,
 					isBalanced ? 2 : 1,
 					1);
@@ -141,7 +145,7 @@ namespace FlagMaker.RandomFlag
 				? _gridSize.Width / 4.0
 				: _gridSize.Width / 2.0;
 
-			return new DivisionPales(_color1, _metal, color3,
+			return new DivisionPales(color1, color2, color3,
 					isOffset ? 2 : 1,
 					isBalanced ? 2 : 1,
 					1);
@@ -157,10 +161,10 @@ namespace FlagMaker.RandomFlag
 					AddHoist(list, true);
 					break;
 				case DivisionTypes.Pales:
-					AddEmblem(0.6, list);
+					AddEmblem(0.8, list);
 					break;
 				case DivisionTypes.Fesses:
-					AddEmblem(0.4, list);
+					AddEmblem(0.6, list);
 					break;
 				case DivisionTypes.DiagonalForward:
 					if (Randomizer.ProbabilityOfTrue(0.5))
