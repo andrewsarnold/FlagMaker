@@ -82,7 +82,8 @@ namespace FlagMaker.RandomFlag
 		private static Division GetDivision()
 		{
 			// Roughly based on what's used in the presets
-			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 3, 4, 7, 1, 2, 1, 4, 1, 1, 8 });
+			//_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 3, 4, 7, 1, 2, 1, 4, 1, 1, 8 });
+			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 9, 16, 50, 2, 4, 2, 18, 2, 1, 62 });
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -321,7 +322,7 @@ namespace FlagMaker.RandomFlag
 			if (Randomizer.ProbabilityOfTrue(0.4))
 			{
 				list.Add(new OverlayCross(_metal, width + 1, left, _gridSize.Height / 2.0, 0, 0));
-				list.Add(new OverlayCross(_color2, width - 1, left, _gridSize.Height / 2.0, 0, 0));
+				list.Add(new OverlayCross(_color2, width > 1 ? width - 1 : 1, left, _gridSize.Height / 2.0, 0, 0));
 			}
 			else
 			{
@@ -349,6 +350,7 @@ namespace FlagMaker.RandomFlag
 					{
 						var stripe = (int)(_division.Values[1] / 2) + 1;
 						height = _gridSize.Height * (stripe / _division.Values[1]);
+						if (width < height) width = (int)height;
 					}
 					list.Add(new OverlayBox(_color2, 0, 0, width, height, 0, 0));
 					AddEmblem(1.0, list, new Rect { Top = 0, Left = 0, Bottom = height, Right = width });
@@ -433,7 +435,7 @@ namespace FlagMaker.RandomFlag
 		private static void AddEmblem(double probability, ICollection<Overlay> list, Rect rect)
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
-			
+
 			var types = OverlayFactory.GetOverlaysByType(typeof(OverlayPath)).ToList();
 			var type = types[Randomizer.Next(types.Count)];
 			var emblem = (Overlay)Activator.CreateInstance(type, 0, 0);
