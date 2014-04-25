@@ -243,7 +243,7 @@ namespace FlagMaker.RandomFlag
 
 		private static void AddAnyOverlays(ICollection<Overlay> list)
 		{
-			var type = Randomizer.RandomWeighted(new List<int> { 2, 4, 3, 2, 2, 2, 1, 1, 3 });
+			var type = Randomizer.RandomWeighted(new List<int> { 2, 4, 3, 2, 2, 2, 1, 1, 3, 2 });
 			var left = _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.3) ? 3.0 : 2.0);
 			switch (type)
 			{
@@ -275,6 +275,14 @@ namespace FlagMaker.RandomFlag
 					break;
 				case 8:
 					AddCircle(list, left, _gridSize.Height / 2.0, 0.9, false);
+					break;
+				case 9: // Horizontal stripes
+					list.Add(new OverlayLineHorizontal(_metal, _gridSize.Height / 8.0, _gridSize.Height * 3 / 16.0, 0, 0));
+					list.Add(new OverlayLineHorizontal(_metal, _gridSize.Height / 8.0, _gridSize.Height * 13 / 16.0, 0, 0));
+					_emblemColor = _metal;
+					_emblemX = Randomizer.ProbabilityOfTrue(0.2) ? _gridSize.Width / 3.0 : _gridSize.Width / 2.0;
+					_emblemY = _gridSize.Height / 2.0;
+					AddEmblem(1.0, list);
 					break;
 			}
 		}
