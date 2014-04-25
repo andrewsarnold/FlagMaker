@@ -208,7 +208,16 @@ namespace FlagMaker.RandomFlag
 					AddOverlaysX(list, false);
 					break;
 				case DivisionTypes.Horizontal:
-					AddHoist(list, false);
+					if (Randomizer.ProbabilityOfTrue(0.2))
+					{
+						_emblemColor = _metal;
+						var totalWidth = AddPall(list, true);
+						AddTriangle(list, totalWidth);
+					}
+					else
+					{
+						AddHoist(list, false);
+					}
 					break;
 				case DivisionTypes.Vertical:
 					AddVerticalOverlays(list);
@@ -303,7 +312,7 @@ namespace FlagMaker.RandomFlag
 					AddDiamond(list, false);
 					break;
 				case 6:
-					AddPall(list);
+					AddPall(list, false);
 					break;
 				case 7:
 					list.Add(new OverlayRays(_metal, left, _gridSize.Height / 2.0,
@@ -396,10 +405,15 @@ namespace FlagMaker.RandomFlag
 					AddEmblem(0.6, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width }, true);
 					break;
 				case 2: // Triangle
-					list.Add(new OverlayTriangle(_color2, 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, 0, 0));
-					AddEmblem(0.5, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 }, true);
+					AddTriangle(list, width);
 					break;
 			}
+		}
+
+		private static void AddTriangle(ICollection<Overlay> list, double width)
+		{
+			list.Add(new OverlayTriangle(_color2, 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, 0, 0));
+			AddEmblem(0.5, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 }, true);
 		}
 
 		private static void AddOverlaysX(ICollection<Overlay> list, bool allowExtra)
@@ -451,9 +465,11 @@ namespace FlagMaker.RandomFlag
 			AddEmblem(0.9, list);
 		}
 
-		private static void AddPall(ICollection<Overlay> list)
+		private static double AddPall(ICollection<Overlay> list, bool useBlack)
 		{
-			list.Add(new OverlayPall(_metal, _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.6) ? 3.0 : 2.0), _gridSize.Width / 10.0, 0, 0));
+			var totalWidth = _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.6) ? 3.0 : 2.0);
+			list.Add(new OverlayPall(useBlack ? Black : _metal, totalWidth, _gridSize.Width / 10.0, 0, 0));
+			return totalWidth;
 		}
 
 		private static void AddEmblem(double probability, ICollection<Overlay> list)
