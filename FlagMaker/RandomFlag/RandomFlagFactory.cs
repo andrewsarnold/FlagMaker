@@ -174,10 +174,11 @@ namespace FlagMaker.RandomFlag
 
 		private static void AddAnyOverlays(ICollection<Overlay> list)
 		{
-			var type = Randomizer.RandomWeighted(new List<int> { 1, 1, 1, 1, 1, 0, 0, 1 });
+			var type = Randomizer.RandomWeighted(new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1 });
+			var left = _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.3) ? 3.0 : 2.0);
 			switch (type)
 			{
-				case 0: // Saltire
+				case 0:
 					AddOverlaysX(list, true);
 					break;
 				case 1:
@@ -192,19 +193,19 @@ namespace FlagMaker.RandomFlag
 				case 4: // Centered cross
 					AddCross(list, _gridSize.Width / 2.0);
 					break;
-				case 5: // Diamond
+				case 5:
+					AddDiamond(list);
 					break;
-				case 6: // Pall
+				case 6:
+					AddPall(list);
 					break;
-				case 7: // Rays
-					var left = _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.3) ? 3.0 : 2.0);
+				case 7:
 					list.Add(new OverlayRays(_metal, left, _gridSize.Height / 2.0,
 						Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), 0, 0));
-					AddCircle(list, _metal, left, _gridSize.Height / 2.0);
-					_emblemX = left;
-					_emblemY = _gridSize.Height / 2.0;
-					_emblemColor = _colors[0];
-					AddEmblem(0.75, list);
+					AddCircle(list, left, _gridSize.Height / 2.0, 0.7);
+					break;
+				case 8:
+					AddCircle(list, left, _gridSize.Height / 2.0, 0.9);
 					break;
 			}
 		}
@@ -296,9 +297,48 @@ namespace FlagMaker.RandomFlag
 			}
 		}
 
-		private static void AddCircle(ICollection<Overlay> list, Color color, double x, double y)
+		private static void AddCircle(ICollection<Overlay> list, double x, double y, double emblemProbability)
 		{
-			list.Add(new OverlayEllipse(color, x, y, _gridSize.Width * 0.3, 0, 0, 0));
+			if (Randomizer.ProbabilityOfTrue(0.5))
+			{
+				list.Add(new OverlayEllipse(_colors[1], x, y, _gridSize.Width * 0.35, 0, 0, 0));
+			}
+			else
+			{
+				list.Add(new OverlayEllipse(_metal, x, y, _gridSize.Width * 0.35, 0, 0, 0));
+				list.Add(new OverlayEllipse(_colors[1], x, y, _gridSize.Width * 0.3, 0, 0, 0));
+			}
+
+			_emblemColor = _metal;
+			_emblemX = x;
+			_emblemY = y;
+			AddEmblem(emblemProbability, list);
+		}
+
+		private static void AddDiamond(ICollection<Overlay> list)
+		{
+			if (Randomizer.ProbabilityOfTrue(0.5))
+			{
+				list.Add(new OverlayDiamond(_colors[1], _gridSize.Width / 2.0, _gridSize.Height / 2.0,
+					_gridSize.Width * 3 / 4.0, _gridSize.Height * 3 / 4.0, 0, 0));
+			}
+			else
+			{
+				list.Add(new OverlayDiamond(_metal, _gridSize.Width / 2.0, _gridSize.Height / 2.0,
+					_gridSize.Width * 3 / 4.0, _gridSize.Height * 3 / 4.0, 0, 0));
+				list.Add(new OverlayDiamond(_colors[1], _gridSize.Width / 2.0, _gridSize.Height / 2.0,
+					_gridSize.Width * 5 / 8.0, _gridSize.Height * 5 / 8.0, 0, 0));
+			}
+
+			_emblemColor = _metal;
+			_emblemX = _gridSize.Width / 2.0;
+			_emblemY = _gridSize.Height / 2.0;
+			AddEmblem(0.9, list);
+		}
+
+		private static void AddPall(ICollection<Overlay> list)
+		{
+			list.Add(new OverlayPall(_metal, _gridSize.Width / (Randomizer.ProbabilityOfTrue(0.6) ? 3.0 : 2.0), _gridSize.Width / 10.0, 0, 0));
 		}
 
 		private static void AddEmblem(double probability, ICollection<Overlay> list)
