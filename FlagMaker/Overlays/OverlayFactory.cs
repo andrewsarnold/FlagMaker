@@ -18,6 +18,7 @@ namespace FlagMaker.Overlays
 		                                                           {
 			                                                           { "anchor", typeof (OverlayAnchor) },
 			                                                           { "angola", typeof (OverlayAngola) },
+			                                                           { "bolnisi cross", typeof (OverlayBolnisiCross) },
 			                                                           { "box", typeof (OverlayBox) },
 			                                                           { "border", typeof (OverlayBorder) },
 			                                                           { "branches", typeof (OverlayBranches) },
@@ -70,6 +71,7 @@ namespace FlagMaker.Overlays
 			                                                           { "saltire", typeof (OverlaySaltire) },
 			                                                           { "shahadah", typeof (OverlayShahadah) },
 			                                                           { "sikh", typeof (OverlaySikh) },
+			                                                           { "snake", typeof (OverlaySnake) },
 			                                                           { "springbok", typeof (OverlaySpringbok) },
 			                                                           { "star", typeof (OverlayStar) },
 			                                                           { "star four", typeof (OverlayStarFour) },

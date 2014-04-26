@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
@@ -54,7 +56,6 @@ namespace FlagMaker.Overlays
 				_overlay = value;
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
 				BtnOverlays.ToolTip = _overlay.DisplayName;
-				CheckVisibility.IsChecked = _overlay.IsEnabled;
 
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
@@ -73,6 +74,7 @@ namespace FlagMaker.Overlays
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
+				SetVisibilityButton();
 
 				PnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))
@@ -210,8 +212,17 @@ namespace FlagMaker.Overlays
 
 		private void SetVisibility(object sender, RoutedEventArgs e)
 		{
-			Overlay.IsEnabled = CheckVisibility.IsChecked ?? false;
+			Overlay.IsEnabled = !Overlay.IsEnabled;
+			SetVisibilityButton();
 			Draw();
+		}
+
+		private void SetVisibilityButton()
+		{
+			((Image)BtnVisibility.Content).Source = new BitmapImage(
+				Overlay.IsEnabled
+					? new Uri(@"..\Images\check_on.png", UriKind.Relative)
+					: new Uri(@"..\Images\check_off.png", UriKind.Relative));
 		}
 	}
 }
