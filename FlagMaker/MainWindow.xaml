@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FlagMaker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:FlagMaker" MinHeight="120" Width="600"
+        xmlns:local="clr-namespace:FlagMaker" MinHeight="120" Width="650"
         SizeChanged="MainWindowOnSizeChanged" Closing="MainWindow_OnClosing"
         xmlns:localization="clr-namespace:FlagMaker.Localization"
 		Background="{DynamicResource BackgroundBrush}">
@@ -70,6 +70,9 @@
             </Button>
 			<Button Style="{DynamicResource GraphicButton}" ToolTip="{x:Static localization:strings.ToggleTexture}" Click="ToggleTexture" Height="32" Width="32">
 				<Image Source="Images\overlay.png" />
+			</Button>
+			<Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.GenerateRandomFlag}" Click="GenerateRandomFlag" Height="32" Width="32">
+				<Image Source="Images\die.png" />
 			</Button>
 		</WrapPanel>
         

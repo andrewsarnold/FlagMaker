@@ -168,6 +168,8 @@
     <Compile Include="Overlays\OverlayTypes\OverlayHalfEllipse.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayImage.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
+    <Compile Include="RandomFlag\RandomFlagFactory.cs" />
+    <Compile Include="RandomFlag\Randomizer.cs" />
     <Compile Include="Ratio.cs" />
     <Compile Include="Divisions\DivisionBendsForward.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -799,6 +801,9 @@
   <ItemGroup>
     <Resource Include="Images\check_off.png" />
     <Resource Include="Images\check_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\die.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

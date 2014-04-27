@@ -331,6 +331,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate random flag.
+        /// </summary>
+        public static string GenerateRandomFlag {
+            get {
+                return ResourceManager.GetString("GenerateRandomFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grid size.
         /// </summary>
         public static string GridSize {
@@ -624,15 +633,6 @@ namespace FlagMaker.Localization {
         public static string Untitled {
             get {
                 return ResourceManager.GetString("Untitled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Visibility.
-        /// </summary>
-        public static string Visibility {
-            get {
-                return ResourceManager.GetString("Visibility", resourceCulture);
             }
         }
         
