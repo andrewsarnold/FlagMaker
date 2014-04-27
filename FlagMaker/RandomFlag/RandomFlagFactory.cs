@@ -137,7 +137,9 @@ namespace FlagMaker.RandomFlag
 
 			var isBalanced = Randomizer.ProbabilityOfTrue(0.4); // Middle is larger than outsides
 			var isOffset = !isBalanced && Randomizer.ProbabilityOfTrue(0.2); // One large section, two small
-			_emblemColor = isOffset ? color2 : Randomizer.ProbabilityOfTrue(0.5) ? color1 : color3;
+			_emblemColor = isOffset 
+				? color1 == _metal ? color2 : _metal
+				: color2 == _metal ? (Randomizer.ProbabilityOfTrue(0.5) ? color1 : color3) : _metal;
 			var emblemOffset = isOffset && Randomizer.ProbabilityOfTrue(0.5) ? 3.0 : 2.0;
 
 			if (_divisionType == DivisionTypes.Fesses)
