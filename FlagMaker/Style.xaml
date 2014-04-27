@@ -46,22 +46,9 @@
 	<SolidColorBrush x:Key="GraphicWhiteBrush" Color="{StaticResource Whitish}" />
 	<SolidColorBrush x:Key="GraphicGreyBrush" Color="{StaticResource Greyish}" />
 	
-	<Style x:Key="ButtonFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border>
-                        <Rectangle SnapsToDevicePixels="True" Margin="4" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="GraphicButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+	<Style x:Key="GraphicButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
