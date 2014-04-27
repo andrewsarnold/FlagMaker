@@ -35,6 +35,10 @@ namespace FlagMaker.RandomFlag
 		private static DivisionTypes _divisionType;
 		private static Division _division;
 
+		private static readonly List<Overlay> Emblems =
+			OverlayFactory.GetOverlaysByType(typeof (OverlayPath)).Select(p => OverlayFactory.GetInstance(p))
+				.Union(OverlayFactory.CustomTypes.Select(t => t.Value))
+				.ToList();
 		private static double _emblemX;
 		private static double _emblemY;
 		private static Color _emblemColor;
@@ -69,7 +73,7 @@ namespace FlagMaker.RandomFlag
 
 			var color2Index = Randomizer.RandomWeighted(firstOrderBase[color1Index]);
 
-			var probabilityOfYellowValues = new[] { 0.3, 0.5, 0.5, 0.3, 0.4, 0.2, 0.4, 0.1 };
+			var probabilityOfYellowValues = new[] { 0.3, 0.5, 0.5, 0.3, 0.4, 0.2, 0.1, 0.1 };
 			var probabilityOfYellow = Math.Min(probabilityOfYellowValues[color1Index], probabilityOfYellowValues[color2Index]);
 			_metal = Randomizer.ProbabilityOfTrue(probabilityOfYellow) ? Yellow : White;
 
@@ -133,7 +137,9 @@ namespace FlagMaker.RandomFlag
 
 			var isBalanced = Randomizer.ProbabilityOfTrue(0.4); // Middle is larger than outsides
 			var isOffset = !isBalanced && Randomizer.ProbabilityOfTrue(0.2); // One large section, two small
-			_emblemColor = isOffset ? color2 : Randomizer.ProbabilityOfTrue(0.5) ? color1 : color3;
+			_emblemColor = isOffset 
+				? color1 == _metal ? color2 : _metal
+				: color2 == _metal ? (Randomizer.ProbabilityOfTrue(0.5) ? color1 : color3) : _metal;
 			var emblemOffset = isOffset && Randomizer.ProbabilityOfTrue(0.5) ? 3.0 : 2.0;
 
 			if (_divisionType == DivisionTypes.Fesses)
@@ -218,7 +224,7 @@ namespace FlagMaker.RandomFlag
 					}
 					break;
 				case DivisionTypes.X:
-					AddOverlaysX(list, false);
+					AddOverlaySaltire(list, false);
 					break;
 				case DivisionTypes.Horizontal:
 					if (Randomizer.ProbabilityOfTrue(0.2))
@@ -242,6 +248,7 @@ namespace FlagMaker.RandomFlag
 					AddAnyOverlays(list);
 					break;
 			}
+
 			return list;
 		}
 
@@ -307,7 +314,7 @@ namespace FlagMaker.RandomFlag
 			switch (type)
 			{
 				case 0:
-					AddOverlaysX(list, true);
+					AddOverlaySaltire(list, true);
 					break;
 				case 1:
 					AddFimbriationBackward(list);
@@ -429,13 +436,26 @@ namespace FlagMaker.RandomFlag
 			AddEmblem(0.5, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 }, true);
 		}
 
-		private static void AddOverlaysX(ICollection<Overlay> list, bool allowExtra)
+		private static void AddOverlaySaltire(ICollection<Overlay> list, bool allowExtra)
 		{
-			list.Add(new OverlaySaltire(_metal, _gridSize.Width / 3.0, 0, 0));
-			if (allowExtra && Randomizer.ProbabilityOfTrue(0.1))
+			var thickness = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 4.0, 3.0), 3, _gridSize.Width / 3);
+			list.Add(new OverlaySaltire(_metal, thickness, 0, 0));
+			if (Randomizer.ProbabilityOfTrue(allowExtra ? 0.6 : 0.3))
 			{
-				list.Add(new OverlayHalfSaltire(_color1, _gridSize.Width / 2.0, 0, 0));
-				list.Add(new OverlayCross(_metal, _gridSize.Width / 10.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+				list.Add(new OverlaySaltire(_color2, thickness - 2, 0, 0));
+			}
+			else if (allowExtra && Randomizer.ProbabilityOfTrue(0.4))
+			{
+				list.Add(new OverlayHalfSaltire(_color2, thickness, 0, 0));
+
+				if (Randomizer.ProbabilityOfTrue(0.5))
+				{
+					AddCircle(list, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0.8, false);
+				}
+				else
+				{
+					list.Add(new OverlayCross(_metal, thickness / 2.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+				}
 			}
 		}
 
@@ -501,9 +521,7 @@ namespace FlagMaker.RandomFlag
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
 
-			var types = OverlayFactory.GetOverlaysByType(typeof(OverlayPath)).ToList();
-			var type = types[Randomizer.Next(types.Count)];
-			var emblem = (Overlay)Activator.CreateInstance(type, 0, 0);
+			var emblem = Emblems[Randomizer.Next(Emblems.Count)];
 			emblem.SetColors(new List<Color> { _emblemColor });
 			emblem.SetValues(new List<double> { rect.Left + (rect.Right - rect.Left) / 2, rect.Top + (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / (isSmall ? 3.0 : 1.5), 0 });
 			list.Add(emblem);
