@@ -3,18 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:FlagMaker" MinHeight="120" Width="600"
         SizeChanged="MainWindowOnSizeChanged" Closing="MainWindow_OnClosing"
-        xmlns:localization="clr-namespace:FlagMaker.Localization">
-
-    <Window.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0" Color="#f0f0f0" />
-            <GradientStop Offset="1" Color="#b0b0b0" />
-        </LinearGradientBrush>
-    </Window.Background>
+        xmlns:localization="clr-namespace:FlagMaker.Localization"
+		Background="{DynamicResource BackgroundBrush}">
 
     <Window.Resources>
-        <ResourceDictionary Source="Style.xaml" />
-    </Window.Resources>
+		<ResourceDictionary Source="Style.xaml" />
+	</Window.Resources>
 
     <Window.InputBindings>
         <KeyBinding Command="{x:Static local:MainWindow.NewCommand}" Gesture="Ctrl+N" />
@@ -56,25 +50,25 @@
 
             <Button x:Name="BtnGrid" Margin="10,0,0,0" ToolTip="{x:Static localization:strings.ShowGrid}" Click="GridOnChanged" VerticalAlignment="Center">
                 <Canvas Width="30" Height="20">
-                    <Line X1="0" X2="30" Y1="5" Y2="5" StrokeThickness="2" Stroke="Gray" />
-                    <Line X1="0" X2="30" Y1="10" Y2="10" StrokeThickness="2" Stroke="Gray" />
-                    <Line X1="0" X2="30" Y1="15" Y2="15" StrokeThickness="2" Stroke="Gray" />
+                    <Line X1="0" X2="30" Y1="5" Y2="5" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
+                    <Line X1="0" X2="30" Y1="10" Y2="10" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
+                    <Line X1="0" X2="30" Y1="15" Y2="15" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
 
-                    <Line X1="5" X2="5" Y1="0" Y2="20" StrokeThickness="2" Stroke="Gray" />
-                    <Line X1="10" X2="10" Y1="0" Y2="20" StrokeThickness="2" Stroke="Gray" />
-                    <Line X1="15" X2="15" Y1="0" Y2="20" StrokeThickness="2" Stroke="Gray" />
-                    <Line X1="20" X2="20" Y1="0" Y2="20" StrokeThickness="2" Stroke="Gray" />
-                    <Line X1="25" X2="25" Y1="0" Y2="20" StrokeThickness="2" Stroke="Gray" />
+                    <Line X1="5" X2="5" Y1="0" Y2="20" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
+                    <Line X1="10" X2="10" Y1="0" Y2="20" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
+                    <Line X1="15" X2="15" Y1="0" Y2="20" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
+                    <Line X1="20" X2="20" Y1="0" Y2="20" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
+                    <Line X1="25" X2="25" Y1="0" Y2="20" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
                 </Canvas>
             </Button>
             
             <TextBox x:Name="TxtName" Margin="10,0,0,0" Width="200" FontSize="18"
                      VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
 
-            <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
+            <Button Style="{DynamicResource GraphicButton}" ToolTip="{x:Static localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
                 <Image Source="Images\rotate.png" />
             </Button>
-			<Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.ToggleTexture}" Click="ToggleTexture" Height="32" Width="32">
+			<Button Style="{DynamicResource GraphicButton}" ToolTip="{x:Static localization:strings.ToggleTexture}" Click="ToggleTexture" Height="32" Width="32">
 				<Image Source="Images\overlay.png" />
 			</Button>
 		</WrapPanel>
@@ -113,72 +107,72 @@
                             <Button Click="DivisionGridClick" ToolTip="{x:Static localization:strings.DivisionGrid}">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
-                                        <Rectangle Width="6" Height="5" Fill="Red" />
-                                        <Rectangle Width="6" Height="5" Fill="Blue" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicRedBrush}" />
+                                        <Rectangle Width="6" Height="5" Fill="{StaticResource GraphicBlueBrush}" />
                                     </StackPanel>
                                 </StackPanel>
                             </Button>
 
                             <Button Click="DivisionFessesClick" ToolTip="{x:Static localization:strings.DivisionFesses}">
                                 <StackPanel Orientation="Vertical">
-                                    <Rectangle Width="30" Height="7" Fill="Red" />
-                                    <Rectangle Width="30" Height="6" Fill="White" />
-                                    <Rectangle Width="30" Height="7" Fill="Blue" />
+                                    <Rectangle Width="30" Height="7" Fill="{StaticResource GraphicRedBrush}" />
+									<Rectangle Width="30" Height="6" Fill="{StaticResource GraphicWhiteBrush}" />
+                                    <Rectangle Width="30" Height="7" Fill="{StaticResource GraphicBlueBrush}" />
                                 </StackPanel>
                             </Button>
 
                             <Button Click="DivisionPalesClick" ToolTip="{x:Static localization:strings.DivisionPales}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="10" Height="20" Fill="Red" />
-                                    <Rectangle Width="10" Height="20" Fill="White" />
-                                    <Rectangle Width="10" Height="20" Fill="Blue" />
+                                    <Rectangle Width="10" Height="20" Fill="{StaticResource GraphicRedBrush}" />
+                                    <Rectangle Width="10" Height="20" Fill="{StaticResource GraphicWhiteBrush}" />
+                                    <Rectangle Width="10" Height="20" Fill="{StaticResource GraphicBlueBrush}" />
                                 </StackPanel>
                             </Button>
 
                             <Button Click="DivisionBendsForwardClick" ToolTip="{x:Static localization:strings.DivisionBendsForward}">
                                 <Canvas Width="30" Height="20">
-                                    <Path Fill="Red" Data="M 0,0 30,0 0,20 0,0" />
-                                    <Path Fill="Blue" Data="M 30,0 30,20 0,20 30,0" />
+                                    <Path Fill="{StaticResource GraphicRedBrush}" Data="M 0,0 30,0 0,20 0,0" />
+                                    <Path Fill="{StaticResource GraphicBlueBrush}" Data="M 30,0 30,20 0,20 30,0" />
                                 </Canvas>
                             </Button>
 
                             <Button Click="DivisionBendsBackwardClick" ToolTip="{x:Static localization:strings.DivisionBendsBackward}">
                                 <Canvas Width="30" Height="20">
-                                    <Path Fill="Red" Data="M 0,0 30,0 30,20 0,0" />
-                                    <Path Fill="Blue" Data="M 30,20 0,20 0,0 30,20" />
+                                    <Path Fill="{StaticResource GraphicRedBrush}" Data="M 0,0 30,0 30,20 0,0" />
+                                    <Path Fill="{StaticResource GraphicBlueBrush}" Data="M 30,20 0,20 0,0 30,20" />
                                 </Canvas>
                             </Button>
 
                             <Button Click="DivisionXClick" ToolTip="{x:Static localization:strings.DivisionBendsBoth}">
                                 <Canvas Width="30" Height="20">
-                                    <Path Fill="Red" Data="M 0,0 30,0 15,10 0,0" />
-                                    <Path Fill="Red" Data="M 0,20 30,20 15,10 0,20" />
-                                    <Path Fill="Blue" Data="M 0,0 15,10 0,20 0,0" />
-                                    <Path Fill="Blue" Data="M 30,0 15,10 30,20 30,0" />
+                                    <Path Fill="{StaticResource GraphicRedBrush}" Data="M 0,0 30,0 15,10 0,0" />
+                                    <Path Fill="{StaticResource GraphicRedBrush}" Data="M 0,20 30,20 15,10 0,20" />
+                                    <Path Fill="{StaticResource GraphicBlueBrush}" Data="M 0,0 15,10 0,20 0,0" />
+                                    <Path Fill="{StaticResource GraphicBlueBrush}" Data="M 30,0 15,10 30,20 30,0" />
                                 </Canvas>
                             </Button>
                         </WrapPanel>
@@ -217,7 +211,7 @@
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
                     <Label Content="{x:Static localization:strings.Overlays}" FontSize="16" FontWeight="Bold" />
-                    <Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.OverlayAdd}" Click="OverlayAdd">
+                    <Button Style="{DynamicResource GraphicButton}" ToolTip="{x:Static localization:strings.OverlayAdd}" Click="OverlayAdd">
                         <Image Source="Images\add.png" />
                     </Button>
                 </StackPanel>

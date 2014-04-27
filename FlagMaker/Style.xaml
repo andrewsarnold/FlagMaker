@@ -17,23 +17,36 @@
     <Color x:Key="BlueLight" A="0xFF" R="0x70" G="0xDF" B="0xFF" />
     <Color x:Key="BlueMedium" A="0xFF" R="0x53" G="0xB5" B="0xFF" />
     <Color x:Key="BlueDark" A="0xFF" R="0x40" G="0x9B" B="0xED" />
+
+	<Color x:Key="Whitish" A="0xFF" R="0xF0" G="0xF0" B="0xF0" />
+	<Color x:Key="Greyish" A="0xFF" R="0xB0" G="0xB0" B="0xB0" />
     
     <LinearGradientBrush x:Key="ChromeClicked" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="{StaticResource ResourceKey=RedLight}" Offset="0.4" />
-        <GradientStop Color="{StaticResource ResourceKey=RedMedium}" Offset="0.5" />
+        <GradientStop Color="{StaticResource RedLight}" Offset="0.4" />
+        <GradientStop Color="{StaticResource RedMedium}" Offset="0.5" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ChromeSelected" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="{StaticResource ResourceKey=BlueMedium}" Offset="0.4" />
-        <GradientStop Color="{StaticResource ResourceKey=BlueDark}" Offset="0.5" />
+        <GradientStop Color="{StaticResource BlueMedium}" Offset="0.4" />
+        <GradientStop Color="{StaticResource BlueDark}" Offset="0.5" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ChromeHover" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="{StaticResource ResourceKey=OrangeLight}" Offset="0.4" />
-        <GradientStop Color="{StaticResource ResourceKey=OrangeMedium}" Offset="0.5" />
+        <GradientStop Color="{StaticResource OrangeLight}" Offset="0.4" />
+        <GradientStop Color="{StaticResource OrangeMedium}" Offset="0.5" />
     </LinearGradientBrush>
-    
-    <Style x:Key="ButtonFocusVisual">
+
+	<LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+		<GradientStop Color="{StaticResource Whitish}" Offset="0" />
+		<GradientStop Color="{StaticResource Greyish}" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush x:Key="GraphicRedBrush" Color="{StaticResource RedDark}" />
+	<SolidColorBrush x:Key="GraphicBlueBrush" Color="{StaticResource BlueDark}" />
+	<SolidColorBrush x:Key="GraphicWhiteBrush" Color="{StaticResource Whitish}" />
+	<SolidColorBrush x:Key="GraphicGreyBrush" Color="{StaticResource Greyish}" />
+	
+	<Style x:Key="ButtonFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -47,7 +60,7 @@
 
     <Style x:Key="GraphicButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource ResourceKey=ButtonFocusVisual}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
@@ -67,8 +80,8 @@
                     </ControlTemplate.Resources>
                     <Border VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="border">
                         <Grid>
-                            <Border Opacity="0" x:Name="Shine" CornerRadius="3" Background="{StaticResource ResourceKey=ChromeHover}" />
-                            <Border Opacity="0" x:Name="SelectedShine" CornerRadius="3" Background="{StaticResource ResourceKey=ChromeClicked}" />
+                            <Border Opacity="0" x:Name="Shine" CornerRadius="3" Background="{StaticResource ChromeHover}" />
+                            <Border Opacity="0" x:Name="SelectedShine" CornerRadius="3" Background="{StaticResource ChromeClicked}" />
                             <Border Padding="4">
                                 <ContentPresenter x:Name="content" />
                             </Border>
