@@ -351,8 +351,8 @@ namespace FlagMaker.RandomFlag
 			var width = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 3.0, _gridSize.Width / 10.0), 1, _gridSize.Width);
 			if (Randomizer.ProbabilityOfTrue(0.4))
 			{
-				list.Add(new OverlayFimbriationBackward(_metal, width + 1, 0, 0));
-				list.Add(new OverlayFimbriationBackward(_color2, width - 1, 0, 0));
+				list.Add(new OverlayFimbriationBackward(_metal, width + 2, 0, 0));
+				list.Add(new OverlayFimbriationBackward(_color2, width, 0, 0));
 			}
 			else
 			{
@@ -376,7 +376,7 @@ namespace FlagMaker.RandomFlag
 
 		private static void AddCross(ICollection<Overlay> list, double left)
 		{
-			var width = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 10.0, _gridSize.Width / 20.0), 1, _gridSize.Width / 3);
+			var width = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 8.0, _gridSize.Width / 20.0), 1, _gridSize.Width / 3);
 			if (Randomizer.ProbabilityOfTrue(0.4))
 			{
 				list.Add(new OverlayCross(_metal, width + 1, left, _gridSize.Height / 2.0, 0, 0));
