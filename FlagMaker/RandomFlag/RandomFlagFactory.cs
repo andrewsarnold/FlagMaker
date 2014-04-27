@@ -19,9 +19,11 @@ namespace FlagMaker.RandomFlag
 		private static readonly Color White = Color.FromRgb(255, 255, 255);
 		private static readonly Color Black = Color.FromRgb(0, 0, 0);
 		private static readonly Color Red = Color.FromRgb(198, 12, 48);
+		private static readonly Color Orange = Color.FromRgb(255, 99, 25);
 		private static readonly Color Green = Color.FromRgb(20, 77, 41);
 		private static readonly Color LightBlue = Color.FromRgb(0, 101, 189);
 		private static readonly Color DarkBlue = Color.FromRgb(0, 57, 166);
+		private static readonly Color Purple = Color.FromRgb(102, 0, 153);
 
 		#endregion
 
@@ -48,24 +50,31 @@ namespace FlagMaker.RandomFlag
 
 		private static void GetColorScheme()
 		{
-			_metal = Randomizer.ProbabilityOfTrue(0.3) ? Yellow : White;
+			// Simple Markov chain. Numbers are purely made up but should
+			// bear some vague reflection of real-life flags.
+			var colors = new[] { Black, Red, Green, LightBlue, DarkBlue, Silver, Orange, Purple };
+			var color1Index = Randomizer.RandomWeighted(new List<int> { 33, 67, 50, 30, 40, 10, 8, 7 });
 
-			var colors = new[] { Black, Red, Green, LightBlue, DarkBlue, Silver };
-			var color1Index = Randomizer.RandomWeighted(new List<int> { 2, 7, 5, 4, 6, 1 });
-
-			// Simple Markov chain. Numbers are purely made up.
 			var firstOrderBase = new List<List<int>>
-			                     {                // B  R  G  L  D  S
-				                     new List<int> { 0, 4, 4, 2, 2, 4 }, // Black
-				                     new List<int> { 4, 0, 4, 3, 5, 1 }, // Red
-				                     new List<int> { 4, 4, 0, 4, 4, 4 }, // Green
-				                     new List<int> { 2, 3, 4, 0, 1, 2 }, // Light blue
-				                     new List<int> { 2, 5, 4, 1, 0, 3 }, // Dark blue
-				                     new List<int> { 4, 1, 4, 2, 3, 0 }  // Silver
+			                     {                // B  R  G  L  D  S  O  P
+				                     new List<int> { 0, 8, 8, 4, 4, 8, 4, 4 }, // Black
+				                     new List<int> { 8, 0, 8, 6, 9, 2, 3, 1 }, // Red
+				                     new List<int> { 8, 8, 0, 7, 8, 8, 2, 1 }, // Green
+				                     new List<int> { 4, 6, 7, 0, 2, 3, 1, 2 }, // Light blue
+				                     new List<int> { 4, 9, 8, 2, 0, 6, 2, 1 }, // Dark blue
+				                     new List<int> { 8, 2, 8, 3, 6, 0, 2, 2 }, // Silver
+				                     new List<int> { 4, 3, 2, 1, 2, 2, 0, 1 }, // Orange
+				                     new List<int> { 4, 1, 1, 2, 1, 2, 1, 0 }, // Purple
 			                     };
 
+			var color2Index = Randomizer.RandomWeighted(firstOrderBase[color1Index]);
+
+			var probabilityOfYellowValues = new[] { 0.3, 0.5, 0.5, 0.3, 0.4, 0.2, 0.4, 0.1 };
+			var probabilityOfYellow = Math.Min(probabilityOfYellowValues[color1Index], probabilityOfYellowValues[color2Index]);
+			_metal = Randomizer.ProbabilityOfTrue(probabilityOfYellow) ? Yellow : White;
+
 			_color1 = colors[color1Index];
-			_color2 = colors[Randomizer.RandomWeighted(firstOrderBase[color1Index])];
+			_color2 = colors[color2Index];
 		}
 
 		private static void GetRatio()
@@ -175,12 +184,12 @@ namespace FlagMaker.RandomFlag
 					{
 						_emblemColor = _metal;
 						AddEmblem(1.0, list, new Rect
-						                     {
-							                     Top = 0,
-							                     Bottom = _gridSize.Height * 2 / 3.0,
-							                     Left = 0,
-							                     Right = _gridSize.Width / 2.0
-						                     }, false);
+											 {
+												 Top = 0,
+												 Bottom = _gridSize.Height * 2 / 3.0,
+												 Left = 0,
+												 Right = _gridSize.Width / 2.0
+											 }, false);
 						if (Randomizer.ProbabilityOfTrue(0.3))
 						{
 							AddFimbriationForward(list);
@@ -196,11 +205,11 @@ namespace FlagMaker.RandomFlag
 					{
 						_emblemColor = _metal;
 						AddEmblem(1.0, list, new Rect
-						                     {
-							                     Top = 0,
-							                     Bottom = _gridSize.Height * 2 / 3.0,
-							                     Left = _gridSize.Width / 2.0,
-							                     Right = _gridSize.Width
+											 {
+												 Top = 0,
+												 Bottom = _gridSize.Height * 2 / 3.0,
+												 Left = _gridSize.Width / 2.0,
+												 Right = _gridSize.Width
 											 }, false);
 						if (Randomizer.ProbabilityOfTrue(0.3))
 						{
@@ -242,7 +251,7 @@ namespace FlagMaker.RandomFlag
 
 			_emblemX = _gridSize.Width / 2.0;
 			_emblemY = _gridSize.Height / 2.0;
-			
+
 			switch (type)
 			{
 				case 0:
@@ -377,7 +386,7 @@ namespace FlagMaker.RandomFlag
 			{
 				list.Add(new OverlayCross(_metal, width, left, _gridSize.Height / 2.0, 0, 0));
 			}
-		} 
+		}
 
 		private static int HoistElementWidth()
 		{
@@ -480,12 +489,12 @@ namespace FlagMaker.RandomFlag
 		{
 			const double size = 0.25;
 			AddEmblem(probability, list, new Rect
-			                             {
+										 {
 											 Bottom = _emblemY + _gridSize.Height * size,
 											 Top = _emblemY - _gridSize.Height * size,
-				                             Left = _emblemX - _gridSize.Width * size,
-				                             Right = _emblemX + _gridSize.Width * size,
-			                             }, false);
+											 Left = _emblemX - _gridSize.Width * size,
+											 Right = _emblemX + _gridSize.Width * size,
+										 }, false);
 		}
 
 		private static void AddEmblem(double probability, ICollection<Overlay> list, Rect rect, bool isSmall)
