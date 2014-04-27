@@ -35,6 +35,10 @@ namespace FlagMaker.RandomFlag
 		private static DivisionTypes _divisionType;
 		private static Division _division;
 
+		private static readonly List<Overlay> Emblems =
+			OverlayFactory.GetOverlaysByType(typeof (OverlayPath)).Select(p => OverlayFactory.GetInstance(p))
+				.Union(OverlayFactory.CustomTypes.Select(t => t.Value))
+				.ToList();
 		private static double _emblemX;
 		private static double _emblemY;
 		private static Color _emblemColor;
@@ -242,6 +246,7 @@ namespace FlagMaker.RandomFlag
 					AddAnyOverlays(list);
 					break;
 			}
+
 			return list;
 		}
 
@@ -514,9 +519,7 @@ namespace FlagMaker.RandomFlag
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
 
-			var types = OverlayFactory.GetOverlaysByType(typeof(OverlayPath)).ToList();
-			var type = types[Randomizer.Next(types.Count)];
-			var emblem = (Overlay)Activator.CreateInstance(type, 0, 0);
+			var emblem = Emblems[Randomizer.Next(Emblems.Count)];
 			emblem.SetColors(new List<Color> { _emblemColor });
 			emblem.SetValues(new List<double> { rect.Left + (rect.Right - rect.Left) / 2, rect.Top + (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / (isSmall ? 3.0 : 1.5), 0 });
 			list.Add(emblem);
