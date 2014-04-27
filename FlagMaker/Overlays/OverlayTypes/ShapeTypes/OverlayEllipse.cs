@@ -67,7 +67,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 					       {
 						       Width = 20,
 						       Height = 20,
-						       Margin = new Thickness(0, 5, 0, 0)
+						       Margin = new Thickness(5, 5, 0, 0)
 					       }
 				       };
 			}
