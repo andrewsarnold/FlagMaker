@@ -69,7 +69,7 @@ namespace FlagMaker.RandomFlag
 
 			var color2Index = Randomizer.RandomWeighted(firstOrderBase[color1Index]);
 
-			var probabilityOfYellowValues = new[] { 0.3, 0.5, 0.5, 0.3, 0.4, 0.2, 0.4, 0.1 };
+			var probabilityOfYellowValues = new[] { 0.3, 0.5, 0.5, 0.3, 0.4, 0.2, 0.1, 0.1 };
 			var probabilityOfYellow = Math.Min(probabilityOfYellowValues[color1Index], probabilityOfYellowValues[color2Index]);
 			_metal = Randomizer.ProbabilityOfTrue(probabilityOfYellow) ? Yellow : White;
 
@@ -218,7 +218,7 @@ namespace FlagMaker.RandomFlag
 					}
 					break;
 				case DivisionTypes.X:
-					AddOverlaysX(list, false);
+					AddOverlaySaltire(list, false);
 					break;
 				case DivisionTypes.Horizontal:
 					if (Randomizer.ProbabilityOfTrue(0.2))
@@ -307,7 +307,7 @@ namespace FlagMaker.RandomFlag
 			switch (type)
 			{
 				case 0:
-					AddOverlaysX(list, true);
+					AddOverlaySaltire(list, true);
 					break;
 				case 1:
 					AddFimbriationBackward(list);
@@ -429,13 +429,26 @@ namespace FlagMaker.RandomFlag
 			AddEmblem(0.5, list, new Rect { Top = 0, Left = 0, Bottom = _gridSize.Height, Right = width * 3 / 4.0 }, true);
 		}
 
-		private static void AddOverlaysX(ICollection<Overlay> list, bool allowExtra)
+		private static void AddOverlaySaltire(ICollection<Overlay> list, bool allowExtra)
 		{
-			list.Add(new OverlaySaltire(_metal, _gridSize.Width / 3.0, 0, 0));
-			if (allowExtra && Randomizer.ProbabilityOfTrue(0.1))
+			var thickness = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 4.0, 3.0), 3, _gridSize.Width / 3);
+			list.Add(new OverlaySaltire(_metal, thickness, 0, 0));
+			if (Randomizer.ProbabilityOfTrue(allowExtra ? 0.6 : 0.3))
 			{
-				list.Add(new OverlayHalfSaltire(_color1, _gridSize.Width / 2.0, 0, 0));
-				list.Add(new OverlayCross(_metal, _gridSize.Width / 10.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+				list.Add(new OverlaySaltire(_color2, thickness - 2, 0, 0));
+			}
+			else if (allowExtra && Randomizer.ProbabilityOfTrue(0.4))
+			{
+				list.Add(new OverlayHalfSaltire(_color2, thickness, 0, 0));
+
+				if (Randomizer.ProbabilityOfTrue(0.5))
+				{
+					AddCircle(list, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0.8, false);
+				}
+				else
+				{
+					list.Add(new OverlayCross(_metal, thickness / 2.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+				}
 			}
 		}
 
