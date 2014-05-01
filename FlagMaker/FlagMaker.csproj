@@ -167,6 +167,7 @@
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayFlag.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayHalfEllipse.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayImage.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayRing.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
     <Compile Include="RandomFlag\RandomFlagFactory.cs" />
     <Compile Include="RandomFlag\Randomizer.cs" />
@@ -254,6 +255,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Presets\rwanda.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\venezuela.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
