@@ -68,6 +68,7 @@ namespace FlagMaker.Overlays
 			                                                           { "reichsadler", typeof (OverlayReichsadler) },
 																	   { "repeater lateral", typeof(OverlayRepeaterLateral) },
 																	   { "repeater radial", typeof(OverlayRepeaterRadial) },
+																	   { "ring", typeof(OverlayRing) },
 			                                                           { "saltire", typeof (OverlaySaltire) },
 			                                                           { "shahadah", typeof (OverlayShahadah) },
 			                                                           { "sikh", typeof (OverlaySikh) },
