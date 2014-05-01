@@ -7,7 +7,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	internal class OverlayDiamond : OverlayShape
+	internal sealed class OverlayDiamond : OverlayShape
 	{
 		public OverlayDiamond(int maximumX, int maximumY)
 			: base(maximumX, maximumY)

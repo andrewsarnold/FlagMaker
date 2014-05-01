@@ -9,7 +9,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 {
-	public class OverlayRepeaterLateral : OverlayRepeater
+	internal sealed class OverlayRepeaterLateral : OverlayRepeater
 	{
 		public OverlayRepeaterLateral(int maximumX, int maximumY)
 			: base(new List<Attribute>

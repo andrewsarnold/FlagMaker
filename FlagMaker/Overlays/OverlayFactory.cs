@@ -5,99 +5,34 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using FlagMaker.Localization;
-using FlagMaker.Overlays.OverlayTypes;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
-using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 
 namespace FlagMaker.Overlays
 {
 	public static class OverlayFactory
 	{
-		private static readonly Dictionary<string, Type> TypeMap = new Dictionary<string, Type>
-		                                                           {
-			                                                           { "anchor", typeof (OverlayAnchor) },
-			                                                           { "angola", typeof (OverlayAngola) },
-			                                                           { "bolnisi cross", typeof (OverlayBolnisiCross) },
-			                                                           { "box", typeof (OverlayBox) },
-			                                                           { "border", typeof (OverlayBorder) },
-			                                                           { "branches", typeof (OverlayBranches) },
-			                                                           { "cedar", typeof (OverlayCedar) },
-			                                                           { "chakra", typeof (OverlayChakra) },
-			                                                           { "checkerboard", typeof (OverlayCheckerboard) },
-			                                                           { "coronet", typeof (OverlayCoronet) },
-			                                                           { "cpusa", typeof (OverlayCpusa) },
-			                                                           { "crescent", typeof (OverlayCrescent) },
-			                                                           { "cross", typeof (OverlayCross) },
-			                                                           { "crown", typeof (OverlayCrown) },
-			                                                           { "diamond", typeof (OverlayDiamond) },
-			                                                           { "eagle", typeof (OverlayEagle) },
-			                                                           { "eagle american", typeof (OverlayEagleAmerican) },
-			                                                           { "egypt", typeof (OverlayEgypt) },
-			                                                           { "ellipse", typeof (OverlayEllipse) },
-			                                                           { "ermine", typeof (OverlayErmine) },
-			                                                           { "flag", typeof (OverlayFlag) },
-																	   { "flash", typeof(OverlayFlash) },
-			                                                           { "fleur de lis", typeof (OverlayFleurDeLis) },
-			                                                           { "forth international", typeof (OverlayForthInternational) },
-			                                                           { "equitorial cross", typeof (OverlayEquitorialCross) },
-			                                                           { "fimbriation backward", typeof (OverlayFimbriationBackward) },
-			                                                           { "fimbriation forward", typeof (OverlayFimbriationForward) },
-			                                                           { "half ellipse", typeof (OverlayHalfEllipse) },
-			                                                           { "half saltire", typeof (OverlayHalfSaltire) },
-			                                                           { "hammer and sickle", typeof (OverlayHammerSickle) },
-			                                                           { "hand", typeof (OverlayHand) },
-			                                                           { "harp", typeof (OverlayHarp) },
-			                                                           { "image", typeof (OverlayImage) },
-			                                                           { "iran", typeof (OverlayIran) },
-			                                                           { "iron cross", typeof (OverlayIronCross) },
-			                                                           { "laurel", typeof (OverlayLaurel) },
-			                                                           { "kangaroo", typeof (OverlayKangaroo) },
-			                                                           { "kiwi", typeof (OverlayKiwi) },
-			                                                           { "line horizontal", typeof (OverlayLineHorizontal) },
-			                                                           { "line vertical", typeof (OverlayLineVertical) },
-			                                                           { "maltese cross", typeof (OverlayMalteseCross) },
-			                                                           { "maple leaf", typeof (OverlayMapleLeaf) },
-			                                                           { "mozambique", typeof (OverlayMozambique) },
-			                                                           { "pall", typeof (OverlayPall) },
-			                                                           { "papua new guinea", typeof (OverlayPapuaNewGuinea) },
-			                                                           { "parteiadler", typeof (OverlayParteiadler) },
-			                                                           { "pentagram", typeof (OverlayPentagram) },
-			                                                           { "quadrilateral", typeof (OverlayQuadrilateral) },
-																	   { "rays", typeof(OverlayRays) },
-			                                                           { "reichsadler", typeof (OverlayReichsadler) },
-																	   { "repeater lateral", typeof(OverlayRepeaterLateral) },
-																	   { "repeater radial", typeof(OverlayRepeaterRadial) },
-			                                                           { "saltire", typeof (OverlaySaltire) },
-			                                                           { "shahadah", typeof (OverlayShahadah) },
-			                                                           { "sikh", typeof (OverlaySikh) },
-			                                                           { "snake", typeof (OverlaySnake) },
-			                                                           { "springbok", typeof (OverlaySpringbok) },
-			                                                           { "star", typeof (OverlayStar) },
-			                                                           { "star four", typeof (OverlayStarFour) },
-			                                                           { "star eight", typeof (OverlayStarEight) },
-			                                                           { "star of david", typeof (OverlayStarOfDavid) },
-			                                                           { "star seven", typeof (OverlayStarSeven) },
-			                                                           { "star six", typeof (OverlayStarSix) },
-			                                                           { "sword", typeof (OverlaySword) },
-			                                                           { "sun", typeof (OverlaySun) },
-			                                                           { "swastika", typeof (OverlaySwastika) },
-			                                                           { "takbir", typeof (OverlayTakbir) },
-																	   { "transformer", typeof (OverlayTransformer) },
-			                                                           { "tree", typeof (OverlayTree) },
-			                                                           { "triangle", typeof (OverlayTriangle) },
-			                                                           { "trident", typeof (OverlayTrident) },
-			                                                           { "triskele", typeof (OverlayTriskele) },
-			                                                           { "yin", typeof (OverlayYin) }
-		                                                           };
+		private static Dictionary<string, Type> _typeMap;
 
 		public static Dictionary<string, OverlayPath> CustomTypes;
+
+		public static void SetUpTypeMap()
+		{
+			var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes().Where(t => t.IsSubclassOf(typeof(Overlay)) && t.IsSealed).OrderBy(t => t.Name));
+			_typeMap = new Dictionary<string, Type>();
+
+			foreach (var type in types)
+			{
+				var instance = (Overlay) Activator.CreateInstance(type, 0, 0);
+				_typeMap.Add(instance.Name, type);
+			}
+		}
 
 		public static Type GetOverlayType(string name)
 		{
 			var result = CustomTypes.Any(t => t.Key == name)
 				? CustomTypes[name].GetType()
-				: TypeMap.First(t => t.Key == name).Value;
+				: _typeMap.First(t => t.Key == name).Value;
 
 			if (result == null)
 			{
@@ -139,7 +74,7 @@ namespace FlagMaker.Overlays
 
 		public static Overlay GetDefaultOverlay(int maxX = 1, int maxY = 1)
 		{
-			return GetInstance(TypeMap["box"], maxX, maxY);
+			return GetInstance(_typeMap["box"], maxX, maxY);
 		}
 
 		public static void FillCustomOverlays()
@@ -181,7 +116,7 @@ namespace FlagMaker.Overlays
 					}
 
 					if (CustomTypes.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)) ||
-					    TypeMap.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)))
+					    _typeMap.Any(t => String.Equals(t.Key, name, StringComparison.InvariantCultureIgnoreCase)))
 					{
 						throw new DuplicateNameException(string.Format(strings.OverlayNameExists, name));
 					}
@@ -202,12 +137,12 @@ namespace FlagMaker.Overlays
 
 		public static IEnumerable<Type> GetOverlaysByType(Type type)
 		{
-			return TypeMap.Where(o => o.Value.IsSubclassOf(type)).Select(o => o.Value);
+			return _typeMap.Where(o => o.Value.IsSubclassOf(type)).Select(o => o.Value);
 		}
 
 		public static IEnumerable<Type> GetOverlaysNotInTypes(IEnumerable<Type> types)
 		{
-			return TypeMap.Where(o => !types.Any(t => o.Value.IsSubclassOf(t))).Select(o => o.Value);
+			return _typeMap.Where(o => !types.Any(t => o.Value.IsSubclassOf(t))).Select(o => o.Value);
 		} 
 	}
 }

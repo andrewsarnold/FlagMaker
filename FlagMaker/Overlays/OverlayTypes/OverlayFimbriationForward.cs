@@ -7,7 +7,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayFimbriationForward : Overlay
+	internal sealed class OverlayFimbriationForward : Overlay
 	{
 		public OverlayFimbriationForward(int maximumX, int maximumY)
 			: base(new List<Attribute>

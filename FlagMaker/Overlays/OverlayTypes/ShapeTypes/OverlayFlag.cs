@@ -11,7 +11,7 @@ using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	public class OverlayFlag : OverlayShape
+	internal sealed class OverlayFlag : OverlayShape
 	{
 		public Flag Flag { get; private set; }
 

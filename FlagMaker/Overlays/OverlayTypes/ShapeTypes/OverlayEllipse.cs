@@ -8,7 +8,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	internal class OverlayEllipse : OverlayShape
+	internal sealed class OverlayEllipse : OverlayShape
 	{
 		public OverlayEllipse(int maximumX, int maximumY)
 			: base(maximumX, maximumY)

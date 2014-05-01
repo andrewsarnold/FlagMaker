@@ -11,7 +11,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayRays : Overlay
+	internal sealed class OverlayRays : Overlay
 	{
 		public OverlayRays(int maximumX, int maximumY)
 			: base(new List<Attribute>
