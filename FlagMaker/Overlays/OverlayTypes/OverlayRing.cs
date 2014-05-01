@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -37,44 +39,45 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override void Draw(Canvas canvas)
 		{
-			var width = canvas.Width * (Attributes.Get(strings.Width).Value / MaximumX);
-			var height = Attributes.Get(strings.Height).Value == 0
-							 ? width
-							 : canvas.Height * (Attributes.Get(strings.Height).Value / MaximumY);
+			var outerDiamX = canvas.Width * (Attributes.Get(strings.Width).Value / MaximumX);
+			var outerDiamY = Attributes.Get(strings.Height).Value == 0
+				? outerDiamX
+				: canvas.Height * (Attributes.Get(strings.Height).Value / MaximumY);
+
 			var proportion = Attributes.Get(strings.Size).Value / MaximumX;
-			var sizeX = width * proportion;
-			var sizeY = height * proportion;
+			var innerDiamX = outerDiamX * proportion;
+			var innerDiamY = outerDiamY * proportion;
 
 			var locX = (canvas.Width * (Attributes.Get(strings.X).Value / MaximumX));
 			var locY = (canvas.Height * (Attributes.Get(strings.Y).Value / MaximumY));
 
 			var outer = new EllipseGeometry
-			            {
+						{
 							Center = new Point(locX, locY),
-				            RadiusX = width / 2,
-				            RadiusY = height / 2
-			            };
+							RadiusX = outerDiamX / 2,
+							RadiusY = outerDiamY / 2
+						};
 
 			var inner = new EllipseGeometry
-			            {
-				            Center = new Point(locX, locY),
-				            RadiusX = sizeX / 2,
-				            RadiusY = sizeY / 2
-			            };
+						{
+							Center = new Point(locX, locY),
+							RadiusX = innerDiamX / 2,
+							RadiusY = innerDiamY / 2
+						};
 
 			var ring = new GeometryGroup
-			           {
-				           FillRule = FillRule.EvenOdd
-			           };
+					   {
+						   FillRule = FillRule.EvenOdd
+					   };
 			ring.Children.Add(outer);
 			ring.Children.Add(inner);
 
 			var path = new Path
-			           {
-				           Fill = new SolidColorBrush(Color),
-				           SnapsToDevicePixels = true,
+					   {
+						   Fill = new SolidColorBrush(Color),
+						   SnapsToDevicePixels = true,
 						   Data = ring
-			           };
+					   };
 
 			canvas.Children.Add(path);
 		}
@@ -90,7 +93,26 @@ namespace FlagMaker.Overlays.OverlayTypes
 
 		public override string ExportSvg(int width, int height)
 		{
-			throw new System.NotImplementedException();
+			double x = width * Attributes.Get(strings.X).Value / MaximumX;
+			double y = height * Attributes.Get(strings.Y).Value / MaximumY;
+
+			var outerRadX = width * Attributes.Get(strings.Width).Value / MaximumX / 2;
+			var outerRadY = Attributes.Get(strings.Height).Value == 0
+				? outerRadX
+				: height * Attributes.Get(strings.Height).Value / MaximumY / 2;
+
+			var proportion = Attributes.Get(strings.Size).Value / MaximumX;
+			var innerRadX = outerRadX * proportion;
+			var innerRadY = outerRadY * proportion;
+
+			return string.Format(CultureInfo.InvariantCulture,
+				"<path d=\"" +
+				"M {0:0.###},{1:0.###} m -{2:0.###},0 a {2:0.###},{3:0.###} 0 1,0 {4:0.###},0 a {2:0.###},{3:0.###} 0 1,0 -{4:0.###},0 z" +
+				"M {0:0.###},{1:0.###} m {5:0.###},0 a {5:0.###},{6:0.###} 0 1,1 -{7:0.###},0 a {5:0.###},{6:0.###} 0 1,1 {7:0.###},0 z" +
+				"\" {8} />",
+				x, y, outerRadX, outerRadY, 2 * outerRadX,
+				innerRadX, innerRadY, 2 * innerRadX,
+				Color.ToSvgFillWithOpacity());
 		}
 
 		protected override IEnumerable<Shape> Thumbnail
