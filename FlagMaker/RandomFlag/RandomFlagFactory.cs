@@ -7,7 +7,6 @@ using FlagMaker.Overlays;
 using FlagMaker.Overlays.OverlayTypes;
 using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
-
 namespace FlagMaker.RandomFlag
 {
 	public static class RandomFlagFactory
@@ -54,28 +53,49 @@ namespace FlagMaker.RandomFlag
 
 		private static void GetColorScheme()
 		{
-			// Simple Markov chain. Numbers are purely made up but should
-			// bear some vague reflection of real-life flags.
-			var colors = new[] { Black, Red, Green, LightBlue, DarkBlue, Silver, Orange, Purple };
-			var color1Index = Randomizer.RandomWeighted(new List<int> { 33, 67, 50, 30, 40, 10, 8, 7 });
+			// Simple Markov chain. Based vaguely on real-life flags.
+			var colors = new[] { Black, Red, Orange, Yellow, Green, LightBlue, DarkBlue, Purple, White, Silver };
+			var color1Index = Randomizer.RandomWeighted(new List<int> { 46, 194, 8, 60, 112, 0, 126, 0, 102, 0 });
 
 			var firstOrderBase = new List<List<int>>
-			                     {                // B  R  G  L  D  S  O  P
-				                     new List<int> { 0, 8, 8, 4, 4, 8, 4, 4 }, // Black
-				                     new List<int> { 8, 0, 8, 6, 9, 2, 3, 1 }, // Red
-				                     new List<int> { 8, 8, 0, 7, 8, 8, 2, 1 }, // Green
-				                     new List<int> { 4, 6, 7, 0, 2, 3, 1, 2 }, // Light blue
-				                     new List<int> { 4, 9, 8, 2, 0, 6, 2, 1 }, // Dark blue
-				                     new List<int> { 8, 2, 8, 3, 6, 0, 2, 2 }, // Silver
-				                     new List<int> { 4, 3, 2, 1, 2, 2, 0, 1 }, // Orange
-				                     new List<int> { 4, 1, 1, 2, 1, 2, 1, 0 }, // Purple
+			                     {                // B   R    O  Y   G   L  D   P  W    S
+				                     new List<int> { 0,  38,  0, 14, 22, 0, 11, 0, 27,  0 }, // Black
+				                     new List<int> { 38, 0,   0, 60, 76, 0, 69, 0, 103, 0 }, // Red
+				                     new List<int> { 0,  0,   0, 0,  8,  0, 1,  0, 8,   0 }, // Orange
+				                     new List<int> { 14, 60,  0, 0,  34, 0, 29, 0, 6,   0 }, // Yellow
+				                     new List<int> { 22, 76,  8, 34, 0,  0, 34, 0, 56,  0 }, // Green
+				                     new List<int> { 0,  0,   0, 0,  0,  0, 0,  0, 0,   0 }, // Light blue
+				                     new List<int> { 11, 69,  1, 29, 34, 0, 0,  0, 58,  0 }, // Dark blue
+				                     new List<int> { 0,  0,   0, 0,  0,  0, 0,  0, 0,   0 }, // Purple
+				                     new List<int> { 27, 103, 8, 6,  56, 0, 58, 0, 0,   0 }, // White
+				                     new List<int> { 0,  0,   0, 0,  0,  0, 0,  0, 0,   0 }, // Silver
 			                     };
 
 			var color2Index = Randomizer.RandomWeighted(firstOrderBase[color1Index]);
 
-			var probabilityOfYellowValues = new[] { 0.3, 0.5, 0.5, 0.3, 0.4, 0.2, 0.1, 0.1 };
-			var probabilityOfYellow = Math.Min(probabilityOfYellowValues[color1Index], probabilityOfYellowValues[color2Index]);
-			_metal = Randomizer.ProbabilityOfTrue(probabilityOfYellow) ? Yellow : White;
+			if (color1Index != 3 && color2Index != 3 && color1Index != 8 && color2Index != 8)
+			{
+				// No yellow or white in the color scheme
+				var probabilityOfYellowValues = new[] { 0.7, 0.3, 0, 0, 0.8, 0, 0.8, 0, 0, 0 };
+				var probabilityOfYellow = Math.Min(probabilityOfYellowValues[color1Index], probabilityOfYellowValues[color2Index]);
+				_metal = Randomizer.ProbabilityOfTrue(probabilityOfYellow) ? Yellow : White;
+			}
+			//else if (color1Index != 3 && color2Index != 3)
+			//{
+			//	// No yellow, but white
+			//	_metal = Yellow;
+			//}
+			else if (color1Index != 8 && color2Index != 8)
+			{
+				// No white, but yellow
+				_metal = White;
+			}
+			else //if ((color1Index == 3 && color2Index == 8) || (color1Index == 8 && color2Index == 3))
+			{
+				// Both colors are yellow and white
+				var probabilityOfMetal = new List<int> { 16, 19, 0, 0, 30, 0, 41, 0, 0, 0 };
+				_metal = colors[Randomizer.RandomWeighted(probabilityOfMetal)];
+			}
 
 			_color1 = colors[color1Index];
 			_color2 = colors[color2Index];
