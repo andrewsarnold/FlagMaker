@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
@@ -9,7 +8,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayRing : Overlay
+	internal sealed class OverlayRing : Overlay
 	{
 		public OverlayRing(int maximumX, int maximumY)
 			: base(new List<Attribute>
