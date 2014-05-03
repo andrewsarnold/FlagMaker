@@ -119,7 +119,7 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Horizontal:
 					return GetHorizontal();
 				case DivisionTypes.Vertical:
-					return new DivisionGrid(_color1, _color2, 2, 1);
+					return GetVertical();
 				case DivisionTypes.Quartered:
 					return new DivisionGrid(_color1, _color2, 2, 2);
 				case DivisionTypes.Blank:
@@ -359,6 +359,29 @@ namespace FlagMaker.RandomFlag
 			}
 
 			return new DivisionGrid(color1, color2, 1, 2);
+		}
+
+		private static DivisionGrid GetVertical()
+		{
+			Color color1 = _metal, color2 = _color1, color3 = _color2;
+
+			if (Randomizer.ProbabilityOfTrue(0.33))
+			{
+				color1 = _color1;
+
+				if (Randomizer.ProbabilityOfTrue(0.5))
+				{
+					color2 = _color2;
+					color3 = _metal;
+				}
+				else
+				{
+					color2 = _metal;
+				}
+			}
+
+			AddEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, color3);
+			return new DivisionGrid(color1, color2, 2, 1);
 		}
 
 		#endregion
