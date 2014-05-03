@@ -123,7 +123,7 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Quartered:
 					return GetQuartered();
 				case DivisionTypes.Blank:
-					return new DivisionGrid(_color1, _color1, 1, 1);
+					return GetBlank();
 				default:
 					return GetStripes();
 					//throw new Exception("No valid type selection");
@@ -398,6 +398,53 @@ namespace FlagMaker.RandomFlag
 			AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, _color2);
 			AddEmblem(1.0, _gridSize.Width * 3.0 / 4.0, _gridSize.Height * 3.0 / 4.0, _color1);
 			return new DivisionGrid(_metal, _color1, 2, 2);
+		}
+
+		private static DivisionGrid GetBlank()
+		{
+			switch (Randomizer.RandomWeighted(new List<int>{9, 4, 4, 1, 1}))
+			{
+				case 0: // Emblem
+					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, Randomizer.ProbabilityOfTrue(.11) ? _color2 : _metal);
+					break;
+				case 1: // Canton
+					var cantonColor = Randomizer.ProbabilityOfTrue(0.5) ? _color2 : _metal;
+					_overlays.Add(new OverlayBox(cantonColor, 0, 0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+					AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, cantonColor == _metal ? _color1 : _metal);
+					break;
+				case 2: // Cross
+					var left = Randomizer.ProbabilityOfTrue(0.375) ? _gridSize.Width / 2.0 : _gridSize.Width / 3.0;
+					var width = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 8.0, _gridSize.Width / 20.0), 1, _gridSize.Width / 3);
+					if (Randomizer.ProbabilityOfTrue(0.5))
+					{
+						_overlays.Add(new OverlayCross(_metal, width + 1, left, _gridSize.Height / 2.0, 0, 0));
+						_overlays.Add(new OverlayCross(_color2, width > 1 ? width - 1 : 1, left, _gridSize.Height / 2.0, 0, 0));
+					}
+					else
+					{
+						_overlays.Add(new OverlayCross(_metal, width, left, _gridSize.Height / 2.0, 0, 0));
+					}
+					break;
+				case 3: // Rays
+					_overlays.Add(new OverlayRays(_metal, _gridSize.Width / 2.0, _gridSize.Height / 2.0,
+							Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), 0, 0));
+					AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _metal, _color1);
+					break;
+				default: // Triangles
+					double width1 = _gridSize.Width / 2.0, width2 = _gridSize.Width / 4.0;
+					if (Randomizer.ProbabilityOfTrue(0.4))
+					{
+						width2 = width1;
+						width1 = _gridSize.Width;
+					}
+
+					AddTriangle(1.0, (int)width1, _metal);
+					AddTriangle(1.0, (int)width2, _color2);
+					AddEmblem(0.5, _gridSize.Width / 8.0, _gridSize.Height / 2.0, _metal);
+					break;
+			}
+
+			return new DivisionGrid(_color1, _color1, 1, 1);
 		}
 
 		#endregion
