@@ -62,7 +62,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 
 				var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(canvas.Width, canvas.Height);
 
-				var scaleFactor = idealPixelSize / _pathSize.X;
+				var scaleFactor = idealPixelSize / Math.Max(_pathSize.X, _pathSize.Y);
 
 				var transformGroup = new TransformGroup();
 				var rotateTransform = new RotateTransform((Attributes.Get(strings.Rotation).Value / MaximumX) * 360);
