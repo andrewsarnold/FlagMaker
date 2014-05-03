@@ -309,6 +309,16 @@ namespace FlagMaker.RandomFlag
 					{
 						color2 = _metal;
 					}
+
+					var x = _gridSize.Width / 2.0;
+					var y = _gridSize.Height / 2.0;
+					if (Randomizer.ProbabilityOfTrue(0.33))
+					{
+						x = _gridSize.Width / 4.0;
+						y = _gridSize.Height / 4.0;
+					}
+
+					AddEmblem(0.5, x, y, color1 == _metal || color2 == _metal ? _color2 : _metal);
 					break;
 				case 1: // Canton
 					if (Randomizer.ProbabilityOfTrue(0.75))
