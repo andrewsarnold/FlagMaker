@@ -99,7 +99,7 @@ namespace FlagMaker.RandomFlag
 
 		private static Division GetDivision()
 		{
-			// Roughly based on what's used in the presets
+			// Roughly based on real-life usage
 			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 7, 22, 60, 2, 7, 3, 20, 8, 2, 38, 7, 2, 5 });
 
 			switch (_divisionType)
@@ -121,7 +121,7 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Vertical:
 					return GetVertical();
 				case DivisionTypes.Quartered:
-					return new DivisionGrid(_color1, _color2, 2, 2);
+					return GetQuartered();
 				case DivisionTypes.Blank:
 					return new DivisionGrid(_color1, _color1, 1, 1);
 				default:
@@ -382,6 +382,22 @@ namespace FlagMaker.RandomFlag
 
 			AddEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, color3);
 			return new DivisionGrid(color1, color2, 2, 1);
+		}
+
+		private static DivisionGrid GetQuartered()
+		{
+			if (Randomizer.ProbabilityOfTrue(0.5))
+			{
+				// Dominican Republic-style
+				_overlays.Add(new OverlayCross(_metal, _gridSize.Width / Randomizer.NextNormalized(10.0, 1.0), _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+				return new DivisionGrid(_color1, _color2, 2, 2);
+			}
+			
+			// Panama-style
+			_overlays.Add(new OverlayBox(_color2, 0, _gridSize.Height / 2.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+			AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, _color2);
+			AddEmblem(1.0, _gridSize.Width * 3.0 / 4.0, _gridSize.Height * 3.0 / 4.0, _color1);
+			return new DivisionGrid(_metal, _color1, 2, 2);
 		}
 
 		#endregion
