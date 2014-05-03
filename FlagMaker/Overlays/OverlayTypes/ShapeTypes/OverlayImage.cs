@@ -12,7 +12,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
-	internal class OverlayImage : OverlayShape
+	internal sealed class OverlayImage : OverlayShape
 	{
 		private string _path;
 		private readonly string _directory;

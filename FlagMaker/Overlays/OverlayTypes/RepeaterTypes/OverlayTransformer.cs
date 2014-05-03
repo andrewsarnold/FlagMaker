@@ -8,7 +8,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 {
-	internal class OverlayTransformer : OverlayRepeater
+	internal sealed class OverlayTransformer : OverlayRepeater
 	{
 		public OverlayTransformer(int maximumX, int maximumY)
 			: base(new List<Attribute>

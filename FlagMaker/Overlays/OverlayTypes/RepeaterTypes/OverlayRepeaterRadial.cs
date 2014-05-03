@@ -10,7 +10,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 {
-	public class OverlayRepeaterRadial : OverlayRepeater
+	internal sealed class OverlayRepeaterRadial : OverlayRepeater
 	{
 		public OverlayRepeaterRadial(int maximumX, int maximumY)
 			: base(new List<Attribute>

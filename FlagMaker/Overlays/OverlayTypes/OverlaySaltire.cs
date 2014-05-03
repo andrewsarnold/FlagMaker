@@ -7,7 +7,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlaySaltire : Overlay
+	internal sealed class OverlaySaltire : Overlay
 	{
 		public OverlaySaltire(int maximumX, int maximumY)
 			: base(new List<Attribute>

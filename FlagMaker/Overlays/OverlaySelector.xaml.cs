@@ -99,7 +99,15 @@ namespace FlagMaker.Overlays
 							SelectedOverlay = new OverlayFlag(flag, path, _defaultMaximumX, _defaultMaximumY);
 							break;
 						case "image":
-							SelectedOverlay = new OverlayImage(GetImagePath(), string.Empty, _defaultMaximumX, _defaultMaximumY);
+							var dlg = new OpenFileDialog
+							{
+								DefaultExt = ".png",
+								Filter = "Images (*.png;*.jpg)|*.png;*.jpg",
+								Multiselect = false
+							};
+
+							if (!(dlg.ShowDialog() ?? false)) return;
+							SelectedOverlay = new OverlayImage(dlg.FileName, string.Empty, _defaultMaximumX, _defaultMaximumY);
 							break;
 						default:
 							SelectedOverlay = OverlayFactory.GetInstance(tag, _defaultMaximumX, _defaultMaximumY);
@@ -131,20 +139,6 @@ namespace FlagMaker.Overlays
 		private void Cancel(object sender, RoutedEventArgs e)
 		{
 			Close();
-		}
-
-		private static string GetImagePath()
-		{
-			var dlg = new OpenFileDialog
-			{
-				DefaultExt = ".png",
-				Filter = "Images (*.png;*.jpg)|*.png;*.jpg",
-				Multiselect = false
-			};
-
-			bool? result = dlg.ShowDialog();
-			if (!((bool)result)) return string.Empty;
-			return dlg.FileName;
 		}
 	}
 }

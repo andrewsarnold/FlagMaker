@@ -73,6 +73,7 @@ namespace FlagMaker
 
 			SetColorsAndSliders();
 			LoadPresets();
+			OverlayFactory.SetUpTypeMap();
 
 			try
 			{

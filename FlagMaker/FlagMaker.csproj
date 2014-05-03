@@ -116,8 +116,10 @@
     <Compile Include="Overlays\OverlayTypes\OverlayCheckerboard.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayRays.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayQuadrilateral.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayFire.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayBolnisiCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlaySnake.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayYang.cs" />
     <Compile Include="Overlays\OverlayTypes\RepeaterTypes\OverlayTransformer.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAnchor.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayAngola.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayFlag.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayHalfEllipse.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayImage.cs" />
+    <Compile Include="Overlays\OverlayTypes\OverlayRing.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayShape.cs" />
     <Compile Include="RandomFlag\RandomFlagFactory.cs" />
     <Compile Include="RandomFlag\Randomizer.cs" />
@@ -254,6 +257,42 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Presets\mongolia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\rwanda.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\venezuela.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\trinidadtobago.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\macedonia.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\drc.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\cameroon.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\burma.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\burkinafaso.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\bulgaria.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\botswana.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\bahrain.flag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\greenland.flag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

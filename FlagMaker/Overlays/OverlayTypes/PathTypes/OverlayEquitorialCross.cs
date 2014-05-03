@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 {
-	public class OverlayEquitorialCross : OverlayPath
+	internal sealed class OverlayEquitorialCross : OverlayPath
 	{
 		private const string Path = "M 1,3 1,1 3,1 3,-1 1,-1 1,-3 -1,-3 -1,-1 -3,-1 -3,1 -1,1 -1,3 Z";
 		private static readonly Vector PathSize = new Vector(6, 6);

@@ -131,6 +131,10 @@ namespace FlagMaker.Overlays
 					if (double.TryParse(TxtValue.Text, out value))
 					{
 						value = value + (e.Key == Key.Up ? 0.01 : -0.01);
+
+						if (value < 0.0) value = 0.0;
+						if (value > Maximum) value = Maximum;
+
 						ChkDiscrete.IsChecked = false;
 						TxtValue.Text = value.ToString(CultureInfo.InvariantCulture);
 						Slider.Value = value;

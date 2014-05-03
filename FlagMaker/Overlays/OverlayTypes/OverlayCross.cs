@@ -7,7 +7,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayCross : Overlay
+	internal sealed class OverlayCross : Overlay
 	{
 		public OverlayCross(int maximumX, int maximumY)
 			: base(new List<Attribute>

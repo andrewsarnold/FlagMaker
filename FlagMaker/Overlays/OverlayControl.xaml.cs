@@ -60,7 +60,7 @@ namespace FlagMaker.Overlays
 				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
 				// Save old slider/color values
-				if (!_isFirst && !(_overlay is OverlayFlag || _overlay is OverlayImage))
+				if (!_isFirst && !IsLoading)
 				{
 					var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
 					if (sliderValues.Count > 0)

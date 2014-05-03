@@ -9,7 +9,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	internal class OverlayCheckerboard : Overlay
+	internal sealed class OverlayCheckerboard : Overlay
 	{
 		public OverlayCheckerboard(int maximumX, int maximumY)
 			: base(new List<Attribute>

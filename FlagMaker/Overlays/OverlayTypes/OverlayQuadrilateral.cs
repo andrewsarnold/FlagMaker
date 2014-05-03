@@ -7,7 +7,7 @@ using FlagMaker.Localization;
 
 namespace FlagMaker.Overlays.OverlayTypes
 {
-	public class OverlayQuadrilateral : Overlay
+	internal sealed class OverlayQuadrilateral : Overlay
 	{
 		public OverlayQuadrilateral(int maximumX, int maximumY)
 			: base(new List<Attribute>
