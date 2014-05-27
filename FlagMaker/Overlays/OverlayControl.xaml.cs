@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
@@ -82,6 +83,10 @@ namespace FlagMaker.Overlays
 					slider.ValueChanged += OverlaySliderChanged;
 					PnlSliders.Children.Add(slider);
 				}
+
+				StrokeCheckBox.Visibility = _overlay is OverlayPath 
+					? Visibility.Visible 
+					: Visibility.Collapsed;
 			}
 		}
 
@@ -126,6 +131,9 @@ namespace FlagMaker.Overlays
 				slider.Maximum = max;
 				slider.Value = newValue;
 			}
+
+			StrokeSlider.Minimum = 0;
+			StrokeSlider.Maximum = maximumX;
 		}
 
 		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors)
@@ -136,6 +144,18 @@ namespace FlagMaker.Overlays
 			OverlayPicker.ShowRecentColors = true;
 			OverlayPicker.SelectedColor = OverlayPicker.StandardColors[10].Color;
 			OverlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
+
+			StrokePicker.AvailableColors = availableColors;
+			StrokePicker.StandardColors = standardColors;
+			StrokePicker.RecentColors = recentColors;
+			StrokePicker.ShowRecentColors = true;
+			StrokePicker.SelectedColor = StrokePicker.StandardColors[16].Color;
+			StrokePicker.SelectedColorChanged += (sender, args) =>
+			{
+				OverlayColorChanged();
+				((OverlayPath)_overlay).StrokeColor = StrokePicker.SelectedColor;
+				Draw();
+			};
 		}
 
 		private void OverlayColorChanged()
@@ -223,6 +243,21 @@ namespace FlagMaker.Overlays
 				Overlay.IsEnabled
 					? new Uri(@"..\Images\check_on.png", UriKind.Relative)
 					: new Uri(@"..\Images\check_off.png", UriKind.Relative));
+		}
+
+		private void StrokeToggle(object sender, RoutedEventArgs e)
+		{
+			StrokeGrid.Visibility = (((CheckBox)sender).IsChecked ?? false) 
+				? Visibility.Visible 
+				: Visibility.Collapsed;
+			((OverlayPath)_overlay).ToggleStroke(true, StrokePicker.SelectedColor, StrokeSlider.Value);
+			Draw();
+		}
+
+		private void StrokeSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+			((OverlayPath)_overlay).StrokeWidth = StrokeSlider.Value;
+			Draw();
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Localization;
@@ -14,6 +15,10 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		private readonly string _name;
 		private readonly Vector _pathSize;
 		private readonly string _path;
+
+		private bool _strokeEnabled;
+		public Color StrokeColor { get; set; }
+		public double StrokeWidth { get; set; }
 
 		public OverlayPath(string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(new List<Attribute>
@@ -77,6 +82,13 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					Data = Geometry.Parse(_path),
 					SnapsToDevicePixels = true
 				};
+
+				if (_strokeEnabled)
+				{
+					path.Stroke = new SolidColorBrush(StrokeColor);
+					path.StrokeThickness = canvas.Width * StrokeWidth / MaximumX / (512 * scaleFactor);
+					path.StrokeLineJoin = PenLineJoin.Round;
+				}
 
 				canvas.Children.Add(path);
 
@@ -147,6 +159,13 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					       }
 				       };
 			}
+		}
+
+		public void ToggleStroke(bool isEnabled, Color color, double width)
+		{
+			_strokeEnabled = isEnabled;
+			StrokeWidth = width;
+			StrokeColor = color;
 		}
 
 		public OverlayPath Copy()
