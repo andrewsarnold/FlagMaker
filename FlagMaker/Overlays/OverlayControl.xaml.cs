@@ -91,7 +91,10 @@ namespace FlagMaker.Overlays
 					if (path.StrokeWidth > 0)
 					{
 						StrokeCheckBox.IsChecked = true;
+						StrokeGrid.Visibility = Visibility.Visible;
+						StrokeSlider.Maximum = _defaultMaximumX;
 						StrokeSlider.Value = path.StrokeWidth;
+						((OverlayPath)_overlay).ToggleStroke(true, StrokePicker.SelectedColor, StrokeSlider.Value);
 					}
 				}
 				else
@@ -258,8 +261,10 @@ namespace FlagMaker.Overlays
 
 		private void StrokeToggle(object sender, RoutedEventArgs e)
 		{
-			StrokeGrid.Visibility = (((CheckBox)sender).IsChecked ?? false) 
-				? Visibility.Visible 
+			if (IsLoading) return;
+
+			StrokeGrid.Visibility = (StrokeCheckBox.IsChecked ?? false)
+				? Visibility.Visible
 				: Visibility.Collapsed;
 			((OverlayPath)_overlay).ToggleStroke(true, StrokePicker.SelectedColor, StrokeSlider.Value);
 			Draw();
@@ -267,6 +272,8 @@ namespace FlagMaker.Overlays
 
 		private void StrokeSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
+			if (IsLoading) return;
+
 			((OverlayPath)_overlay).StrokeWidth = StrokeSlider.Value;
 			Draw();
 		}
