@@ -41,7 +41,7 @@ namespace FlagMaker.Overlays
 		{
 			var line = new Line
 			{
-				StrokeThickness = canvas.Height * (Attributes.Get(strings.Thickness).Value / MaximumX),
+				StrokeThickness = canvas.Width * (Attributes.Get(strings.Thickness).Value / MaximumX),
 				X1 = canvas.Width * Attributes.Get(strings.X1).Value / MaximumX,
 				Y1 = canvas.Height * Attributes.Get(strings.Y1).Value / MaximumY,
 				X2 = canvas.Width * Attributes.Get(strings.X2).Value / MaximumX,
@@ -63,7 +63,13 @@ namespace FlagMaker.Overlays
 
 		public override string ExportSvg(int width, int height)
 		{
-			return string.Empty;
+			return string.Format("<line x1=\"{0}\" y1=\"{1}\" x2=\"{2}\" y2=\"{3}\" stroke=\"#{4}\" stroke-width=\"{5}\" />",
+				width * Attributes.Get(strings.X1).Value / MaximumX,
+				height * Attributes.Get(strings.Y1).Value / MaximumY,
+				width * Attributes.Get(strings.X2).Value / MaximumX,
+				height * Attributes.Get(strings.Y2).Value / MaximumY,
+				Color.ToHexString(false),
+				width * (Attributes.Get(strings.Thickness).Value / MaximumX));
 		}
 
 		protected override IEnumerable<Shape> Thumbnail
