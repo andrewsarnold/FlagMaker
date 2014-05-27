@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Localization;
@@ -86,7 +85,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				if (_strokeEnabled)
 				{
 					path.Stroke = new SolidColorBrush(StrokeColor);
-					path.StrokeThickness = canvas.Width * StrokeWidth / MaximumX / (512 * scaleFactor);
+					path.StrokeThickness = canvas.Width * StrokeWidth / 512;
 					path.StrokeLineJoin = PenLineJoin.Round;
 				}
 

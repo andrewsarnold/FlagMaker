@@ -8,6 +8,7 @@ using System.Windows.Media;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Microsoft.Win32;
@@ -153,6 +154,12 @@ namespace FlagMaker
 								break;
 							case "path":
 								overlays[overlayIndex].Path = line.Split('=')[1];
+								break;
+							case "stroke":
+								overlays[overlayIndex].StrokeColor = ParseColor(line.Split('=')[1]);
+								break;
+							case "strokewidth":
+								overlays[overlayIndex].StrokeWidth = GetDoubleFromString(line.Split('=')[1]);
 								break;
 						}
 					}
@@ -343,6 +350,9 @@ namespace FlagMaker
 			public Color Color;
 			public string Path;
 
+			public Color StrokeColor;
+			public double StrokeWidth;
+
 			public TempOverlay()
 			{
 				Values = new List<double>
@@ -377,6 +387,14 @@ namespace FlagMaker
 
 				overlay.SetColors(new List<Color> { Color });
 				overlay.SetValues(Values);
+
+				var path = overlay as OverlayPath;
+				if (path != null)
+				{
+					path.StrokeWidth = StrokeWidth;
+					path.StrokeColor = StrokeColor;
+				}
+
 				return overlay;
 			}
 		}

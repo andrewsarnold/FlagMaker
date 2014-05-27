@@ -364,36 +364,25 @@ namespace FlagMaker
 		private void OverlayAdd(int index, Overlay overlay, bool isLoading)
 		{
 			var gridSize = ((Ratio)CmbGridSize.SelectedItem);
-			var newOverlay = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height, isLoading);
+			var control = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height, isLoading);
 
-			if (newOverlay.WasCanceled)
+			if (control.WasCanceled)
 			{
 				return;
 			}
 
 			if (overlay != null)
 			{
-				newOverlay.Color = overlay.Color;
-				newOverlay.SetType(overlay.Name);
-
-				if (overlay is OverlayFlag || overlay is OverlayImage)
-				{
-					newOverlay.Overlay = overlay;
-				}
-
-				for (int i = 0; i < overlay.Attributes.Count; i++)
-				{
-					newOverlay.SetSlider(i, overlay.Attributes[i].Value);
-				}
+				control.Overlay = overlay;
 			}
 
-			newOverlay.OnDraw += Draw;
-			newOverlay.OnRemove += Remove;
-			newOverlay.OnMoveUp += MoveUp;
-			newOverlay.OnMoveDown += MoveDown;
-			newOverlay.OnClone += Clone;
+			control.OnDraw += Draw;
+			control.OnRemove += Remove;
+			control.OnMoveUp += MoveUp;
+			control.OnMoveDown += MoveDown;
+			control.OnClone += Clone;
 
-			LstOverlays.Children.Insert(index, newOverlay);
+			LstOverlays.Children.Insert(index, control);
 
 			SetOverlayMargins();
 

@@ -58,8 +58,6 @@ namespace FlagMaker.Overlays
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
 				BtnOverlays.ToolTip = _overlay.DisplayName;
 
-				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
-
 				// Save old slider/color values
 				if (!_isFirst && !IsLoading)
 				{
@@ -75,6 +73,7 @@ namespace FlagMaker.Overlays
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
+				OverlayPicker.SelectedColor = _overlay.Color;
 				SetVisibilityButton();
 
 				PnlSliders.Children.Clear();
@@ -84,9 +83,21 @@ namespace FlagMaker.Overlays
 					PnlSliders.Children.Add(slider);
 				}
 
-				StrokeCheckBox.Visibility = _overlay is OverlayPath 
-					? Visibility.Visible 
-					: Visibility.Collapsed;
+				var path = _overlay as OverlayPath;
+				if (path != null)
+				{
+					StrokeCheckBox.Visibility = Visibility.Visible;
+					StrokePicker.SelectedColor = path.StrokeColor;
+					if (path.StrokeWidth > 0)
+					{
+						StrokeCheckBox.IsChecked = true;
+						StrokeSlider.Value = path.StrokeWidth;
+					}
+				}
+				else
+				{
+					StrokeCheckBox.Visibility = Visibility.Collapsed;
+				}
 			}
 		}
 
