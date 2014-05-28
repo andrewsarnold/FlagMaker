@@ -15,9 +15,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		private readonly Vector _pathSize;
 		private readonly string _path;
 
-		private bool _strokeEnabled;
 		public Color StrokeColor { get; set; }
-		public double StrokeWidth { get; set; }
 
 		public OverlayPath(string name, string path, Vector pathSize, int maximumX, int maximumY)
 			: base(new List<Attribute>
@@ -25,12 +23,14 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				       new Attribute(strings.X, true, 1, true),
 				       new Attribute(strings.Y, true, 1, false),
 				       new Attribute(strings.Size, true, 1, true),
-				       new Attribute(strings.Rotation, true, 0, true)
+				       new Attribute(strings.Rotation, true, 0, true),
+					   new Attribute(strings.Stroke, true, 0, true)
 			       }, maximumX, maximumY)
 		{
 			_name = name;
 			_path = path;
 			_pathSize = pathSize;
+			StrokeColor = Colors.White;
 		}
 
 		protected OverlayPath(Color color, string name, string path, Vector pathSize, int maximumX, int maximumY)
@@ -39,12 +39,14 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				       new Attribute(strings.X, true, 1, true),
 				       new Attribute(strings.Y, true, 1, false),
 				       new Attribute(strings.Size, true, 1, true),
-				       new Attribute(strings.Rotation, true, 0, true)
+				       new Attribute(strings.Rotation, true, 0, true),
+					   new Attribute(strings.Stroke, true, 0, true)
 			       }, maximumX, maximumY)
 		{
 			_name = name;
 			_path = path;
 			_pathSize = pathSize;
+			StrokeColor = Colors.White;
 		}
 
 		public override string Name
@@ -75,19 +77,15 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				transformGroup.Children.Add(scaleTransform);
 
 				var path = new Path
-				{
-					Fill = new SolidColorBrush(Color),
-					RenderTransform = transformGroup,
-					Data = Geometry.Parse(_path),
-					SnapsToDevicePixels = true
-				};
-
-				if (_strokeEnabled)
-				{
-					path.Stroke = new SolidColorBrush(StrokeColor);
-					path.StrokeThickness = canvas.Width * StrokeWidth / 512;
-					path.StrokeLineJoin = PenLineJoin.Round;
-				}
+				           {
+					           Fill = new SolidColorBrush(Color),
+					           RenderTransform = transformGroup,
+					           Data = Geometry.Parse(_path),
+					           SnapsToDevicePixels = true,
+					           Stroke = new SolidColorBrush(StrokeColor),
+							   StrokeThickness = canvas.Width * Attributes.Get(strings.Stroke).Value / 32 / scaleFactor / MaximumX,
+					           StrokeLineJoin = PenLineJoin.Round
+				           };
 
 				canvas.Children.Add(path);
 
@@ -106,6 +104,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			Attributes.Get(strings.Y).Value = values[1];
 			Attributes.Get(strings.Size).Value = values[2];
 			Attributes.Get(strings.Rotation).Value = values[3];
+			Attributes.Get(strings.Stroke).Value = values[4];
 		}
 
 		public override string ExportSvg(int width, int height)
@@ -159,14 +158,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				       };
 			}
 		}
-
-		public void ToggleStroke(bool isEnabled, Color color, double width)
-		{
-			_strokeEnabled = isEnabled;
-			StrokeWidth = width;
-			StrokeColor = color;
-		}
-
+		
 		public OverlayPath Copy()
 		{
 			return new OverlayPath(_name, _path, _pathSize, MaximumX, MaximumY);

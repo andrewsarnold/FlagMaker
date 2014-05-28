@@ -70,6 +70,12 @@ namespace FlagMaker.Overlays
 						}
 						_overlay.SetValues(sliderValues);
 					}
+
+					var overlayPath = _overlay as OverlayPath;
+					if (overlayPath != null)
+					{
+						StrokePicker.SelectedColor = overlayPath.StrokeColor;
+					}
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
@@ -83,49 +89,14 @@ namespace FlagMaker.Overlays
 					PnlSliders.Children.Add(slider);
 				}
 
-				var path = _overlay as OverlayPath;
-				if (path != null)
-				{
-					StrokeCheckBox.Visibility = Visibility.Visible;
-					StrokePicker.SelectedColor = path.StrokeColor;
-					if (path.StrokeWidth > 0)
-					{
-						StrokeCheckBox.IsChecked = true;
-						StrokeGrid.Visibility = Visibility.Visible;
-						StrokeSlider.Maximum = _defaultMaximumX;
-						StrokeSlider.Value = path.StrokeWidth;
-						((OverlayPath)_overlay).ToggleStroke(true, StrokePicker.SelectedColor, StrokeSlider.Value);
-					}
-				}
-				else
-				{
-					StrokeCheckBox.Visibility = Visibility.Collapsed;
-				}
+				StrokePicker.Visibility = _overlay is OverlayPath ? Visibility.Visible : Visibility.Collapsed;
 			}
-		}
-
-		public void SetType(string typename)
-		{
-			var type = OverlayFactory.GetOverlayType(typename);
-			Overlay = OverlayFactory.GetInstance(type, _defaultMaximumX, _defaultMaximumY, typename);
 		}
 
 		public Color Color
 		{
 			get { return OverlayPicker.SelectedColor; }
 			set { OverlayPicker.SelectedColor = value; }
-		}
-
-		public void SetSlider(int slider, double value)
-		{
-			if (slider >= PnlSliders.Children.Count) return;
-
-			if (Math.Abs(value - (int)value) > 0.01)
-			{
-				((AttributeSlider)PnlSliders.Children[slider]).ChkDiscrete.IsChecked = false;
-			}
-
-			((AttributeSlider)PnlSliders.Children[slider]).Value = value;
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
@@ -145,9 +116,6 @@ namespace FlagMaker.Overlays
 				slider.Maximum = max;
 				slider.Value = newValue;
 			}
-
-			StrokeSlider.Minimum = 0;
-			StrokeSlider.Maximum = maximumX;
 		}
 
 		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors)
@@ -257,25 +225,6 @@ namespace FlagMaker.Overlays
 				Overlay.IsEnabled
 					? new Uri(@"..\Images\check_on.png", UriKind.Relative)
 					: new Uri(@"..\Images\check_off.png", UriKind.Relative));
-		}
-
-		private void StrokeToggle(object sender, RoutedEventArgs e)
-		{
-			if (IsLoading) return;
-
-			StrokeGrid.Visibility = (StrokeCheckBox.IsChecked ?? false)
-				? Visibility.Visible
-				: Visibility.Collapsed;
-			((OverlayPath)_overlay).ToggleStroke(true, StrokePicker.SelectedColor, StrokeSlider.Value);
-			Draw();
-		}
-
-		private void StrokeSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-		{
-			if (IsLoading) return;
-
-			((OverlayPath)_overlay).StrokeWidth = StrokeSlider.Value;
-			Draw();
 		}
 	}
 }

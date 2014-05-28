@@ -33,19 +33,7 @@
         </StackPanel>
 
         <xctk:ColorPicker x:Name="OverlayPicker" Margin="0,4,0,0" />
-		
-        <StackPanel x:Name="PnlSliders" />
-
-		<CheckBox x:Name="StrokeCheckBox" Content="Stroke" Checked="StrokeToggle" />
-		
-		<Grid Margin="0,4,0,0" x:Name="StrokeGrid" Visibility="Collapsed">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			
-			<xctk:ColorPicker Grid.Column="0" x:Name="StrokePicker" />
-			<Slider Grid.Column="1" x:Name="StrokeSlider" ValueChanged="StrokeSlider_OnValueChanged" Margin="4,0,0,0" />
-		</Grid>
+		<StackPanel x:Name="PnlSliders" />
+		<xctk:ColorPicker x:Name="StrokePicker" />
 	</StackPanel>
 </UserControl>

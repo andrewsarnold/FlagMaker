@@ -345,4 +345,7 @@
   <data name="GenerateRandomFlag" xml:space="preserve">
     <value>Generate random flag</value>
   </data>
+  <data name="Stroke" xml:space="preserve">
+    <value>Stroke</value>
+  </data>
 </root>

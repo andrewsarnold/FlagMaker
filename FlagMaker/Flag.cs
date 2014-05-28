@@ -159,7 +159,7 @@ namespace FlagMaker
 								overlays[overlayIndex].StrokeColor = ParseColor(line.Split('=')[1]);
 								break;
 							case "strokewidth":
-								overlays[overlayIndex].StrokeWidth = GetDoubleFromString(line.Split('=')[1]);
+								GetDoubleFromString(line.Split('=')[1]);
 								break;
 						}
 					}
@@ -351,7 +351,6 @@ namespace FlagMaker
 			public string Path;
 
 			public Color StrokeColor;
-			public double StrokeWidth;
 
 			public TempOverlay()
 			{
@@ -391,7 +390,6 @@ namespace FlagMaker
 				var path = overlay as OverlayPath;
 				if (path != null)
 				{
-					path.StrokeWidth = StrokeWidth;
 					path.StrokeColor = StrokeColor;
 				}
 

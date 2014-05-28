@@ -601,6 +601,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stroke.
+        /// </summary>
+        public static string Stroke {
+            get {
+                return ResourceManager.GetString("Stroke", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thickness.
         /// </summary>
         public static string Thickness {
