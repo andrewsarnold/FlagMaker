@@ -67,9 +67,16 @@ namespace FlagMaker.Overlays
 							sliderValues.Add(0);
 						}
 						_overlay.SetValues(sliderValues);
-					}
 
-					
+						if (path != null)
+						{
+							path.StrokeColor = StrokePicker.SelectedColor;
+						}
+					}
+				}
+				else if (path != null)
+				{
+					StrokePicker.SelectedColor = path.StrokeColor;
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
@@ -83,11 +90,6 @@ namespace FlagMaker.Overlays
 					PnlSliders.Children.Add(slider);
 				}
 				
-				if (path != null)
-				{
-					StrokePicker.SelectedColor = path.StrokeColor;
-				}
-
 				StrokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
 				_isFirst = false;
 			}
@@ -134,7 +136,6 @@ namespace FlagMaker.Overlays
 			StrokePicker.SelectedColor = StrokePicker.StandardColors[16].Color;
 			StrokePicker.SelectedColorChanged += (sender, args) =>
 			{
-				OverlayColorChanged();
 				((OverlayPath)_overlay).StrokeColor = StrokePicker.SelectedColor;
 				Draw();
 			};

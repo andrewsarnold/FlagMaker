@@ -13,8 +13,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 {
 	internal sealed class OverlayFlag : OverlayShape
 	{
-		public Flag Flag { get; private set; }
-
+		public Flag Flag { get; set; }
 		public string Path { get; private set; }
 
 		public OverlayFlag(int maximumX, int maximumY)

@@ -361,6 +361,10 @@ namespace FlagMaker
 			{
 				((OverlayPath) copy).StrokeColor = ((OverlayPath) controlToClone.Overlay).StrokeColor;
 			}
+			else if (type == typeof (OverlayFlag))
+			{
+				((OverlayFlag)copy).Flag = ((OverlayFlag)controlToClone.Overlay).Flag;
+			}
 
 			var gridSize = ((Ratio)CmbGridSize.SelectedItem);
 			copy.SetMaximum(gridSize.Width, gridSize.Height);
