@@ -108,6 +108,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Overlays\OverlayLine.cs" />
     <Compile Include="Overlays\OverlayFactory.cs" />
     <Compile Include="Overlays\OverlaySelector.xaml.cs">
       <DependentUpon>OverlaySelector.xaml</DependentUpon>
