@@ -286,6 +286,12 @@ namespace FlagMaker
 				else if (!(overlay is OverlayRepeater || overlay is OverlayImage))
 				{
 					colors.Add(overlay.Color);
+
+					var path = overlay as OverlayPath;
+					if (path != null && path.StrokeColor.A > 0 && path.Attributes.Get(strings.Stroke).Value > 0)
+					{
+						colors.Add(path.StrokeColor);
+					}
 				}
 			}
 
