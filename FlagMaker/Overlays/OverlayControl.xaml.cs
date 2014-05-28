@@ -144,7 +144,7 @@ namespace FlagMaker.Overlays
 		{
 			if (Overlay == null) return;
 
-			Overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor, Colors.Transparent });
+			Overlay.SetColor(OverlayPicker.SelectedColor);
 			Draw();
 		}
 

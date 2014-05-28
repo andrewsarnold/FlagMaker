@@ -381,7 +381,7 @@ namespace FlagMaker
 
 				if (overlay == null) return null;
 
-				overlay.SetColors(new List<Color> { Color });
+				overlay.SetColor(Color);
 				overlay.SetValues(Values);
 
 				var path = overlay as OverlayPath;

@@ -44,9 +44,9 @@ namespace FlagMaker.Overlays
 			}
 		}
 
-		public void SetColors(List<Color> colors)
+		public void SetColor(Color color)
 		{
-			Color = colors[0];
+			Color = color;
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
