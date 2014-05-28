@@ -65,14 +65,11 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				double y = Attributes.Get(strings.Y).Value;
 
 				var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
-
-				var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(canvas.Width, canvas.Height);
-
-				var scaleFactor = idealPixelSize / _pathSize.X;
-
 				var transformGroup = new TransformGroup();
 				var rotateTransform = new RotateTransform((Attributes.Get(strings.Rotation).Value / MaximumX) * 360);
 				transformGroup.Children.Add(rotateTransform);
+
+				var scaleFactor = ScaleFactor(canvas.Width, canvas.Height);
 				var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
 				transformGroup.Children.Add(scaleTransform);
 
@@ -83,7 +80,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					           Data = Geometry.Parse(_path),
 					           SnapsToDevicePixels = true,
 					           Stroke = new SolidColorBrush(StrokeColor),
-							   StrokeThickness = canvas.Width * Attributes.Get(strings.Stroke).Value / 32 / scaleFactor / MaximumX,
+							   StrokeThickness = StrokeThickness(canvas.Width, canvas.Height),
 					           StrokeLineJoin = PenLineJoin.Round
 				           };
 
@@ -123,8 +120,14 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				var scaleFactor = idealPixelSize / _pathSize.X;
 				var rotate = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
 
-				return string.Format(CultureInfo.InvariantCulture, "<g transform=\"translate({2:0.###},{3:0.###}) rotate({0:0.###}) scale({1:0.###})\"><path d=\"{4}\" {5} /></g>",
-						rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToSvgFillWithOpacity());
+				var strokeThickness = StrokeThickness(width, height);
+
+				return string.Format(CultureInfo.InvariantCulture,
+					"<g transform=\"translate({2:0.###},{3:0.###}) rotate({0:0.###}) scale({1:0.###})\"><path d=\"{4}\" {5} {6} /></g>",
+					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToSvgFillWithOpacity(),
+					strokeThickness > 0
+						? string.Format("stroke=\"#{0}\" stroke-width=\"{1:0.###}\" stroke-linecap=\"round\"", StrokeColor.ToHexString(false), strokeThickness)
+						: string.Empty);
 			}
 			catch (Exception)
 			{
@@ -162,6 +165,17 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		public OverlayPath Copy()
 		{
 			return new OverlayPath(_name, _path, _pathSize, MaximumX, MaximumY);
+		}
+
+		private double StrokeThickness(double canvasWidth, double canvasHeight)
+		{
+			return canvasWidth * Attributes.Get(strings.Stroke).Value / 32 / ScaleFactor(canvasWidth, canvasHeight) / MaximumX;
+		}
+
+		private double ScaleFactor(double canvasWidth, double canvasHeight)
+		{
+			var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(canvasWidth, canvasHeight);
+			return idealPixelSize / _pathSize.X;
 		}
 	}
 }
