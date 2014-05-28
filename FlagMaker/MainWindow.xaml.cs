@@ -346,19 +346,18 @@ namespace FlagMaker
 			var controlToClone = (OverlayControl)sender;
 			int index = LstOverlays.Children.IndexOf(controlToClone);
 
-			Overlay overlay;
-			var flag = controlToClone.Overlay as OverlayFlag;
-			if (flag != null)
+			var type = controlToClone.Overlay.GetType();
+			var copy = (Overlay)Activator.CreateInstance(type, 0, 0);
+
+			for (int i = 0; i < controlToClone.Overlay.Attributes.Count; i++)
 			{
-				var gridSize = ((Ratio)CmbGridSize.SelectedItem);
-				overlay = new OverlayFlag(flag.Flag, flag.Path, gridSize.Width, gridSize.Height);
-			}
-			else
-			{
-				overlay = controlToClone.Overlay;
+				copy.Attributes[i].Value = controlToClone.Overlay.Attributes[i].Value;
 			}
 
-			OverlayAdd(index + 1, overlay, true);
+			var gridSize = ((Ratio)CmbGridSize.SelectedItem);
+			copy.SetMaximum(gridSize.Width, gridSize.Height);
+
+			OverlayAdd(index + 1, copy, true);
 		}
 
 		private void OverlayAdd(int index, Overlay overlay, bool isLoading)

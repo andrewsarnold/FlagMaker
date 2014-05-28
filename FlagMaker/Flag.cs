@@ -158,9 +158,6 @@ namespace FlagMaker
 							case "stroke":
 								overlays[overlayIndex].StrokeColor = ParseColor(line.Split('=')[1]);
 								break;
-							case "strokewidth":
-								GetDoubleFromString(line.Split('=')[1]);
-								break;
 						}
 					}
 				}

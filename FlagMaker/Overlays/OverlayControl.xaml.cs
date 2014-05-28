@@ -39,7 +39,7 @@ namespace FlagMaker.Overlays
 			_isFirst = true;
 
 			SetUpColors(standardColors, availableColors, recentColors);
-			Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
+			//Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
 
 			if (!IsLoading)
 			{
@@ -55,6 +55,7 @@ namespace FlagMaker.Overlays
 			set
 			{
 				_overlay = value;
+				var path = _overlay as OverlayPath;
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
 				BtnOverlays.ToolTip = _overlay.DisplayName;
 
@@ -71,10 +72,9 @@ namespace FlagMaker.Overlays
 						_overlay.SetValues(sliderValues);
 					}
 
-					var overlayPath = _overlay as OverlayPath;
-					if (overlayPath != null)
+					if (path != null)
 					{
-						StrokePicker.SelectedColor = overlayPath.StrokeColor;
+						StrokePicker.SelectedColor = path.StrokeColor;
 					}
 				}
 
@@ -89,7 +89,7 @@ namespace FlagMaker.Overlays
 					PnlSliders.Children.Add(slider);
 				}
 
-				StrokePicker.Visibility = _overlay is OverlayPath ? Visibility.Visible : Visibility.Collapsed;
+				StrokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
 			}
 		}
 
