@@ -68,6 +68,8 @@ namespace FlagMaker.Overlays
 						}
 						_overlay.SetValues(sliderValues);
 
+						_overlay.SetColor(OverlayPicker.SelectedColor);
+
 						if (path != null)
 						{
 							path.StrokeColor = StrokePicker.SelectedColor;
