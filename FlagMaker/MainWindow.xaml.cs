@@ -18,6 +18,7 @@ using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using FlagMaker.Properties;
 using FlagMaker.RandomFlag;
@@ -352,6 +353,11 @@ namespace FlagMaker
 			for (int i = 0; i < controlToClone.Overlay.Attributes.Count; i++)
 			{
 				copy.Attributes[i].Value = controlToClone.Overlay.Attributes[i].Value;
+			}
+
+			if (type.IsSubclassOf(typeof(OverlayPath)))
+			{
+				((OverlayPath) copy).StrokeColor = ((OverlayPath) controlToClone.Overlay).StrokeColor;
 			}
 
 			var gridSize = ((Ratio)CmbGridSize.SelectedItem);
@@ -831,6 +837,9 @@ namespace FlagMaker
 					{
 						sr.WriteLine("size{0}={1}", i + 1, overlay.Overlay.Attributes[i].Value.ToString(CultureInfo.InvariantCulture));
 					}
+
+					var path = overlay.Overlay as OverlayPath;
+					if (path != null) sr.WriteLine("stroke={0}", path.StrokeColor.ToHexString());
 				}
 			}
 

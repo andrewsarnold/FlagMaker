@@ -18,7 +18,7 @@ namespace FlagMaker.Overlays
 		private Overlay _overlay;
 		private int _defaultMaximumX;
 		private int _defaultMaximumY;
-		private readonly bool _isFirst;
+		private bool _isFirst;
 
 		public bool IsLoading;
 		public bool WasCanceled { get; private set; }
@@ -39,14 +39,11 @@ namespace FlagMaker.Overlays
 			_isFirst = true;
 
 			SetUpColors(standardColors, availableColors, recentColors);
-			//Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
 
 			if (!IsLoading)
 			{
 				OverlaySelect(this, null);
 			}
-
-			_isFirst = false;
 		}
 
 		public Overlay Overlay
@@ -72,10 +69,7 @@ namespace FlagMaker.Overlays
 						_overlay.SetValues(sliderValues);
 					}
 
-					if (path != null)
-					{
-						StrokePicker.SelectedColor = path.StrokeColor;
-					}
+					
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
@@ -88,8 +82,14 @@ namespace FlagMaker.Overlays
 					slider.ValueChanged += OverlaySliderChanged;
 					PnlSliders.Children.Add(slider);
 				}
+				
+				if (path != null)
+				{
+					StrokePicker.SelectedColor = path.StrokeColor;
+				}
 
 				StrokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
+				_isFirst = false;
 			}
 		}
 
