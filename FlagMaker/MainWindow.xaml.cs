@@ -889,7 +889,7 @@ namespace FlagMaker
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show(string.Format(strings.CouldNotOpenError, e.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
+				MessageBox.Show(string.Format(strings.CouldNotOpenError, e.GetBaseException().Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
 			}
 		}
 
