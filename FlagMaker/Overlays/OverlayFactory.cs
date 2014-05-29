@@ -32,7 +32,7 @@ namespace FlagMaker.Overlays
 		{
 			var result = CustomTypes.Any(t => t.Key == name)
 				? CustomTypes[name].GetType()
-				: _typeMap.First(t => t.Key == name).Value;
+				: _typeMap.FirstOrDefault(t => t.Key == name).Value;
 
 			if (result == null)
 			{
@@ -123,9 +123,9 @@ namespace FlagMaker.Overlays
 				{
 					throw;
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
-					throw new Exception(string.Format(strings.OverlayLoadError, Path.GetFileNameWithoutExtension(file)));
+					throw new Exception(string.Format(strings.OverlayLoadError, Path.GetFileNameWithoutExtension(file)), ex);
 				}
 			}
 		}

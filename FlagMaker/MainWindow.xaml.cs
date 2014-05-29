@@ -40,7 +40,7 @@ namespace FlagMaker
 
 		private bool _isLoading;
 		private bool _showGrid;
-		private bool _showTexture;
+		private int _texture;
 
 		private Flag Flag
 		{
@@ -651,11 +651,11 @@ namespace FlagMaker
 
 		private void DrawTexture(Canvas canvas)
 		{
-			if (!_showTexture) return;
+			if (_texture == 0) return;
 
 			var bitmap = new BitmapImage();
 			bitmap.BeginInit();
-			bitmap.UriSource = new Uri(@"pack://application:,,,/Images/overlay.png");
+			bitmap.UriSource = new Uri(string.Format(@"pack://application:,,,/Images/texture/{0}.png", _texture));
 			bitmap.CacheOption = BitmapCacheOption.OnLoad;
 			bitmap.EndInit();
 
@@ -676,7 +676,7 @@ namespace FlagMaker
 
 		private void ToggleTexture(object sender, RoutedEventArgs e)
 		{
-			_showTexture = !_showTexture;
+			_texture = (_texture + 1) % 6;
 			Draw();
 		}
 
@@ -892,7 +892,7 @@ namespace FlagMaker
 			}
 			catch (Exception e)
 			{
-				MessageBox.Show(string.Format(strings.CouldNotOpenError, e.Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
+				MessageBox.Show(string.Format(strings.CouldNotOpenError, e.GetBaseException().Message), "FlagMaker", MessageBoxButton.OK, MessageBoxImage.Warning);
 			}
 		}
 

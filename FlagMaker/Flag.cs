@@ -190,9 +190,9 @@ namespace FlagMaker
 				return new Flag(name, ratio, gridRatio, division,
 					overlays.Select(o => o.ToOverlay(gridRatio.Width, gridRatio.Height, Path.GetDirectoryName(filename))));
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw new FileLoadException(line);
+				throw new FileLoadException(line, ex);
 			}
 		}
 
