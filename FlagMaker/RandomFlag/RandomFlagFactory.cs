@@ -527,7 +527,7 @@ namespace FlagMaker.RandomFlag
 
 			var emblem = Emblems[Randomizer.Next(Emblems.Count)];
 			emblem.SetColor(_emblemColor);
-			emblem.SetValues(new List<double> { rect.Left + (rect.Right - rect.Left) / 2, rect.Top + (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / (isSmall ? 3.0 : 1.5), 0, 0 });
+			emblem.SetValues(new List<double> { rect.Left + (rect.Right - rect.Left) / 2, rect.Top + (rect.Bottom - rect.Top) / 2, (rect.Bottom - rect.Top) / (isSmall ? 3.0 : 1.5), 0, 0, 0 });
 			emblem.SetMaximum(_gridSize.Width, _gridSize.Height);
 			list.Add(emblem);
 		}
