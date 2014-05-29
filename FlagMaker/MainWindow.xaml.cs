@@ -348,7 +348,7 @@ namespace FlagMaker
 			int index = LstOverlays.Children.IndexOf(controlToClone);
 
 			var type = controlToClone.Overlay.GetType();
-			var copy = (Overlay)Activator.CreateInstance(type, 0, 0);
+			var copy = OverlayFactory.GetInstance(type, 1, 1, controlToClone.Overlay.Name);
 
 			for (int i = 0; i < controlToClone.Overlay.Attributes.Count; i++)
 			{
@@ -359,7 +359,7 @@ namespace FlagMaker
 
 			if (type.IsSubclassOf(typeof(OverlayPath)))
 			{
-				((OverlayPath) copy).StrokeColor = ((OverlayPath) controlToClone.Overlay).StrokeColor;
+				((OverlayPath)copy).StrokeColor = ((OverlayPath)controlToClone.Overlay).StrokeColor;
 			}
 			else if (type == typeof (OverlayFlag))
 			{
