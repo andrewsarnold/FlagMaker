@@ -610,6 +610,15 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Curved?.
+        /// </summary>
+        public static string StrokeCurved {
+            get {
+                return ResourceManager.GetString("StrokeCurved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thickness.
         /// </summary>
         public static string Thickness {

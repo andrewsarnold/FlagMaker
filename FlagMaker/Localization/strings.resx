@@ -348,4 +348,7 @@
   <data name="Stroke" xml:space="preserve">
     <value>Stroke</value>
   </data>
+  <data name="StrokeCurved" xml:space="preserve">
+    <value>Curved?</value>
+  </data>
 </root>

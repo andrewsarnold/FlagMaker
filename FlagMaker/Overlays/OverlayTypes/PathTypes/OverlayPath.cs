@@ -24,7 +24,8 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				       new Attribute(strings.Y, true, 1, false),
 				       new Attribute(strings.Size, true, 1, true),
 				       new Attribute(strings.Rotation, true, 0, true),
-					   new Attribute(strings.Stroke, true, 0, true)
+					   new Attribute(strings.Stroke, true, 0, true),
+					   new Attribute(strings.StrokeCurved, true, 0, true)
 			       }, maximumX, maximumY)
 		{
 			_name = name;
@@ -40,7 +41,8 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				       new Attribute(strings.Y, true, 1, false),
 				       new Attribute(strings.Size, true, 1, true),
 				       new Attribute(strings.Rotation, true, 0, true),
-					   new Attribute(strings.Stroke, true, 0, true)
+					   new Attribute(strings.Stroke, true, 0, true),
+					   new Attribute(strings.StrokeCurved, true, 0, true)
 			       }, maximumX, maximumY)
 		{
 			_name = name;
@@ -73,6 +75,9 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
 				transformGroup.Children.Add(scaleTransform);
 
+				var scv = Attributes.Get(strings.StrokeCurved).Value;
+				var isc = scv > MaximumX / 2.0;
+
 				var path = new Path
 				           {
 					           Fill = new SolidColorBrush(Color),
@@ -80,8 +85,10 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					           Data = Geometry.Parse(_path),
 					           SnapsToDevicePixels = true,
 					           Stroke = new SolidColorBrush(StrokeColor),
-							   StrokeThickness = StrokeThickness(canvas.Width, canvas.Height),
-					           StrokeLineJoin = PenLineJoin.Round
+					           StrokeThickness = StrokeThickness(canvas.Width, canvas.Height),
+							   StrokeLineJoin = isc
+						           ? PenLineJoin.Round
+						           : PenLineJoin.Miter
 				           };
 
 				canvas.Children.Add(path);
@@ -102,6 +109,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 			Attributes.Get(strings.Size).Value = values[2];
 			Attributes.Get(strings.Rotation).Value = values[3];
 			Attributes.Get(strings.Stroke).Value = values[4];
+			Attributes.Get(strings.StrokeCurved).Value = values[5];
 		}
 
 		public override string ExportSvg(int width, int height)
@@ -121,12 +129,14 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				var rotate = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
 
 				var strokeThickness = StrokeThickness(width, height);
+				var strokeCurved = Attributes.Get(strings.StrokeCurved).Value > MaximumX / 2.0;
 
 				return string.Format(CultureInfo.InvariantCulture,
 					"<g transform=\"translate({2:0.###},{3:0.###}) rotate({0:0.###}) scale({1:0.###})\"><path d=\"{4}\" {5} {6} /></g>",
 					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToSvgFillWithOpacity(),
 					strokeThickness > 0
-						? string.Format("stroke=\"#{0}\" stroke-width=\"{1:0.###}\" stroke-linejoin=\"round\"", StrokeColor.ToHexString(false), strokeThickness)
+						? string.Format("stroke=\"#{0}\" stroke-width=\"{1:0.###}\" stroke-linejoin=\"{2}\"",
+							StrokeColor.ToHexString(false), strokeThickness, strokeCurved ? "round" : "miter")
 						: string.Empty);
 			}
 			catch (Exception)
