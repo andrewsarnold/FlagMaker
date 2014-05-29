@@ -74,10 +74,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				var scaleFactor = ScaleFactor(canvas.Width, canvas.Height);
 				var scaleTransform = new ScaleTransform(scaleFactor, scaleFactor);
 				transformGroup.Children.Add(scaleTransform);
-
-				var scv = Attributes.Get(strings.StrokeCurved).Value;
-				var isc = scv > MaximumX / 2.0;
-
+				
 				var path = new Path
 				           {
 					           Fill = new SolidColorBrush(Color),
@@ -86,7 +83,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					           SnapsToDevicePixels = true,
 					           Stroke = new SolidColorBrush(StrokeColor),
 					           StrokeThickness = StrokeThickness(canvas.Width, canvas.Height),
-							   StrokeLineJoin = isc
+							   StrokeLineJoin = Attributes.Get(strings.StrokeCurved).Value > MaximumX / 2.0
 						           ? PenLineJoin.Round
 						           : PenLineJoin.Miter
 				           };
