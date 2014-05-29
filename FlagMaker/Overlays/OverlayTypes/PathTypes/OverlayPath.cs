@@ -126,7 +126,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 					"<g transform=\"translate({2:0.###},{3:0.###}) rotate({0:0.###}) scale({1:0.###})\"><path d=\"{4}\" {5} {6} /></g>",
 					rotate, scaleFactor, finalCenterPoint.X, finalCenterPoint.Y, _path, Color.ToSvgFillWithOpacity(),
 					strokeThickness > 0
-						? string.Format("stroke=\"#{0}\" stroke-width=\"{1:0.###}\" stroke-linecap=\"round\"", StrokeColor.ToHexString(false), strokeThickness)
+						? string.Format("stroke=\"#{0}\" stroke-width=\"{1:0.###}\" stroke-linejoin=\"round\"", StrokeColor.ToHexString(false), strokeThickness)
 						: string.Empty);
 			}
 			catch (Exception)
