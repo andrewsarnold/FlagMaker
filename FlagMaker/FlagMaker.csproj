@@ -836,7 +836,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\overlay.png" />
+    <Resource Include="Images\texture\1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\check_off.png" />
@@ -844,6 +844,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\die.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\texture\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\texture\2.png" />
+    <Resource Include="Images\texture\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\texture\5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

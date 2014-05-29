@@ -69,7 +69,7 @@
                 <Image Source="Images\rotate.png" />
             </Button>
 			<Button Style="{DynamicResource GraphicButton}" ToolTip="{x:Static localization:strings.ToggleTexture}" Click="ToggleTexture" Height="32" Width="32">
-				<Image Source="Images\overlay.png" />
+				<Image Source="Images\texture\1.png" />
 			</Button>
 			<Button Style="{DynamicResource ResourceKey=GraphicButton}" ToolTip="{x:Static localization:strings.GenerateRandomFlag}" Click="GenerateRandomFlag" Height="32" Width="32">
 				<Image Source="Images\die.png" />
