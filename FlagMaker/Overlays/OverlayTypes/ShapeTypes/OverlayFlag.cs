@@ -47,7 +47,9 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 			var c = new Canvas
 					{
 						Width = canvasWidth,
-						Height = canvasHeight
+						Height = canvasHeight,
+						ClipToBounds = true,
+						SnapsToDevicePixels = true
 					};
 
 			Flag.Draw(c);
