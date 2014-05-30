@@ -93,7 +93,9 @@ namespace FlagMaker.Overlays
 				}
 				
 				StrokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
+
 				_isFirst = false;
+				IsLoading = false;
 			}
 		}
 
