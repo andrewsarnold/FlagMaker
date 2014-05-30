@@ -72,11 +72,6 @@ namespace FlagMaker.Overlays
 			return (Overlay)Activator.CreateInstance(type, maxX, maxY);
 		}
 
-		public static Overlay GetDefaultOverlay(int maxX = 1, int maxY = 1)
-		{
-			return GetInstance(_typeMap["box"], maxX, maxY);
-		}
-
 		public static void FillCustomOverlays()
 		{
 			CustomTypes = new Dictionary<string, OverlayPath>();

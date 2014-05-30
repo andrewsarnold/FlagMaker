@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:localization="clr-namespace:FlagMaker.Localization"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary Source="..\Style.xaml" />
     </UserControl.Resources>
@@ -34,7 +33,7 @@
         </StackPanel>
 
         <xctk:ColorPicker x:Name="OverlayPicker" Margin="0,4,0,0" />
-
-        <StackPanel x:Name="PnlSliders" />
-    </StackPanel>
+		<StackPanel x:Name="PnlSliders" />
+		<xctk:ColorPicker x:Name="StrokePicker" />
+	</StackPanel>
 </UserControl>

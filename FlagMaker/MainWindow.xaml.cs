@@ -18,6 +18,7 @@ using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using FlagMaker.Properties;
 using FlagMaker.RandomFlag;
@@ -346,54 +347,53 @@ namespace FlagMaker
 			var controlToClone = (OverlayControl)sender;
 			int index = LstOverlays.Children.IndexOf(controlToClone);
 
-			Overlay overlay;
-			var flag = controlToClone.Overlay as OverlayFlag;
-			if (flag != null)
+			var type = controlToClone.Overlay.GetType();
+			var copy = OverlayFactory.GetInstance(type, 1, 1, controlToClone.Overlay.Name);
+
+			for (int i = 0; i < controlToClone.Overlay.Attributes.Count; i++)
 			{
-				var gridSize = ((Ratio)CmbGridSize.SelectedItem);
-				overlay = new OverlayFlag(flag.Flag, flag.Path, gridSize.Width, gridSize.Height);
-			}
-			else
-			{
-				overlay = controlToClone.Overlay;
+				copy.Attributes[i].Value = controlToClone.Overlay.Attributes[i].Value;
 			}
 
-			OverlayAdd(index + 1, overlay, true);
+			copy.SetColor(controlToClone.Overlay.Color);
+
+			if (type.IsSubclassOf(typeof(OverlayPath)))
+			{
+				((OverlayPath)copy).StrokeColor = ((OverlayPath)controlToClone.Overlay).StrokeColor;
+			}
+			else if (type == typeof (OverlayFlag))
+			{
+				((OverlayFlag)copy).Flag = ((OverlayFlag)controlToClone.Overlay).Flag;
+			}
+
+			var gridSize = ((Ratio)CmbGridSize.SelectedItem);
+			copy.SetMaximum(gridSize.Width, gridSize.Height);
+
+			OverlayAdd(index + 1, copy, true);
 		}
 
 		private void OverlayAdd(int index, Overlay overlay, bool isLoading)
 		{
 			var gridSize = ((Ratio)CmbGridSize.SelectedItem);
-			var newOverlay = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height, isLoading);
+			var control = new OverlayControl(_standardColors, _availableColors, _recentColors, gridSize.Width, gridSize.Height, isLoading);
 
-			if (newOverlay.WasCanceled)
+			if (control.WasCanceled)
 			{
 				return;
 			}
 
 			if (overlay != null)
 			{
-				newOverlay.Color = overlay.Color;
-				newOverlay.SetType(overlay.Name);
-
-				if (overlay is OverlayFlag || overlay is OverlayImage)
-				{
-					newOverlay.Overlay = overlay;
-				}
-
-				for (int i = 0; i < overlay.Attributes.Count; i++)
-				{
-					newOverlay.SetSlider(i, overlay.Attributes[i].Value);
-				}
+				control.Overlay = overlay;
 			}
 
-			newOverlay.OnDraw += Draw;
-			newOverlay.OnRemove += Remove;
-			newOverlay.OnMoveUp += MoveUp;
-			newOverlay.OnMoveDown += MoveDown;
-			newOverlay.OnClone += Clone;
+			control.OnDraw += Draw;
+			control.OnRemove += Remove;
+			control.OnMoveUp += MoveUp;
+			control.OnMoveDown += MoveDown;
+			control.OnClone += Clone;
 
-			LstOverlays.Children.Insert(index, newOverlay);
+			LstOverlays.Children.Insert(index, control);
 
 			SetOverlayMargins();
 
@@ -843,6 +843,9 @@ namespace FlagMaker
 					{
 						sr.WriteLine("size{0}={1}", i + 1, overlay.Overlay.Attributes[i].Value.ToString(CultureInfo.InvariantCulture));
 					}
+
+					var path = overlay.Overlay as OverlayPath;
+					if (path != null) sr.WriteLine("stroke={0}", path.StrokeColor.ToHexString());
 				}
 			}
 
