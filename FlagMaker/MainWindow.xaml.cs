@@ -777,7 +777,6 @@ namespace FlagMaker
 			SetRatio(3, 2);
 			TxtName.Text = strings.Untitled;
 			_filename = string.Empty;
-
 			_isUnsaved = false;
 			SetTitle();
 		}
@@ -1038,6 +1037,8 @@ namespace FlagMaker
 		{
 			if (CheckUnsaved()) return;
 			LoadFlag(RandomFlagFactory.GenerateFlag());
+			_filename = string.Empty;
+			SetTitle();
 		}
 
 		#endregion
