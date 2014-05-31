@@ -353,6 +353,7 @@ namespace FlagMaker
 			for (int i = 0; i < controlToClone.Overlay.Attributes.Count; i++)
 			{
 				copy.Attributes[i].Value = controlToClone.Overlay.Attributes[i].Value;
+				copy.Attributes[i].IsDiscrete = controlToClone.Overlay.Attributes[i].IsDiscrete;
 			}
 
 			copy.SetColor(controlToClone.Overlay.Color);

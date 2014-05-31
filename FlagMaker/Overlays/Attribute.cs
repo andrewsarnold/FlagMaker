@@ -8,8 +8,8 @@ namespace FlagMaker.Overlays
 	public class Attribute
 	{
 		public string Name { get; private set; }
-		public bool IsDiscrete { get; private set; }
-		public double Value;
+		public bool IsDiscrete { get; set; }
+		public double Value { get; set; }
 		public bool UseMaxX { get; private set; }
 
 		public Attribute(string name, bool isDiscrete, double initialValue, bool useMaxX)
