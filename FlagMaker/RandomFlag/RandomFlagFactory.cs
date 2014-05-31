@@ -31,10 +31,10 @@ namespace FlagMaker.RandomFlag
 		private static Ratio _gridSize;
 		private static DivisionTypes _divisionType;
 		private static Division _division;
-		private static List<Overlay> _overlays; 
+		private static List<Overlay> _overlays;
 
 		private static readonly List<Overlay> Emblems =
-			OverlayFactory.GetOverlaysByType(typeof (OverlayPath)).Select(p => OverlayFactory.GetInstance(p))
+			OverlayFactory.GetOverlaysByType(typeof(OverlayPath)).Select(p => OverlayFactory.GetInstance(p))
 				.Union(OverlayFactory.CustomTypes.Select(t => t.Value))
 				.ToList();
 		
@@ -124,7 +124,7 @@ namespace FlagMaker.RandomFlag
 					return GetQuartered();
 				case DivisionTypes.Blank:
 					return GetBlank();
-				default:
+				default: // Last three (Band1, Band2, MultiStripes) not implemented yet
 					return GetStripes();
 					//throw new Exception("No valid type selection");
 			}
@@ -148,7 +148,7 @@ namespace FlagMaker.RandomFlag
 				if (width < height) width = height;
 
 				_overlays.Add(new OverlayBox(stripeCount > 5 && Randomizer.ProbabilityOfTrue(0.3) ? _color1 : _color2, 0, 0, width, height, 0, 0));
-				AddEmblem(1.0, width / 2.0, height / 2.0, _metal);
+				AddEmblem(1.0, width / 2.0, height / 2.0, _metal, _color1);
 			}
 
 			return new DivisionGrid(_color1, _metal, 1, stripeCount);
@@ -159,7 +159,7 @@ namespace FlagMaker.RandomFlag
 			var color2 = Randomizer.ProbabilityOfTrue(0.27) ? _color1 : _color2;
 			var isBalanced = Randomizer.ProbabilityOfTrue(0.9);
 
-			AddEmblem(isBalanced ? 0.2 : 1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, Randomizer.ProbabilityOfTrue(0.5) ? _color1 : _color2);
+			AddEmblem(isBalanced ? 0.2 : 1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, Randomizer.ProbabilityOfTrue(0.5) ? _color1 : _color2, _metal);
 
 			return new DivisionPales(_color1, _metal, color2, 1, isBalanced ? 1 : 2, 1);
 		}
@@ -186,7 +186,7 @@ namespace FlagMaker.RandomFlag
 							color1 = _metal;
 							color2 = _color1;
 							break;
-						case 3: 
+						case 3:
 							color2 = _color2;
 							color3 = _metal;
 							break;
@@ -201,7 +201,7 @@ namespace FlagMaker.RandomFlag
 					fesses = new DivisionFesses(_color1, _metal, Randomizer.ProbabilityOfTrue(0.8) ? _color1 : _color2, 1, 2, 1);
 					probabilityOfHoist = 0.2;
 					probabilityOfEmblem = 1.0;
-					
+
 					if (Randomizer.ProbabilityOfTrue(0.3))
 					{
 						emblemX = 0.33;
@@ -213,10 +213,10 @@ namespace FlagMaker.RandomFlag
 					if (Randomizer.ProbabilityOfTrue(0.667))
 					{
 						color1 = _metal;
-						color2 = _color1;	
+						color2 = _color1;
 					}
 
-					AddEmblem(0.33, _gridSize.Width * 3.0 / 4.0, _gridSize.Height / 4.0, color1 == _metal ? _color1 : _metal);
+					AddEmblem(0.33, _gridSize.Width * 3.0 / 4.0, _gridSize.Height / 4.0, color1 == _metal ? _color1 : _metal, color1 == _metal ? _metal : _color1);
 					fesses = new DivisionFesses(color1, color2, _color2, 2, 1, 1);
 					break;
 			}
@@ -225,11 +225,12 @@ namespace FlagMaker.RandomFlag
 			{
 				var width = HoistElementWidth(true);
 				AddTriangle(1, width, hoistColor);
-				AddEmblem(0.33, width * 3.0 / 8.0, _gridSize.Height / 2.0, _metal);
+				AddEmblem(0.33, width * 3.0 / 8.0, _gridSize.Height / 2.0, _metal, _color1);
 			}
 			else if (color2 == _metal)
 			{
-				AddEmblem(probabilityOfEmblem, _gridSize.Width * emblemX, _gridSize.Height / 2.0, Randomizer.ProbabilityOfTrue(0.5) ? _color1 : _color2);
+				var useColor1 = Randomizer.ProbabilityOfTrue(0.5);
+				AddEmblem(probabilityOfEmblem, _gridSize.Width * emblemX, _gridSize.Height / 2.0, useColor1 ? _color1 : _color2, useColor1 ? _color2 : _color1);
 			}
 
 			return fesses;
@@ -243,16 +244,16 @@ namespace FlagMaker.RandomFlag
 
 				if (Randomizer.ProbabilityOfTrue(0.7))
 				{
-					_overlays.Add(new OverlayFimbriationForward(_metal, width + 1, 0, 0));
-					_overlays.Add(new OverlayFimbriationForward(_color2, width - 1, 0, 0));
+					_overlays.Add(new OverlayFimbriationForward(_metal, width + 1, _gridSize.Width, _gridSize.Height));
+					_overlays.Add(new OverlayFimbriationForward(_color2, width - 1, _gridSize.Width, _gridSize.Height));
 				}
 				else
 				{
-					_overlays.Add(new OverlayFimbriationForward(_metal, width, 0, 0));
+					_overlays.Add(new OverlayFimbriationForward(_metal, width, _gridSize.Width, _gridSize.Height));
 				}
 			}
 
-			AddEmblem(0.5, _gridSize.Width / 5.0, _gridSize.Height / 3.0, _metal);
+			AddEmblem(0.5, _gridSize.Width / 5.0, _gridSize.Height / 3.0, _metal, _color1);
 			return new DivisionBendsForward(_color1, _color2);
 		}
 
@@ -264,16 +265,16 @@ namespace FlagMaker.RandomFlag
 
 				if (Randomizer.ProbabilityOfTrue(0.7))
 				{
-					_overlays.Add(new OverlayFimbriationBackward(_metal, width + 1, 0, 0));
-					_overlays.Add(new OverlayFimbriationBackward(_color2, width - 1, 0, 0));
+					_overlays.Add(new OverlayFimbriationBackward(_metal, width + 1, _gridSize.Width, _gridSize.Height));
+					_overlays.Add(new OverlayFimbriationBackward(_color2, width - 1, _gridSize.Width, _gridSize.Height));
 				}
 				else
 				{
-					_overlays.Add(new OverlayFimbriationBackward(_metal, width, 0, 0));
+					_overlays.Add(new OverlayFimbriationBackward(_metal, width, _gridSize.Width, _gridSize.Height));
 				}
 			}
 
-			AddEmblem(0.5, _gridSize.Width * 4.0 / 5.0, _gridSize.Height / 3.0, _metal);
+			AddEmblem(0.5, _gridSize.Width * 4.0 / 5.0, _gridSize.Height / 3.0, _metal, _color1);
 			return new DivisionBendsBackward(_color1, _color2);
 		}
 
@@ -281,14 +282,14 @@ namespace FlagMaker.RandomFlag
 		{
 			if (Randomizer.ProbabilityOfTrue(0.3))
 			{
-				_overlays.Add(new OverlayBorder(_color2, _gridSize.Width / 8.0, 0, 0));
-				AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _color2, _metal);
+				_overlays.Add(new OverlayBorder(_color2, _gridSize.Width / 8.0, _gridSize.Width, _gridSize.Height));
+				AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _color2, _metal, _color2);
 				return new DivisionX(_color1, _metal);
 			}
-			
+
 			var thickness = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 7.0, 1.5), 3, _gridSize.Width / 3);
-			_overlays.Add(new OverlaySaltire(_metal, thickness, 0, 0));
-			AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _metal, _color1);
+			_overlays.Add(new OverlaySaltire(_metal, thickness, _gridSize.Width, _gridSize.Height));
+			AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _metal, _color1, _metal);
 
 			return new DivisionX(_color1, _color2);
 		}
@@ -297,7 +298,7 @@ namespace FlagMaker.RandomFlag
 		{
 			Color color1 = _color1, color2 = _color2, color3 = _metal;
 
-			switch (Randomizer.RandomWeighted(new List<int>{10, 6, 4}))
+			switch (Randomizer.RandomWeighted(new List<int> { 10, 6, 4 }))
 			{
 				case 0: // No hoist
 					if (Randomizer.ProbabilityOfTrue(0.1))
@@ -318,7 +319,8 @@ namespace FlagMaker.RandomFlag
 						y = _gridSize.Height / 4.0;
 					}
 
-					AddEmblem(0.5, x, y, color1 == _metal || color2 == _metal ? _color2 : _metal);
+					var useColor2 = color1 == _metal || color2 == _metal;
+					AddEmblem(0.5, x, y, useColor2 ? _color2 : _metal, useColor2 ? _metal : _color2);
 					break;
 				case 1: // Canton
 					if (Randomizer.ProbabilityOfTrue(0.75))
@@ -329,14 +331,14 @@ namespace FlagMaker.RandomFlag
 
 					if (Randomizer.ProbabilityOfTrue(0.25))
 					{
-						_overlays.Add(new OverlayBox(color3, 0, 0, _gridSize.Height / 2.0, _gridSize.Height / 2.0, 0, 0));
-						AddEmblem(1.0, _gridSize.Height / 4.0, _gridSize.Height / 4.0, color1);
+						_overlays.Add(new OverlayBox(color3, 0, 0, _gridSize.Height / 2.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+						AddEmblem(1.0, _gridSize.Height / 4.0, _gridSize.Height / 4.0, color1, color3);
 					}
 					else
 					{
 						var boxWidth = HoistElementWidth(false);
-						_overlays.Add(new OverlayBox(color3, 0, 0, boxWidth, _gridSize.Height, 0, 0));
-						AddEmblem(0.33, boxWidth / 2.0, _gridSize.Height / 2.0, color1);
+						_overlays.Add(new OverlayBox(color3, 0, 0, boxWidth, _gridSize.Height, _gridSize.Width, _gridSize.Height));
+						AddEmblem(0.33, boxWidth / 2.0, _gridSize.Height / 2.0, color1, color3);
 					}
 					break;
 				default: // Triangle
@@ -348,11 +350,11 @@ namespace FlagMaker.RandomFlag
 						
 					var triangleWidth = HoistElementWidth(true);
 					AddTriangle(1.0, triangleWidth, color3);
-					AddEmblem(0.33, triangleWidth * 3.0 / 8.0, _gridSize.Height / 2.0, _color3);
+					AddEmblem(0.33, triangleWidth * 3.0 / 8.0, _gridSize.Height / 2.0, _color3, _metal);
 
 					if (Randomizer.ProbabilityOfTrue(0.33))
 					{
-						_overlays.Add(new OverlayPall(_color3, triangleWidth, _gridSize.Width / Randomizer.NextNormalized(10.0, 1.0), 0, 0));
+						_overlays.Add(new OverlayPall(_color3, triangleWidth, _gridSize.Width / Randomizer.NextNormalized(10.0, 1.0), _gridSize.Width, _gridSize.Height));
 					}
 
 					break;
@@ -380,7 +382,7 @@ namespace FlagMaker.RandomFlag
 				}
 			}
 
-			AddEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, color3);
+			AddEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, color3, color1);
 			return new DivisionGrid(color1, color2, 2, 1);
 		}
 
@@ -389,46 +391,47 @@ namespace FlagMaker.RandomFlag
 			if (Randomizer.ProbabilityOfTrue(0.5))
 			{
 				// Dominican Republic-style
-				_overlays.Add(new OverlayCross(_metal, _gridSize.Width / Randomizer.NextNormalized(10.0, 1.0), _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
+				_overlays.Add(new OverlayCross(_metal, _gridSize.Width / Randomizer.NextNormalized(10.0, 1.0), _gridSize.Width / 2.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
 				return new DivisionGrid(_color1, _color2, 2, 2);
 			}
 			
 			// Panama-style
-			_overlays.Add(new OverlayBox(_color2, 0, _gridSize.Height / 2.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
-			AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, _color2);
-			AddEmblem(1.0, _gridSize.Width * 3.0 / 4.0, _gridSize.Height * 3.0 / 4.0, _color1);
+			_overlays.Add(new OverlayBox(_color2, 0, _gridSize.Height / 2.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+			AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, _color2, _metal);
+			AddEmblem(1.0, _gridSize.Width * 3.0 / 4.0, _gridSize.Height * 3.0 / 4.0, _color1, _metal);
 			return new DivisionGrid(_metal, _color1, 2, 2);
 		}
 
 		private static DivisionGrid GetBlank()
 		{
-			switch (Randomizer.RandomWeighted(new List<int>{9, 4, 4, 1, 1}))
+			switch (Randomizer.RandomWeighted(new List<int> { 9, 4, 4, 1, 1 }))
 			{
 				case 0: // Emblem
-					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, Randomizer.ProbabilityOfTrue(.11) ? _color2 : _metal);
+					var useColor2 = Randomizer.ProbabilityOfTrue(.11);
+					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, useColor2 ? _color2 : _metal, useColor2 ? _metal : _color2);
 					break;
 				case 1: // Canton
 					var cantonColor = Randomizer.ProbabilityOfTrue(0.5) ? _color2 : _metal;
-					_overlays.Add(new OverlayBox(cantonColor, 0, 0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 0, 0));
-					AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, cantonColor == _metal ? _color1 : _metal);
+					_overlays.Add(new OverlayBox(cantonColor, 0, 0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+					AddEmblem(1.0, _gridSize.Width / 4.0, _gridSize.Height / 4.0, cantonColor == _metal ? _color1 : _metal, cantonColor == _metal ? _metal : _color1);
 					break;
 				case 2: // Cross
 					var left = Randomizer.ProbabilityOfTrue(0.375) ? _gridSize.Width / 2.0 : _gridSize.Width / 3.0;
 					var width = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 8.0, _gridSize.Width / 20.0), 1, _gridSize.Width / 3);
 					if (Randomizer.ProbabilityOfTrue(0.5))
 					{
-						_overlays.Add(new OverlayCross(_metal, width + 1, left, _gridSize.Height / 2.0, 0, 0));
-						_overlays.Add(new OverlayCross(_color2, width > 1 ? width - 1 : 1, left, _gridSize.Height / 2.0, 0, 0));
+						_overlays.Add(new OverlayCross(_metal, width + 1, left, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+						_overlays.Add(new OverlayCross(_color2, width > 1 ? width - 1 : 1, left, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
 					}
 					else
 					{
-						_overlays.Add(new OverlayCross(_metal, width, left, _gridSize.Height / 2.0, 0, 0));
+						_overlays.Add(new OverlayCross(_metal, width, left, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
 					}
 					break;
 				case 3: // Rays
 					_overlays.Add(new OverlayRays(_metal, _gridSize.Width / 2.0, _gridSize.Height / 2.0,
-							Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), 0, 0));
-					AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _metal, _color1);
+							Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), _gridSize.Width, _gridSize.Height));
+					AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _metal, _color1, _metal);
 					break;
 				default: // Triangles
 					double width1 = _gridSize.Width / 2.0, width2 = _gridSize.Width / 4.0;
@@ -440,7 +443,7 @@ namespace FlagMaker.RandomFlag
 
 					AddTriangle(1.0, (int)width1, _metal);
 					AddTriangle(1.0, (int)width2, _color2);
-					AddEmblem(0.5, _gridSize.Width / 8.0, _gridSize.Height / 2.0, _metal);
+					AddEmblem(0.5, _gridSize.Width / 8.0, _gridSize.Height / 2.0, _metal, _color2);
 					break;
 			}
 
@@ -459,27 +462,41 @@ namespace FlagMaker.RandomFlag
 		private static void AddTriangle(double probability, int width, Color color)
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
-			_overlays.Add(new OverlayTriangle(color, 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, 0, 0));
+			_overlays.Add(new OverlayTriangle(color, 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, _gridSize.Width, _gridSize.Height));
 		}
 
-		private static void AddCircleEmblem(double probability, double x, double y, Color circleColor, Color emblemColor)
+		private static void AddCircleEmblem(double probability, double x, double y, Color circleColor, Color emblemColor, Color colorIfStroke)
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
 
-			_overlays.Add(new OverlayEllipse(circleColor, x, y, _gridSize.Width / 4.0, 0.0, 0, 0));
+			_overlays.Add(new OverlayEllipse(circleColor, x, y, _gridSize.Width / 4.0, 0.0, _gridSize.Width, _gridSize.Height));
 
-			AddEmblem(1.0, x, y, emblemColor);
+			AddEmblem(1.0, x, y, emblemColor, colorIfStroke);
 		}
 
-		private static void AddEmblem(double probability, double x, double y, Color color)
+		private static void AddEmblem(double probability, double x, double y, Color color, Color colorIfStroked)
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
+			
+			var emblem = (OverlayPath)Emblems[Randomizer.Next(Emblems.Count)];
+			_overlays.Add(emblem);
 
-			var emblem = Emblems[Randomizer.Next(Emblems.Count)];
-			emblem.SetColors(new List<Color> { color });
-			emblem.SetValues(new List<double> { x, y, _gridSize.Width / 6.0, 0 });
+			if (Randomizer.ProbabilityOfTrue(10.1))
+			{
+				emblem.SetColor(colorIfStroked);
+				emblem.StrokeColor = color;
+				emblem.SetValues(new List<double> { x, y, _gridSize.Width / 6.0, 0, 2, _gridSize.Width });
+			}
+			else
+			{
+				emblem.SetColor(color);
+				emblem.SetValues(new List<double> { x, y, _gridSize.Width / 6.0, 0, 0, 0 });
+			}
+
 			_overlays.Add(emblem);
 		}
+
+		#endregion
 
 		#endregion
 

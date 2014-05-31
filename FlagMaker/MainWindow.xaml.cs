@@ -1035,7 +1035,6 @@ namespace FlagMaker
 			if (CheckUnsaved()) return;
 			LoadFlag(RandomFlagFactory.GenerateFlag());
 			_filename = string.Empty;
-			_isUnsaved = false;
 			SetTitle();
 		}
 
