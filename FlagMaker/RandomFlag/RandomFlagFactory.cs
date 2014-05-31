@@ -498,8 +498,6 @@ namespace FlagMaker.RandomFlag
 
 		#endregion
 
-		#endregion
-
 		private enum DivisionTypes
 		{
 			Stripes,

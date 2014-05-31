@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.RepeaterTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using Xceed.Wpf.Toolkit;
@@ -17,7 +18,7 @@ namespace FlagMaker.Overlays
 		private Overlay _overlay;
 		private int _defaultMaximumX;
 		private int _defaultMaximumY;
-		private readonly bool _isFirst;
+		private bool _isFirst;
 
 		public bool IsLoading;
 		public bool WasCanceled { get; private set; }
@@ -38,14 +39,11 @@ namespace FlagMaker.Overlays
 			_isFirst = true;
 
 			SetUpColors(standardColors, availableColors, recentColors);
-			Overlay = OverlayFactory.GetDefaultOverlay(_defaultMaximumX, _defaultMaximumY);
 
 			if (!IsLoading)
 			{
 				OverlaySelect(this, null);
 			}
-
-			_isFirst = false;
 		}
 
 		public Overlay Overlay
@@ -54,10 +52,9 @@ namespace FlagMaker.Overlays
 			set
 			{
 				_overlay = value;
+				var path = _overlay as OverlayPath;
 				BtnOverlays.Content = _overlay.CanvasThumbnail();
 				BtnOverlays.ToolTip = _overlay.DisplayName;
-
-				_overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor });
 
 				// Save old slider/color values
 				if (!_isFirst && !IsLoading)
@@ -70,10 +67,22 @@ namespace FlagMaker.Overlays
 							sliderValues.Add(0);
 						}
 						_overlay.SetValues(sliderValues);
+
+						_overlay.SetColor(OverlayPicker.SelectedColor);
+
+						if (path != null)
+						{
+							path.StrokeColor = StrokePicker.SelectedColor;
+						}
 					}
+				}
+				else if (path != null)
+				{
+					StrokePicker.SelectedColor = path.StrokeColor;
 				}
 
 				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
+				OverlayPicker.SelectedColor = _overlay.Color;
 				SetVisibilityButton();
 
 				PnlSliders.Children.Clear();
@@ -82,31 +91,18 @@ namespace FlagMaker.Overlays
 					slider.ValueChanged += OverlaySliderChanged;
 					PnlSliders.Children.Add(slider);
 				}
-			}
-		}
+				
+				StrokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
 
-		public void SetType(string typename)
-		{
-			var type = OverlayFactory.GetOverlayType(typename);
-			Overlay = OverlayFactory.GetInstance(type, _defaultMaximumX, _defaultMaximumY, typename);
+				_isFirst = false;
+				IsLoading = false;
+			}
 		}
 
 		public Color Color
 		{
 			get { return OverlayPicker.SelectedColor; }
 			set { OverlayPicker.SelectedColor = value; }
-		}
-
-		public void SetSlider(int slider, double value)
-		{
-			if (slider >= PnlSliders.Children.Count) return;
-
-			if (Math.Abs(value - (int)value) > 0.01)
-			{
-				((AttributeSlider)PnlSliders.Children[slider]).ChkDiscrete.IsChecked = false;
-			}
-
-			((AttributeSlider)PnlSliders.Children[slider]).Value = value;
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
@@ -136,13 +132,24 @@ namespace FlagMaker.Overlays
 			OverlayPicker.ShowRecentColors = true;
 			OverlayPicker.SelectedColor = OverlayPicker.StandardColors[10].Color;
 			OverlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
+
+			StrokePicker.AvailableColors = availableColors;
+			StrokePicker.StandardColors = standardColors;
+			StrokePicker.RecentColors = recentColors;
+			StrokePicker.ShowRecentColors = true;
+			StrokePicker.SelectedColor = StrokePicker.StandardColors[16].Color;
+			StrokePicker.SelectedColorChanged += (sender, args) =>
+			{
+				((OverlayPath)_overlay).StrokeColor = StrokePicker.SelectedColor;
+				Draw();
+			};
 		}
 
 		private void OverlayColorChanged()
 		{
 			if (Overlay == null) return;
 
-			Overlay.SetColors(new List<Color> { OverlayPicker.SelectedColor, Colors.Transparent });
+			Overlay.SetColor(OverlayPicker.SelectedColor);
 			Draw();
 		}
 
