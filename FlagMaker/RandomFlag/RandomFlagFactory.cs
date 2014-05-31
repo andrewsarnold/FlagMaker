@@ -147,7 +147,7 @@ namespace FlagMaker.RandomFlag
 				var height = _gridSize.Height * ((double)stripe / stripeCount);
 				if (width < height) width = height;
 
-				_overlays.Add(new OverlayBox(stripeCount > 5 && Randomizer.ProbabilityOfTrue(0.3) ? _color1 : _color2, 0, 0, width, height, 0, 0));
+				_overlays.Add(new OverlayBox(stripeCount > 5 && Randomizer.ProbabilityOfTrue(0.3) ? _color1 : _color2, 0, 0, width, height, _gridSize.Width, _gridSize.Height));
 				AddEmblem(1.0, width / 2.0, height / 2.0, _metal, _color1);
 			}
 
@@ -479,9 +479,9 @@ namespace FlagMaker.RandomFlag
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
 			
 			var emblem = (OverlayPath)Emblems[Randomizer.Next(Emblems.Count)];
-			_overlays.Add(emblem);
+			emblem.SetMaximum(_gridSize.Width, _gridSize.Height);
 
-			if (Randomizer.ProbabilityOfTrue(10.1))
+			if (Randomizer.ProbabilityOfTrue(0.05))
 			{
 				emblem.SetColor(colorIfStroked);
 				emblem.StrokeColor = color;
