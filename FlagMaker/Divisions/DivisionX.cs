@@ -25,29 +25,16 @@ namespace FlagMaker.Divisions
 			double centerX = canvas.Width / 2.0;
 			double centerY = canvas.Height / 2.0;
 
-			var top = new Path
+			var back = new Rectangle
 						  {
 							  Fill = new SolidColorBrush(Colors[0]),
 							  Width = canvas.Width,
 							  Height = canvas.Height,
-							  Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,0 {0},0 {1},{2} 0,0", canvas.Width, centerX, centerY)),
 							  SnapsToDevicePixels = true
 						  };
-			canvas.Children.Add(top);
-			Canvas.SetLeft(top, 0);
-			Canvas.SetTop(top, 0);
-
-			var bottom = new Path
-							 {
-								 Fill = new SolidColorBrush(Colors[0]),
-								 Width = canvas.Width,
-								 Height = canvas.Height,
-								 Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,{3} {0},{3} {1},{2} 0,{3}", canvas.Width, centerX, centerY, canvas.Height)),
-								 SnapsToDevicePixels = true
-							 };
-			canvas.Children.Add(bottom);
-			Canvas.SetLeft(bottom, 0);
-			Canvas.SetTop(bottom, 0);
+			canvas.Children.Add(back);
+			Canvas.SetLeft(back, 0);
+			Canvas.SetTop(back, 0);
 
 			var left = new Path
 						   {
@@ -91,19 +78,11 @@ namespace FlagMaker.Divisions
 			int centerX = width / 2;
 			int centerY = height / 2;
 
-			// top
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0:0.###},0 {1:0.###},{2:0.###}\" {3} />",
+			// back
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" x=\"0\" y=\"0\" {2} />",
 				width,
-				centerX,
-				centerY,
-				Colors[0].ToSvgFillWithOpacity()));
-
-			// left
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0:0.###} {1:0.###},{2:0.###}\" {3} />",
 				height,
-				centerX,
-				centerY,
-				Colors[1].ToSvgFillWithOpacity()));
+				Colors[0].ToSvgFillWithOpacity()));
 
 			// bottom
 			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0:0.###} {1:0.###},{0:0.###} {2:0.###},{3:0.###}\" {4} />",

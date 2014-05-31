@@ -21,12 +21,11 @@ namespace FlagMaker.Divisions
 
 		public override void Draw(Canvas canvas)
 		{
-			var topLeft = new Path
+			var topLeft = new Rectangle
 							  {
 								  Fill = new SolidColorBrush(Colors[0]),
 								  Width = canvas.Width,
 								  Height = canvas.Height,
-								  Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,0 {0},0 {0},{1} 0,0", canvas.Width, canvas.Height)),
 								  SnapsToDevicePixels = true
 							  };
 			canvas.Children.Add(topLeft);
@@ -61,13 +60,13 @@ namespace FlagMaker.Divisions
 			var sb = new StringBuilder();
 
 			// right
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0},0 {0},{1}\" {2} />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" x=\"0\" y=\"0\" {2} />",
 				width,
 				height,
 				Colors[0].ToSvgFillWithOpacity()));
 
 			// left
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0} {0},{1}\" {2} />",
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 0,{0:0.###} {0:0.###},{1:0.###}\" {2} />",
 				width,
 				height,
 				Colors[1].ToSvgFillWithOpacity()));
