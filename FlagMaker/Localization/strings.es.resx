@@ -324,4 +324,31 @@
   <data name="SaveMenu" xml:space="preserve">
     <value>_Guardar</value>
   </data>
+  <data name="Clone" xml:space="preserve">
+    <value>Duplicar</value>
+  </data>
+	<data name="MoveDown" xml:space="preserve">
+    <value>Bajar</value>
+  </data>
+	<data name="MoveUp" xml:space="preserve">
+    <value>Subir</value>
+  </data>
+	<data name="Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+	<data name="ToggleTexture" xml:space="preserve">
+    <value>Paño</value>
+  </data>
+	<data name="ToggleVisibility" xml:space="preserve">
+    <value>Visibilidad</value>
+  </data>
+	<data name="GenerateRandomFlag" xml:space="preserve">
+    <value>Generar bandera al azar</value>
+  </data>
+	<data name="Stroke" xml:space="preserve">
+    <value>Borde</value>
+  </data>
+	<data name="StrokeCurved" xml:space="preserve">
+    <value>Redondeado?</value>
+  </data>
 </root>

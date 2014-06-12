@@ -601,7 +601,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stroke.
+        ///   Looks up a localized string similar to Outline.
         /// </summary>
         public static string Stroke {
             get {
@@ -610,7 +610,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Curved?.
+        ///   Looks up a localized string similar to Rounded?.
         /// </summary>
         public static string StrokeCurved {
             get {
