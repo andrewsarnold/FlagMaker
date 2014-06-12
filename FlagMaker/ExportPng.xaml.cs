@@ -28,7 +28,7 @@ namespace FlagMaker
 			private set
 			{
 				_width = value;
-				TxtWidth.Text = _width.ToString(CultureInfo.InvariantCulture);
+				_txtWidth.Text = _width.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace FlagMaker
 			private set
 			{
 				_height = value;
-				TxtHeight.Text = _height.ToString(CultureInfo.InvariantCulture);
+				_txtHeight.Text = _height.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -48,14 +48,14 @@ namespace FlagMaker
 			_update = false;
 			int newWidth;
 
-			if (int.TryParse(TxtWidth.Text, out newWidth))
+			if (int.TryParse(_txtWidth.Text, out newWidth))
 			{
 				_width = newWidth;
 				PngHeight = (int)((_ratio.Height / (double)_ratio.Width) * _width);
 			}
 			else
 			{
-				TxtWidth.Text = _width.ToString(CultureInfo.InvariantCulture);
+				_txtWidth.Text = _width.ToString(CultureInfo.InvariantCulture);
 			}
 			_update = true;
 		}
@@ -66,14 +66,14 @@ namespace FlagMaker
 			_update = false;
 			int newHeight;
 
-			if (int.TryParse(TxtHeight.Text, out newHeight))
+			if (int.TryParse(_txtHeight.Text, out newHeight))
 			{
 				_width = newHeight;
 				PngWidth = (int)((_ratio.Width / (double)_ratio.Height) * _height);
 			}
 			else
 			{
-				TxtHeight.Text = _height.ToString(CultureInfo.InvariantCulture);
+				_txtHeight.Text = _height.ToString(CultureInfo.InvariantCulture);
 			}
 			_update = true;
 		}

@@ -125,7 +125,7 @@ namespace FlagMaker.Overlays
 			};
 
 			var tabItem = new TabItem { Header = tabName, Content = scrollViewer };
-			Tabs.Items.Add(tabItem);
+			_tabs.Items.Add(tabItem);
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)

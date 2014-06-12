@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -53,13 +52,13 @@ namespace FlagMaker.Overlays
 			{
 				_overlay = value;
 				var path = _overlay as OverlayPath;
-				BtnOverlays.Content = _overlay.CanvasThumbnail();
-				BtnOverlays.ToolTip = _overlay.DisplayName;
+				_btnOverlays.Content = _overlay.CanvasThumbnail();
+				_btnOverlays.ToolTip = _overlay.DisplayName;
 
 				// Save old slider/color values
 				if (!_isFirst && !IsLoading)
 				{
-					var sliderValues = PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
+					var sliderValues = _pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList();
 					if (sliderValues.Count > 0)
 					{
 						for (int i = sliderValues.Count; i < _overlay.Attributes.Count; i++)
@@ -68,31 +67,31 @@ namespace FlagMaker.Overlays
 						}
 						_overlay.SetValues(sliderValues);
 
-						_overlay.SetColor(OverlayPicker.SelectedColor);
+						_overlay.SetColor(_overlayPicker.SelectedColor);
 
 						if (path != null)
 						{
-							path.StrokeColor = StrokePicker.SelectedColor;
+							path.StrokeColor = _strokePicker.SelectedColor;
 						}
 					}
 				}
 				else if (path != null)
 				{
-					StrokePicker.SelectedColor = path.StrokeColor;
+					_strokePicker.SelectedColor = path.StrokeColor;
 				}
 
-				OverlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
-				OverlayPicker.SelectedColor = _overlay.Color;
+				_overlayPicker.Visibility = (_overlay is OverlayFlag || _overlay is OverlayRepeater || _overlay is OverlayImage) ? Visibility.Collapsed : Visibility.Visible;
+				_overlayPicker.SelectedColor = _overlay.Color;
 				SetVisibilityButton();
 
-				PnlSliders.Children.Clear();
+				_pnlSliders.Children.Clear();
 				foreach (var slider in _overlay.Attributes.Select(attribute => new AttributeSlider(attribute.Name, attribute.IsDiscrete, attribute.Value, attribute.UseMaxX ? _defaultMaximumX : _defaultMaximumY)))
 				{
 					slider.ValueChanged += OverlaySliderChanged;
-					PnlSliders.Children.Add(slider);
+					_pnlSliders.Children.Add(slider);
 				}
 				
-				StrokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
+				_strokePicker.Visibility = path != null ? Visibility.Visible : Visibility.Collapsed;
 
 				_isFirst = false;
 				IsLoading = false;
@@ -101,8 +100,8 @@ namespace FlagMaker.Overlays
 
 		public Color Color
 		{
-			get { return OverlayPicker.SelectedColor; }
-			set { OverlayPicker.SelectedColor = value; }
+			get { return _overlayPicker.SelectedColor; }
+			set { _overlayPicker.SelectedColor = value; }
 		}
 
 		public void SetMaximum(int maximumX, int maximumY)
@@ -112,13 +111,13 @@ namespace FlagMaker.Overlays
 
 			Overlay.SetMaximum(maximumX, maximumY);
 
-			var sliders = PnlSliders.Children.OfType<AttributeSlider>().ToList();
+			var sliders = _pnlSliders.Children.OfType<AttributeSlider>().ToList();
 			for (int i = 0; i < _overlay.Attributes.Count; i++)
 			{
 				var slider = sliders[i];
 				var max = _overlay.Attributes[i].UseMaxX ? maximumX : maximumY;
 				var newValue = slider.Value * ((double)max / slider.Maximum);
-				slider.ChkDiscrete.IsChecked = newValue % 1 == 0;
+				slider._chkDiscrete.IsChecked = newValue % 1 == 0;
 				slider.Maximum = max;
 				slider.Value = newValue;
 			}
@@ -126,21 +125,21 @@ namespace FlagMaker.Overlays
 
 		private void SetUpColors(ObservableCollection<ColorItem> standardColors, ObservableCollection<ColorItem> availableColors, ObservableCollection<ColorItem> recentColors)
 		{
-			OverlayPicker.AvailableColors = availableColors;
-			OverlayPicker.StandardColors = standardColors;
-			OverlayPicker.RecentColors = recentColors;
-			OverlayPicker.ShowRecentColors = true;
-			OverlayPicker.SelectedColor = OverlayPicker.StandardColors[10].Color;
-			OverlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
+			_overlayPicker.AvailableColors = availableColors;
+			_overlayPicker.StandardColors = standardColors;
+			_overlayPicker.RecentColors = recentColors;
+			_overlayPicker.ShowRecentColors = true;
+			_overlayPicker.SelectedColor = _overlayPicker.StandardColors[10].Color;
+			_overlayPicker.SelectedColorChanged += (sender, args) => OverlayColorChanged();
 
-			StrokePicker.AvailableColors = availableColors;
-			StrokePicker.StandardColors = standardColors;
-			StrokePicker.RecentColors = recentColors;
-			StrokePicker.ShowRecentColors = true;
-			StrokePicker.SelectedColor = StrokePicker.StandardColors[16].Color;
-			StrokePicker.SelectedColorChanged += (sender, args) =>
+			_strokePicker.AvailableColors = availableColors;
+			_strokePicker.StandardColors = standardColors;
+			_strokePicker.RecentColors = recentColors;
+			_strokePicker.ShowRecentColors = true;
+			_strokePicker.SelectedColor = _strokePicker.StandardColors[16].Color;
+			_strokePicker.SelectedColorChanged += (sender, args) =>
 			{
-				((OverlayPath)_overlay).StrokeColor = StrokePicker.SelectedColor;
+				((OverlayPath)_overlay).StrokeColor = _strokePicker.SelectedColor;
 				Draw();
 			};
 		}
@@ -149,13 +148,13 @@ namespace FlagMaker.Overlays
 		{
 			if (Overlay == null) return;
 
-			Overlay.SetColor(OverlayPicker.SelectedColor);
+			Overlay.SetColor(_overlayPicker.SelectedColor);
 			Draw();
 		}
 
 		private void OverlaySliderChanged(object sender, EventArgs e)
 		{
-			Overlay.SetValues(PnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList());
+			Overlay.SetValues(_pnlSliders.Children.OfType<AttributeSlider>().Select(s => s.Value).ToList());
 			Draw();
 		}
 
@@ -226,7 +225,7 @@ namespace FlagMaker.Overlays
 
 		private void SetVisibilityButton()
 		{
-			((Image)BtnVisibility.Content).Source = new BitmapImage(
+			((Image)_btnVisibility.Content).Source = new BitmapImage(
 				Overlay.IsEnabled
 					? new Uri(@"..\Images\check_on.png", UriKind.Relative)
 					: new Uri(@"..\Images\check_off.png", UriKind.Relative));

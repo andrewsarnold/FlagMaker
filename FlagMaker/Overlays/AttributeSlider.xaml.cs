@@ -16,41 +16,41 @@ namespace FlagMaker.Overlays
 		{
 			InitializeComponent();
 
-			LblName.Content = name;
-			LblName.ToolTip = name;
+			_lblName.Content = name;
+			_lblName.ToolTip = name;
 			_isDiscrete = isDiscrete && (value % 1 == 0);
-			ChkDiscrete.IsChecked = _isDiscrete;
-			LblValue.Content = value;
-			Slider.Minimum = 0;
-			Slider.Maximum = maximum;
-			Slider.IsSnapToTickEnabled = _isDiscrete;
-			Slider.Value = value;
-			Slider.TickFrequency = 1;
-			Slider.TickPlacement = TickPlacement.BottomRight;
-			TxtValue.Visibility = Visibility.Hidden;
+			_chkDiscrete.IsChecked = _isDiscrete;
+			_lblValue.Content = value;
+			_slider.Minimum = 0;
+			_slider.Maximum = maximum;
+			_slider.IsSnapToTickEnabled = _isDiscrete;
+			_slider.Value = value;
+			_slider.TickFrequency = 1;
+			_slider.TickPlacement = TickPlacement.BottomRight;
+			_txtValue.Visibility = Visibility.Hidden;
 		}
 
 		public int Maximum
 		{
-			get { return (int)Slider.Maximum; }
-			set { Slider.Maximum = value; }
+			get { return (int)_slider.Maximum; }
+			set { _slider.Maximum = value; }
 		}
 
 		public double Value
 		{
 			get
 			{
-				return Slider.Value;
+				return _slider.Value;
 			}
 			set
 			{
-				Slider.Value = value;
+				_slider.Value = value;
 			}
 		}
 		
 		private void SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
-			LblValue.Content = Slider.Value.ToString(_isDiscrete ? "0" : "0.00");
+			_lblValue.Content = _slider.Value.ToString(_isDiscrete ? "0" : "0.00");
 
 			if (ValueChanged != null)
 			{
@@ -60,21 +60,21 @@ namespace FlagMaker.Overlays
 
 		private void CheckChanged(object sender, RoutedEventArgs e)
 		{
-			_isDiscrete = ChkDiscrete.IsChecked ?? false;
-			Slider.IsSnapToTickEnabled = _isDiscrete;
+			_isDiscrete = _chkDiscrete.IsChecked ?? false;
+			_slider.IsSnapToTickEnabled = _isDiscrete;
 
 			if (_isDiscrete)
 			{
-				Slider.Value = (int)Math.Round(Slider.Value, 0);
+				_slider.Value = (int)Math.Round(_slider.Value, 0);
 			}
 		}
 
 		private void Clicked(object sender, MouseButtonEventArgs e)
 		{
-			TxtValue.Visibility = Visibility.Visible;
-			TxtValue.Text = Slider.Value.ToString(CultureInfo.InvariantCulture);
-			TxtValue.SelectAll();
-			TxtValue.Focus();
+			_txtValue.Visibility = Visibility.Visible;
+			_txtValue.Text = _slider.Value.ToString(CultureInfo.InvariantCulture);
+			_txtValue.SelectAll();
+			_txtValue.Focus();
 		}
 
 		private void TxtValueKeyDown(object sender, KeyEventArgs e)
@@ -82,19 +82,19 @@ namespace FlagMaker.Overlays
 			switch (e.Key)
 			{
 				case Key.Enter:
-					TxtValue.Visibility = Visibility.Hidden;
-					if (TxtValue.Text.Contains("%"))
+					_txtValue.Visibility = Visibility.Hidden;
+					if (_txtValue.Text.Contains("%"))
 					{
-						var stringVal = TxtValue.Text.Split('%')[0];
+						var stringVal = _txtValue.Text.Split('%')[0];
 						double percentValue;
 						if (double.TryParse(stringVal, out percentValue))
 						{
 							SetValueByFraction(percentValue / 100);
 						}
 					}
-					else if (TxtValue.Text.Contains("/"))
+					else if (_txtValue.Text.Contains("/"))
 					{
-						var fraction = TxtValue.Text.Split('/');
+						var fraction = _txtValue.Text.Split('/');
 
 						if (fraction.Length != 2)
 						{
@@ -115,29 +115,29 @@ namespace FlagMaker.Overlays
 					else
 					{
 						double fractionValue;
-						if (double.TryParse(TxtValue.Text, out fractionValue))
+						if (double.TryParse(_txtValue.Text, out fractionValue))
 						{
-							ChkDiscrete.IsChecked = (fractionValue % 1 == 0);
-							Slider.Value = fractionValue;
+							_chkDiscrete.IsChecked = (fractionValue % 1 == 0);
+							_slider.Value = fractionValue;
 						}
 					}
 					break;
 				case Key.Escape:
-					TxtValue.Visibility = Visibility.Hidden;
+					_txtValue.Visibility = Visibility.Hidden;
 					break;
 				case Key.Down:
 				case Key.Up:
 					double value;
-					if (double.TryParse(TxtValue.Text, out value))
+					if (double.TryParse(_txtValue.Text, out value))
 					{
 						value = value + (e.Key == Key.Up ? 0.01 : -0.01);
 
 						if (value < 0.0) value = 0.0;
 						if (value > Maximum) value = Maximum;
 
-						ChkDiscrete.IsChecked = false;
-						TxtValue.Text = value.ToString(CultureInfo.InvariantCulture);
-						Slider.Value = value;
+						_chkDiscrete.IsChecked = false;
+						_txtValue.Text = value.ToString(CultureInfo.InvariantCulture);
+						_slider.Value = value;
 					}
 					break;
 			}
@@ -150,13 +150,13 @@ namespace FlagMaker.Overlays
 			var result = fraction * Maximum;
 			result = Math.Round(result, 3);
 
-			ChkDiscrete.IsChecked = (result % 1 == 0);
-			Slider.Value = result;
+			_chkDiscrete.IsChecked = (result % 1 == 0);
+			_slider.Value = result;
 		}
 
 		private void TxtValueLostFocus(object sender, RoutedEventArgs e)
 		{
-			TxtValue.Visibility = Visibility.Hidden;
+			_txtValue.Visibility = Visibility.Hidden;
 		}
 	}
 }

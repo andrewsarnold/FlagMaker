@@ -1,39 +1,39 @@
 ﻿<UserControl x:Class="FlagMaker.Overlays.OverlayControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:localization="clr-namespace:FlagMaker.Localization"
-             mc:Ignorable="d">
+             xmlns:Mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:D="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:Localization="clr-namespace:FlagMaker.Localization"
+             Mc:Ignorable="D">
     <UserControl.Resources>
         <ResourceDictionary Source="..\Style.xaml" />
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
 		<StackPanel Orientation="Horizontal">
-			<Button x:Name="BtnOverlays" Click="OverlaySelect" VerticalContentAlignment="Center" MinWidth="30" />
-			<Button x:Name="BtnVisibility" Click="SetVisibility" Margin="10,0,0,0"
-					ToolTip="{x:Static localization:strings.ToggleVisibility}"
+			<Button x:Name="_btnOverlays" Click="OverlaySelect" VerticalContentAlignment="Center" MinWidth="30" />
+			<Button x:Name="_btnVisibility" Click="SetVisibility" Margin="10,0,0,0"
+					ToolTip="{x:Static Localization:strings.ToggleVisibility}"
 					Style="{DynamicResource GraphicButton}">
 				<Image Source="..\Images\check_on.png" />
 			</Button>
-			<Button ToolTip="{x:Static localization:strings.Remove}" Click="Remove" Style="{DynamicResource GraphicButton}">
+			<Button ToolTip="{x:Static Localization:strings.Remove}" Click="Remove" Style="{DynamicResource GraphicButton}">
 				<Image Source="..\Images\remove.png" />
             </Button>
-			<Button ToolTip="{x:Static localization:strings.MoveUp}" Click="MoveUp" Style="{DynamicResource GraphicButton}">
+			<Button ToolTip="{x:Static Localization:strings.MoveUp}" Click="MoveUp" Style="{DynamicResource GraphicButton}">
                 <Image Source="..\Images\moveup.png" />
             </Button>
-			<Button ToolTip="{x:Static localization:strings.MoveDown}" Click="MoveDown" Style="{DynamicResource GraphicButton}">
+			<Button ToolTip="{x:Static Localization:strings.MoveDown}" Click="MoveDown" Style="{DynamicResource GraphicButton}">
                 <Image Source="..\Images\movedown.png" />
             </Button>
-			<Button ToolTip="{x:Static localization:strings.Clone}" Click="Clone" Style="{DynamicResource GraphicButton}">
+			<Button ToolTip="{x:Static Localization:strings.Clone}" Click="Clone" Style="{DynamicResource GraphicButton}">
                 <Image Source="..\Images\clone.png" />
             </Button>
         </StackPanel>
 
-        <xctk:ColorPicker x:Name="OverlayPicker" Margin="0,4,0,0" />
-		<StackPanel x:Name="PnlSliders" />
-		<xctk:ColorPicker x:Name="StrokePicker" />
+        <Xctk:ColorPicker x:Name="_overlayPicker" Margin="0,4,0,0" />
+		<StackPanel x:Name="_pnlSliders" />
+		<Xctk:ColorPicker x:Name="_strokePicker" />
 	</StackPanel>
 </UserControl>
