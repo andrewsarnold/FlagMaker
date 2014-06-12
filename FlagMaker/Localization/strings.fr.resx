@@ -127,7 +127,7 @@
     <value>Impossible de charger des presets. Vérifiez que le dossier Presets existe dans le répertoire de l'application.</value>
   </data>
   <data name="CouldNotOpenError" xml:space="preserve">
-    <value>Impossible d'ouvrir le fichier. Vérifiez la syntaxe et essayez à nouveau. Erreur à la ligne: \"{0}\"</value>
+    <value>Impossible d'ouvrir le fichier. Vérifiez la syntaxe et essayez à nouveau. Erreur à la ligne: "{0}"</value>
   </data>
   <data name="CouldNotOpenFileError" xml:space="preserve">
     <value>Impossible d'ouvrir le fichier. Vérifiez la syntaxe et essayez à nouveau.</value>
@@ -317,5 +317,38 @@
   </data>
   <data name="Y4" xml:space="preserve">
     <value>Y4</value>
+  </data>
+  <data name="OverlayNameExists" xml:space="preserve">
+    <value>Une incrustation avec le nom "{0}" existe déjà.</value>
+  </data>
+	<data name="OverlayLoadError" xml:space="preserve">
+    <value>Impossible de charger incrustation personnalisé "{0}".</value>
+  </data>
+  <data name="Clone" xml:space="preserve">
+    <value>Dupliquer</value>
+  </data>
+	<data name="MoveDown" xml:space="preserve">
+    <value>Vers le bas</value>
+  </data>
+	<data name="MoveUp" xml:space="preserve">
+    <value>Vers le haut</value>
+  </data>
+	<data name="Remove" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="ToggleTexture" xml:space="preserve">
+    <value>Chiffon</value>
+  </data>
+	<data name="ToggleVisibility" xml:space="preserve">
+    <value>Visibilité</value>
+  </data>
+	<data name="GenerateRandomFlag" xml:space="preserve">
+    <value>Générer drapeau aléatoire</value>
+  </data>
+	<data name="Stroke" xml:space="preserve">
+    <value>Contour</value>
+  </data>
+	<data name="StrokeCurved" xml:space="preserve">
+    <value>Arrondie?</value>
   </data>
 </root>

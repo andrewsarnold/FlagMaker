@@ -97,7 +97,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t open the file. Check your syntax and try again. Error at line: \&quot;{0}\&quot;.
+        ///   Looks up a localized string similar to Couldn&apos;t open the file. Check your syntax and try again. Error at line: &quot;{0}&quot;.
         /// </summary>
         public static string CouldNotOpenError {
             get {

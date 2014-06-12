@@ -127,7 +127,7 @@
     <value>Не удалось загрузить шаблоны. Проверьте, находится ли в директории программы папка Presets.</value>
   </data>
   <data name="CouldNotOpenError" xml:space="preserve">
-    <value>Не удалось открыть файл. Проверьте его синтаксис и попробуйте еще раз. Ошибка в строке \"{0}\"</value>
+    <value>Не удалось открыть файл. Проверьте его синтаксис и попробуйте еще раз. Ошибка в строке "{0}"</value>
   </data>
   <data name="CouldNotOpenFileError" xml:space="preserve">
     <value>Не удалось открыть файл. Проверьте его синтаксис и попробуйте еще раз.</value>
@@ -317,5 +317,38 @@
   </data>
   <data name="Y4" xml:space="preserve">
     <value>Y4</value>
+  </data>
+  <data name="OverlayNameExists" xml:space="preserve">
+    <value>Наложение с именем "{0}" уже существует.</value>
+  </data>
+  <data name="OverlayLoadError" xml:space="preserve">
+    <value>Не удалось загрузить пользовательский перекрытия "{0}".</value>
+  </data>
+	<data name="Clone" xml:space="preserve">
+    <value>Дублировать</value>
+  </data>
+	<data name="MoveDown" xml:space="preserve">
+    <value>Двигаться вниз</value>
+  </data>
+	<data name="MoveUp" xml:space="preserve">
+    <value>Двигаться вверх</value>
+  </data>
+	<data name="Remove" xml:space="preserve">
+    <value>Удалять</value>
+  </data>
+	<data name="ToggleTexture" xml:space="preserve">
+    <value>Ткань</value>
+  </data>
+	<data name="ToggleVisibility" xml:space="preserve">
+    <value>Видимость</value>
+  </data>
+	<data name="GenerateRandomFlag" xml:space="preserve">
+    <value>Генерация случайных флаг</value>
+  </data>
+	<data name="Stroke" xml:space="preserve">
+    <value>Контур</value>
+  </data>
+	<data name="StrokeCurved" xml:space="preserve">
+    <value>Круглый?</value>
   </data>
 </root>
