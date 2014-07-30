@@ -93,7 +93,7 @@ namespace FlagMaker.Overlays.OverlayTypes.ShapeTypes
 		{
 			var imageWidth = width * Attributes.Get(strings.Width).Value / MaximumX;
 			var imageHeight = height * Attributes.Get(strings.Height).Value / MaximumY;
-			if (imageHeight == 0)
+			if (imageHeight <= 0)
 			{
 				var ratio = _bitmap.Height / _bitmap.Width;
 				imageHeight = imageWidth * ratio;

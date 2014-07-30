@@ -58,20 +58,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 			{
 				for (int y = 0; y < countY; y++)
 				{
-					if ((x + y) % 2 == 0)
-					{
-						var rect = new Rectangle
-						{
-							Width = blockWidth,
-							Height = blockHeight,
-							Fill = new SolidColorBrush(Color),
-							SnapsToDevicePixels = true
-						};
+					if ((x + y) % 2 != 0) continue;
 
-						canvas.Children.Add(rect);
-						Canvas.SetTop(rect, top + y * blockHeight);
-						Canvas.SetLeft(rect, left + x * blockWidth);
-					}
+					var rect = new Rectangle
+					           {
+						           Width = blockWidth,
+						           Height = blockHeight,
+						           Fill = new SolidColorBrush(Color),
+						           SnapsToDevicePixels = true
+					           };
+
+					canvas.Children.Add(rect);
+					Canvas.SetTop(rect, top + y * blockHeight);
+					Canvas.SetLeft(rect, left + x * blockWidth);
 				}
 			}
 		}

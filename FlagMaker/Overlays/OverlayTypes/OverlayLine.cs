@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using FlagMaker.Localization;
 
-namespace FlagMaker.Overlays
+namespace FlagMaker.Overlays.OverlayTypes
 {
 	internal sealed class OverlayLine : Overlay
 	{

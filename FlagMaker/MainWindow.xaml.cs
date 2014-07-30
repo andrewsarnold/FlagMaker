@@ -174,29 +174,23 @@ namespace FlagMaker
 			_divisionSliderLabel2.Visibility = Visibility.Collapsed;
 			_divisionSliderLabel3.Visibility = Visibility.Collapsed;
 
-			if (_division.Values.Count > 0)
-			{
-				_divisionSlider1.Value = _division.Values[0];
-				_divisionSlider1.Visibility = Visibility.Visible;
-				_divisionSliderLabel1.Text = _division.Values[0].ToString("#");
-				_divisionSliderLabel1.Visibility = Visibility.Visible;
+			if (_division.Values.Count <= 0) return;
+			_divisionSlider1.Value = _division.Values[0];
+			_divisionSlider1.Visibility = Visibility.Visible;
+			_divisionSliderLabel1.Text = _division.Values[0].ToString("#");
+			_divisionSliderLabel1.Visibility = Visibility.Visible;
 
-				if (_division.Values.Count > 1)
-				{
-					_divisionSlider2.Value = _division.Values[1];
-					_divisionSlider2.Visibility = Visibility.Visible;
-					_divisionSliderLabel2.Text = _division.Values[1].ToString("#");
-					_divisionSliderLabel2.Visibility = Visibility.Visible;
+			if (_division.Values.Count <= 1) return;
+			_divisionSlider2.Value = _division.Values[1];
+			_divisionSlider2.Visibility = Visibility.Visible;
+			_divisionSliderLabel2.Text = _division.Values[1].ToString("#");
+			_divisionSliderLabel2.Visibility = Visibility.Visible;
 
-					if (_division.Values.Count > 2)
-					{
-						_divisionSlider3.Value = _division.Values[2];
-						_divisionSlider3.Visibility = Visibility.Visible;
-						_divisionSliderLabel3.Text = _division.Values[2].ToString("#");
-						_divisionSliderLabel3.Visibility = Visibility.Visible;
-					}
-				}
-			}
+			if (_division.Values.Count <= 2) return;
+			_divisionSlider3.Value = _division.Values[2];
+			_divisionSlider3.Visibility = Visibility.Visible;
+			_divisionSliderLabel3.Text = _division.Values[2].ToString("#");
+			_divisionSliderLabel3.Visibility = Visibility.Visible;
 		}
 
 		private void DivisionGridClick(object sender, RoutedEventArgs e)
@@ -650,7 +644,7 @@ namespace FlagMaker
 			SetUsedColorPalettes();
 		}
 
-		private void DrawTexture(Canvas canvas)
+		private void DrawTexture(Panel canvas)
 		{
 			if (_texture == 0) return;
 

@@ -28,20 +28,6 @@ namespace FlagMaker.Overlays
 			}
 		}
 
-		public static Type GetOverlayType(string name)
-		{
-			var result = CustomTypes.Any(t => t.Key == name)
-				? CustomTypes[name].GetType()
-				: _typeMap.FirstOrDefault(t => t.Key == name).Value;
-
-			if (result == null)
-			{
-				throw new Exception(string.Format(strings.OverlayLoadError, name));
-			}
-
-			return result;
-		}
-
 		public static Overlay GetInstance(string name, int maxX = 1, int maxY = 1)
 		{
 			return GetInstance(GetOverlayType(name), maxX, maxY, name);
@@ -59,17 +45,17 @@ namespace FlagMaker.Overlays
 
 		public static Overlay GetInstance(Type type, int maxX = 1, int maxY = 1, string name = "")
 		{
-			if (type == typeof(OverlayPath)) // custom overlay
+			if (type != typeof (OverlayPath))
 			{
-				var overlay = CustomTypes[name];
-
-				// Create a unique copy
-				var overlayCopy = overlay.Copy();
-				overlayCopy.SetMaximum(maxX, maxY);
-				return overlayCopy;
+				return (Overlay) Activator.CreateInstance(type, maxX, maxY);
 			}
 
-			return (Overlay)Activator.CreateInstance(type, maxX, maxY);
+			var overlay = CustomTypes[name];
+
+			// Create a unique copy
+			var overlayCopy = overlay.Copy();
+			overlayCopy.SetMaximum(maxX, maxY);
+			return overlayCopy;
 		}
 
 		public static void FillCustomOverlays()
@@ -138,6 +124,20 @@ namespace FlagMaker.Overlays
 		public static IEnumerable<Type> GetOverlaysNotInTypes(IEnumerable<Type> types)
 		{
 			return _typeMap.Where(o => !types.Any(t => o.Value.IsSubclassOf(t))).Select(o => o.Value);
-		} 
+		}
+
+		private static Type GetOverlayType(string name)
+		{
+			var result = CustomTypes.Any(t => t.Key == name)
+				? CustomTypes[name].GetType()
+				: _typeMap.FirstOrDefault(t => t.Key == name).Value;
+
+			if (result == null)
+			{
+				throw new Exception(string.Format(strings.OverlayLoadError, name));
+			}
+
+			return result;
+		}
 	}
 }
