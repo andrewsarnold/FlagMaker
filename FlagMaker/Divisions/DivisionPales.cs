@@ -31,7 +31,7 @@ namespace FlagMaker.Divisions
 			var rect1 = new Rectangle
 				            {
 								Fill = new SolidColorBrush(Colors[0]),
-					            Width = r1Size,
+					            Width = canvas.Width,
 					            Height = canvas.Height,
 								SnapsToDevicePixels = true
 				            };
@@ -42,7 +42,7 @@ namespace FlagMaker.Divisions
 			var rect2 = new Rectangle
 				            {
 								Fill = new SolidColorBrush(Colors[1]),
-					            Width = r2Size,
+					            Width = r2Size + r3Size,
 								Height = canvas.Height,
 								SnapsToDevicePixels = true
 				            };

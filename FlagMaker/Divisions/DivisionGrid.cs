@@ -24,6 +24,17 @@ namespace FlagMaker.Divisions
 
 		public override void Draw(Canvas canvas)
 		{
+			var background = new Rectangle
+			{
+				Fill = new SolidColorBrush(Colors[0]),
+				Width = canvas.Width,
+				Height = canvas.Height,
+				SnapsToDevicePixels = true
+			};
+			canvas.Children.Add(background);
+			Canvas.SetTop(background, 0);
+			Canvas.SetLeft(background, 0);
+
 			double height = canvas.Height / Values[1];
 			double width = canvas.Width / Values[0];
 
@@ -31,9 +42,11 @@ namespace FlagMaker.Divisions
 			{
 				for (int y = 0; y < Values[1]; y++)
 				{
+					if ((x + y) % 2 == 0) continue;
+
 					var rect = new Rectangle
 								   {
-									   Fill = new SolidColorBrush(Colors[(x + y) % 2]),
+									   Fill = new SolidColorBrush(Colors[1]),
 									   Width = width,
 									   Height = height,
 									   SnapsToDevicePixels = true
