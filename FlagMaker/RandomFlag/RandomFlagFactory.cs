@@ -80,10 +80,19 @@ namespace FlagMaker.RandomFlag
 			                          };
 			var yellowProbability = yellowProbabilities[color1Index][color2Index];
 
-			_color1 = colors[color1Index];
-			_color2 = colors[color2Index];
-			_color3 = colors[color3Index];
+			_color1 = TweakColor(colors[color1Index]);
+			_color2 = TweakColor(colors[color2Index]);
+			_color3 = TweakColor(colors[color3Index]);
 			_metal = Randomizer.ProbabilityOfTrue(yellowProbability) ? Yellow : White;
+		}
+
+		private static Color TweakColor(Color color)
+		{
+			return Color.FromRgb(
+					(byte)Randomizer.Clamp(Randomizer.NextNormalized(color.R, 20), 0, 255),
+					(byte)Randomizer.Clamp(Randomizer.NextNormalized(color.G, 20), 0, 255),
+					(byte)Randomizer.Clamp(Randomizer.NextNormalized(color.B, 20), 0, 255)
+				);
 		}
 
 		private static void GetRatio()

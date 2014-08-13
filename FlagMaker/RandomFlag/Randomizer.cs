@@ -71,15 +71,6 @@ namespace FlagMaker.RandomFlag
 		}
 
 		/// <summary>
-		/// Returns a random number between 0.0 and 1.0.
-		/// </summary>
-		/// <returns>A double-precision floating point number greater than or equal to 0.0, and less than 1.0.</returns>
-		public static double NextDouble()
-		{
-			return R.NextDouble();
-		}
-
-		/// <summary>
 		/// Casts a value to an int bounded by two range values.
 		/// </summary>
 		/// <param name="value"></param>

@@ -217,7 +217,7 @@
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayBox.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayDiamond.cs" />
     <Compile Include="Overlays\OverlayTypes\ShapeTypes\OverlayEllipse.cs" />
-    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEquitorialCross.cs" />
+    <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayEquatorialCross.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayHammerSickle.cs" />
     <Compile Include="Overlays\OverlayTypes\OverlayPall.cs" />
     <Compile Include="Overlays\OverlayTypes\PathTypes\OverlayStar.cs" />
