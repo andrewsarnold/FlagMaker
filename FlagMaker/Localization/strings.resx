@@ -181,10 +181,10 @@
     <value>Error at line:</value>
   </data>
   <data name="ExportAsPng" xml:space="preserve">
-    <value>Export as _PNG...</value>
+    <value>Export as PNG</value>
   </data>
   <data name="ExportAsSvg" xml:space="preserve">
-    <value>Export as SV_G...</value>
+    <value>Export as SVG</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>_File</value>
@@ -330,9 +330,6 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="ExportAsPngMenu" xml:space="preserve">
-    <value>Export as _PNG...</value>
-  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -350,5 +347,23 @@
   </data>
   <data name="StrokeCurved" xml:space="preserve">
     <value>Rounded?</value>
+  </data>
+  <data name="ExportAsPngMenu" xml:space="preserve">
+    <value>Export as _PNG...</value>
+  </data>
+  <data name="ExportBulkAsPng" xml:space="preserve">
+    <value>Bulk export as _PNG...</value>
+  </data>
+  <data name="ExportBulkAsSvg" xml:space="preserve">
+    <value>Bulk export as _SVG...</value>
+  </data>
+  <data name="ExportAsSvgMenu" xml:space="preserve">
+    <value>Export as SV_G...</value>
+  </data>
+  <data name="ExportBulkError" xml:space="preserve">
+    <value>One or more flags could not be exported. Check your syntax and if any custom overlays could not be found.</value>
+  </data>
+  <data name="ExportBulkSuccess" xml:space="preserve">
+    <value>Export completed successfully.</value>
   </data>
 </root>

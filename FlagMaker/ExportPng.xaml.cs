@@ -10,8 +10,9 @@ namespace FlagMaker
 		private int _width;
 		private int _height;
 		private bool _update;
+		private bool _constrain;
 
-		public ExportPng(Ratio ratio)
+		public ExportPng(Ratio ratio, bool constrain)
 		{
 			InitializeComponent();
 
@@ -20,6 +21,7 @@ namespace FlagMaker
 			PngWidth = ratio.Width * multiplier;
 			PngHeight = ratio.Height * multiplier;
 			_update = true;
+			_constrain = constrain;
 		}
 
 		public int PngWidth
@@ -51,7 +53,10 @@ namespace FlagMaker
 			if (int.TryParse(_txtWidth.Text, out newWidth))
 			{
 				_width = newWidth;
-				PngHeight = (int)((_ratio.Height / (double)_ratio.Width) * _width);
+				if (_constrain)
+				{
+					PngHeight = (int)((_ratio.Height / (double)_ratio.Width) * _width);
+				}
 			}
 			else
 			{
@@ -68,8 +73,11 @@ namespace FlagMaker
 
 			if (int.TryParse(_txtHeight.Text, out newHeight))
 			{
-				_width = newHeight;
-				PngWidth = (int)((_ratio.Width / (double)_ratio.Height) * _height);
+				_height = newHeight;
+				if (_constrain)
+				{
+					PngWidth = (int)((_ratio.Width / (double)_ratio.Height) * _height);
+				}
 			}
 			else
 			{

@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
@@ -224,6 +228,45 @@ namespace FlagMaker
 				if (!Overlays[i].IsEnabled) continue;
 
 				Overlays[i].Draw(canvas);
+			}
+		}
+
+		public void ExportToPng(Size size, string path)
+		{
+			var canvas = new Canvas
+			             {
+							 Height = size.Height,
+							 Width = size.Width
+			             };
+			Draw(canvas);
+
+			string gridXaml = XamlWriter.Save(canvas);
+			var stringReader = new StringReader(gridXaml);
+			XmlReader xmlReader = XmlReader.Create(stringReader);
+			var newGrid = (Canvas)XamlReader.Load(xmlReader);
+
+			if (path == null) return;
+			
+			// Appy scaling for desired PNG size
+			//newGrid.LayoutTransform = new ScaleTransform(newSize.Width / size.Width, newSize.Height / size.Height);
+
+			newGrid.Measure(size);
+			newGrid.Arrange(new Rect(size));
+
+			var renderBitmap =
+				new RenderTargetBitmap(
+					(int)size.Width,
+					(int)size.Height,
+					96d,
+					96d,
+					PixelFormats.Pbgra32);
+			renderBitmap.Render(newGrid);
+
+			using (var outStream = new FileStream(path, FileMode.Create))
+			{
+				var encoder = new PngBitmapEncoder();
+				encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+				encoder.Save(outStream);
 			}
 		}
 
