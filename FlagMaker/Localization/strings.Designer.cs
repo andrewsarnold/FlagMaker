@@ -286,7 +286,7 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export as _PNG....
+        ///   Looks up a localized string similar to Export as PNG.
         /// </summary>
         public static string ExportAsPng {
             get {
@@ -304,11 +304,56 @@ namespace FlagMaker.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export as SV_G....
+        ///   Looks up a localized string similar to Export as SVG.
         /// </summary>
         public static string ExportAsSvg {
             get {
                 return ResourceManager.GetString("ExportAsSvg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export as SV_G....
+        /// </summary>
+        public static string ExportAsSvgMenu {
+            get {
+                return ResourceManager.GetString("ExportAsSvgMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk export as _PNG....
+        /// </summary>
+        public static string ExportBulkAsPng {
+            get {
+                return ResourceManager.GetString("ExportBulkAsPng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk export as _SVG....
+        /// </summary>
+        public static string ExportBulkAsSvg {
+            get {
+                return ResourceManager.GetString("ExportBulkAsSvg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more flags could not be exported. Check your syntax and if any custom overlays could not be found..
+        /// </summary>
+        public static string ExportBulkError {
+            get {
+                return ResourceManager.GetString("ExportBulkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export completed successfully..
+        /// </summary>
+        public static string ExportBulkSuccess {
+            get {
+                return ResourceManager.GetString("ExportBulkSuccess", resourceCulture);
             }
         }
         

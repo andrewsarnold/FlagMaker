@@ -33,8 +33,11 @@
                 <MenuItem Header="{x:Static Localization:strings.SaveAs}" Click="MenuSaveAsClick" InputGestureText="Ctrl+Shift+S" />
                 <Separator />
                 <MenuItem Header="{x:Static Localization:strings.ExportAsPngMenu}" Click="MenuExportPngClick" />
-                <MenuItem Header="{x:Static Localization:strings.ExportAsSvg}" Click="MenuExportSvgClick" />
-            </MenuItem>
+				<MenuItem Header="{x:Static Localization:strings.ExportAsSvgMenu}" Click="MenuExportSvgClick" />
+				<Separator />
+				<MenuItem Header="{x:Static Localization:strings.ExportBulkAsPng}" Click="MenuExportBulkPngClick" />
+				<MenuItem Header="{x:Static Localization:strings.ExportBulkAsSvg}" Click="MenuExportBulkSvgClick" />
+			</MenuItem>
             <MenuItem Header="{x:Static Localization:strings.WorldFlagPresets}" x:Name="_mnuWorldFlagPresets" />
             <MenuItem Header="{x:Static Localization:strings.Language}" x:Name="_mnuLanguage" />
         </Menu>

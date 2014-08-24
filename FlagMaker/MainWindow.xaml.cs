@@ -9,12 +9,11 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml;
 using FlagMaker.Divisions;
 using FlagMaker.Localization;
 using FlagMaker.Overlays;
@@ -22,10 +21,13 @@ using FlagMaker.Overlays.OverlayTypes.PathTypes;
 using FlagMaker.Overlays.OverlayTypes.ShapeTypes;
 using FlagMaker.Properties;
 using FlagMaker.RandomFlag;
-using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
+using MenuItem = System.Windows.Controls.MenuItem;
 using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Panel = System.Windows.Controls.Panel;
 using Path = System.IO.Path;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace FlagMaker
 {
@@ -679,10 +681,8 @@ namespace FlagMaker
 
 		private void MenuExportPngClick(object sender, RoutedEventArgs e)
 		{
-			var dialog = new ExportPng(new Ratio(_ratioWidth, _ratioHeight)) { Owner = this };
-			if (!(dialog.ShowDialog() ?? false)) return;
-
-			var dimensions = new Size(dialog.PngWidth, dialog.PngHeight);
+			var dimensions = GetPngDimensions(true);
+			if (dimensions.Height == 0 || dimensions.Width == 0) return;
 
 			var dlg = new SaveFileDialog
 			{
@@ -693,47 +693,17 @@ namespace FlagMaker
 
 			if (!(dlg.ShowDialog() ?? false)) return;
 
-			// Create a full copy of the canvas so the
-			// scaling of the existing canvas and
-			// grid don't ge messed up
-			string gridXaml = XamlWriter.Save(_canvas);
-			var stringReader = new StringReader(gridXaml);
-			XmlReader xmlReader = XmlReader.Create(stringReader);
-			var newGrid = (Canvas)XamlReader.Load(xmlReader);
-
-			ExportToPng(dlg.FileName, newGrid, dimensions);
+			Flag.ExportToPng(dimensions, dlg.FileName);
 		}
 
-		private static void ExportToPng(string path, FrameworkElement surface, Size newSize)
+		private Size GetPngDimensions(bool constrain)
 		{
-			if (path == null) return;
-
-			// Get original size of canvas
-			var size = new Size(surface.Width, surface.Height);
-
-			// Appy scaling for desired PNG size
-			surface.LayoutTransform = new ScaleTransform(newSize.Width / size.Width, newSize.Height / size.Height);
-
-			surface.Measure(size);
-			surface.Arrange(new Rect(newSize));
-
-			var renderBitmap =
-				new RenderTargetBitmap(
-					(int)newSize.Width,
-					(int)newSize.Height,
-					96d,
-					96d,
-					PixelFormats.Pbgra32);
-			renderBitmap.Render(surface);
-
-			using (var outStream = new FileStream(path, FileMode.Create))
-			{
-				var encoder = new PngBitmapEncoder();
-				encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
-				encoder.Save(outStream);
-			}
+			var dialog = new ExportPng(new Ratio(_ratioWidth, _ratioHeight), constrain) { Owner = this };
+			return !(dialog.ShowDialog() ?? false) 
+				? new Size(0, 0)
+				: new Size(dialog.PngWidth, dialog.PngHeight);
 		}
-
+		
 		private void MenuExportSvgClick(object sender, RoutedEventArgs e)
 		{
 			var dlg = new SaveFileDialog
@@ -744,12 +714,95 @@ namespace FlagMaker
 			};
 
 			if (!(dlg.ShowDialog() ?? false)) return;
-			ExportToSvg(dlg.FileName);
+			Flag.ExportToSvg(dlg.FileName);
 		}
 
-		private void ExportToSvg(string path)
+		private void MenuExportBulkPngClick(object sender, RoutedEventArgs e)
 		{
-			Flag.ExportToSvg(path);
+			var error = false;
+			var files = GetFlagFiles();
+			if (!files.Any()) return;
+
+			var defaultDirectory = Path.GetDirectoryName(files.First());
+			var directory = GetBulkSaveDirectory(defaultDirectory);
+			if (directory == string.Empty) return;
+
+			var dimensions = GetPngDimensions(false);
+			if (dimensions.Height == 0 || dimensions.Width == 0) return;
+
+			foreach (var file in files)
+			{
+				try
+				{
+					Flag.LoadFromFile(file).ExportToPng(dimensions, string.Format("{0}\\{1}.png", directory, Path.GetFileNameWithoutExtension(file)));
+				}
+				catch (Exception)
+				{
+					error = true;
+				}
+			}
+
+			ExportFinished(strings.ExportAsPng, error);
+		}
+
+		private void MenuExportBulkSvgClick(object sender, RoutedEventArgs e)
+		{
+			var error = false;
+			var files = GetFlagFiles();
+			if (!files.Any()) return;
+
+			var defaultDirectory = Path.GetDirectoryName(files.First());
+			var directory = GetBulkSaveDirectory(defaultDirectory);
+			if (directory == string.Empty) return;
+
+			foreach (var file in files)
+			{
+				try
+				{
+					Flag.LoadFromFile(file).ExportToSvg(string.Format("{0}\\{1}.svg", directory, Path.GetFileNameWithoutExtension(file)));
+				}
+				catch (Exception)
+				{
+					error = true;
+				}
+			}
+
+			ExportFinished(strings.ExportAsSvg, error);
+		}
+
+		private IEnumerable<string> GetFlagFiles()
+		{
+			var dlg = new OpenFileDialog
+			{
+				Multiselect = true,
+				Filter = "Flag (*.flag)|*.flag",
+				CheckFileExists = true
+			};
+			dlg.ShowDialog();
+			return dlg.FileNames;
+		}
+
+		private string GetBulkSaveDirectory(string defaultDirectory)
+		{
+			var dlg = new FolderBrowserDialog
+			          {
+						  SelectedPath = defaultDirectory,
+						  ShowNewFolderButton = true
+			          };
+			if(dlg.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return string.Empty;
+			return dlg.SelectedPath;
+		}
+
+		private void ExportFinished(string title, bool errorOccurred)
+		{
+			if (errorOccurred)
+			{
+				MessageBox.Show(strings.ExportBulkError, title, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else
+			{
+				MessageBox.Show(strings.ExportBulkSuccess, title, MessageBoxButton.OK, MessageBoxImage.Information);
+			}
 		}
 
 		#endregion
