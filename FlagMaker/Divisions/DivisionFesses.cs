@@ -32,7 +32,7 @@ namespace FlagMaker.Divisions
 				            {
 					            Fill = new SolidColorBrush(Colors[0]),
 					            Width = canvas.Width,
-								Height = r1Size
+								Height = canvas.Height
 				            };
 			canvas.Children.Add(rect1);
 			Canvas.SetTop(rect1, 0);
@@ -42,7 +42,7 @@ namespace FlagMaker.Divisions
 				            {
 								Fill = new SolidColorBrush(Colors[1]),
 					            Width = canvas.Width,
-					            Height = r2Size
+					            Height = r2Size + r3Size
 				            };
 			canvas.Children.Add(rect2);
 			Canvas.SetTop(rect2, r1Size);
