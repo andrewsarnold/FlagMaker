@@ -83,11 +83,16 @@ namespace FlagMaker.RandomFlag
 			_color1 = TweakColor(colors[color1Index]);
 			_color2 = TweakColor(colors[color2Index]);
 			_color3 = TweakColor(colors[color3Index]);
-			_metal = Randomizer.ProbabilityOfTrue(yellowProbability) ? Yellow : White;
+			_metal = Randomizer.ProbabilityOfTrue(yellowProbability) ? TweakColor(Yellow) : White;
 		}
 
 		private static Color TweakColor(Color color)
 		{
+			if (color == Colors.Black || color == Colors.White)
+			{ // Don't adjust black or white, it looks bad
+				return color;
+			}
+
 			return Color.FromRgb(
 					(byte)Randomizer.Clamp(Randomizer.NextNormalized(color.R, 20), 0, 255),
 					(byte)Randomizer.Clamp(Randomizer.NextNormalized(color.G, 20), 0, 255),
@@ -262,7 +267,7 @@ namespace FlagMaker.RandomFlag
 				}
 			}
 
-			AddEmblem(0.5, _gridSize.Width / 5.0, _gridSize.Height / 3.0, _metal, _color1);
+			AddEmblem(0.5, _gridSize.Width / 5.0, _gridSize.Height / 4.0, _metal, _color1);
 			return new DivisionBendsForward(_color1, _color2);
 		}
 
@@ -283,7 +288,7 @@ namespace FlagMaker.RandomFlag
 				}
 			}
 
-			AddEmblem(0.5, _gridSize.Width * 4.0 / 5.0, _gridSize.Height / 3.0, _metal, _color1);
+			AddEmblem(0.5, _gridSize.Width * 4.0 / 5.0, _gridSize.Height / 4.0, _metal, _color1);
 			return new DivisionBendsBackward(_color1, _color2);
 		}
 
