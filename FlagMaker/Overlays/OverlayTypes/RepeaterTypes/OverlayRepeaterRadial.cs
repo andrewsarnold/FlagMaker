@@ -24,13 +24,14 @@ namespace FlagMaker.Overlays.OverlayTypes.RepeaterTypes
 		{
 		}
 
-		public OverlayRepeaterRadial(double x, double y, double radius, int count, int maximumX, int maximumY)
+		public OverlayRepeaterRadial(double x, double y, double radius, int count, int rotate, int maximumX, int maximumY)
 			: base(new List<Attribute>
 			       {
 				       new Attribute(strings.X, true, x, true),
 				       new Attribute(strings.Y, true, y, false),
 				       new Attribute(strings.Radius, true, radius, true),
-				       new Attribute(strings.Rotate, true, count, true),
+				       new Attribute(strings.Count, true, count, true),
+				       new Attribute(strings.Rotate, true, rotate, true),
 			       }, maximumX, maximumY)
 		{
 		}

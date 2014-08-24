@@ -1031,7 +1031,7 @@ namespace FlagMaker
 		private void GenerateRandomFlag(object sender, RoutedEventArgs e)
 		{
 			if (CheckUnsaved()) return;
-			LoadFlag(RandomFlagFactory.GenerateFlag());
+			LoadFlag(new RandomFlagFactory().GenerateFlag());
 			_filename = string.Empty;
 			SetTitle();
 		}
