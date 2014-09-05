@@ -246,9 +246,6 @@ namespace FlagMaker
 			var newGrid = (Canvas)XamlReader.Load(xmlReader);
 
 			if (path == null) return;
-			
-			// Appy scaling for desired PNG size
-			//newGrid.LayoutTransform = new ScaleTransform(newSize.Width / size.Width, newSize.Height / size.Height);
 
 			newGrid.Measure(size);
 			newGrid.Arrange(new Rect(size));

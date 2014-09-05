@@ -7,11 +7,11 @@ namespace FlagMaker
 	public partial class ExportPng
 	{
 		private readonly Ratio _ratio;
+		private readonly bool _constrain;
 		private int _width;
 		private int _height;
 		private bool _update;
-		private bool _constrain;
-
+		
 		public ExportPng(Ratio ratio, bool constrain)
 		{
 			InitializeComponent();

@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,311 +59,311 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AllFiles" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AllFiles" xml:space="preserve">
     <value>All files</value>
   </data>
-  <data name="CouldNotLoadPresetsError" xml:space="preserve">
+	<data name="CouldNotLoadPresetsError" xml:space="preserve">
     <value>Couldn't load presets. Check for a Presets folder in the application directory.</value>
   </data>
-  <data name="CouldNotOpenError" xml:space="preserve">
+	<data name="CouldNotOpenError" xml:space="preserve">
     <value>Couldn't open the file. Check your syntax and try again. Error at line: "{0}"</value>
   </data>
-  <data name="CouldNotOpenFileError" xml:space="preserve">
+	<data name="CouldNotOpenFileError" xml:space="preserve">
     <value>Couldn't open the file. Check your syntax and try again.</value>
   </data>
-  <data name="Count" xml:space="preserve">
+	<data name="Count" xml:space="preserve">
     <value>Count</value>
   </data>
-  <data name="CountX" xml:space="preserve">
+	<data name="CountX" xml:space="preserve">
     <value>Horizontal count</value>
   </data>
-  <data name="CountY" xml:space="preserve">
+	<data name="CountY" xml:space="preserve">
     <value>Vertical count</value>
   </data>
-  <data name="Division" xml:space="preserve">
+	<data name="Division" xml:space="preserve">
     <value>Division</value>
   </data>
-  <data name="DivisionBendsBackward" xml:space="preserve">
+	<data name="DivisionBendsBackward" xml:space="preserve">
     <value>Bends backward</value>
   </data>
-  <data name="DivisionBendsBoth" xml:space="preserve">
+	<data name="DivisionBendsBoth" xml:space="preserve">
     <value>Bends both</value>
   </data>
-  <data name="DivisionBendsForward" xml:space="preserve">
+	<data name="DivisionBendsForward" xml:space="preserve">
     <value>Bends forward</value>
   </data>
-  <data name="DivisionBlank" xml:space="preserve">
+	<data name="DivisionBlank" xml:space="preserve">
     <value>Blank</value>
   </data>
-  <data name="DivisionFesses" xml:space="preserve">
+	<data name="DivisionFesses" xml:space="preserve">
     <value>Fesses</value>
   </data>
-  <data name="DivisionGrid" xml:space="preserve">
+	<data name="DivisionGrid" xml:space="preserve">
     <value>Grid</value>
   </data>
-  <data name="DivisionHorizontalHalves" xml:space="preserve">
+	<data name="DivisionHorizontalHalves" xml:space="preserve">
     <value>Horizontal halves</value>
   </data>
-  <data name="DivisionPales" xml:space="preserve">
+	<data name="DivisionPales" xml:space="preserve">
     <value>Pales</value>
   </data>
-  <data name="DivisionPresets" xml:space="preserve">
+	<data name="DivisionPresets" xml:space="preserve">
     <value>Presets</value>
   </data>
-  <data name="DivisionQuartered" xml:space="preserve">
+	<data name="DivisionQuartered" xml:space="preserve">
     <value>Quartered</value>
   </data>
-  <data name="DivisionStripes" xml:space="preserve">
+	<data name="DivisionStripes" xml:space="preserve">
     <value>Stripes</value>
   </data>
-  <data name="DivisionVerticalHalves" xml:space="preserve">
+	<data name="DivisionVerticalHalves" xml:space="preserve">
     <value>Vertical halves</value>
   </data>
-  <data name="ErrorAtLine" xml:space="preserve">
+	<data name="ErrorAtLine" xml:space="preserve">
     <value>Error at line:</value>
   </data>
-  <data name="ExportAsPng" xml:space="preserve">
+	<data name="ExportAsPng" xml:space="preserve">
     <value>Export as PNG</value>
   </data>
-  <data name="ExportAsSvg" xml:space="preserve">
+	<data name="ExportAsSvg" xml:space="preserve">
     <value>Export as SVG</value>
   </data>
-  <data name="File" xml:space="preserve">
+	<data name="File" xml:space="preserve">
     <value>_File</value>
   </data>
-  <data name="Flag" xml:space="preserve">
+	<data name="Flag" xml:space="preserve">
     <value>Flag</value>
   </data>
-  <data name="GridSize" xml:space="preserve">
+	<data name="GridSize" xml:space="preserve">
     <value>Grid size</value>
   </data>
-  <data name="Height" xml:space="preserve">
+	<data name="Height" xml:space="preserve">
     <value>Height</value>
   </data>
-  <data name="Language" xml:space="preserve">
+	<data name="Language" xml:space="preserve">
     <value>_Language</value>
   </data>
-  <data name="New" xml:space="preserve">
+	<data name="New" xml:space="preserve">
     <value>_New</value>
   </data>
-  <data name="NoFile" xml:space="preserve">
+	<data name="NoFile" xml:space="preserve">
     <value>No file selected.</value>
   </data>
-  <data name="Open" xml:space="preserve">
+	<data name="Open" xml:space="preserve">
     <value>_Open...</value>
   </data>
-  <data name="OverlayAdd" xml:space="preserve">
+	<data name="OverlayAdd" xml:space="preserve">
     <value>Add new overlay</value>
   </data>
-  <data name="Overlays" xml:space="preserve">
+	<data name="Overlays" xml:space="preserve">
     <value>Overlays</value>
   </data>
-  <data name="Radius" xml:space="preserve">
+	<data name="Radius" xml:space="preserve">
     <value>Radius</value>
   </data>
-  <data name="Ratio" xml:space="preserve">
+	<data name="Ratio" xml:space="preserve">
     <value>Ratio</value>
   </data>
-  <data name="RestartForChanges" xml:space="preserve">
+	<data name="RestartForChanges" xml:space="preserve">
     <value>You must restart in order for the changes to take effect.</value>
   </data>
-  <data name="Rotate" xml:space="preserve">
+	<data name="Rotate" xml:space="preserve">
     <value>Rotate?</value>
   </data>
-  <data name="Rotation" xml:space="preserve">
+	<data name="Rotation" xml:space="preserve">
     <value>Rotation</value>
   </data>
-  <data name="SaveMenu" xml:space="preserve">
+	<data name="SaveMenu" xml:space="preserve">
     <value>_Save</value>
   </data>
-  <data name="SaveAs" xml:space="preserve">
+	<data name="SaveAs" xml:space="preserve">
     <value>Save _as..</value>
   </data>
-  <data name="SaveChangesPrompt" xml:space="preserve">
+	<data name="SaveChangesPrompt" xml:space="preserve">
     <value>Save changes to {0}?</value>
   </data>
-  <data name="ShowGrid" xml:space="preserve">
+	<data name="ShowGrid" xml:space="preserve">
     <value>Show grid</value>
   </data>
-  <data name="ShuffleColors" xml:space="preserve">
+	<data name="ShuffleColors" xml:space="preserve">
     <value>Shuffle colors</value>
   </data>
-  <data name="Size" xml:space="preserve">
+	<data name="Size" xml:space="preserve">
     <value>Size</value>
   </data>
-  <data name="Thickness" xml:space="preserve">
+	<data name="Thickness" xml:space="preserve">
     <value>Thickness</value>
   </data>
-  <data name="Untitled" xml:space="preserve">
+	<data name="Untitled" xml:space="preserve">
     <value>Untitled</value>
   </data>
-  <data name="Width" xml:space="preserve">
+	<data name="Width" xml:space="preserve">
     <value>Width</value>
   </data>
-  <data name="WorldFlagPresets" xml:space="preserve">
+	<data name="WorldFlagPresets" xml:space="preserve">
     <value>_World flag presets</value>
   </data>
-  <data name="X" xml:space="preserve">
+	<data name="X" xml:space="preserve">
     <value>Left</value>
   </data>
-  <data name="Y" xml:space="preserve">
+	<data name="Y" xml:space="preserve">
     <value>Top</value>
   </data>
-  <data name="OverlayNameExists" xml:space="preserve">
+	<data name="OverlayNameExists" xml:space="preserve">
     <value>An overlay with the name "{0}" already exists.</value>
   </data>
-  <data name="OverlayLoadError" xml:space="preserve">
+	<data name="OverlayLoadError" xml:space="preserve">
     <value>Couldn't load custom overlay "{0}".</value>
   </data>
-  <data name="X1" xml:space="preserve">
+	<data name="X1" xml:space="preserve">
     <value>X1</value>
   </data>
-  <data name="X2" xml:space="preserve">
+	<data name="X2" xml:space="preserve">
     <value>X2</value>
   </data>
-  <data name="X3" xml:space="preserve">
+	<data name="X3" xml:space="preserve">
     <value>X3</value>
   </data>
-  <data name="Y1" xml:space="preserve">
+	<data name="Y1" xml:space="preserve">
     <value>Y1</value>
   </data>
-  <data name="Y2" xml:space="preserve">
+	<data name="Y2" xml:space="preserve">
     <value>Y2</value>
   </data>
-  <data name="Y3" xml:space="preserve">
+	<data name="Y3" xml:space="preserve">
     <value>Y3</value>
   </data>
-  <data name="Custom" xml:space="preserve">
+	<data name="Custom" xml:space="preserve">
     <value>Custom</value>
   </data>
-  <data name="Emblems" xml:space="preserve">
+	<data name="Emblems" xml:space="preserve">
     <value>Emblems</value>
   </data>
-  <data name="Special" xml:space="preserve">
+	<data name="Special" xml:space="preserve">
     <value>Special</value>
   </data>
-  <data name="Shapes" xml:space="preserve">
+	<data name="Shapes" xml:space="preserve">
     <value>Shapes</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+	<data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="SkewX" xml:space="preserve">
+	<data name="SkewX" xml:space="preserve">
     <value>Skew X</value>
   </data>
-  <data name="SkewY" xml:space="preserve">
+	<data name="SkewY" xml:space="preserve">
     <value>Skew Y</value>
   </data>
-  <data name="X4" xml:space="preserve">
+	<data name="X4" xml:space="preserve">
     <value>X4</value>
   </data>
-  <data name="Y4" xml:space="preserve">
+	<data name="Y4" xml:space="preserve">
     <value>Y4</value>
   </data>
-  <data name="Clone" xml:space="preserve">
+	<data name="Clone" xml:space="preserve">
     <value>Clone</value>
   </data>
-  <data name="MoveDown" xml:space="preserve">
+	<data name="MoveDown" xml:space="preserve">
     <value>Move down</value>
   </data>
-  <data name="MoveUp" xml:space="preserve">
+	<data name="MoveUp" xml:space="preserve">
     <value>Move up</value>
   </data>
-  <data name="Remove" xml:space="preserve">
+	<data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="Save" xml:space="preserve">
+	<data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="ToggleTexture" xml:space="preserve">
+	<data name="ToggleTexture" xml:space="preserve">
     <value>Toggle texture</value>
   </data>
-  <data name="ToggleVisibility" xml:space="preserve">
+	<data name="ToggleVisibility" xml:space="preserve">
     <value>Toggle visibility</value>
   </data>
-  <data name="GenerateRandomFlag" xml:space="preserve">
+	<data name="GenerateRandomFlag" xml:space="preserve">
     <value>Generate random flag</value>
   </data>
-  <data name="Stroke" xml:space="preserve">
+	<data name="Stroke" xml:space="preserve">
     <value>Outline</value>
   </data>
-  <data name="StrokeCurved" xml:space="preserve">
+	<data name="StrokeCurved" xml:space="preserve">
     <value>Rounded?</value>
   </data>
-  <data name="ExportAsPngMenu" xml:space="preserve">
+	<data name="ExportAsPngMenu" xml:space="preserve">
     <value>Export as _PNG...</value>
   </data>
-  <data name="ExportBulkAsPng" xml:space="preserve">
+	<data name="ExportBulkAsPng" xml:space="preserve">
     <value>Bulk export as _PNG...</value>
   </data>
-  <data name="ExportBulkAsSvg" xml:space="preserve">
+	<data name="ExportBulkAsSvg" xml:space="preserve">
     <value>Bulk export as _SVG...</value>
   </data>
-  <data name="ExportAsSvgMenu" xml:space="preserve">
+	<data name="ExportAsSvgMenu" xml:space="preserve">
     <value>Export as SV_G...</value>
   </data>
-  <data name="ExportBulkError" xml:space="preserve">
+	<data name="ExportBulkError" xml:space="preserve">
     <value>One or more flags could not be exported. Check your syntax and if any custom overlays could not be found.</value>
   </data>
-  <data name="ExportBulkSuccess" xml:space="preserve">
+	<data name="ExportBulkSuccess" xml:space="preserve">
     <value>Export completed successfully.</value>
   </data>
 </root>

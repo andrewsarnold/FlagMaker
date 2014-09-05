@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,272 +59,272 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AllFiles" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AllFiles" xml:space="preserve">
     <value>Todos los archivos</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+	<data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
-  <data name="CouldNotLoadPresetsError" xml:space="preserve">
+	<data name="CouldNotLoadPresetsError" xml:space="preserve">
     <value>No se puede cargar presets. Compruebe si hay una carpeta Presets en el directorio de la aplicación.</value>
   </data>
-  <data name="CouldNotOpenError" xml:space="preserve">
+	<data name="CouldNotOpenError" xml:space="preserve">
     <value>No se pudo abrir el archivo. Compruebe la sintaxis y vuelva a intentarlo. Error en la línea: "{0}"</value>
   </data>
-  <data name="CouldNotOpenFileError" xml:space="preserve">
+	<data name="CouldNotOpenFileError" xml:space="preserve">
     <value>No se pudo abrir el archivo. Compruebe la sintaxis y vuelva a intentarlo.</value>
   </data>
-  <data name="Count" xml:space="preserve">
+	<data name="Count" xml:space="preserve">
     <value>Cuenta</value>
   </data>
-  <data name="CountX" xml:space="preserve">
+	<data name="CountX" xml:space="preserve">
     <value>Cuenta horizontal</value>
   </data>
-  <data name="CountY" xml:space="preserve">
+	<data name="CountY" xml:space="preserve">
     <value>Cuenta vertical</value>
   </data>
-  <data name="Custom" xml:space="preserve">
+	<data name="Custom" xml:space="preserve">
     <value>Personalizado</value>
   </data>
-  <data name="Division" xml:space="preserve">
+	<data name="Division" xml:space="preserve">
     <value>Separación</value>
   </data>
-  <data name="DivisionBendsBackward" xml:space="preserve">
+	<data name="DivisionBendsBackward" xml:space="preserve">
     <value>Banda hacia atrás</value>
   </data>
-  <data name="DivisionBendsBoth" xml:space="preserve">
+	<data name="DivisionBendsBoth" xml:space="preserve">
     <value>Bandas ambas</value>
   </data>
-  <data name="DivisionBendsForward" xml:space="preserve">
+	<data name="DivisionBendsForward" xml:space="preserve">
     <value>Banda delantera</value>
   </data>
-  <data name="DivisionBlank" xml:space="preserve">
+	<data name="DivisionBlank" xml:space="preserve">
     <value>En blanco</value>
   </data>
-  <data name="DivisionFesses" xml:space="preserve">
+	<data name="DivisionFesses" xml:space="preserve">
     <value>Fajas</value>
   </data>
-  <data name="DivisionGrid" xml:space="preserve">
+	<data name="DivisionGrid" xml:space="preserve">
     <value>Cuadrícula</value>
   </data>
-  <data name="DivisionHorizontalHalves" xml:space="preserve">
+	<data name="DivisionHorizontalHalves" xml:space="preserve">
     <value>Mitades horizontales</value>
   </data>
-  <data name="DivisionPales" xml:space="preserve">
+	<data name="DivisionPales" xml:space="preserve">
     <value>Palos</value>
   </data>
-  <data name="DivisionPresets" xml:space="preserve">
+	<data name="DivisionPresets" xml:space="preserve">
     <value>Defaults</value>
   </data>
-  <data name="DivisionQuartered" xml:space="preserve">
+	<data name="DivisionQuartered" xml:space="preserve">
     <value>En cuartos</value>
   </data>
-  <data name="DivisionStripes" xml:space="preserve">
+	<data name="DivisionStripes" xml:space="preserve">
     <value>Rayas</value>
   </data>
-  <data name="DivisionVerticalHalves" xml:space="preserve">
+	<data name="DivisionVerticalHalves" xml:space="preserve">
     <value>Mitades verticales</value>
   </data>
-  <data name="Emblems" xml:space="preserve">
+	<data name="Emblems" xml:space="preserve">
     <value>Símbolos</value>
   </data>
-  <data name="ErrorAtLine" xml:space="preserve">
+	<data name="ErrorAtLine" xml:space="preserve">
     <value>Error estaba en esta línea:</value>
   </data>
-  <data name="ExportAsPng" xml:space="preserve">
+	<data name="ExportAsPng" xml:space="preserve">
     <value>Guardar como PNG</value>
   </data>
-  <data name="ExportAsSvg" xml:space="preserve">
-    <value>Guardar como _SVG...</value>
+	<data name="ExportAsSvg" xml:space="preserve">
+    <value>Guardar como SVG</value>
   </data>
-  <data name="File" xml:space="preserve">
+	<data name="File" xml:space="preserve">
     <value>_Archivo</value>
   </data>
-  <data name="Flag" xml:space="preserve">
+	<data name="Flag" xml:space="preserve">
     <value>Bandera</value>
   </data>
-  <data name="GridSize" xml:space="preserve">
+	<data name="GridSize" xml:space="preserve">
     <value>Tamaño de la cuadrícula</value>
   </data>
-  <data name="Height" xml:space="preserve">
+	<data name="Height" xml:space="preserve">
     <value>Altura</value>
   </data>
-  <data name="Language" xml:space="preserve">
+	<data name="Language" xml:space="preserve">
     <value>_Idioma</value>
   </data>
-  <data name="New" xml:space="preserve">
+	<data name="New" xml:space="preserve">
     <value>_Nuevo</value>
   </data>
-  <data name="NoFile" xml:space="preserve">
+	<data name="NoFile" xml:space="preserve">
     <value>Ningún archivo seleccionado.</value>
   </data>
-  <data name="Open" xml:space="preserve">
+	<data name="Open" xml:space="preserve">
     <value>_Abrir...</value>
   </data>
-  <data name="OverlayAdd" xml:space="preserve">
+	<data name="OverlayAdd" xml:space="preserve">
     <value>Nuevo</value>
   </data>
-  <data name="Overlays" xml:space="preserve">
+	<data name="Overlays" xml:space="preserve">
     <value>Capas superpuesta</value>
   </data>
-  <data name="Radius" xml:space="preserve">
+	<data name="Radius" xml:space="preserve">
     <value>Radio</value>
   </data>
-  <data name="Ratio" xml:space="preserve">
+	<data name="Ratio" xml:space="preserve">
     <value>Proporción</value>
   </data>
-  <data name="RestartForChanges" xml:space="preserve">
+	<data name="RestartForChanges" xml:space="preserve">
     <value>Debe reiniciar para que los cambios surtan efecto.</value>
   </data>
-  <data name="Rotate" xml:space="preserve">
+	<data name="Rotate" xml:space="preserve">
     <value>¿Girar?</value>
   </data>
-  <data name="Rotation" xml:space="preserve">
+	<data name="Rotation" xml:space="preserve">
     <value>Rotación</value>
   </data>
-  <data name="Save" xml:space="preserve">
+	<data name="Save" xml:space="preserve">
     <value>Guardar</value>
   </data>
-  <data name="SaveAs" xml:space="preserve">
+	<data name="SaveAs" xml:space="preserve">
     <value>Guardar _como...</value>
   </data>
-  <data name="SaveChangesPrompt" xml:space="preserve">
+	<data name="SaveChangesPrompt" xml:space="preserve">
     <value>¿Guardar los cambios en {0}?</value>
   </data>
-  <data name="Shapes" xml:space="preserve">
+	<data name="Shapes" xml:space="preserve">
     <value>Formas</value>
   </data>
-  <data name="ShowGrid" xml:space="preserve">
+	<data name="ShowGrid" xml:space="preserve">
     <value>Mostrar cuadrícula</value>
   </data>
-  <data name="ShuffleColors" xml:space="preserve">
+	<data name="ShuffleColors" xml:space="preserve">
     <value>Mezclar colores</value>
   </data>
-  <data name="Size" xml:space="preserve">
+	<data name="Size" xml:space="preserve">
     <value>Magnitud</value>
   </data>
-  <data name="SkewX" xml:space="preserve">
+	<data name="SkewX" xml:space="preserve">
     <value>Oblicuidad X</value>
   </data>
-  <data name="SkewY" xml:space="preserve">
+	<data name="SkewY" xml:space="preserve">
     <value>Oblicuidad Y</value>
   </data>
-  <data name="Special" xml:space="preserve">
+	<data name="Special" xml:space="preserve">
     <value>Especial</value>
   </data>
-  <data name="Thickness" xml:space="preserve">
+	<data name="Thickness" xml:space="preserve">
     <value>Espesor</value>
   </data>
-  <data name="Untitled" xml:space="preserve">
+	<data name="Untitled" xml:space="preserve">
     <value>Intitulado</value>
   </data>
-  <data name="Width" xml:space="preserve">
+	<data name="Width" xml:space="preserve">
     <value>Ancho</value>
   </data>
-  <data name="WorldFlagPresets" xml:space="preserve">
+	<data name="WorldFlagPresets" xml:space="preserve">
     <value>_Banderas del mundo</value>
   </data>
-  <data name="X" xml:space="preserve">
+	<data name="X" xml:space="preserve">
     <value>Izquierda</value>
   </data>
-  <data name="X1" xml:space="preserve">
+	<data name="X1" xml:space="preserve">
     <value>X1</value>
   </data>
-  <data name="X2" xml:space="preserve">
+	<data name="X2" xml:space="preserve">
     <value>X2</value>
   </data>
-  <data name="X3" xml:space="preserve">
+	<data name="X3" xml:space="preserve">
     <value>X3</value>
   </data>
-  <data name="Y" xml:space="preserve">
+	<data name="Y" xml:space="preserve">
     <value>Top</value>
   </data>
-  <data name="Y1" xml:space="preserve">
+	<data name="Y1" xml:space="preserve">
     <value>Y1</value>
   </data>
-  <data name="Y2" xml:space="preserve">
+	<data name="Y2" xml:space="preserve">
     <value>Y2</value>
   </data>
-  <data name="Y3" xml:space="preserve">
+	<data name="Y3" xml:space="preserve">
     <value>Y3</value>
   </data>
-  <data name="OverlayNameExists" xml:space="preserve">
+	<data name="OverlayNameExists" xml:space="preserve">
     <value>Una capa superpuesta su con el nombre "{0}" ya existe.</value>
   </data>
-  <data name="OverlayLoadError" xml:space="preserve">
+	<data name="OverlayLoadError" xml:space="preserve">
     <value>No se pudo cargar capa superpuesta personalizada "{0}".</value>
   </data>
-  <data name="X4" xml:space="preserve">
+	<data name="X4" xml:space="preserve">
     <value>X4</value>
   </data>
-  <data name="Y4" xml:space="preserve">
+	<data name="Y4" xml:space="preserve">
     <value>Y4</value>
   </data>
-  <data name="ExportAsPngMenu" xml:space="preserve">
+	<data name="ExportAsPngMenu" xml:space="preserve">
     <value>Guardar como _PNG...</value>
   </data>
-  <data name="SaveMenu" xml:space="preserve">
+	<data name="SaveMenu" xml:space="preserve">
     <value>_Guardar</value>
   </data>
-  <data name="Clone" xml:space="preserve">
+	<data name="Clone" xml:space="preserve">
     <value>Duplicar</value>
   </data>
 	<data name="MoveDown" xml:space="preserve">
@@ -351,4 +351,19 @@
 	<data name="StrokeCurved" xml:space="preserve">
     <value>¿Redondeado?</value>
   </data>
+	<data name="ExportAsSvgMenu" xml:space="preserve">
+		<value>Guardar como _SVG...</value>
+	</data>
+	<data name="ExportBulkSuccess" xml:space="preserve">
+		<value>Exportación se completó con éxito.</value>
+	</data>
+	<data name="ExportBulkAsPng" xml:space="preserve">
+		<value>Guardar a granel como _PNG...</value>
+	</data>
+	<data name="ExportBulkAsSvg" xml:space="preserve">
+		<value>Guardar a granel como _SVG...</value>
+	</data>
+	<data name="ExportBulkError" xml:space="preserve">
+		<value>Uno o más banderas no se podrían guardar. Compruebe la sintaxis y si no se ha encontrado ningún capas superpuesta.</value>
+	</data>
 </root>

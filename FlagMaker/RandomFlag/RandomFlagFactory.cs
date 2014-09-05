@@ -380,7 +380,7 @@ namespace FlagMaker.RandomFlag
 					}
 					break;
 				case 1: // Canton
-					if (Randomizer.ProbabilityOfTrue(0))
+					if (Randomizer.ProbabilityOfTrue(0.5))
 					{
 						AddFlag(new RandomFlagFactory().GenerateFlag(_colorScheme.Swapped));
 						AddEmblem(1.0, 3 * _gridSize.Width / 4.0, _gridSize.Height / 2.0, _colorScheme.Metal, true, _colorScheme.Color2);

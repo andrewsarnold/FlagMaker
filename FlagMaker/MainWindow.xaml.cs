@@ -789,8 +789,9 @@ namespace FlagMaker
 						  SelectedPath = defaultDirectory,
 						  ShowNewFolderButton = true
 			          };
-			if(dlg.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return string.Empty;
-			return dlg.SelectedPath;
+			return dlg.ShowDialog() == System.Windows.Forms.DialogResult.Cancel
+				? string.Empty 
+				: dlg.SelectedPath;
 		}
 
 		private void ExportFinished(string title, bool errorOccurred)
