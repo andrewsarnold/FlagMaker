@@ -214,81 +214,119 @@ namespace FlagMaker.RandomFlag
 			return new DivisionPales(c1, c2, c3, 1, isBalanced ? 1 : 2, 1);
 		}
 
-		#endregion
-
-		#region Old division getters
-
 		private DivisionFesses GetFesses()
 		{
-			DivisionFesses fesses;
-			Color color1 = _colorScheme.Color1, color2 = _colorScheme.Metal, hoistColor = _colorScheme.Color3;
-			var probabilityOfHoist = 0.0;
-			var probabilityOfEmblem = 0.0;
-			var emblemX = 0.5;
+			Color c1;
+			Color c2;
+			Color c3;
+			Color emblemColor;
+			Color hoistColor;
+			var isSpanish = false;
+			var isLatvian = false;
+			var isColombian = false;
+			double probabilityOfEmblem;
+			double probabilityOfHoist;
 
-			switch (Randomizer.RandomWeighted(new List<int> { 51, 5, 3 }))
+			if (Randomizer.ProbabilityOfTrue(0.166667))
 			{
-				case 0: // balanced
-					Color color3 = _colorScheme.Color2;
-					switch (Randomizer.RandomWeighted(new List<int> { 6, 26, 7, 4 }))
-					{
-						case 0:
-							color3 = _colorScheme.Color1;
-							hoistColor = _colorScheme.Color2;
-							break;
-						case 2:
-							color1 = _colorScheme.Metal;
-							color2 = _colorScheme.Color1;
-							break;
-						case 3:
-							color2 = _colorScheme.Color2;
-							color3 = _colorScheme.Metal;
-							break;
-					}
-
-					fesses = new DivisionFesses(color1, color2, color3, 1, 1, 1);
-					probabilityOfHoist = 0.2;
-					probabilityOfEmblem = 0.75;
-					break;
-
-				case 1: // center bigger
-					fesses = new DivisionFesses(_colorScheme.Color1, _colorScheme.Metal, Randomizer.ProbabilityOfTrue(0.8) ? _colorScheme.Color1 : _colorScheme.Color2, 1, 2, 1);
-					probabilityOfHoist = 0.2;
-					probabilityOfEmblem = 1.0;
-
-					if (Randomizer.ProbabilityOfTrue(0.3))
-					{
-						emblemX = 0.33;
-					}
-
-					break;
-
-				default: // top-heavy
-					if (Randomizer.ProbabilityOfTrue(0.667))
-					{
-						color1 = _colorScheme.Metal;
-						color2 = _colorScheme.Color1;
-					}
-
-					AddEmblem(0.33, _gridSize.Width * 3.0 / 4.0, _gridSize.Height / 4.0, color1 == _colorScheme.Metal ? _colorScheme.Color1 : _colorScheme.Metal, true, color1 == _colorScheme.Metal ? _colorScheme.Metal : _colorScheme.Color1);
-					fesses = new DivisionFesses(color1, color2, _colorScheme.Color2, 2, 1, 1);
-					break;
+				c1 = _colorScheme.Metal;
+				c2 = _colorScheme.Color1;
+				c3 = _colorScheme.Color2;
+				hoistColor = c2;
+				probabilityOfHoist = 0.0909;
+				probabilityOfEmblem = 0.5454;
+				isColombian = Randomizer.ProbabilityOfTrue(0.1818182);
+				emblemColor = isColombian ? c3 : c1;
 			}
+			else
+			{
+				c1 = _colorScheme.Color1;
+
+				if (Randomizer.ProbabilityOfTrue(0.29))
+				{
+					c2 = _colorScheme.Color2;
+
+					if (Randomizer.ProbabilityOfTrue(0.25))
+					{
+						c3 = _colorScheme.Color1;
+						isLatvian = Randomizer.ProbabilityOfTrue(0.5);
+						isSpanish = !isLatvian;
+						probabilityOfEmblem = isSpanish ? 1.0 : 0.0;
+						probabilityOfHoist = 0;
+						hoistColor = Colors.Transparent;
+						emblemColor = _colorScheme.Metal;
+					}
+					else if (Randomizer.ProbabilityOfTrue(0.5))
+					{
+						c3 = _colorScheme.Color3;
+						probabilityOfHoist = 0.0;
+						probabilityOfEmblem = 0.833333;
+						var hasFimbriations = Randomizer.ProbabilityOfTrue(0.5);
+						isSpanish = !hasFimbriations && Randomizer.ProbabilityOfTrue(0.2);
+						hoistColor = Colors.Transparent;
+						emblemColor = _colorScheme.Metal;
+
+						if (hasFimbriations)
+						{
+							_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Width / 20.0, _gridSize.Width / 3.0, _gridSize.Width, _gridSize.Width));
+							_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Width / 20.0, 2 * _gridSize.Width / 3.0, _gridSize.Width, _gridSize.Width));
+						}
+					}
+					else
+					{
+						c3 = _colorScheme.Metal;
+						hoistColor = _colorScheme.Color3;
+						emblemColor = _colorScheme.Metal;
+						probabilityOfHoist = 0.166667;
+						probabilityOfEmblem = 0.166667;
+					}
+				}
+				else
+				{
+					c2 = _colorScheme.Metal;
+
+					if (Randomizer.ProbabilityOfTrue(0.2564))
+					{
+						c3 = _colorScheme.Color1;
+						isSpanish = Randomizer.ProbabilityOfTrue(0.3);
+						isLatvian = !isSpanish && Randomizer.ProbabilityOfTrue(0.1429);
+						hoistColor = _colorScheme.Color2;
+						emblemColor = _colorScheme.Color2;
+						probabilityOfHoist = 0.2;
+						probabilityOfEmblem = 0.7;
+					}
+					else
+					{
+						c3 = _colorScheme.Color2;
+						hoistColor = _colorScheme.Color3;
+						emblemColor = Randomizer.ProbabilityOfTrue(0.5) ? c1 : c3;
+						isColombian = Randomizer.ProbabilityOfTrue(0.0345);
+						probabilityOfHoist = 0.2414;
+						probabilityOfEmblem = 0.6552;
+					}
+				}
+			}
+
+			if (isSpanish) { probabilityOfEmblem = 1.0; }
+			else if (isLatvian) { probabilityOfEmblem = 0.0; }
+			else if (isColombian) { probabilityOfHoist = 0.0; }
 
 			if (Randomizer.ProbabilityOfTrue(probabilityOfHoist))
 			{
-				var width = HoistElementWidth(true);
-				//AddTriangle(1, width, hoistColor);
-				AddEmblem(0.33, width * 3.0 / 8.0, _gridSize.Height / 2.0, _colorScheme.Metal, true, _colorScheme.Color1);
+				emblemColor = _colorScheme.Metal;
+				AddTriangle(1.0, probabilityOfEmblem, HoistElementWidth(true), hoistColor, emblemColor);
 			}
-			else if (color2 == _colorScheme.Metal)
+			else
 			{
-				var useColor1 = Randomizer.ProbabilityOfTrue(0.5);
-				AddEmblem(probabilityOfEmblem, _gridSize.Width * emblemX, _gridSize.Height / 2.0, useColor1 ? _colorScheme.Color1 : _colorScheme.Color2, true, useColor1 ? _colorScheme.Color2 : _colorScheme.Color1);
+				AddEmblem(probabilityOfEmblem, _gridSize.Width / 2.0, _gridSize.Height / 2.0, emblemColor, false, Colors.Transparent);
 			}
-
-			return fesses;
+			
+			return new DivisionFesses(c1, c2, c3, isLatvian || isColombian ? 2 : 1, isSpanish ? 2 : 1, isLatvian ? 2 : 1);
 		}
+
+		#endregion
+
+		#region Old division getters
 
 		private DivisionBendsForward GetBendsForward()
 		{
