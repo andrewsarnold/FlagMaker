@@ -61,7 +61,21 @@ namespace FlagMaker.RandomFlag
 		private Division GetDivision()
 		{
 			// Roughly based on real-life usage
-			_divisionType = (DivisionTypes)Randomizer.RandomWeighted(new List<int> { 7, 22, 60, 2, 7, 3, 20, 8, 2, 38, 7, 2, 5 });
+			// 206 flags surveyed
+			_divisionType = (DivisionTypes) Randomizer.RandomWeighted(new List<int>
+			                                                          {
+				                                                          9, // stripes
+				                                                          22, // pales
+				                                                          66, // fesses
+				                                                          38, // blank
+																		  21, // horizontal halves
+																		  6, // vertical halves
+																		  10, // diagonal
+																		  12, // stripe
+																		  9, // cross
+																		  3, // x
+																		  11 // other
+			                                                          });
 
 			switch (_divisionType)
 			{
@@ -86,34 +100,62 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Blank:
 					return GetBlank();
 				default: // Last three (Band1, Band2, MultiStripes) not implemented yet
-					return GetStripes();
+					return GetBlank();
 					//throw new Exception("No valid type selection");
 			}
 		}
 
-		#region Division getters
+		#region New division getters
 
 		private DivisionGrid GetStripes()
 		{
-			var stripeCount = Randomizer.Clamp(Randomizer.NextNormalized(8, 3), 3, 15, true);
-			
-			if (Randomizer.ProbabilityOfTrue(0.14))
+			var stripeCount = Randomizer.Clamp(Randomizer.NextNormalized(10, 3), 5, 15, true);
+
+			var stripeOuterColor = _colorScheme.Color1;
+			var stripeInnerColor = _colorScheme.Metal;
+			var cantonColor = _colorScheme.Color2;
+
+			if (Randomizer.ProbabilityOfTrue(0.125))
 			{
-				AddTriangle(1.0, HoistElementWidth(true), _colorScheme.Color2);
+				var width = HoistElementWidth(true);
+				AddTriangle(1.0, 1.0, width, cantonColor, stripeInnerColor);
 			}
 			else
 			{
-				double width = HoistElementWidth(false);
-				var stripe = (int)(stripeCount / 2.0) + 1;
-				var height = _gridSize.Height * ((double)stripe / stripeCount);
-				if (width < height) width = height;
+				var isMainColorMetal = Randomizer.ProbabilityOfTrue(0.142857);
+				if (isMainColorMetal)
+				{
+					stripeOuterColor = _colorScheme.Metal;
+					stripeInnerColor = _colorScheme.Color1;
+					cantonColor = _colorScheme.Metal;
+				}
+				else if (Randomizer.ProbabilityOfTrue(0.16667))
+				{
+					cantonColor = stripeOuterColor;
+				}
 
-				_overlays.Add(new OverlayBox(stripeCount > 5 && Randomizer.ProbabilityOfTrue(0.3) ? _colorScheme.Color1 : _colorScheme.Color2, 0, 0, width, height, _gridSize.Width, _gridSize.Height));
-				AddEmblem(1.0, width / 2.0, height / 2.0, _colorScheme.Metal, true, _colorScheme.Color1);
+				double width = HoistElementWidth(false);
+				var cantonHeight = _gridSize.Height * ((double)((int)(stripeCount / 2.0) + 1) / stripeCount);
+				if (width < cantonHeight) width = cantonHeight;
+
+				_overlays.Add(new OverlayBox(cantonColor, 0, 0, width, cantonHeight, _gridSize.Width, _gridSize.Height));
+
+				if (Randomizer.ProbabilityOfTrue(0.142857))
+				{
+					AddRepeater(width / 2, cantonHeight / 2, width * 3 / 4.0, cantonHeight * 3 / 4.0, stripeInnerColor, false);
+				}
+				else
+				{
+					AddEmblem(1.0, width / 2, cantonHeight / 2, stripeInnerColor, false, Colors.White);
+				}
 			}
 
-			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Metal, 1, stripeCount);
+			return new DivisionGrid(stripeOuterColor, stripeInnerColor, 1, stripeCount);
 		}
+
+		#endregion
+
+		#region Old division getters
 
 		private DivisionPales GetPale()
 		{
@@ -185,7 +227,7 @@ namespace FlagMaker.RandomFlag
 			if (Randomizer.ProbabilityOfTrue(probabilityOfHoist))
 			{
 				var width = HoistElementWidth(true);
-				AddTriangle(1, width, hoistColor);
+				//AddTriangle(1, width, hoistColor);
 				AddEmblem(0.33, width * 3.0 / 8.0, _gridSize.Height / 2.0, _colorScheme.Metal, true, _colorScheme.Color1);
 			}
 			else if (color2 == _colorScheme.Metal)
@@ -310,7 +352,7 @@ namespace FlagMaker.RandomFlag
 					}
 						
 					var triangleWidth = HoistElementWidth(true);
-					AddTriangle(1.0, triangleWidth, color3);
+					//AddTriangle(1.0, triangleWidth, color3);
 					AddEmblem(0.33, triangleWidth * 3.0 / 8.0, _gridSize.Height / 2.0, _colorScheme.Color3, true, _colorScheme.Metal);
 
 					if (Randomizer.ProbabilityOfTrue(0.33))
@@ -428,8 +470,8 @@ namespace FlagMaker.RandomFlag
 						width1 = _gridSize.Width;
 					}
 
-					AddTriangle(1.0, (int)width1, _colorScheme.Metal);
-					AddTriangle(1.0, (int)width2, _colorScheme.Color2);
+					//AddTriangle(1.0, (int)width1, _colorScheme.Metal);
+					//AddTriangle(1.0, (int)width2, _colorScheme.Color2);
 					AddEmblem(0.5, _gridSize.Width / 8.0, _gridSize.Height / 2.0, _colorScheme.Metal, false, _colorScheme.Color2);
 					break;
 				default: // Saltire
@@ -458,10 +500,15 @@ namespace FlagMaker.RandomFlag
 			return (int)(_gridSize.Width * Randomizer.NextNormalized(isTriangle ? 0.45 : 0.35, 0.05));
 		}
 
-		private void AddTriangle(double probability, int width, Color color)
+		private void AddTriangle(double probability, double probabilityOfEmblem, int width, Color color, Color emblemColor)
 		{
 			if (!Randomizer.ProbabilityOfTrue(probability)) return;
 			_overlays.Add(new OverlayTriangle(color, 0, 0, width, _gridSize.Height / 2.0, 0, _gridSize.Height, _gridSize.Width, _gridSize.Height));
+
+			if (Randomizer.ProbabilityOfTrue(probabilityOfEmblem))
+			{
+				AddEmblem(1.0, width / 3.0, _gridSize.Height / 2.0, emblemColor, false, Colors.White);
+			}
 		}
 
 		private void AddRepeater(double x, double y, double width, double height, Color color, bool forceRadial)
