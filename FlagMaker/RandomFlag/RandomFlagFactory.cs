@@ -82,7 +82,7 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Stripes:
 					return GetStripes();
 				case DivisionTypes.Pales:
-					return GetPale();
+					return GetPales();
 				case DivisionTypes.Fesses:
 					return GetFesses();
 				case DivisionTypes.DiagonalForward:
@@ -153,19 +153,70 @@ namespace FlagMaker.RandomFlag
 			return new DivisionGrid(stripeOuterColor, stripeInnerColor, 1, stripeCount);
 		}
 
+		private DivisionPales GetPales()
+		{
+			Color c1 = _colorScheme.Color1;
+			Color c2;
+			Color c3;
+			Color emblemColor;
+			var isBalanced = true;
+			var emblemInCenter = true;
+			double probabilityOfEmblem;
+
+			if (Randomizer.ProbabilityOfTrue(0.13636))
+			{
+				c2 = _colorScheme.Color2;
+
+				if (Randomizer.ProbabilityOfTrue(0.333))
+				{
+					c3 = _colorScheme.Color3;
+					emblemColor = _colorScheme.Metal;
+					probabilityOfEmblem = 1.0;
+				}
+				else if (Randomizer.ProbabilityOfTrue(0.5))
+				{
+					c3 = _colorScheme.Metal;
+					emblemColor = _colorScheme.Metal;
+					probabilityOfEmblem = 1.0;
+				}
+				else
+				{
+					c3 = _colorScheme.Color1;
+					emblemInCenter = false;
+					emblemColor = _colorScheme.Metal;
+					probabilityOfEmblem = 1.0;
+				}
+			}
+			else
+			{
+				c2 = _colorScheme.Metal;
+				emblemColor = Randomizer.ProbabilityOfTrue(0.5) ? _colorScheme.Color1 : _colorScheme.Color2;
+
+				if (Randomizer.ProbabilityOfTrue(0.2632))
+				{
+					c3 = _colorScheme.Color2;
+					probabilityOfEmblem = 0.357;
+				}
+				else
+				{
+					c3 = c1;
+					probabilityOfEmblem = 0.6;
+				}
+
+				if (Randomizer.ProbabilityOfTrue(0.1052))
+				{
+					isBalanced = false;
+					probabilityOfEmblem = 1.0;
+				}
+			}
+
+			AddEmblem(probabilityOfEmblem, emblemInCenter ? _gridSize.Width / 2.0 : _gridSize.Width / 6.0, _gridSize.Height / 2.0, emblemColor, false, Colors.White);
+			return new DivisionPales(c1, c2, c3, 1, isBalanced ? 1 : 2, 1);
+		}
+
 		#endregion
 
 		#region Old division getters
-
-		private DivisionPales GetPale()
-		{
-			var color2 = Randomizer.ProbabilityOfTrue(0.27) ? _colorScheme.Color1 : _colorScheme.Color2;
-			var isBalanced = Randomizer.ProbabilityOfTrue(0.9);
-
-			AddEmblem(isBalanced ? 0.2 : 1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, Randomizer.ProbabilityOfTrue(0.5) ? _colorScheme.Color1 : _colorScheme.Color2, true, _colorScheme.Metal);
-
-			return new DivisionPales(_colorScheme.Color1, _colorScheme.Metal, color2, 1, isBalanced ? 1 : 2, 1);
-		}
 
 		private DivisionFesses GetFesses()
 		{
