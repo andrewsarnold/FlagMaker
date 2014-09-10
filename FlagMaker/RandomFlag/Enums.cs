@@ -5,15 +5,12 @@
 		Stripes,
 		Pales,
 		Fesses,
-		DiagonalBackward,
-		DiagonalForward,
+		Diagonal,
 		X,
 		Horizontal,
 		Vertical,
-		Quartered,
+		Cross,
 		Blank,
-		Band1,
-		Band2,
-		MultiStripes
+		Stripe
 	}
 }

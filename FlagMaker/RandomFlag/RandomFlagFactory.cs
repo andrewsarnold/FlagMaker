@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using FlagMaker.Divisions;
@@ -76,7 +77,7 @@ namespace FlagMaker.RandomFlag
 																		  3, // x
 																		  11 // other
 			                                                          });
-
+			_divisionType = DivisionTypes.Cross;
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -85,23 +86,22 @@ namespace FlagMaker.RandomFlag
 					return GetPales();
 				case DivisionTypes.Fesses:
 					return GetFesses();
-				case DivisionTypes.DiagonalForward:
-					return GetBendsForward();
-				case DivisionTypes.DiagonalBackward:
-					return GetBendsBackward();
-				case DivisionTypes.X:
-					return GetX();
+				case DivisionTypes.Blank:
+					return GetBlank();
 				case DivisionTypes.Horizontal:
 					return GetHorizontal();
 				case DivisionTypes.Vertical:
 					return GetVertical();
-				case DivisionTypes.Quartered:
-					return GetQuartered();
-				case DivisionTypes.Blank:
-					return GetBlank();
-				default: // Last three (Band1, Band2, MultiStripes) not implemented yet
-					return GetBlank();
-					//throw new Exception("No valid type selection");
+				case DivisionTypes.Diagonal:
+					return GetBendsForward();
+				case DivisionTypes.Stripe:
+					return GetStripes();
+				case DivisionTypes.Cross:
+					return GetCross();
+				case DivisionTypes.X:
+					return GetX();
+				default:
+					throw new Exception("No valid type selection");
 			}
 		}
 
@@ -324,6 +324,60 @@ namespace FlagMaker.RandomFlag
 			return new DivisionFesses(c1, c2, c3, isLatvian || isColombian ? 2 : 1, isSpanish ? 2 : 1, isLatvian ? 2 : 1);
 		}
 
+		private DivisionGrid GetCross()
+		{
+			var backgroundIsMetal = Randomizer.ProbabilityOfTrue(0.25);
+			var fimbriate = !backgroundIsMetal && Randomizer.ProbabilityOfTrue(0.4286);
+
+			var background = backgroundIsMetal ? _colorScheme.Metal : _colorScheme.Color1;
+			var mainColor = backgroundIsMetal ? _colorScheme.Color1 : fimbriate ? _colorScheme.Color2 : _colorScheme.Metal;
+			var fimbriation = _colorScheme.Metal;
+			var center = _gridSize.Height / 2.0;
+
+			var crossWidth = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 8.0, _gridSize.Width / 20.0), 2, _gridSize.Width / 4) - (fimbriate ? 1 : 0);
+			var fimbriationWidth = crossWidth + 2;
+
+			var canSaltire = false;
+
+			var intersection = _gridSize.Width / 2.0;
+			if (Randomizer.ProbabilityOfTrue(0.555556))
+			{
+				intersection = _gridSize.Width / 3.0;
+			}
+			else
+			{
+				if (Randomizer.ProbabilityOfTrue(0.25))
+				{
+					_overlays.Add(new OverlayCross(_colorScheme.Metal, crossWidth, intersection, center, _gridSize.Width, _gridSize.Height));
+					return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 2, 2);
+				}
+
+				canSaltire = !backgroundIsMetal;
+			}
+
+			if (canSaltire && Randomizer.ProbabilityOfTrue(0.5))
+			{
+				if (fimbriate)
+				{
+					_overlays.Add(new OverlaySaltire(fimbriation, fimbriationWidth, _gridSize.Width, _gridSize.Height));
+					_overlays.Add(new OverlayHalfSaltire(mainColor, crossWidth + 2, _gridSize.Width, _gridSize.Height));
+				}
+				else
+				{
+					_overlays.Add(new OverlaySaltire(_colorScheme.Color2, crossWidth, _gridSize.Width, _gridSize.Height));
+				}
+			}
+			
+			if (fimbriate)
+			{
+				_overlays.Add(new OverlayCross(fimbriation, fimbriationWidth, intersection, center, _gridSize.Width, _gridSize.Height));
+			}
+
+			_overlays.Add(new OverlayCross(mainColor, crossWidth, intersection, center, _gridSize.Width, _gridSize.Height));
+			
+			return new DivisionGrid(background, background, 1, 1);
+		}
+
 		#endregion
 
 		#region Old division getters
@@ -534,17 +588,6 @@ namespace FlagMaker.RandomFlag
 					
 					break;
 				case 2: // Cross
-					var left = Randomizer.ProbabilityOfTrue(0.375) ? _gridSize.Width / 2.0 : _gridSize.Width / 3.0;
-					var crossWidth = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 8.0, _gridSize.Width / 20.0), 2, _gridSize.Width / 3);
-					if (Randomizer.ProbabilityOfTrue(0.5))
-					{
-						_overlays.Add(new OverlayCross(_colorScheme.Metal, crossWidth + 1, left, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
-						_overlays.Add(new OverlayCross(_colorScheme.Color2, crossWidth > 1 ? crossWidth - 1 : 1, left, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
-					}
-					else
-					{
-						_overlays.Add(new OverlayCross(_colorScheme.Metal, crossWidth, left, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
-					}
 					break;
 				case 3: // Rays
 					_overlays.Add(new OverlayRays(_colorScheme.Metal, _gridSize.Width / 2.0, _gridSize.Height / 2.0,
