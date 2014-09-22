@@ -78,7 +78,7 @@ namespace FlagMaker.RandomFlag
 																		  3, // x
 																		  11 // other
 			                                                          });
-			_divisionType = DivisionTypes.Blank;
+			_divisionType = DivisionTypes.X;
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -474,15 +474,13 @@ namespace FlagMaker.RandomFlag
 					_overlays.Add(new OverlayBorder(_colorScheme.Color2, _gridSize.Width / 8.0, _gridSize.Width, _gridSize.Height));
 					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, true, _colorScheme.Color2);
 					return _colorScheme.Color1;
-				case 5:
+				default:
 					// Stripes
 					_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color1, _gridSize.Height / 8.0, _gridSize.Height * (1 / 6.0), _gridSize.Width, _gridSize.Height));
 					_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color1, _gridSize.Height / 8.0, _gridSize.Height * (5 / 6.0), _gridSize.Width, _gridSize.Height));
 					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Color1, false, _colorScheme.Color2);
 					return _colorScheme.Metal;
 			}
-
-			return _colorScheme.Color1;
 		}
 
 		private DivisionGrid GetVertical()
@@ -505,9 +503,33 @@ namespace FlagMaker.RandomFlag
 			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 1);
 		}
 
-		private DivisionX GetX()
+		private Division GetX()
 		{
-			return new DivisionX(_colorScheme.Color1, _colorScheme.Color2);
+			switch (new List<int>
+			        {
+				        1,
+				        2,
+				        3
+			        }[Randomizer.RandomWeighted(new List<int> { 2, 1, 1 })])
+			{
+				case 1:
+					// Two-color, fimbriation
+					_overlays.Add(new OverlaySaltire(_colorScheme.Metal, _gridSize.Width / 6.0, _gridSize.Width, _gridSize.Height));
+					AddCircleEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, _colorScheme.Color1, _colorScheme.Color1);
+					return new DivisionX(_colorScheme.Color1, _colorScheme.Color2);
+				case 2:
+					// Two-color, no fimbriation
+					AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Color2, _colorScheme.Metal, _colorScheme.Metal);
+					if (Randomizer.ProbabilityOfTrue(0.5))
+					{
+						_overlays.Add(new OverlayBorder(_colorScheme.Color2, _gridSize.Width / 8.0, _gridSize.Width, _gridSize.Height));
+					}
+					return new DivisionX(_colorScheme.Color1, _colorScheme.Metal);
+				default:
+					// One-color
+					_overlays.Add(new OverlaySaltire(_colorScheme.Metal, _gridSize.Width / 6.0, _gridSize.Width, _gridSize.Height));
+					return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color1, 1, 1);
+			}
 		}
 
 		#endregion
@@ -554,22 +576,6 @@ namespace FlagMaker.RandomFlag
 
 			AddEmblem(0.5, _gridSize.Width * 4.0 / 5.0, _gridSize.Height / 4.0, _colorScheme.Metal, true, _colorScheme.Color1);
 			return new DivisionBendsBackward(_colorScheme.Color1, _colorScheme.Color2);
-		}
-
-		private DivisionX GetXOld()
-		{
-			if (Randomizer.ProbabilityOfTrue(0.3))
-			{
-				_overlays.Add(new OverlayBorder(_colorScheme.Color2, _gridSize.Width / 8.0, _gridSize.Width, _gridSize.Height));
-				AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Color2, _colorScheme.Metal, _colorScheme.Color2);
-				return new DivisionX(_colorScheme.Color1, _colorScheme.Metal);
-			}
-
-			var thickness = Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width / 7.0, 1.5), 3, _gridSize.Width / 3);
-			_overlays.Add(new OverlaySaltire(_colorScheme.Metal, thickness, _gridSize.Width, _gridSize.Height));
-			AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, _colorScheme.Color1, _colorScheme.Metal);
-
-			return new DivisionX(_colorScheme.Color1, _colorScheme.Color2);
 		}
 
 		private DivisionGrid GetHorizontalOld()
