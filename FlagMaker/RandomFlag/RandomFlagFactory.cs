@@ -90,17 +90,17 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Blank:
 					return GetBlank();
 				case DivisionTypes.Horizontal:
-					return GetHorizontal();
+					return GetHorizontal(); // to implement
 				case DivisionTypes.Vertical:
-					return GetVertical();
+					return GetVertical(); // to implement
 				case DivisionTypes.Diagonal:
-					return GetBendsForward();
+					return GetDiagonal(); // to implement
 				case DivisionTypes.Stripe:
-					return GetStripes();
+					return GetStripe(); // to implement
 				case DivisionTypes.Cross:
 					return GetCross();
 				case DivisionTypes.X:
-					return GetX();
+					return GetX(); // to implement
 				default:
 					throw new Exception("No valid type selection");
 			}
@@ -381,6 +381,8 @@ namespace FlagMaker.RandomFlag
 
 		private DivisionGrid GetBlank()
 		{
+			var color = _colorScheme.Color1;
+
 			switch (new List<int>
 			        {
 				        1,
@@ -414,7 +416,7 @@ namespace FlagMaker.RandomFlag
 					break;
 				case 2:
 					// Center emblem
-					GetCenterEmblemForBlank();
+					color = GetCenterEmblemForBlank();
 					break;
 				case 3:
 					// Triangle
@@ -437,10 +439,10 @@ namespace FlagMaker.RandomFlag
 					break;
 			}
 
-			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 1);
+			return new DivisionGrid(color, _colorScheme.Color2, 1, 1);
 		}
 
-		private void GetCenterEmblemForBlank()
+		private Color GetCenterEmblemForBlank()
 		{
 			switch (new List<int>
 			        {
@@ -453,30 +455,59 @@ namespace FlagMaker.RandomFlag
 			{
 				case 1:
 					// Plain
+					var isInverted = Randomizer.ProbabilityOfTrue(0.1);
 					var useColor2 = Randomizer.ProbabilityOfTrue(.11);
-					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, useColor2 ? _colorScheme.Color2 : _colorScheme.Metal,
-						true, useColor2 ? _colorScheme.Metal : _colorScheme.Color2);
-					break;
+					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0,
+						useColor2 ? _colorScheme.Color2 : (isInverted ? _colorScheme.Color1 : _colorScheme.Metal),
+						!isInverted, useColor2 ? _colorScheme.Metal : _colorScheme.Color2);
+					return isInverted ? _colorScheme.Metal : _colorScheme.Color1;
 				case 2:
 					// Circled
 					AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, _colorScheme.Color1, _colorScheme.Metal);
-					break;
+					return _colorScheme.Color1;
 				case 3:
 					// Repeater
 					AddRepeater(_gridSize.Width / 2.0, _gridSize.Height / 2.0, _gridSize.Height, 0, _colorScheme.Metal, true);
-					break;
+					return _colorScheme.Color1;
 				case 4:
 					// Border
 					_overlays.Add(new OverlayBorder(_colorScheme.Color2, _gridSize.Width / 8.0, _gridSize.Width, _gridSize.Height));
 					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, true, _colorScheme.Color2);
-					break;
+					return _colorScheme.Color1;
 				case 5:
 					// Stripes
-					_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Height / 8.0, _gridSize.Height * (1 / 6.0), _gridSize.Width, _gridSize.Height));
-					_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Height / 8.0, _gridSize.Height * (5 / 6.0), _gridSize.Width, _gridSize.Height));
-					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, true, _colorScheme.Color2);
-					break;
+					_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color1, _gridSize.Height / 8.0, _gridSize.Height * (1 / 6.0), _gridSize.Width, _gridSize.Height));
+					_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color1, _gridSize.Height / 8.0, _gridSize.Height * (5 / 6.0), _gridSize.Width, _gridSize.Height));
+					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Color1, false, _colorScheme.Color2);
+					return _colorScheme.Metal;
 			}
+
+			return _colorScheme.Color1;
+		}
+
+		private DivisionGrid GetVertical()
+		{
+			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 2, 1);
+		}
+
+		private DivisionGrid GetHorizontal()
+		{
+			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 2);
+		}
+
+		private Division GetDiagonal()
+		{
+			return new DivisionBendsBackward(_colorScheme.Color1, _colorScheme.Color2);
+		}
+
+		private DivisionGrid GetStripe()
+		{
+			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 1);
+		}
+
+		private DivisionX GetX()
+		{
+			return new DivisionX(_colorScheme.Color1, _colorScheme.Color2);
 		}
 
 		#endregion
@@ -525,7 +556,7 @@ namespace FlagMaker.RandomFlag
 			return new DivisionBendsBackward(_colorScheme.Color1, _colorScheme.Color2);
 		}
 
-		private DivisionX GetX()
+		private DivisionX GetXOld()
 		{
 			if (Randomizer.ProbabilityOfTrue(0.3))
 			{
@@ -541,7 +572,7 @@ namespace FlagMaker.RandomFlag
 			return new DivisionX(_colorScheme.Color1, _colorScheme.Color2);
 		}
 
-		private DivisionGrid GetHorizontal()
+		private DivisionGrid GetHorizontalOld()
 		{
 			Color color1 = _colorScheme.Color1, color2 = _colorScheme.Color2, color3 = _colorScheme.Metal;
 
@@ -610,7 +641,7 @@ namespace FlagMaker.RandomFlag
 			return new DivisionGrid(color1, color2, 1, 2);
 		}
 
-		private DivisionGrid GetVertical()
+		private DivisionGrid GetVerticalOld()
 		{
 			Color color1 = _colorScheme.Metal, color2 = _colorScheme.Color1, color3 = _colorScheme.Color2;
 
