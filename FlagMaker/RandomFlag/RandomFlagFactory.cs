@@ -76,9 +76,9 @@ namespace FlagMaker.RandomFlag
 																		  12, // stripe
 																		  9, // cross
 																		  3, // x
-																		  11 // other
+																		  0 // 11 // other
 			                                                          });
-			_divisionType = DivisionTypes.X;
+			_divisionType = DivisionTypes.Vertical;
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -100,7 +100,7 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Cross:
 					return GetCross();
 				case DivisionTypes.X:
-					return GetX(); // to implement
+					return GetX();
 				default:
 					throw new Exception("No valid type selection");
 			}
@@ -485,7 +485,26 @@ namespace FlagMaker.RandomFlag
 
 		private DivisionGrid GetVertical()
 		{
-			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 2, 1);
+			switch (new List<int>
+			        {
+				        1,
+				        2,
+				        3
+			        }[Randomizer.RandomWeighted(new List<int> { 2, 1, 3 })])
+			{
+				case 1:
+					// Color 1 / Metal
+					AddEmblem(1.0, Randomizer.ProbabilityOfTrue(0.5) ? _gridSize.Width / 2.0 : 3 * _gridSize.Width / 4.0, _gridSize.Height / 2.0, _colorScheme.Color2, false, _colorScheme.Metal);
+					return new DivisionGrid(_colorScheme.Color1, _colorScheme.Metal, 2, 1);
+				case 2:
+					// Color 1 / Color 2
+					AddEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, false, _colorScheme.Metal);
+					return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 2, 1);
+				default:
+					// Metal / Color 1
+					AddEmblem(0.5, _gridSize.Width / 4.0, _gridSize.Height / 4.0, _colorScheme.Color2, false, _colorScheme.Metal);
+					return new DivisionGrid(_colorScheme.Metal, _colorScheme.Color1, 2, 1);
+			}
 		}
 
 		private DivisionGrid GetHorizontal()
