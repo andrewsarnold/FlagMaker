@@ -18,11 +18,11 @@ namespace FlagMaker.Overlays.OverlayTypes
 		{
 		}
 
-		public OverlayPall(Color color, double x, double size, int maximumX, int maximumY)
+		public OverlayPall(Color color, double x, double width, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			             {
 				             new Attribute(strings.X, true, x, true),
-				             new Attribute(strings.Width, true, size, true)
+				             new Attribute(strings.Width, true, width, true)
 			             }, maximumX, maximumY)
 		{
 		}

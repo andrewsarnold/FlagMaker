@@ -78,7 +78,7 @@ namespace FlagMaker.RandomFlag
 																		  3, // x
 																		  0 // 11 // other
 			                                                          });
-			_divisionType = DivisionTypes.Vertical;
+			_divisionType = DivisionTypes.Horizontal;
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -509,7 +509,64 @@ namespace FlagMaker.RandomFlag
 
 		private DivisionGrid GetHorizontal()
 		{
-			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 2);
+			switch (new List<int>
+			        {
+				        1,
+				        2,
+				        3
+			        }[Randomizer.RandomWeighted(new List<int> { 4, 11, 6 })])
+			{
+				case 1:
+					// Color 1 / Metal
+					AddEmblem(0.25, _gridSize.Width / 4.0, _gridSize.Height / 4.0, _colorScheme.Metal, false, _colorScheme.Metal);
+					return new DivisionGrid(_colorScheme.Color1, _colorScheme.Metal, 1, 2);
+				case 2:
+					// Color 1 / Color 2
+
+					if (Randomizer.ProbabilityOfTrue(0.181818))
+					{
+						var width = _gridSize.Width / 3.0;
+						AddTriangle(1.0, 0.5, (int)width, Colors.Black, _colorScheme.Metal);
+						_overlays.Add(new OverlayPall(_colorScheme.Metal, width, _gridSize.Width / 8.0, _gridSize.Width, _gridSize.Height));
+						_overlays.Add(new OverlayPall(_colorScheme.Color3, width, _gridSize.Width / 5.0, _gridSize.Width, _gridSize.Height));
+					}
+					else
+					{
+						if (Randomizer.ProbabilityOfTrue(0.1111))
+						{
+							AddHoistForHorizontal(false, true);
+						}
+						else if (Randomizer.ProbabilityOfTrue(0.375))
+						{
+							var isTriangleMetal = Randomizer.ProbabilityOfTrue(0.6667);
+							AddTriangle(1.0, 1.0, HoistElementWidth(true), isTriangleMetal ? _colorScheme.Metal : _colorScheme.Color3,
+								isTriangleMetal ? _colorScheme.Color1 : _colorScheme.Metal);
+						}
+						else
+						{
+							// Plain with emblem
+							var offset = Randomizer.ProbabilityOfTrue(0.25) ? 4.0 : 2.0;
+							AddEmblem(1.0, _gridSize.Width / offset, _gridSize.Height / offset, _colorScheme.Metal, false, _colorScheme.Metal);
+						}
+					}
+
+					return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 2);
+				default:
+					// Metal / Color 1
+					if (Randomizer.ProbabilityOfTrue(0.333))
+					{
+						AddHoistForHorizontal(Randomizer.ProbabilityOfTrue(0.5), false);
+					}
+					return new DivisionGrid(_colorScheme.Metal, _colorScheme.Color1, 1, 2);
+			}
+		}
+
+		private void AddHoistForHorizontal(bool isHalfSize, bool isMetal)
+		{
+			var width = HoistElementWidth(false);
+			_overlays.Add(new OverlayBox(isMetal ? _colorScheme.Metal : _colorScheme.Color2, 0, 0, width,
+				isHalfSize ? _gridSize.Height / 2.0 : _gridSize.Height, _gridSize.Width, _gridSize.Height));
+			AddEmblem(1.0, width / 2.0, isHalfSize ? _gridSize.Height / 4.0 : _gridSize.Height / 2.0, isMetal ? _colorScheme.Color1 : _colorScheme.Metal, false, _colorScheme.Metal);
 		}
 
 		private Division GetDiagonal()
@@ -595,98 +652,6 @@ namespace FlagMaker.RandomFlag
 
 			AddEmblem(0.5, _gridSize.Width * 4.0 / 5.0, _gridSize.Height / 4.0, _colorScheme.Metal, true, _colorScheme.Color1);
 			return new DivisionBendsBackward(_colorScheme.Color1, _colorScheme.Color2);
-		}
-
-		private DivisionGrid GetHorizontalOld()
-		{
-			Color color1 = _colorScheme.Color1, color2 = _colorScheme.Color2, color3 = _colorScheme.Metal;
-
-			switch (Randomizer.RandomWeighted(new List<int> { 10, 6, 4 }))
-			{
-				case 0: // No hoist
-					if (Randomizer.ProbabilityOfTrue(0.1))
-					{
-						color1 = _colorScheme.Metal;
-						color2 = _colorScheme.Color1;
-					}
-					else if (Randomizer.ProbabilityOfTrue(0.44))
-					{
-						color2 = _colorScheme.Metal;
-					}
-
-					var x = _gridSize.Width / 2.0;
-					var y = _gridSize.Height / 2.0;
-					if (Randomizer.ProbabilityOfTrue(0.33))
-					{
-						x = _gridSize.Width / 4.0;
-						y = _gridSize.Height / 4.0;
-					}
-
-					var useColor2 = color1 == _colorScheme.Metal || color2 == _colorScheme.Metal;
-					AddEmblem(0.5, x, y, useColor2 ? _colorScheme.Color2 : _colorScheme.Metal, true, useColor2 ? _colorScheme.Metal : _colorScheme.Color2);
-					break;
-				case 1: // Canton
-					if (Randomizer.ProbabilityOfTrue(0.75))
-					{
-						color1 = _colorScheme.Metal;
-						color3 = _colorScheme.Color1;
-					}
-
-					if (Randomizer.ProbabilityOfTrue(0.25))
-					{
-						_overlays.Add(new OverlayBox(color3, 0, 0, _gridSize.Height / 2.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
-						AddEmblem(1.0, _gridSize.Height / 4.0, _gridSize.Height / 4.0, color1, true, color3);
-					}
-					else
-					{
-						var boxWidth = HoistElementWidth(false);
-						_overlays.Add(new OverlayBox(color3, 0, 0, boxWidth, _gridSize.Height, _gridSize.Width, _gridSize.Height));
-						AddEmblem(0.33, boxWidth / 2.0, _gridSize.Height / 2.0, color1, true, color3);
-					}
-					break;
-				default: // Triangle
-					if (Randomizer.ProbabilityOfTrue(0.16))
-					{
-						color1 = _colorScheme.Metal;
-						color3 = _colorScheme.Color1;
-					}
-						
-					var triangleWidth = HoistElementWidth(true);
-					//AddTriangle(1.0, triangleWidth, color3);
-					AddEmblem(0.33, triangleWidth * 3.0 / 8.0, _gridSize.Height / 2.0, _colorScheme.Color3, true, _colorScheme.Metal);
-
-					if (Randomizer.ProbabilityOfTrue(0.33))
-					{
-						_overlays.Add(new OverlayPall(_colorScheme.Color3, triangleWidth, _gridSize.Width / Randomizer.NextNormalized(10.0, 1.0), _gridSize.Width, _gridSize.Height));
-					}
-
-					break;
-			}
-
-			return new DivisionGrid(color1, color2, 1, 2);
-		}
-
-		private DivisionGrid GetVerticalOld()
-		{
-			Color color1 = _colorScheme.Metal, color2 = _colorScheme.Color1, color3 = _colorScheme.Color2;
-
-			if (Randomizer.ProbabilityOfTrue(0.33))
-			{
-				color1 = _colorScheme.Color1;
-
-				if (Randomizer.ProbabilityOfTrue(0.5))
-				{
-					color2 = _colorScheme.Color2;
-					color3 = _colorScheme.Metal;
-				}
-				else
-				{
-					color2 = _colorScheme.Metal;
-				}
-			}
-
-			AddEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, color3, true, color1);
-			return new DivisionGrid(color1, color2, 2, 1);
 		}
 
 		private DivisionGrid GetQuartered()
