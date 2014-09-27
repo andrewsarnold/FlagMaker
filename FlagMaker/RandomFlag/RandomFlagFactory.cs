@@ -78,7 +78,7 @@ namespace FlagMaker.RandomFlag
 																		  3, // x
 																		  0 // 11 // other
 			                                                          });
-			//_divisionType = DivisionTypes.Diagonal;
+			_divisionType = DivisionTypes.Stripe;
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
@@ -96,7 +96,7 @@ namespace FlagMaker.RandomFlag
 				case DivisionTypes.Diagonal:
 					return GetDiagonal();
 				case DivisionTypes.Stripe:
-					return GetStripe(); // to implement
+					return GetStripe();
 				case DivisionTypes.Cross:
 					return GetCross();
 				case DivisionTypes.X:
@@ -634,6 +634,65 @@ namespace FlagMaker.RandomFlag
 
 		private DivisionGrid GetStripe()
 		{
+			return Randomizer.ProbabilityOfTrue(0.58333) 
+				? GetSingleStripe()
+				: GetMultiStripe();
+		}
+
+		private DivisionGrid GetSingleStripe()
+		{
+			if (Randomizer.ProbabilityOfTrue(0.142))
+			{
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Height / 6.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+				AddEmblem(0.75, _gridSize.Width / 3.0, _gridSize.Height / 1.333, _colorScheme.Metal, false, _colorScheme.Metal);
+			}
+			else
+			{
+				var isThick = Randomizer.ProbabilityOfTrue(0.66667);
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Height / (isThick ? 1.5 : 3.0), _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color2, _gridSize.Height / (isThick ? 3.0 : 4.0), _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+				AddEmblem(isThick ? 0.5 : 0.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, false, _colorScheme.Metal);
+			}
+
+			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 1);
+		}
+
+		private DivisionGrid GetMultiStripe()
+		{
+			if (Randomizer.ProbabilityOfTrue(0.2))
+			{
+				// Symmetric
+				var swap = Randomizer.ProbabilityOfTrue(0.5);
+				_overlays.Add(new OverlayLineHorizontal(swap ? _colorScheme.Color2 : _colorScheme.Metal, _gridSize.Height / 1.4, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayLineHorizontal(swap ? _colorScheme.Metal : _colorScheme.Color2, _gridSize.Height / 2.3333, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color3, _gridSize.Height / 7.0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height));
+			}
+			else if (Randomizer.ProbabilityOfTrue(0.75))
+			{
+				// Asymmetric
+				var swap = Randomizer.ProbabilityOfTrue(0.3333);
+				_overlays.Add(new OverlayBox(swap ? _colorScheme.Color2 : _colorScheme.Metal, 0, _gridSize.Height / 4.0, _gridSize.Width, _gridSize.Height * 3 / 4.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayBox(swap ? _colorScheme.Metal : _colorScheme.Color2, 0, _gridSize.Height / 2.0, _gridSize.Width, _gridSize.Height * 2.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayBox(_colorScheme.Color3, 0, _gridSize.Height * 3/4.0, _gridSize.Width, _gridSize.Height / 4.0, _gridSize.Width, _gridSize.Height));
+			}
+			else
+			{
+				// Uganda
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Height / 6.0, _gridSize.Height * 3 / 12.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color2, _gridSize.Height / 6.0, _gridSize.Height * 5 / 12.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Metal, _gridSize.Height / 6.0, _gridSize.Height * 9 / 12.0, _gridSize.Width, _gridSize.Height));
+				_overlays.Add(new OverlayLineHorizontal(_colorScheme.Color2, _gridSize.Height / 6.0, _gridSize.Height * 11 / 12.0, _gridSize.Width, _gridSize.Height));
+			}
+
+			if (Randomizer.ProbabilityOfTrue(0.4))
+			{
+				AddTriangle(1.0, 1.0, HoistElementWidth(true), _colorScheme.Metal, _colorScheme.Color1);
+			}
+			else
+			{
+				AddCircleEmblem(0.5, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, _colorScheme.Color1, _colorScheme.Metal);
+			}
+
 			return new DivisionGrid(_colorScheme.Color1, _colorScheme.Color2, 1, 1);
 		}
 
