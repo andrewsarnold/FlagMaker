@@ -78,7 +78,7 @@ namespace FlagMaker.RandomFlag
 																		  3, // x
 																		  0 // 11 // other
 			                                                          });
-			_divisionType = DivisionTypes.Stripe;
+
 			switch (_divisionType)
 			{
 				case DivisionTypes.Stripes:
