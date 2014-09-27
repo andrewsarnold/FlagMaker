@@ -11,6 +11,7 @@
 		Vertical,
 		Cross,
 		Blank,
-		Stripe
+		Stripe,
+		Ray
 	}
 }
