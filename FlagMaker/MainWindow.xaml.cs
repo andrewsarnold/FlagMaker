@@ -354,7 +354,7 @@ namespace FlagMaker
 
 			copy.SetColor(controlToClone.Overlay.Color);
 
-			if (type.IsSubclassOf(typeof(OverlayPath)))
+			if (type == typeof(OverlayPath) || type.IsSubclassOf(typeof(OverlayPath)))
 			{
 				((OverlayPath)copy).StrokeColor = ((OverlayPath)controlToClone.Overlay).StrokeColor;
 			}
