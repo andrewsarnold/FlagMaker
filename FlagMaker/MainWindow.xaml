@@ -1,8 +1,7 @@
 ﻿<Window x:Class="FlagMaker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:Local="clr-namespace:FlagMaker" MinHeight="120" Width="650"
-        SizeChanged="MainWindowOnSizeChanged" Closing="MainWindow_OnClosing"
+        xmlns:Local="clr-namespace:FlagMaker" MinHeight="120" Width="650" Closing="MainWindow_OnClosing"
         xmlns:Localization="clr-namespace:FlagMaker.Localization"
 		Background="{DynamicResource BackgroundBrush}">
 

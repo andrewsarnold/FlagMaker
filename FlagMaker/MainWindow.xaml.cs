@@ -1092,11 +1092,6 @@ namespace FlagMaker
 
 		#endregion
 
-		private void MainWindowOnSizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			_viewbox.MaxHeight = Height - 100;
-		}
-
 		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
 		{
 			if (CheckUnsaved())
