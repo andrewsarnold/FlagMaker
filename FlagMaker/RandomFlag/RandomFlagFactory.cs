@@ -437,7 +437,7 @@ namespace FlagMaker.RandomFlag
 				case 4:
 					// Rays
 					_overlays.Add(new OverlayRays(_colorScheme.Metal, _gridSize.Width / 2.0, _gridSize.Height / 2.0,
-							Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), _gridSize.Width, _gridSize.Height));
+							Randomizer.Clamp(Randomizer.NextNormalized(_gridSize.Width * 3 / 4.0, _gridSize.Width / 10.0), 4, 20), 0, _gridSize.Width, _gridSize.Height));
 					AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, _colorScheme.Color1, _colorScheme.Metal);
 					break;
 			}
@@ -730,7 +730,7 @@ namespace FlagMaker.RandomFlag
 
 		private DivisionGrid GetRay()
 		{
-			_overlays.Add(new OverlayRays(_colorScheme.Color1, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 20, _gridSize.Width, _gridSize.Height));
+			_overlays.Add(new OverlayRays(_colorScheme.Color1, _gridSize.Width / 2.0, _gridSize.Height / 2.0, 20, 0, _gridSize.Width, _gridSize.Height));
 			AddCircleEmblem(1.0, _gridSize.Width / 2.0, _gridSize.Height / 2.0, _colorScheme.Metal, _colorScheme.Color1, _colorScheme.Metal);
 			return new DivisionGrid(_colorScheme.Metal, _colorScheme.Metal, 1, 1);
 		}

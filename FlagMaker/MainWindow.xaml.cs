@@ -770,7 +770,7 @@ namespace FlagMaker
 			ExportFinished(strings.ExportAsSvg, error);
 		}
 
-		private IEnumerable<string> GetFlagFiles()
+		private static IEnumerable<string> GetFlagFiles()
 		{
 			var dlg = new OpenFileDialog
 			{
@@ -782,7 +782,7 @@ namespace FlagMaker
 			return dlg.FileNames;
 		}
 
-		private string GetBulkSaveDirectory(string defaultDirectory)
+		private static string GetBulkSaveDirectory(string defaultDirectory)
 		{
 			var dlg = new FolderBrowserDialog
 			          {
@@ -794,7 +794,7 @@ namespace FlagMaker
 				: dlg.SelectedPath;
 		}
 
-		private void ExportFinished(string title, bool errorOccurred)
+		private static void ExportFinished(string title, bool errorOccurred)
 		{
 			if (errorOccurred)
 			{

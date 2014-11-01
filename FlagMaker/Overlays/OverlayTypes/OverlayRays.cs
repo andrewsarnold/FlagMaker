@@ -18,17 +18,19 @@ namespace FlagMaker.Overlays.OverlayTypes
 			       {
 				       new Attribute(strings.X, true, 1, true),
 				       new Attribute(strings.Y, true, 1, false),
-				       new Attribute(strings.Count, true, 4, true)
+				       new Attribute(strings.Count, true, 4, true),
+					   new Attribute(strings.Rotation, true, 0, true)
 			       }, maximumX, maximumY)
 		{
 		}
 
-		public OverlayRays(Color color, double x, double y, double count, int maximumX, int maximumY)
+		public OverlayRays(Color color, double x, double y, double count, double rotation, int maximumX, int maximumY)
 			: base(color, new List<Attribute>
 			              {
 				              new Attribute(strings.X, true, x, true),
 				              new Attribute(strings.Y, true, y, false),
-				              new Attribute(strings.Count, true, count, true)
+				              new Attribute(strings.Count, true, count, true),
+							  new Attribute(strings.Rotation, true, rotation, true)
 			              }, maximumX, maximumY)
 		{
 		}
@@ -66,12 +68,14 @@ namespace FlagMaker.Overlays.OverlayTypes
 			var centerX = width * (Attributes.Get(strings.X).Value / MaximumX);
 			var centerY = height * (Attributes.Get(strings.Y).Value / MaximumY);
 			var count = (int)Attributes.Get(strings.Count).Value;
+			var rotation = Attributes.Get(strings.Rotation).Value / MaximumX;
+			var rotationOffset = rotation * Math.PI * 2 / count;
 			double angularInterval = Math.PI / count;
 
 			for (int i = 0; i < count; i++)
 			{
-				var point1 = BorderIntersection(centerX, centerY, angularInterval * 2 * i, width, height);
-				var point2 = BorderIntersection(centerX, centerY, angularInterval * (2 * i + 1), width, height);
+				var point1 = BorderIntersection(centerX, centerY, angularInterval * 2 * i + rotationOffset, width, height);
+				var point2 = BorderIntersection(centerX, centerY, angularInterval * (2 * i + 1) + rotationOffset, width, height);
 
 				// If points lie on different sides, add corner
 				string point3 = string.Empty;
@@ -155,6 +159,7 @@ namespace FlagMaker.Overlays.OverlayTypes
 			Attributes.Get(strings.X).Value = values[0];
 			Attributes.Get(strings.Y).Value = values[1];
 			Attributes.Get(strings.Count).Value = values[2];
+			Attributes.Get(strings.Rotation).Value = values[3];
 		}
 
 		protected override IEnumerable<Shape> Thumbnail
