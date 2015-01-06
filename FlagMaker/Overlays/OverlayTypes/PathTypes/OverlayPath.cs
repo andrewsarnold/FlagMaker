@@ -122,7 +122,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 				var finalCenterPoint = new Point(x * xGridSize, y * yGridSize);
 
 				var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(width, height);
-				var scaleFactor = idealPixelSize / _pathSize.X;
+				var scaleFactor = idealPixelSize / Math.Max(_pathSize.X, _pathSize.Y);
 				var rotate = (Attributes.Get(strings.Rotation).Value / MaximumX) * 360;
 
 				var strokeThickness = StrokeThickness(width, height);
@@ -182,7 +182,7 @@ namespace FlagMaker.Overlays.OverlayTypes.PathTypes
 		private double ScaleFactor(double canvasWidth, double canvasHeight)
 		{
 			var idealPixelSize = Attributes.Get(strings.Size).Value / MaximumX * Math.Max(canvasWidth, canvasHeight);
-			return idealPixelSize / _pathSize.X;
+			return idealPixelSize / Math.Max(_pathSize.X, _pathSize.Y);
 		}
 	}
 }
