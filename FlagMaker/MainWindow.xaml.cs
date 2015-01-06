@@ -630,6 +630,11 @@ namespace FlagMaker
 
 		#endregion
 
+		private void NameChanged(object sender, TextChangedEventArgs e)
+		{
+			SetAsUnsaved();
+		}
+
 		private void SetAsUnsaved()
 		{
 			_isUnsaved = true;

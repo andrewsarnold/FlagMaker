@@ -63,8 +63,8 @@
                     <Line X1="25" X2="25" Y1="0" Y2="20" StrokeThickness="2" Stroke="{StaticResource GraphicGreyBrush}" />
                 </Canvas>
             </Button>
-            
-            <TextBox x:Name="_txtName" Margin="10,0,0,0" Width="200" FontSize="18"
+
+			<TextBox x:Name="_txtName" Margin="10,0,0,0" Width="200" FontSize="18" TextChanged="NameChanged"
                      VerticalContentAlignment="Center" Background="Transparent" VerticalAlignment="Center" />
 
             <Button Style="{DynamicResource GraphicButton}" ToolTip="{x:Static Localization:strings.ShuffleColors}" Click="ShuffleColors" Height="32" Width="32">
