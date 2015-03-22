@@ -44,8 +44,11 @@ namespace FlagMaker.Overlays
 				.Where(t => t != typeof(OverlayFlag) && t != typeof(OverlayImage))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Shapes);
 
-			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayPath))
-				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY)), strings.Emblems);
+			var emblems = OverlayFactory.GetOverlaysByType(typeof (OverlayPath)).Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY));
+			var custom = OverlayFactory.CustomTypes.Select(o => o.Value);
+			var allEmblems = emblems.Union(custom).OrderBy(o => o.DisplayName);
+
+			AddTab(allEmblems, strings.Emblems);
 
 			AddTab(OverlayFactory.GetOverlaysByType(typeof(OverlayRepeater))
 				.Select(o => OverlayFactory.GetInstance(o, _defaultMaximumX, _defaultMaximumY))
@@ -54,8 +57,6 @@ namespace FlagMaker.Overlays
 				       new OverlayFlag(_defaultMaximumY, _defaultMaximumY),
 					   new OverlayImage(string.Empty, string.Empty, _defaultMaximumX, _defaultMaximumX)
 			       }), strings.Special);
-
-			AddTab(OverlayFactory.CustomTypes.Select(o => o.Value).OrderBy(o => o.DisplayName), strings.Custom);
 		}
 
 		private void AddTab(IEnumerable<Overlay> overlays, string tabName)
