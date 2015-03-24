@@ -22,9 +22,6 @@ namespace FlagMaker.Divisions
 
 		public override void Draw(Canvas canvas)
 		{
-			double centerX = canvas.Width / 2.0;
-			double centerY = canvas.Height / 2.0;
-
 			var back = new Rectangle
 						  {
 							  Fill = new SolidColorBrush(Colors[0]),
@@ -36,29 +33,17 @@ namespace FlagMaker.Divisions
 			Canvas.SetLeft(back, 0);
 			Canvas.SetTop(back, 0);
 
-			var left = new Path
+			var front = new Path
 						   {
 							   Fill = new SolidColorBrush(Colors[1]),
 							   Width = canvas.Width,
 							   Height = canvas.Height,
-							   Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,0 {1},{2} 0,{0} 0,0", canvas.Height, centerX, centerY)),
+							   Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M 0,0 {0},{1} {0},0 0,{1}", canvas.Width, canvas.Height)),
 							   SnapsToDevicePixels = true
 						   };
-			canvas.Children.Add(left);
-			Canvas.SetLeft(left, 0);
-			Canvas.SetTop(left, 0);
-
-			var right = new Path
-							{
-								Fill = new SolidColorBrush(Colors[1]),
-								Width = canvas.Width,
-								Height = canvas.Height,
-								Data = Geometry.Parse(string.Format(CultureInfo.InvariantCulture, "M {3},0 {1},{2} {3},{0} {3},0", canvas.Height, centerX, centerY, canvas.Width)),
-								SnapsToDevicePixels = true
-							};
-			canvas.Children.Add(right);
-			Canvas.SetLeft(right, 0);
-			Canvas.SetTop(right, 0);
+			canvas.Children.Add(front);
+			Canvas.SetLeft(front, 0);
+			Canvas.SetTop(front, 0);
 		}
 
 		public override void SetColors(List<Color> colors)
@@ -75,29 +60,16 @@ namespace FlagMaker.Divisions
 		{
 			var sb = new StringBuilder();
 
-			int centerX = width / 2;
-			int centerY = height / 2;
-
 			// back
 			sb.Append(string.Format(CultureInfo.InvariantCulture, "<rect width=\"{0:0.###}\" height=\"{1:0.###}\" x=\"0\" y=\"0\" {2} />",
 				width,
 				height,
 				Colors[0].ToSvgFillWithOpacity()));
 
-			// bottom
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,{0:0.###} {1:0.###},{0:0.###} {2:0.###},{3:0.###}\" {4} />",
-				height,
-				width,
-				centerX,
-				centerY,
-				Colors[0].ToSvgFillWithOpacity()));
-
-			// right
-			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"{0:0.###},0 {0:0.###},{1:0.###} {2:0.###},{3:0.###}\" {4} />",
+			// front
+			sb.Append(string.Format(CultureInfo.InvariantCulture, "<polygon points=\"0,0 {0:0.###},{1:0.###} {0:0.###},0 0,{1:0.###} \" {2} />",
 				width,
 				height,
-				centerX,
-				centerY,
 				Colors[1].ToSvgFillWithOpacity()));
 
 			return sb.ToString();
