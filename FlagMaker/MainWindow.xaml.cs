@@ -95,6 +95,7 @@ namespace FlagMaker
 				new CultureInfo("en-US"),
 				new CultureInfo("es-ES"),
 				new CultureInfo("fr-FR"),
+				new CultureInfo("pl-PL"),
 				new CultureInfo("ru-RU")
 			}.Select(lang => new MenuItem
 			{
